@@ -14,11 +14,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-public class MLGModuleBinder extends AbstractModule implements TypeListener {
+public class MLGBinderModule extends AbstractModule implements TypeListener {
 
     private final JavaPlugin javaPlugin;
 
-    public MLGModuleBinder(final @NotNull JavaPlugin javaPlugin) {
+    public MLGBinderModule(final @NotNull JavaPlugin javaPlugin) {
         this.javaPlugin = javaPlugin;
     }
 

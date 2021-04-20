@@ -86,7 +86,9 @@ public abstract class Configurable implements ConfigData {
     }
 
     private void initFile() {
-        configure(new ArrayList<>()).forEach(pair -> {
+        final List<Pair<String, Object>> list = new ArrayList<>();
+        configure(list);
+        list.forEach(pair -> {
             if (yamlConfiguration.get(pair.getKey()) == null) {
                 yamlConfiguration.set(pair.getKey(), pair.getValue());
             }
@@ -98,6 +100,6 @@ public abstract class Configurable implements ConfigData {
     protected abstract String filePath();
 
     //<path, object>
-    protected abstract List<Pair<String, Object>> configure(final @NotNull List<Pair<String, Object>> list);
+    protected abstract void configure(final @NotNull List<Pair<String, Object>> list);
 
 }

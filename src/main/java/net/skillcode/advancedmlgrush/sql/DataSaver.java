@@ -3,6 +3,7 @@ package net.skillcode.advancedmlgrush.sql;
 import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.exception.ExceptionHandler;
+import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -13,11 +14,14 @@ import java.sql.*;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Logger;
 
 public abstract class DataSaver {
 
     @Inject
     private JavaPlugin plugin;
+    @Inject
+    private Logger logger;
     @Inject
     private ExceptionHandler exceptionHandler;
     @Inject
@@ -119,7 +123,7 @@ public abstract class DataSaver {
     private Connection createMySQLConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            final String url = "jdbc:mysql://" + params.getHost() + ":" + params.getPort() + "/" + params.getDatabase();
+            final String url = "jdbc:mysql://" + params.getHost() + ":" + checkPort(params.getPort()) + "/" + params.getDatabase();
 
             return DriverManager.getConnection(url, params.getUser(), params.getPassword());
         } catch (SQLException | ClassNotFoundException throwables) {
@@ -141,6 +145,17 @@ public abstract class DataSaver {
             exceptionHandler.handle(throwables);
         }
         return null;
+    }
+
+    private String checkPort(final @NotNull String port) {
+        String finalPort = port;
+        try {
+            Integer.parseInt(port);
+        } catch (final NumberFormatException exception) {
+            finalPort = "3306";
+            plugin.getLogger().warning(Constants.INVALID_PORT_MESSAGE);
+        }
+        return finalPort;
     }
 
     private String replaceName(final @NotNull String query) {

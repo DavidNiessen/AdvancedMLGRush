@@ -6,7 +6,7 @@ import com.google.inject.matcher.Matchers;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
-import net.skillcode.advancedmlgrush.dependencyinjection.annotations.PostConstruct;
+import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 

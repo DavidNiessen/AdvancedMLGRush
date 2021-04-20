@@ -5,7 +5,6 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import net.skillcode.advancedmlgrush.dependencyinjection.MLGBinderModule;
 import net.skillcode.advancedmlgrush.sql.ConnectionManager;
-import net.skillcode.advancedmlgrush.sql.datasavers.TestDataSaver;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MLGRush extends JavaPlugin {
@@ -17,7 +16,6 @@ public class MLGRush extends JavaPlugin {
     public void onEnable() {
         final Injector injector = Guice.createInjector(new MLGBinderModule(this));
         injector.injectMembers(this);
-        injector.getInstance(TestDataSaver.class).run();
     }
 
     @Override

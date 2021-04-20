@@ -55,7 +55,7 @@ public abstract class DataSaver {
     public ResultSet executeQuerySync(final @NotNull String query) {
         if (checkConnection()) {
             try {
-                PreparedStatement preparedStatement = connection.prepareStatement(replaceName(query));
+                final PreparedStatement preparedStatement = connection.prepareStatement(replaceName(query));
                 return preparedStatement.executeQuery();
             } catch (SQLException exception) {
                 exceptionHandler.handle(exception);

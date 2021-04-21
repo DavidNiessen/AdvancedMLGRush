@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface Replaceable {
 
-    String getString(final @NotNull Optional<Player> playerOptional, final @NotNull String input);
+    String getString(final @NotNull Optional<Player> playerOptional, final @NotNull String path);
 
 }

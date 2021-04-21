@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.Configurable;
+import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.placeholder.Placeholders;
 import net.skillcode.advancedmlgrush.placeholder.Replaceable;
@@ -16,12 +17,6 @@ import java.util.Optional;
 
 @Singleton
 public class ItemNameConfig extends Configurable implements Replaceable {
-
-    public static final String CHALLENGER = "challenger";
-    public static final String SETTINGS = "settings";
-    public static final String SPECTATE = "spectate";
-    public static final String EXTRAS = "extras";
-    public static final String STATS = "stats";
 
     private final Placeholders placeholders;
 
@@ -36,8 +31,8 @@ public class ItemNameConfig extends Configurable implements Replaceable {
     }
 
     @Override
-    public String getString(final @NotNull Optional<Player> playerOptional, final @NotNull String input) {
-        return placeholders.replace(playerOptional, input);
+    public String getString(final @NotNull Optional<Player> playerOptional, final @NotNull String path) {
+        return placeholders.replace(playerOptional, super.getString(path));
     }
 
     @Override
@@ -47,11 +42,11 @@ public class ItemNameConfig extends Configurable implements Replaceable {
 
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
-        list.add(new Pair<>(CHALLENGER, "&8» &eChallenge player"));
-        list.add(new Pair<>(SETTINGS, "&8» &eSettings"));
-        list.add(new Pair<>(SPECTATE, "&8» &eSpectate"));
-        list.add(new Pair<>(EXTRAS, "&8» &eExtras"));
-        list.add(new Pair<>(STATS, "&8» &eStats"));
+        list.add(new Pair<>(EnumItem.CHALLENGER.getConfigPath(), "&8» &eChallenge player"));
+        list.add(new Pair<>(EnumItem.SETTINGS.getConfigPath(), "&8» &eSettings"));
+        list.add(new Pair<>(EnumItem.SPECTATE.getConfigPath(), "&8» &eSpectate"));
+        list.add(new Pair<>(EnumItem.EXTRAS.getConfigPath(), "&8» &eExtras"));
+        list.add(new Pair<>(EnumItem.STATS.getConfigPath(), "&8» &eStats"));
     }
 
 }

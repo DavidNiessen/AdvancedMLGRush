@@ -6,15 +6,12 @@ import com.google.inject.Injector;
 import net.skillcode.advancedmlgrush.dependencyinjection.MLGBinderModule;
 import net.skillcode.advancedmlgrush.miscellaneous.ClassInitializer;
 import net.skillcode.advancedmlgrush.sql.ConnectionManager;
-import net.skillcode.advancedmlgrush.sql.datasavers.MLGDataSaver;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MLGRush extends JavaPlugin {
 
     @Inject
     private ConnectionManager connectionManager;
-    @Inject
-    private MLGDataSaver mlgDataSaver;
 
     @Override
     public void onEnable() {

@@ -8,7 +8,7 @@ public class Constants {
 
     private Constants() {}
 
-    public static final Material DEFAULT_MATERIAL = XMaterial.DIRT.parseMaterial();
+    public static final Material DEFAULT_MATERIAL = XMaterial.STONE.parseMaterial();
     /* Paths */
 
     public static final String PLUGIN_PATH = "plugins/MLGRush/";
@@ -24,5 +24,6 @@ public class Constants {
 
     /* Messages */
     public static final String INVALID_PORT_MESSAGE = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "The specified port is invalid, the default port 3306 will be used." + Ansi.ansi().reset();
+    public static final String MATERIAL_PARSE_ERROR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "An error occurred while parsing material: %s " + Ansi.ansi().reset();
 
 }

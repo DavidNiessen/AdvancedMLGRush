@@ -2,7 +2,6 @@ package net.skillcode.advancedmlgrush.sql;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @AllArgsConstructor
 @Getter

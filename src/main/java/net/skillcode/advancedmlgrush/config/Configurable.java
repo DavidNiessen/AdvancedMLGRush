@@ -24,6 +24,9 @@ public abstract class Configurable implements ConfigData {
     private File file;
     private YamlConfiguration yamlConfiguration;
 
+    /**
+     * This method must be called in all inheriting classes
+     */
     public void init() {
         file = new File(filePath());
         checkFile();

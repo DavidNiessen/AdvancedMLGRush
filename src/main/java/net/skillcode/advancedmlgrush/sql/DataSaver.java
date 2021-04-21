@@ -14,14 +14,11 @@ import java.sql.*;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Logger;
 
 public abstract class DataSaver {
 
     @Inject
     private JavaPlugin plugin;
-    @Inject
-    private Logger logger;
     @Inject
     private ExceptionHandler exceptionHandler;
     @Inject
@@ -41,9 +38,18 @@ public abstract class DataSaver {
         executeCreationQuery();
     }
 
-    public void executeUpdateSync(final @NotNull String query) {
+    public boolean isConnected() {
+        try {
+            return connection != null && !connection.isClosed();
+        } catch (SQLException throwables) {
+            exceptionHandler.handle(throwables);
+        }
+        return false;
+    }
+
+    protected void executeUpdateSync(final @NotNull String query) {
         if (checkConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(replaceName(query))) {
+            try (final PreparedStatement preparedStatement = connection.prepareStatement(replaceName(query))) {
                 preparedStatement.executeUpdate();
             } catch (SQLException exception) {
                 exceptionHandler.handle(exception);
@@ -51,12 +57,12 @@ public abstract class DataSaver {
         }
     }
 
-    public void executeUpdateAsync(final @NotNull String query) {
+    protected void executeUpdateAsync(final @NotNull String query) {
         threadPoolManager.submit(() -> executeUpdateSync(query));
     }
 
     @Nullable
-    public ResultSet executeQuerySync(final @NotNull String query) {
+    protected ResultSet executeQuerySync(final @NotNull String query) {
         if (checkConnection()) {
             try {
                 final PreparedStatement preparedStatement = connection.prepareStatement(replaceName(query));
@@ -68,7 +74,7 @@ public abstract class DataSaver {
         return null;
     }
 
-    public void executeQueryAsync(final @NotNull String query, final @NotNull Callback callback) {
+    protected void executeQueryAsync(final @NotNull String query, final @NotNull Callback callback) {
         if (checkConnection()) {
             final CompletableFuture<ResultSet> future = CompletableFuture.supplyAsync(() -> executeQuerySync(query), threadPoolManager.getThreadPool());
             new BukkitRunnable() {
@@ -77,10 +83,10 @@ public abstract class DataSaver {
                     if (future.isDone()) {
                         try {
                             callback.onSuccess(future.get());
+                        } catch (SQLException | ExecutionException | InterruptedException exception) {
+                            exceptionHandler.handle(exception);
+                        } finally {
                             cancel();
-                        } catch (InterruptedException | ExecutionException | SQLException e) {
-                            exceptionHandler.handle(e);
-                            callback.onFailure(Optional.of(e));
                         }
                     }
                 }
@@ -90,14 +96,6 @@ public abstract class DataSaver {
         }
     }
 
-    public boolean isConnected() {
-        try {
-            return connection != null && !connection.isClosed();
-        } catch (SQLException throwables) {
-            exceptionHandler.handle(throwables);
-        }
-        return false;
-    }
 
     protected abstract DataSaverParams initParams();
 
@@ -122,11 +120,10 @@ public abstract class DataSaver {
     @Nullable
     private Connection createMySQLConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
             final String url = "jdbc:mysql://" + params.getHost() + ":" + checkPort(params.getPort()) + "/" + params.getDatabase();
 
             return DriverManager.getConnection(url, params.getUser(), params.getPassword());
-        } catch (SQLException | ClassNotFoundException throwables) {
+        } catch (SQLException throwables) {
             exceptionHandler.handle(throwables);
         }
         return null;

@@ -1,6 +1,7 @@
 package net.skillcode.advancedmlgrush.listener.listeners;
 
 import com.google.inject.Inject;
+import net.skillcode.advancedmlgrush.event.EventManager;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -13,9 +14,13 @@ public class PlayerJoinListener implements Listener {
 
     @Inject
     private LobbyItems lobbyItems;
+    @Inject
+    private EventManager eventManager;
 
     @EventHandler
     public void onJoin(final @NotNull PlayerJoinEvent event) {
+        eventManager.callEvent(event);
+
         final Player player = event.getPlayer();
 
         player.getInventory().clear();

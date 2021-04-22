@@ -6,6 +6,7 @@ import com.google.inject.Injector;
 import net.skillcode.advancedmlgrush.command.CommandInitializer;
 import net.skillcode.advancedmlgrush.config.ConfigInitializer;
 import net.skillcode.advancedmlgrush.dependencyinjection.MLGBinderModule;
+import net.skillcode.advancedmlgrush.event.EventHandlerInitializer;
 import net.skillcode.advancedmlgrush.listener.ListenerInitializer;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.RegistrableInitializer;
 import net.skillcode.advancedmlgrush.sql.ConnectionManager;
@@ -25,6 +26,8 @@ public class MLGRush extends JavaPlugin {
     @Inject
     private RegistrableInitializer registrableInitializer;
     @Inject
+    private EventHandlerInitializer eventHandlerInitializer;
+    @Inject
     private ConnectionManager connectionManager;
 
     @Override
@@ -36,6 +39,7 @@ public class MLGRush extends JavaPlugin {
         configInitializer.init(injector);
         registrableInitializer.init(injector);
         listenerInitializer.init(injector);
+        eventHandlerInitializer.init(injector);
         commandInitializer.init(injector);
     }
 

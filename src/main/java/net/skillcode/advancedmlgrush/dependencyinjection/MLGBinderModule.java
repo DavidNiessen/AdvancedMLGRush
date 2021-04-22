@@ -7,6 +7,7 @@ import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,6 +28,7 @@ public class MLGBinderModule extends AbstractModule implements TypeListener {
         super.bindListener(Matchers.any(), this);
 
         super.bind(JavaPlugin.class).toInstance(javaPlugin);
+        super.bind(PluginManager.class).toInstance(javaPlugin.getServer().getPluginManager());
     }
 
     @Override

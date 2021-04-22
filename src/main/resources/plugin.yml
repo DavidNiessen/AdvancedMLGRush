@@ -2,3 +2,7 @@ name: AdvancedMLGRush
 main: net.skillcode.advancedmlgrush.MLGRush
 version: 1.0
 author: SkillCode
+commands:
+  build:
+    aliases:
+      - buildmode

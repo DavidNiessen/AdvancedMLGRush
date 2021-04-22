@@ -31,8 +31,12 @@ public class ItemNameConfig extends Configurable implements Replaceable {
     }
 
     @Override
-    public String getString(final @NotNull Optional<Player> playerOptional, final @NotNull String path) {
-        return placeholders.replace(playerOptional, super.getString(path));
+    public String getString(final @NotNull Optional<Player> optionalPlayer, final @NotNull String path) {
+        return placeholders.replace(optionalPlayer, super.getString(path));
+    }
+
+    public String getString(final @NotNull Optional<Player> optionalPlayer, final @NotNull EnumItem enumItem) {
+        return getString(optionalPlayer, enumItem.getConfigPath());
     }
 
     @Override

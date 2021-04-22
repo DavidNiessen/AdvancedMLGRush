@@ -14,7 +14,7 @@ public enum EnumItem {
 
     private String configPath;
 
-    private EnumItem(final @NotNull String configPath) {
+    EnumItem(final @NotNull String configPath) {
         this.configPath = configPath;
     }
 

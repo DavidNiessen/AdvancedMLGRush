@@ -18,9 +18,17 @@ public class Constants {
     public static final String TABLE_NAME = "mlgrush";
     //Configs
     public static final String DATA_CONFIG_PATH = DATA_PATH + "data.yml";
+    public static final String MESSAGE_CONFIG_PATH = PLUGIN_PATH + "messages.yml";
     public static final String ITEM_CONFIG_PATH = PLUGIN_PATH + "items/";
     public static final String ITEM_MATERIAL_CONFIG_PATH = ITEM_CONFIG_PATH + "materials.yml";
     public static final String ITEM_NAME_CONFIG_PATH = ITEM_CONFIG_PATH + "names.yml";
+
+    /* Slots */
+    public static final int CHALLENGER_SLOT = 0;
+    public static final int SETTINGS_SLOT = 2;
+    public static final int SPECTATE_SLOT = 4;
+    public static final int EXTRAS_SLOT = 6;
+    public static final int STATS_SLOT = 8;
 
     /* Messages */
     public static final String INVALID_PORT_MESSAGE = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "The specified port is invalid, the default port 3306 will be used." + Ansi.ansi().reset();

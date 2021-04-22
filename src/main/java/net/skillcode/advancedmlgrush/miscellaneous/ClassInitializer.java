@@ -6,22 +6,17 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.DataConfig;
 import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.MaterialConfig;
+import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
+import net.skillcode.advancedmlgrush.miscellaneous.registrable.RegistrableRegistry;
 import net.skillcode.advancedmlgrush.sql.datasavers.MLGDataSaver;
 import org.jetbrains.annotations.NotNull;
 
 @Singleton
 public class ClassInitializer {
 
-    //Configs
+    //others
     @Inject
-    private DataConfig dataConfig;
-    @Inject
-    private ItemNameConfig itemNameConfig;
-    @Inject
-    private MaterialConfig materialConfig;
-    //DataSavers
-    @Inject
-    private MLGDataSaver mlgDataSaver;
+    private RegistrableRegistry registrableRegistry;
 
     private ClassInitializer() {
     }

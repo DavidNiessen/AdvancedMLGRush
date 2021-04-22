@@ -1,0 +1,32 @@
+package net.skillcode.advancedmlgrush.listener.listeners;
+
+import com.google.inject.Inject;
+import net.skillcode.advancedmlgrush.item.items.LobbyItems;
+import org.bukkit.GameMode;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.jetbrains.annotations.NotNull;
+
+public class PlayerJoinListener implements Listener {
+
+    @Inject
+    private LobbyItems lobbyItems;
+
+    @EventHandler
+    public void onJoin(final @NotNull PlayerJoinEvent event) {
+        final Player player = event.getPlayer();
+
+        player.getInventory().clear();
+        player.setHealth(20D);
+        player.setFoodLevel(20);
+        player.setGameMode(GameMode.SURVIVAL);
+        player.getActivePotionEffects().clear();
+        player.setFlying(false);
+        player.setAllowFlight(false);
+
+        lobbyItems.setLobbyItems(event.getPlayer());
+    }
+
+}

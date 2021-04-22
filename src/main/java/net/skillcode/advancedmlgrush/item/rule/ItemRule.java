@@ -1,9 +1,8 @@
-package net.skillcode.advancedmlgrush.item.rules;
+package net.skillcode.advancedmlgrush.item.rule;
 
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 

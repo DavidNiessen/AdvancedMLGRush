@@ -1,4 +1,4 @@
-package net.skillcode.advancedmlgrush.item.rules;
+package net.skillcode.advancedmlgrush.item.rule;
 
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.item.EnumItem;

@@ -29,12 +29,12 @@ public class MaterialParser {
             materialName = array[0];
         }
 
-        if (!enumUtils.isInEnum(XMaterial.class, materialName)) {
+        if (!enumUtils.isInEnum(Material.class, materialName)) {
             javaPlugin.getLogger().warning(String.format(Constants.MATERIAL_PARSE_ERROR, input));
             return Constants.DEFAULT_MATERIAL;
         }
 
-        return XMaterial.valueOf(materialName).parseMaterial();
+        return Material.valueOf(materialName);
     }
 
     public int parseData(final @NotNull String input) {

@@ -1,8 +1,9 @@
-package net.skillcode.advancedmlgrush.command;
+package net.skillcode.advancedmlgrush.command.commands;
 
 import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -34,9 +35,11 @@ public class BuildCommand implements CommandExecutor {
 
         if (isInBuildMode) {
             player.sendMessage(messageConfig.getWithPrefix(MessageConfig.BUILD_MODE_OFF));
+            player.setGameMode(GameMode.SURVIVAL);
             buildModeManager.setBuildMode(player, false);
         } else {
             player.sendMessage(messageConfig.getWithPrefix(MessageConfig.BUILD_MODE_ON));
+            player.setGameMode(GameMode.CREATIVE);
             buildModeManager.setBuildMode(player, true);
         }
 

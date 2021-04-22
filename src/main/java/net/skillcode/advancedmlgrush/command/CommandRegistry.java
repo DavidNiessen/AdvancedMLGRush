@@ -2,6 +2,7 @@ package net.skillcode.advancedmlgrush.command;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import net.skillcode.advancedmlgrush.command.commands.BuildCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 

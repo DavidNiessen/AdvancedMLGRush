@@ -1,6 +1,7 @@
 package net.skillcode.advancedmlgrush.config.configs;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.Configurable;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
@@ -13,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Optional;
 
+@Singleton
 public class MessageConfig extends Configurable implements Replaceable {
 
     public static final String PREFIX = "prefix";

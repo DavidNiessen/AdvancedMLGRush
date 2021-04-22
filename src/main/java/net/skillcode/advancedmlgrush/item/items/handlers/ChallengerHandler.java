@@ -1,6 +1,7 @@
 package net.skillcode.advancedmlgrush.item.items.handlers;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
 import net.skillcode.advancedmlgrush.item.EnumItem;
@@ -14,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Optional;
 
+@Singleton
 public class ChallengerHandler implements EventHandler {
 
     @Inject

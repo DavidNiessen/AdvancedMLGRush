@@ -1,6 +1,7 @@
 package net.skillcode.advancedmlgrush.command.commands;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
 import org.bukkit.GameMode;
@@ -10,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+@Singleton
 public class BuildCommand implements CommandExecutor {
 
     private final BuildModeManager buildModeManager;

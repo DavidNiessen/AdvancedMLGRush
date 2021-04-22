@@ -3,10 +3,10 @@ package net.skillcode.advancedmlgrush;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import net.skillcode.advancedmlgrush.command.CommandRegistry;
+import net.skillcode.advancedmlgrush.command.CommandInitializer;
 import net.skillcode.advancedmlgrush.config.ConfigInitializer;
 import net.skillcode.advancedmlgrush.dependencyinjection.MLGBinderModule;
-import net.skillcode.advancedmlgrush.listener.ListenerRegistry;
+import net.skillcode.advancedmlgrush.listener.ListenerInitializer;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.RegistrableInitializer;
 import net.skillcode.advancedmlgrush.sql.ConnectionManager;
 import net.skillcode.advancedmlgrush.sql.DataInitializer;
@@ -19,9 +19,9 @@ public class MLGRush extends JavaPlugin {
     @Inject
     private ConfigInitializer configInitializer;
     @Inject
-    private ListenerRegistry listenerRegistry;
+    private ListenerInitializer listenerInitializer;
     @Inject
-    private CommandRegistry commandRegistry;
+    private CommandInitializer commandInitializer;
     @Inject
     private RegistrableInitializer registrableInitializer;
     @Inject
@@ -35,8 +35,8 @@ public class MLGRush extends JavaPlugin {
         dataInitializer.init(injector);
         configInitializer.init(injector);
         registrableInitializer.init(injector);
-        listenerRegistry.registerListeners(injector);
-        commandRegistry.registerCommands(injector);
+        listenerInitializer.init(injector);
+        commandInitializer.init(injector);
     }
 
     @Override

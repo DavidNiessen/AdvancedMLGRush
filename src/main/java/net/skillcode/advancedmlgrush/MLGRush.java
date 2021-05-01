@@ -34,7 +34,6 @@ public class MLGRush extends JavaPlugin {
     public void onEnable() {
         final Injector injector = Guice.createInjector(new MLGBinderModule(this));
         injector.injectMembers(this);
-
         dataInitializer.init(injector);
         configInitializer.init(injector);
         registrableInitializer.init(injector);

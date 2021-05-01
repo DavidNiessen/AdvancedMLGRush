@@ -20,6 +20,8 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String PREFIX = "prefix";
     public static final String BUILD_MODE_ON = "build_mode_on";
     public static final String BUILD_MODE_OFF = "build_mode_off";
+    public static final String QUEUE_JOIN = "queue_join";
+    public static final String QUEUE_LEAVE = "queue_leave";
 
     private final Placeholders placeholders;
 
@@ -38,8 +40,8 @@ public class MessageConfig extends Configurable implements Replaceable {
         return placeholders.replace(optional, super.getString(path));
     }
 
-    public String getWithPrefix(final @NotNull String path) {
-        return super.getString(PREFIX) + super.getString(path);
+    public String getWithPrefix(final @NotNull Optional<Player> optionalPlayer, final @NotNull String path) {
+        return getString(optionalPlayer, PREFIX) + getString(optionalPlayer, path);
     }
 
     @Override
@@ -52,6 +54,8 @@ public class MessageConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(PREFIX, "&8» &6&lAdvancedMLGRush &8| &7"));
         list.add(new Pair<>(BUILD_MODE_ON, "&aYou can build now."));
         list.add(new Pair<>(BUILD_MODE_OFF, "&cYou can no longer build now."));
+        list.add(new Pair<>(QUEUE_JOIN, "&aYou entered the queue."));
+        list.add(new Pair<>(QUEUE_LEAVE, "&aYou left the queue."));
     }
 
 }

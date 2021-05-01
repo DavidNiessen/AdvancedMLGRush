@@ -38,10 +38,9 @@ public class StatsItemRule implements ItemRule {
     public ItemStack getItemStack(final @NotNull Optional<Player> optionalPlayer) {
         final String itemName = itemNameConfig.getString(optionalPlayer, EnumItem.STATS);
 
-        if (optionalPlayer.isPresent()) {
-            return ItemBuilder.create(MetaType.SKULL_META, 3).owner(optionalPlayer.get().getName()).name(itemName).build();
-        }
+        return optionalPlayer.map(player -> ItemBuilder.create(MetaType.SKULL_META, 3)
+                .owner(player.getName()).name(itemName).build()).orElseGet(()
+                -> ItemBuilder.create(MetaType.SKULL_META, 3).name(itemName).build());
 
-        return ItemBuilder.create(MetaType.SKULL_META, 3).name(itemName).build();
     }
 }

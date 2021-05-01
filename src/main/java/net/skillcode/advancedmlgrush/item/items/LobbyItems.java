@@ -23,4 +23,8 @@ public class LobbyItems {
         player.getInventory().setItem(Constants.EXTRAS_SLOT, itemManager.getItem(Optional.of(player), EnumItem.EXTRAS));
         player.getInventory().setItem(Constants.STATS_SLOT, itemManager.getItem(Optional.of(player), EnumItem.STATS));
     }
+
+    public void setQueueLeaveItems(final @NotNull Player player) {
+        player.getInventory().setItem(Constants.QUEUE_LEAVE_SLOT, itemManager.getItem(Optional.of(player), EnumItem.QUEUE_LEAVE));
+    }
 }

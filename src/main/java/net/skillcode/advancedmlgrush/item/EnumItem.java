@@ -10,7 +10,8 @@ public enum EnumItem {
     SETTINGS("settings"),
     SPECTATE("spectate"),
     EXTRAS("extras"),
-    STATS("stats");
+    STATS("stats"),
+    QUEUE_LEAVE("queue_leave");
 
     private String configPath;
 

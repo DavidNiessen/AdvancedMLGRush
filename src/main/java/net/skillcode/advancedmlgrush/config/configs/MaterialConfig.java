@@ -36,10 +36,11 @@ public class MaterialConfig extends Configurable {
 
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
-        list.add(new Pair<>(EnumItem.CHALLENGER.getConfigPath(), XMaterial.IRON_SWORD.parseMaterial().name()));
-        list.add(new Pair<>(EnumItem.SETTINGS.getConfigPath(), XMaterial.REPEATER.parseMaterial().name()));
-        list.add(new Pair<>(EnumItem.SPECTATE.getConfigPath(), XMaterial.COMPASS.parseMaterial().name()));
-        list.add(new Pair<>(EnumItem.EXTRAS.getConfigPath(), XMaterial.CHEST.parseMaterial().name()));
+        list.add(new Pair<>(EnumItem.CHALLENGER.getConfigPath(), XMaterial.IRON_SWORD.name()));
+        list.add(new Pair<>(EnumItem.SETTINGS.getConfigPath(), XMaterial.REPEATER.name()));
+        list.add(new Pair<>(EnumItem.SPECTATE.getConfigPath(), XMaterial.COMPASS.name()));
+        list.add(new Pair<>(EnumItem.EXTRAS.getConfigPath(), XMaterial.CHEST.name()));
+        list.add(new Pair<>(EnumItem.QUEUE_LEAVE.getConfigPath(), XMaterial.BARRIER.name()));
     }
 
     public Material getMaterial(final @NotNull String path) {

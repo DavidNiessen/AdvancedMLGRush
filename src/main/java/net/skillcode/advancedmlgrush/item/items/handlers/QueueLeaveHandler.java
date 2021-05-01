@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public class ChallengerHandler implements EventHandler {
+public class QueueLeaveHandler implements EventHandler {
 
     @Inject
     private ItemUtils itemUtils;
@@ -42,13 +42,13 @@ public class ChallengerHandler implements EventHandler {
                     final Player player = event.getPlayer();
                     final ItemStack clickedItem = player.getItemInHand();
 
-                    if (itemUtils.compare(clickedItem, EnumItem.CHALLENGER, Optional.of(player))) {
+                    if (itemUtils.compare(clickedItem, EnumItem.QUEUE_LEAVE, Optional.of(player))) {
 
                         player.getInventory().clear();
-                        lobbyItems.setQueueLeaveItems(player);
+                        lobbyItems.setLobbyItems(player);
 
-                        // TODO: 23.04.2021 join queue
-                        player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.QUEUE_JOIN));
+                        // TODO: 23.04.2021 leave queue
+                        player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.QUEUE_LEAVE));
                     }
                 }
             }

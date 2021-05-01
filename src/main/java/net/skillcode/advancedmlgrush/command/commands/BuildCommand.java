@@ -11,6 +11,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
+
 @Singleton
 public class BuildCommand implements CommandExecutor {
 
@@ -36,11 +38,11 @@ public class BuildCommand implements CommandExecutor {
         final boolean isInBuildMode = buildModeManager.isInBuildMode(player);
 
         if (isInBuildMode) {
-            player.sendMessage(messageConfig.getWithPrefix(MessageConfig.BUILD_MODE_OFF));
+            player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.BUILD_MODE_OFF));
             player.setGameMode(GameMode.SURVIVAL);
             buildModeManager.setBuildMode(player, false);
         } else {
-            player.sendMessage(messageConfig.getWithPrefix(MessageConfig.BUILD_MODE_ON));
+            player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.BUILD_MODE_ON));
             player.setGameMode(GameMode.CREATIVE);
             buildModeManager.setBuildMode(player, true);
         }

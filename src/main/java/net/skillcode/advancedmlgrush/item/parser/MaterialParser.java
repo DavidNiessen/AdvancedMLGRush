@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.util.EnumUtils;
+import net.skillcode.advancedmlgrush.util.XMaterial;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -28,12 +29,13 @@ public class MaterialParser {
             materialName = array[0];
         }
 
-        if (!enumUtils.isInEnum(Material.class, materialName)) {
+        if (!enumUtils.isInEnum(XMaterial.class, materialName)
+                || !enumUtils.isInEnum(Material.class, XMaterial.valueOf(materialName).parseMaterial().name())) {
             javaPlugin.getLogger().warning(String.format(Constants.MATERIAL_PARSE_ERROR, input));
             return Constants.DEFAULT_MATERIAL;
         }
 
-        return Material.valueOf(materialName);
+        return XMaterial.valueOf(materialName).parseMaterial();
     }
 
     public int parseData(final @NotNull String input) {

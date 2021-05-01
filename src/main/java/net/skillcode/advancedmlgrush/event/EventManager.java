@@ -17,7 +17,7 @@ public class EventManager {
             if (listeners.containsKey(eventListener.getEventClass())) {
                 listeners.get(eventListener.getEventClass()).add(eventListener);
             } else {
-                listeners.put(eventListener.getEventClass(), Collections.singletonList(eventListener));
+                listeners.put(eventListener.getEventClass(), new ArrayList<>(Arrays.asList(eventListener)));
             }
         });
     }

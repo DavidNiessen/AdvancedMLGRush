@@ -17,7 +17,7 @@ public class GlassColorParser {
     }
 
     public GlassColor parse(final @NotNull String input) {
-        GlassColor glassColor = GlassColor.WHITE;
+        GlassColor glassColor = GlassColor.GRAY;
 
         if (enumUtils.isInEnum(GlassColor.class, input)) {
             glassColor = GlassColor.valueOf(input);

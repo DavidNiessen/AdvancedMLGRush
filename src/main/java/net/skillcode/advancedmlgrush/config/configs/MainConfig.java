@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MainConfig extends Configurable {
 
-    public static final String GLASS_COLOR = "glass_color";
+    public static final String GLASS_COLOR = "inventory_background_color";
 
     @PostConstruct
     public void initConfig() {

@@ -13,7 +13,6 @@ public class BuildModeManager implements Registrable {
 
     private final Map<Player, Boolean> buildModeMap = new ConcurrentHashMap<>();
 
-    @Override
     public void register(final @NotNull Player player) {
         buildModeMap.put(player, false);
     }

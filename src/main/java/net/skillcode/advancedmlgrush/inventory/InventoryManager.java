@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class InventoryManager implements Registrable {
@@ -18,5 +19,9 @@ public class InventoryManager implements Registrable {
     @Override
     public void unregister(final @NotNull Player player) {
         inventoryMap.remove(player);
+    }
+
+    public Optional<Class<? extends AbstractInventory>> getOpenInventory(final @NotNull Player player) {
+        return Optional.ofNullable(inventoryMap.getOrDefault(player, null));
     }
 }

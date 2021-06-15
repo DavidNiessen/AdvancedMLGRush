@@ -3,7 +3,6 @@ package net.skillcode.advancedmlgrush.event;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
-import net.skillcode.advancedmlgrush.arena.setup.SetupManager;
 import net.skillcode.advancedmlgrush.item.items.handlers.ChallengerHandler;
 import net.skillcode.advancedmlgrush.item.items.handlers.QueueLeaveHandler;
 import net.skillcode.advancedmlgrush.util.Initializer;
@@ -23,6 +22,5 @@ public class EventHandlerInitializer implements Initializer {
     public void init(final @NotNull Injector injector) {
         eventManager.registerEventListeners(injector.getInstance(ChallengerHandler.class));
         eventManager.registerEventListeners(injector.getInstance(QueueLeaveHandler.class));
-        eventManager.registerEventListeners(injector.getInstance(SetupManager.class));
     }
 }

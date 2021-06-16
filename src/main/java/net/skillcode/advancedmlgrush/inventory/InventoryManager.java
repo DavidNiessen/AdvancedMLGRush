@@ -1,5 +1,6 @@
 package net.skillcode.advancedmlgrush.inventory;
 
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.Registrable;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Singleton
 public class InventoryManager implements Registrable {
 
     private final Map<Player, Class<? extends AbstractInventory>> inventoryMap = new ConcurrentHashMap<>();

@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.MaterialConfig;
+import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import net.skillcode.advancedmlgrush.item.builder.ItemBuilder;
 import net.skillcode.advancedmlgrush.item.builder.MetaType;
 import net.skillcode.advancedmlgrush.item.rule.ItemRuleManager;
@@ -27,6 +28,8 @@ public class ItemManager {
     private ItemRuleManager itemRuleManager;
     @Inject
     private RuleRegistry ruleRegistrator;
+    @Inject
+    private IBFactory ibFactory;
 
     @PostConstruct
     public void init() {
@@ -37,7 +40,7 @@ public class ItemManager {
 
         final Optional<ItemStack> optional = itemRuleManager.getItem(optionalPlayer, enumItem);
 
-        return optional.orElseGet(() -> ItemBuilder.create(MetaType.ITEM_META, getConfigData(enumItem))
+        return optional.orElseGet(() -> ibFactory.create(MetaType.ITEM_META, getConfigData(enumItem))
                 .name(itemNameConfig.getString(optionalPlayer, enumItem.getConfigPath()))
                 .material(getConfigMaterial(enumItem))
                 .unbreakable()

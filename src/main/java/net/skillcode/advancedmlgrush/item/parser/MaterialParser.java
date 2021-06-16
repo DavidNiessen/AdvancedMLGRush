@@ -38,12 +38,12 @@ public class MaterialParser {
             materialName = array[0];
         }
 
+        Material material;
         if (!enumUtils.isInEnum(XMaterial.class, materialName)
-                || !enumUtils.isInEnum(Material.class, XMaterial.valueOf(materialName).parseMaterial().name())) {
+                || (material = XMaterial.valueOf(materialName).parseMaterial()) == null) {
             javaPlugin.getLogger().warning(String.format(Constants.MATERIAL_PARSE_ERROR, input));
             return Constants.DEFAULT_MATERIAL;
         }
-        final Material material = XMaterial.valueOf(materialName).parseMaterial();
         cache.put(input, material);
         return material;
     }

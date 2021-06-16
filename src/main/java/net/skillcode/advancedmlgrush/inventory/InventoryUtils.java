@@ -21,7 +21,6 @@ public class InventoryUtils {
 
     public boolean isOpenInventory(final @NotNull Player player, final @NotNull  Class<? extends AbstractInventory> clazz) {
         final Optional<Class<? extends AbstractInventory>> optional = inventoryManager.getOpenInventory(player);
-
         return optional.isPresent() && optional.get().equals(clazz);
     }
 

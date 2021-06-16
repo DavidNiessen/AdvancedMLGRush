@@ -7,6 +7,7 @@ import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
 import net.skillcode.advancedmlgrush.event.EventManager;
 import net.skillcode.advancedmlgrush.item.ItemUtils;
+import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import net.skillcode.advancedmlgrush.sound.SoundUtil;
 import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Bukkit;
@@ -28,6 +29,8 @@ public abstract class AbstractInventory implements EventHandler {
     @Inject
     protected ItemUtils itemUtils;
     @Inject
+    protected IBFactory ibFactory;
+    @Inject
     private SoundUtil soundUtil;
     @Inject
     private EventManager eventManager;
@@ -44,7 +47,7 @@ public abstract class AbstractInventory implements EventHandler {
 
         inv = onOpen(inv, player);
         player.openInventory(inv);
-        inventoryManager.register(player, getClass());
+        inventoryManager.register(player, this.getClass());
 
         if (playSound()) {
             soundUtil.playSound(player, SoundConfig.OPEN_INVENTORY);
@@ -64,7 +67,6 @@ public abstract class AbstractInventory implements EventHandler {
 
     @Override
     public void registerListeners(final @NotNull List<EventListener<?>> eventListeners) {
-        System.out.println("*1");
         eventListeners.addAll(listeners(new ArrayList<>()));
     }
 }

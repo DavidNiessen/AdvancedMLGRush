@@ -4,7 +4,10 @@ import com.google.inject.Singleton;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Singleton
@@ -25,11 +28,11 @@ public class EventManager {
     public void registerEventListeners(final @NotNull EventHandler eventHandler) {
         final List<EventListener<?>> eventListeners = new ArrayList<>();
         eventHandler.registerListeners(eventListeners);
-
         registerEventListeners(eventListeners);
     }
 
     public void callEvent(final @NotNull Event event) {
+
         if (listeners.containsKey(event.getClass())) {
             listeners.get(event.getClass()).forEach(eventListener -> eventListener.callEvent(event));
         }

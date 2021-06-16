@@ -12,7 +12,7 @@ public class RegistrableManager {
 
     private final List<Registrable> registrables = new CopyOnWriteArrayList<>();
 
-    public void registerRegistrable(@NotNull final Registrable registrable) {
+    public void registerRegistrable(final @NotNull Registrable registrable) {
         if (!registrables.contains(registrable)) {
             registrables.add(registrable);
         }

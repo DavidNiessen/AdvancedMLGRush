@@ -1,6 +1,9 @@
 package net.skillcode.advancedmlgrush.item.builder;
 
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import lombok.Getter;
+import net.skillcode.advancedmlgrush.util.NMSUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -13,6 +16,7 @@ import java.util.List;
 
 public class ItemBuilder {
 
+    private final NMSUtils nmsUtils;
     private final MetaType metaType;
     private final int data;
     private final ItemStack itemStack;
@@ -20,15 +24,17 @@ public class ItemBuilder {
     @Getter
     private ItemMeta itemMeta;
 
-    protected ItemBuilder(final @NotNull MetaType metaType, final int data) {
+    /**
+     * @see net.skillcode.advancedmlgrush.item.builder.IBFactory
+     */
+    @Inject
+    public ItemBuilder(final @NotNull NMSUtils nmsUtils,
+                       final @Assisted @NotNull MetaType metaType, final @Assisted int data) {
+        this.nmsUtils = nmsUtils;
         this.metaType = metaType;
         this.data = data;
         this.itemStack = initItemStack();
         this.itemMeta = itemStack.getItemMeta();
-    }
-
-    public static ItemBuilder create(final @NotNull MetaType metaType, final int data) {
-        return new ItemBuilder(metaType, data);
     }
 
     @NotNull
@@ -62,7 +68,7 @@ public class ItemBuilder {
 
     @NotNull
     public ItemBuilder unbreakable() {
-        itemMeta.spigot().setUnbreakable(true);
+        nmsUtils.setUnbreakable(itemStack);
         return this;
     }
 

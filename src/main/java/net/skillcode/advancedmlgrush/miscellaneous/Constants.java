@@ -27,6 +27,7 @@ public class Constants {
     public static final String ITEM_CONFIG_PATH = PLUGIN_PATH + "items/";
     public static final String ITEM_MATERIAL_CONFIG_PATH = ITEM_CONFIG_PATH + "materials.yml";
     public static final String ITEM_NAME_CONFIG_PATH = ITEM_CONFIG_PATH + "names.yml";
+    public static final String SOUND_CONFIG_PATH = PLUGIN_PATH + "sounds.yml";
 
     /* Slots */
     public static final int CHALLENGER_SLOT = 0;

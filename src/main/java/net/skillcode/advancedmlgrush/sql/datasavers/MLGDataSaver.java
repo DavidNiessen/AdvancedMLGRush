@@ -31,6 +31,7 @@ public class MLGDataSaver extends DataSaver {
                 "    settings_block_slot TINYINT NOT NULL DEFAULT 1,\n" +
                 "    settings_pickaxe_slot TINYINT NOT NULL DEFAULT 8,\n" +
                 "    settings_arena TINYINT NOT NULL DEFAULT -1,\n" +
+                "    settings_rounds TINYINT NOT NULL DEFAULT 5,\n" +
                 "    extras_stick TINYINT NOT NULL DEFAULT 0,\n" +
                 "    extras_blocks TINYINT NOT NULL DEFAULT 0,\n" +
                 "    stats_wins TINYINT NOT NULL DEFAULT 0,\n" +

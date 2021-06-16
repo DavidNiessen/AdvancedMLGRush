@@ -3,9 +3,7 @@ package net.skillcode.advancedmlgrush.listener;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
-import net.skillcode.advancedmlgrush.listener.listeners.PlayerInteractListener;
-import net.skillcode.advancedmlgrush.listener.listeners.PlayerJoinListener;
-import net.skillcode.advancedmlgrush.listener.listeners.PlayerQuitListener;
+import net.skillcode.advancedmlgrush.listener.listeners.*;
 import net.skillcode.advancedmlgrush.util.Initializer;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,6 +26,9 @@ public class ListenerInitializer implements Initializer {
         pluginManager.registerEvents(injector.getInstance(PlayerJoinListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(PlayerQuitListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(PlayerInteractListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(AsyncPlayerChatListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(InventoryCloseListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(InventoryClickListener.class), plugin);
     }
 
 }

@@ -2,8 +2,11 @@ package net.skillcode.advancedmlgrush.listener.listeners;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventManager;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
+import net.skillcode.advancedmlgrush.sound.SoundParser;
+import net.skillcode.advancedmlgrush.sound.SoundUtil;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,6 +21,8 @@ public class PlayerJoinListener implements Listener {
     private LobbyItems lobbyItems;
     @Inject
     private EventManager eventManager;
+    @Inject
+    private SoundUtil soundUtil;
 
     @EventHandler
     public void onJoin(final @NotNull PlayerJoinEvent event) {
@@ -34,6 +39,8 @@ public class PlayerJoinListener implements Listener {
         player.setAllowFlight(false);
 
         lobbyItems.setLobbyItems(event.getPlayer());
+
+        soundUtil.playSound(player, SoundConfig.OPEN_INVENTORY);
     }
 
 }

@@ -9,11 +9,16 @@ import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 @Singleton
 public class MaterialParser {
 
     private final JavaPlugin javaPlugin;
     private final EnumUtils enumUtils;
+
+    private final Map<String, Material> cache = new ConcurrentHashMap<>();
 
     @Inject
     public MaterialParser(final @NotNull JavaPlugin javaPlugin, final @NotNull EnumUtils enumUtils) {
@@ -22,6 +27,10 @@ public class MaterialParser {
     }
 
     public Material parseMaterial(final @NotNull String input) {
+        if (cache.containsKey(input)) {
+            return cache.get(input);
+        }
+
         String materialName = input;
         final String[] array = materialName.split(":");
 
@@ -29,13 +38,14 @@ public class MaterialParser {
             materialName = array[0];
         }
 
+        Material material;
         if (!enumUtils.isInEnum(XMaterial.class, materialName)
-                || !enumUtils.isInEnum(Material.class, XMaterial.valueOf(materialName).parseMaterial().name())) {
+                || (material = XMaterial.valueOf(materialName).parseMaterial()) == null) {
             javaPlugin.getLogger().warning(String.format(Constants.MATERIAL_PARSE_ERROR, input));
             return Constants.DEFAULT_MATERIAL;
         }
-
-        return XMaterial.valueOf(materialName).parseMaterial();
+        cache.put(input, material);
+        return material;
     }
 
     public int parseData(final @NotNull String input) {

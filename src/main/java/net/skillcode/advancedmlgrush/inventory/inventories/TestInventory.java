@@ -20,7 +20,7 @@ public class TestInventory extends AbstractInventory {
 
     @Override
     protected boolean cloneOnOpen() {
-        return false;
+        return true;
     }
 
     @Override
@@ -35,7 +35,8 @@ public class TestInventory extends AbstractInventory {
 
     @Override
     protected Inventory onOpen(final @NotNull Inventory inventory, final @NotNull Player player) {
-        inventory.addItem(ibFactory.create(MetaType.ITEM_META, 0).name("test").material(Material.BEDROCK).build());
+        //inventory.addItem(ibFactory.create(MetaType.ITEM_META, 0).name("test").material(Material.BEDROCK).build());
+        inventoryUtils.frame(inventory, ibFactory.create(MetaType.ITEM_META, 0).name("test").material(Material.BEDROCK).build());
         return inventory;
     }
 

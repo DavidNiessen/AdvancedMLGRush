@@ -1,4 +1,4 @@
-package net.skillcode.advancedmlgrush.item.rule;
+package net.skillcode.advancedmlgrush.item.overwriter;
 
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.item.EnumItem;
@@ -11,22 +11,22 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Singleton
-public class ItemRuleManager {
+public class ItemOWManager {
 
-    private final Map<EnumItem, ItemRule> rules = new ConcurrentHashMap<>();
+    private final Map<EnumItem, ItemOW> ows = new ConcurrentHashMap<>();
 
-    public void registerItemRule(final @NotNull ItemRule itemRule) {
+    public void registerItemOW(final @NotNull ItemOW itemOW) {
 
-       if (rules.containsKey(itemRule.getEnumItem()) && itemRule.getPriority() != ItemRulePriority.HIGH) {
+       if (ows.containsKey(itemOW.getEnumItem()) && itemOW.getPriority() != ItemOWPriority.HIGH) {
            return;
        }
 
-       rules.put(itemRule.getEnumItem(), itemRule);
+       ows.put(itemOW.getEnumItem(), itemOW);
     }
 
     public Optional<ItemStack> getItem(final @NotNull Optional<Player> optionalPlayer, final @NotNull EnumItem enumItem) {
-        if (rules.containsKey(enumItem)) {
-            return Optional.of(rules.get(enumItem).getItemStack(optionalPlayer));
+        if (ows.containsKey(enumItem)) {
+            return Optional.of(ows.get(enumItem).getItemStack(optionalPlayer));
         }
 
         return Optional.empty();

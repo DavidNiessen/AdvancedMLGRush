@@ -19,17 +19,27 @@ public class InventoryUtils {
         this.inventoryManager = inventoryManager;
     }
 
-    public boolean isOpenInventory(final @NotNull Player player, final @NotNull  Class<? extends AbstractInventory> clazz) {
+    public boolean isOpenInventory(final @NotNull Player player, final @NotNull Class<? extends AbstractInventory> clazz) {
         final Optional<Class<? extends AbstractInventory>> optional = inventoryManager.getOpenInventory(player);
         return optional.isPresent() && optional.get().equals(clazz);
     }
 
     public void frame(final @NotNull Inventory inventory, final @NotNull ItemStack itemStack) {
-        // TODO: 15.06.2021
+        final int size = inventory.getSize();
+        for (int i = 1; i < size + 1; i++) {
+            if (i <= 9
+                    || i > size - 9
+                    || i % 9 <= 1) {
+                inventory.setItem(i - 1, itemStack);
+            }
+        }
     }
 
     public void fill(final @NotNull Inventory inventory, final @NotNull ItemStack itemStack) {
-        // TODO: 15.06.2021
+        final int size = inventory.getSize();
+        for (int i = 0; i < size; i++) {
+            inventory.setItem(i, itemStack);
+        }
     }
 
 }

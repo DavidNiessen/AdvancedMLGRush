@@ -1,4 +1,4 @@
-package net.skillcode.advancedmlgrush.item.rule.rules;
+package net.skillcode.advancedmlgrush.item.overwriter.overwriters;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -6,8 +6,8 @@ import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import net.skillcode.advancedmlgrush.item.builder.MetaType;
-import net.skillcode.advancedmlgrush.item.rule.ItemRule;
-import net.skillcode.advancedmlgrush.item.rule.ItemRulePriority;
+import net.skillcode.advancedmlgrush.item.overwriter.ItemOW;
+import net.skillcode.advancedmlgrush.item.overwriter.ItemOWPriority;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -15,13 +15,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 @Singleton
-public class StatsItemRule implements ItemRule {
+public class StatsItemOW implements ItemOW {
 
     private final ItemNameConfig itemNameConfig;
     private final IBFactory ibFactory;
 
     @Inject
-    public StatsItemRule(final ItemNameConfig itemNameConfig, final @NotNull IBFactory ibFactory) {
+    public StatsItemOW(final ItemNameConfig itemNameConfig, final @NotNull IBFactory ibFactory) {
         this.itemNameConfig = itemNameConfig;
         this.ibFactory = ibFactory;
     }
@@ -32,8 +32,8 @@ public class StatsItemRule implements ItemRule {
     }
 
     @Override
-    public ItemRulePriority getPriority() {
-        return ItemRulePriority.LOW;
+    public ItemOWPriority getPriority() {
+        return ItemOWPriority.LOW;
     }
 
     @Override

@@ -3,13 +3,16 @@ package net.skillcode.advancedmlgrush.inventory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
+import net.skillcode.advancedmlgrush.config.configs.InventoryNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
+import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.GlassColor;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import net.skillcode.advancedmlgrush.item.builder.MetaType;
 import net.skillcode.advancedmlgrush.item.parser.GlassColorParser;
+import net.skillcode.advancedmlgrush.sound.SoundUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -33,6 +36,10 @@ public class InventoryUtils {
     private ItemNameConfig itemNameConfig;
     @Inject
     private IBFactory ibFactory;
+    @Inject
+    private SoundUtil soundUtil;
+    @Inject
+    private InventoryNameConfig inventoryNameConfig;
 
     private ItemStack background;
 
@@ -78,6 +85,14 @@ public class InventoryUtils {
             }
         }
         return slots;
+    }
+
+    public void playClickSound(final @NotNull Player player) {
+        soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
+    }
+
+    public String getInventoryName(final @NotNull String path) {
+        return inventoryNameConfig.getString(Optional.empty(), path);
     }
 
 }

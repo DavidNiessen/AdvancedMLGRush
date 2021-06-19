@@ -5,6 +5,7 @@ import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
 import net.skillcode.advancedmlgrush.event.EventManager;
+import net.skillcode.advancedmlgrush.item.ItemManager;
 import net.skillcode.advancedmlgrush.item.ItemUtils;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import net.skillcode.advancedmlgrush.sound.SoundUtil;
@@ -26,9 +27,11 @@ public abstract class AbstractInventory implements EventHandler {
     @Inject
     protected ItemUtils itemUtils;
     @Inject
+    protected ItemManager itemManager;
+    @Inject
     protected IBFactory ibFactory;
     @Inject
-    private SoundUtil soundUtil;
+    protected SoundUtil soundUtil;
     @Inject
     private EventManager eventManager;
 

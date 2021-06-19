@@ -3,6 +3,7 @@ package net.skillcode.advancedmlgrush.inventory.multipage;
 import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
+import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventListener;
 import net.skillcode.advancedmlgrush.inventory.AbstractInventory;
 import net.skillcode.advancedmlgrush.item.EnumItem;
@@ -91,9 +92,13 @@ public abstract class MultiPageInventory extends AbstractInventory {
                     final int slot = event.getSlot();
 
                     if (slot == Constants.LEFT_ARROW_SLOT) {
-                        multiPageHelper.loadPreviousPage();
+                        if (multiPageHelper.loadPreviousPage()) {
+                            inventoryUtils.playClickSound(player);
+                        }
                     } else if (slot == Constants.RIGHT_ARROW_SLOT) {
-                        multiPageHelper.loadNextPage();
+                        if (multiPageHelper.loadNextPage()) {
+                            inventoryUtils.playClickSound(player);
+                        }
                     } else if (elementSlots.contains(slot)
                             && itemUtils.isValidItem(event.getCurrentItem())) {
                         onElementClick(player, multiPageHelper.getElement(slot));

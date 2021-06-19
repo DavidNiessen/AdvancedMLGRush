@@ -15,12 +15,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Singleton
-public class MaterialConfig extends Configurable {
+public class ItemMaterialConfig extends Configurable {
 
     private final MaterialParser materialParser;
 
     @Inject
-    public MaterialConfig(final MaterialParser materialParser) {
+    public ItemMaterialConfig(final MaterialParser materialParser) {
         this.materialParser = materialParser;
     }
 
@@ -41,6 +41,10 @@ public class MaterialConfig extends Configurable {
         list.add(new Pair<>(EnumItem.SPECTATE.getConfigPath(), XMaterial.COMPASS.name()));
         list.add(new Pair<>(EnumItem.EXTRAS.getConfigPath(), XMaterial.CHEST.name()));
         list.add(new Pair<>(EnumItem.QUEUE_LEAVE.getConfigPath(), XMaterial.BARRIER.name()));
+        list.add(new Pair<>(EnumItem.SETTINGS_INVENTORY_SORTING.getConfigPath(), XMaterial.REPEATER.name()));
+        list.add(new Pair<>(EnumItem.SETTINGS_MAP.getConfigPath(), XMaterial.MAP.name()));
+        list.add(new Pair<>(EnumItem.SETTINGS_STICK.getConfigPath(), XMaterial.STICK.name()));
+        list.add(new Pair<>(EnumItem.SETTINGS_BLOCKS.getConfigPath(), XMaterial.SANDSTONE.name()));
     }
 
     public Material getMaterial(final @NotNull String path) {

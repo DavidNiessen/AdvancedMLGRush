@@ -16,7 +16,7 @@ public class FileInitializer implements Initializer {
         injector.getInstance(DataConfig.class);
         injector.getInstance(MessageConfig.class);
         injector.getInstance(ItemNameConfig.class);
-        injector.getInstance(MaterialConfig.class);
+        injector.getInstance(ItemMaterialConfig.class);
         injector.getInstance(GadgetManager.class);
     }
 }

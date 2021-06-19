@@ -16,6 +16,7 @@ import java.util.List;
 public class SoundConfig extends Configurable {
 
     public static final String INVENTORY_OPEN = "inventory_open";
+    public static final String INVENTORY_CLICK = "inventory_click";
 
     private final SoundParser soundParser;
 
@@ -37,5 +38,6 @@ public class SoundConfig extends Configurable {
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
         list.add(new Pair<>(INVENTORY_OPEN, soundParser.parseString(XSound.BLOCK_PISTON_EXTEND, 1, 1.9F)));
+        list.add(new Pair<>(INVENTORY_CLICK, soundParser.parseString(XSound.UI_BUTTON_CLICK, 1, 2F)));
     }
 }

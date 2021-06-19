@@ -10,6 +10,7 @@ import com.google.inject.spi.TypeListener;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.inventory.multipage.MPHFactory;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
+import net.skillcode.advancedmlgrush.util.json.JsonConfigAPI;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -34,6 +35,7 @@ public class MLGBinderModule extends AbstractModule implements TypeListener {
         super.install(new FactoryModuleBuilder().build(MPHFactory.class));
 
         super.bind(JavaPlugin.class).toInstance(javaPlugin);
+        super.bind(JsonConfigAPI.class).toInstance(new JsonConfigAPI(true));
         super.bind(PluginManager.class).toInstance(javaPlugin.getServer().getPluginManager());
     }
 

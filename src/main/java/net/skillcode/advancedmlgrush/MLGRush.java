@@ -4,7 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import net.skillcode.advancedmlgrush.command.CommandInitializer;
-import net.skillcode.advancedmlgrush.config.ConfigInitializer;
+import net.skillcode.advancedmlgrush.config.FileInitializer;
 import net.skillcode.advancedmlgrush.dependencyinjection.MLGBinderModule;
 import net.skillcode.advancedmlgrush.event.EventHandlerInitializer;
 import net.skillcode.advancedmlgrush.listener.ListenerInitializer;
@@ -18,7 +18,7 @@ public class MLGRush extends JavaPlugin {
     @Inject
     private DataInitializer dataInitializer;
     @Inject
-    private ConfigInitializer configInitializer;
+    private FileInitializer fileInitializer;
     @Inject
     private ListenerInitializer listenerInitializer;
     @Inject
@@ -36,7 +36,7 @@ public class MLGRush extends JavaPlugin {
         injector.injectMembers(this);
 
         dataInitializer.init(injector);
-        configInitializer.init(injector);
+        fileInitializer.init(injector);
         registrableInitializer.init(injector);
         listenerInitializer.init(injector);
         eventHandlerInitializer.init(injector);

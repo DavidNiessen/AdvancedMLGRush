@@ -29,7 +29,8 @@ public class ItemBuilder {
      */
     @Inject
     public ItemBuilder(final @NotNull NMSUtils nmsUtils,
-                       final @Assisted @NotNull MetaType metaType, final @Assisted int data) {
+                       final @Assisted @NotNull MetaType metaType,
+                       final @Assisted int data) {
         this.nmsUtils = nmsUtils;
         this.metaType = metaType;
         this.data = data;

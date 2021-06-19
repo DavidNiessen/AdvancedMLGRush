@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MainConfig extends Configurable {
 
-    public static final String GLASS_COLOR = "inventory_background_color";
+    public static final String INVENTORY_BACKGROUND_COLOR = "inventory_background_color";
 
     @PostConstruct
     public void initConfig() {
@@ -25,6 +25,6 @@ public class MainConfig extends Configurable {
 
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
-        list.add(new Pair<>(GLASS_COLOR, GlassColor.GRAY.name()));
+        list.add(new Pair<>(INVENTORY_BACKGROUND_COLOR, GlassColor.GRAY.name()));
     }
 }

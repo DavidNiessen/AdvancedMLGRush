@@ -6,10 +6,9 @@ import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.MaterialConfig;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
-import net.skillcode.advancedmlgrush.item.builder.ItemBuilder;
 import net.skillcode.advancedmlgrush.item.builder.MetaType;
-import net.skillcode.advancedmlgrush.item.rule.ItemRuleManager;
-import net.skillcode.advancedmlgrush.item.rule.RuleRegistry;
+import net.skillcode.advancedmlgrush.item.overwriter.ItemOWManager;
+import net.skillcode.advancedmlgrush.item.overwriter.ItemOWRegistry;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -25,20 +24,20 @@ public class ItemManager {
     @Inject
     private MaterialConfig materialConfig;
     @Inject
-    private ItemRuleManager itemRuleManager;
+    private ItemOWManager itemOWManager;
     @Inject
-    private RuleRegistry ruleRegistrator;
+    private ItemOWRegistry itemOWRegistry;
     @Inject
     private IBFactory ibFactory;
 
     @PostConstruct
     public void init() {
-        ruleRegistrator.registerRules();
+        itemOWRegistry.registerOWs();
     }
 
     public ItemStack getItem(final @NotNull Optional<Player> optionalPlayer, final @NotNull EnumItem enumItem) {
 
-        final Optional<ItemStack> optional = itemRuleManager.getItem(optionalPlayer, enumItem);
+        final Optional<ItemStack> optional = itemOWManager.getItem(optionalPlayer, enumItem);
 
         return optional.orElseGet(() -> ibFactory.create(MetaType.ITEM_META, getConfigData(enumItem))
                 .name(itemNameConfig.getString(optionalPlayer, enumItem.getConfigPath()))

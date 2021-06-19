@@ -8,6 +8,7 @@ import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
+import net.skillcode.advancedmlgrush.inventory.multipage.MPHFactory;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,6 +31,7 @@ public class MLGBinderModule extends AbstractModule implements TypeListener {
         super.bindListener(Matchers.any(), this);
 
         super.install(new FactoryModuleBuilder().build(IBFactory.class));
+        super.install(new FactoryModuleBuilder().build(MPHFactory.class));
 
         super.bind(JavaPlugin.class).toInstance(javaPlugin);
         super.bind(PluginManager.class).toInstance(javaPlugin.getServer().getPluginManager());

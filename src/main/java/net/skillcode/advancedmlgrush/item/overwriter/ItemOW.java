@@ -1,4 +1,4 @@
-package net.skillcode.advancedmlgrush.item.rule;
+package net.skillcode.advancedmlgrush.item.overwriter;
 
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import org.bukkit.entity.Player;
@@ -9,13 +9,13 @@ import java.util.Optional;
 /**
  * Used to override items from configs
  * <p>
- * @see ItemRuleManager
+ * @see ItemOWManager
  */
-public interface ItemRule {
+public interface ItemOW {
 
     EnumItem getEnumItem();
 
-    ItemRulePriority getPriority();
+    ItemOWPriority getPriority();
 
     ItemStack getItemStack(final Optional<Player> optionalPlayer);
 

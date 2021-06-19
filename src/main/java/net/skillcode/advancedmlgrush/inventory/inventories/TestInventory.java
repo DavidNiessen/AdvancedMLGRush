@@ -1,12 +1,11 @@
 package net.skillcode.advancedmlgrush.inventory.inventories;
 
 import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.event.EventListener;
 import net.skillcode.advancedmlgrush.inventory.AbstractInventory;
-import net.skillcode.advancedmlgrush.item.builder.MetaType;
 import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -17,6 +16,11 @@ import java.util.List;
 
 @Singleton
 public class TestInventory extends AbstractInventory {
+
+    @PostConstruct
+    public void initInventory() {
+        super.init();
+    }
 
     @Override
     protected boolean cloneOnOpen() {
@@ -36,7 +40,8 @@ public class TestInventory extends AbstractInventory {
     @Override
     protected Inventory onOpen(final @NotNull Inventory inventory, final @NotNull Player player) {
         //inventory.addItem(ibFactory.create(MetaType.ITEM_META, 0).name("test").material(Material.BEDROCK).build());
-        inventoryUtils.frame(inventory, ibFactory.create(MetaType.ITEM_META, 0).name("test").material(Material.BEDROCK).build());
+        inventoryUtils.frame(inventory);
+        inventory.addItem();
         return inventory;
     }
 

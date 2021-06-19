@@ -5,7 +5,6 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventManager;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
-import net.skillcode.advancedmlgrush.sound.SoundParser;
 import net.skillcode.advancedmlgrush.sound.SoundUtil;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -40,7 +39,7 @@ public class PlayerJoinListener implements Listener {
 
         lobbyItems.setLobbyItems(event.getPlayer());
 
-        soundUtil.playSound(player, SoundConfig.OPEN_INVENTORY);
+        soundUtil.playSound(player, SoundConfig.INVENTORY_OPEN);
     }
 
 }

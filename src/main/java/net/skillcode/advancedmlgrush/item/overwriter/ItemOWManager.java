@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Singleton
 public class ItemOWManager {
-
+    
     private final Map<EnumItem, ItemOW> ows = new ConcurrentHashMap<>();
 
     public void registerItemOW(final @NotNull ItemOW itemOW) {

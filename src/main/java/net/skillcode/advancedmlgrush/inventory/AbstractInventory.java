@@ -1,7 +1,6 @@
 package net.skillcode.advancedmlgrush.inventory;
 
 import com.google.inject.Inject;
-import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
@@ -20,8 +19,6 @@ import java.util.List;
 
 public abstract class AbstractInventory implements EventHandler {
 
-    private final Inventory inventory = onCreate().getKey();
-
     @Inject
     protected InventoryManager inventoryManager;
     @Inject
@@ -35,22 +32,30 @@ public abstract class AbstractInventory implements EventHandler {
     @Inject
     private EventManager eventManager;
 
-    @PostConstruct
+    private Inventory baseInventory;
+    private Pair<Inventory, String> inventoryPair;
+
     public void init() {
         eventManager.registerEventListeners(this);
+        inventoryPair = onCreate();
+        baseInventory = inventoryPair.getKey();
     }
 
     public void open(final @NotNull Player player) {
-        Inventory inv = cloneOnOpen() ?
-                Bukkit.createInventory(inventory.getHolder(), inventory.getSize(), onCreate().getValue()) :
-                inventory;
+        Inventory inventory;
+        if (cloneOnOpen()) {
+            inventory = Bukkit.createInventory(baseInventory.getHolder(), baseInventory.getSize(), inventoryPair.getValue());
+            inventory.setContents(baseInventory.getContents());
+        } else {
+            inventory = baseInventory;
+        }
 
-        inv = onOpen(inv, player);
-        player.openInventory(inv);
+        inventory = onOpen(inventory, player);
+        player.openInventory(inventory);
         inventoryManager.register(player, this.getClass());
 
         if (playSound()) {
-            soundUtil.playSound(player, SoundConfig.OPEN_INVENTORY);
+            soundUtil.playSound(player, SoundConfig.INVENTORY_OPEN);
         }
     }
 

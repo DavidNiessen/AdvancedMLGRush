@@ -65,7 +65,6 @@ public class SQLDataCache implements Registrable, EventHandler {
                         } else if (future.isDone()) {
                             try {
                                 cache.put(player, future.get());
-                                System.out.println(getSQLData(player).getSettingsArena());
                             } catch (ExecutionException | InterruptedException e) {
                                 e.printStackTrace();
                             } finally {
@@ -85,9 +84,5 @@ public class SQLDataCache implements Registrable, EventHandler {
                 }
             }
         });
-    }
-
-    private void register(final @NotNull Player player, final @NotNull CachedSQLData cachedSQLData) {
-        cache.put(player, cachedSQLData);
     }
 }

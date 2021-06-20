@@ -84,7 +84,6 @@ public class MLGDataSaver extends DataSaver {
                 checkName(player);
                 getData(player, cachedSQLData);
             } else {
-                System.out.println(2);
                 insertPlayer(player);
             }
         }

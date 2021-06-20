@@ -20,7 +20,7 @@ public class LobbyItems {
         player.getInventory().setItem(Constants.CHALLENGER_SLOT, itemManager.getItem(Optional.of(player), EnumItem.CHALLENGER));
         player.getInventory().setItem(Constants.SETTINGS_SLOT, itemManager.getItem(Optional.of(player), EnumItem.SETTINGS));
         player.getInventory().setItem(Constants.SPECTATE_SLOT, itemManager.getItem(Optional.of(player), EnumItem.SPECTATE));
-        player.getInventory().setItem(Constants.EXTRAS_SLOT, itemManager.getItem(Optional.of(player), EnumItem.EXTRAS));
+        player.getInventory().setItem(Constants.GADGETS_SLOT, itemManager.getItem(Optional.of(player), EnumItem.GADGETS));
         player.getInventory().setItem(Constants.STATS_SLOT, itemManager.getItem(Optional.of(player), EnumItem.STATS));
     }
 

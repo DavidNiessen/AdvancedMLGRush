@@ -39,12 +39,13 @@ public class ItemMaterialConfig extends Configurable {
         list.add(new Pair<>(EnumItem.CHALLENGER.getConfigPath(), XMaterial.IRON_SWORD.name()));
         list.add(new Pair<>(EnumItem.SETTINGS.getConfigPath(), XMaterial.REPEATER.name()));
         list.add(new Pair<>(EnumItem.SPECTATE.getConfigPath(), XMaterial.COMPASS.name()));
-        list.add(new Pair<>(EnumItem.EXTRAS.getConfigPath(), XMaterial.CHEST.name()));
+        list.add(new Pair<>(EnumItem.GADGETS.getConfigPath(), XMaterial.CHEST.name()));
         list.add(new Pair<>(EnumItem.QUEUE_LEAVE.getConfigPath(), XMaterial.BARRIER.name()));
         list.add(new Pair<>(EnumItem.SETTINGS_INVENTORY_SORTING.getConfigPath(), XMaterial.REPEATER.name()));
         list.add(new Pair<>(EnumItem.SETTINGS_MAP.getConfigPath(), XMaterial.MAP.name()));
-        list.add(new Pair<>(EnumItem.SETTINGS_STICK.getConfigPath(), XMaterial.STICK.name()));
-        list.add(new Pair<>(EnumItem.SETTINGS_BLOCKS.getConfigPath(), XMaterial.SANDSTONE.name()));
+        list.add(new Pair<>(EnumItem.SETTINGS_ROUNDS.getConfigPath(), XMaterial.SLIME_BALL.name()));
+        list.add(new Pair<>(EnumItem.GADGETS_STICK.getConfigPath(), XMaterial.STICK.name()));
+        list.add(new Pair<>(EnumItem.GADGETS_BLOCKS.getConfigPath(), XMaterial.SANDSTONE.name()));
     }
 
     public Material getMaterial(final @NotNull String path) {

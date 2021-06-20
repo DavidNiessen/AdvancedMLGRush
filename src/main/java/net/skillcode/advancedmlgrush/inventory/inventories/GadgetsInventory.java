@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public class SettingsInventory extends AbstractInventory {
+public class GadgetsInventory extends AbstractInventory {
 
     @PostConstruct
     public void initInventory() {
@@ -39,9 +39,8 @@ public class SettingsInventory extends AbstractInventory {
         final Inventory inventory = Bukkit.createInventory(null, 3 * 9, title);
         inventoryUtils.fill(inventory);
 
-        inventory.setItem(11, itemManager.getItem(Optional.empty(), EnumItem.SETTINGS_INVENTORY_SORTING));
-        inventory.setItem(13, itemManager.getItem(Optional.empty(), EnumItem.SETTINGS_MAP));
-        inventory.setItem(15, itemManager.getItem(Optional.empty(), EnumItem.SETTINGS_ROUNDS));
+        inventory.setItem(11, itemManager.getItem(Optional.empty(), EnumItem.GADGETS_STICK));
+        inventory.setItem(15, itemManager.getItem(Optional.empty(), EnumItem.GADGETS_BLOCKS));
 
         return new Pair<>(inventory, title);
     }
@@ -55,4 +54,5 @@ public class SettingsInventory extends AbstractInventory {
     protected List<EventListener<?>> listeners(final @NotNull List<EventListener<?>> eventListeners) {
         return eventListeners;
     }
+
 }

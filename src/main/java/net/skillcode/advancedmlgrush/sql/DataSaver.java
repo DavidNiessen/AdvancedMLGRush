@@ -2,18 +2,16 @@ package net.skillcode.advancedmlgrush.sql;
 
 import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
+import net.skillcode.advancedmlgrush.config.configs.DebugConfig;
 import net.skillcode.advancedmlgrush.exception.ExceptionHandler;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.sql.*;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public abstract class DataSaver {
 
@@ -22,9 +20,11 @@ public abstract class DataSaver {
     @Inject
     protected ThreadPoolManager threadPoolManager;
     @Inject
-    private JavaPlugin plugin;
+    private JavaPlugin javaPlugin;
     @Inject
     private ConnectionManager connectionManager;
+    @Inject
+    private DebugConfig debugConfig;
 
     private DataSaverParams params;
 
@@ -48,6 +48,9 @@ public abstract class DataSaver {
     }
 
     protected void executeUpdateSync(final @NotNull String query) {
+        if (debugConfig.getBoolean(DebugConfig.LOG_QUERIES)) {
+            javaPlugin.getLogger().info(String.format(Constants.QUERY_MESSA, query));
+        }
         if (checkConnection()) {
             try (final PreparedStatement preparedStatement = connection.prepareStatement(replaceName(query))) {
                 preparedStatement.executeUpdate();
@@ -62,7 +65,9 @@ public abstract class DataSaver {
     }
 
     protected Optional<ResultSet> executeQuerySync(final @NotNull String query) {
-        System.out.println(query);
+        if (debugConfig.getBoolean(DebugConfig.LOG_QUERIES)) {
+            javaPlugin.getLogger().info(String.format(Constants.QUERY_MESSA, query));
+        }
         if (checkConnection()) {
             try {
                 final PreparedStatement preparedStatement = connection.prepareStatement(replaceName(query));
@@ -128,20 +133,12 @@ public abstract class DataSaver {
             Integer.parseInt(port);
         } catch (final NumberFormatException exception) {
             finalPort = "3306";
-            plugin.getLogger().warning(Constants.INVALID_PORT_MESSAGE);
+            javaPlugin.getLogger().warning(Constants.INVALID_PORT_MESSAGE);
         }
         return finalPort;
     }
 
     private String replaceName(final @NotNull String query) {
         return query.replace("{name}", params.getTable());
-    }
-
-    public interface Callback {
-
-        void onSuccess(final @NotNull Optional<ResultSet> optional) throws SQLException;
-
-        void onFailure(final @NotNull Optional<Exception> optional);
-
     }
 }

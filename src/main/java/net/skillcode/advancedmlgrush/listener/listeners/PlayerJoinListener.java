@@ -2,7 +2,6 @@ package net.skillcode.advancedmlgrush.listener.listeners;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventManager;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
 import net.skillcode.advancedmlgrush.sound.SoundUtil;
@@ -38,8 +37,6 @@ public class PlayerJoinListener implements Listener {
         player.setAllowFlight(false);
 
         lobbyItems.setLobbyItems(event.getPlayer());
-
-        soundUtil.playSound(player, SoundConfig.INVENTORY_OPEN);
     }
 
 }

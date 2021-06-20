@@ -1,11 +1,10 @@
 package net.skillcode.advancedmlgrush.item.items.handlers;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
-import net.skillcode.advancedmlgrush.inventory.inventories.SettingsInventory;
+import net.skillcode.advancedmlgrush.inventory.inventories.GadgetsInventory;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.ItemUtils;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
@@ -18,13 +17,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Optional;
 
-@Singleton
-public class SettingsHandler implements EventHandler {
+public class GadgetsHandler implements EventHandler {
 
     @Inject
     private ItemUtils itemUtils;
     @Inject
-    private SettingsInventory settingsInventory;
+    private GadgetsInventory gadgetsInventory;
     @Inject
     private MessageConfig messageConfig;
     @Inject
@@ -45,16 +43,17 @@ public class SettingsHandler implements EventHandler {
                     final Player player = event.getPlayer();
                     final ItemStack clickedItem = player.getItemInHand();
 
-                    if (itemUtils.compare(clickedItem, EnumItem.SETTINGS, Optional.of(player))) {
+                    if (itemUtils.compare(clickedItem, EnumItem.GADGETS, Optional.of(player))) {
                         if (!sqlDataCache.isLoaded(player)) {
                             player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.LOADING_DATA));
                         } else {
-                            settingsInventory.open(player);
+                            gadgetsInventory.open(player);
                         }
                     }
                 }
             }
         };
+
     }
 
 }

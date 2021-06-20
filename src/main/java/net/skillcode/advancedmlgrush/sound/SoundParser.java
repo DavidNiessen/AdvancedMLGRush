@@ -11,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Singleton
 public class SoundParser {
@@ -19,7 +18,7 @@ public class SoundParser {
     private final JavaPlugin javaPlugin;
     private final EnumUtils enumUtils;
 
-    private final Map<String, MLGSound> cache = new ConcurrentHashMap<>();
+    private final Map<String, Optional<MLGSound>> cache = new ConcurrentHashMap<>();
 
     @Inject
     public SoundParser(final JavaPlugin javaPlugin, final EnumUtils enumUtils) {
@@ -27,23 +26,24 @@ public class SoundParser {
         this.enumUtils = enumUtils;
     }
 
-    public MLGSound parse(final @NotNull String input) {
+    public Optional<MLGSound> parse(final @NotNull String input) {
         if (cache.containsKey(input)) {
             return cache.get(input);
         }
 
-        final AtomicReference<XSound> sound = new AtomicReference(Constants.DEFAULT_SOUND);
+        Optional<XSound> sound = Optional.empty();
 
         float volume = Constants.DEFAULT_SOUND_VOLUME;
         float pitch = Constants.DEFAULT_SOUND_PITCH;
 
         final String[] array = input.split(":");
-        final Optional<XSound> optional = parseSound(array[0]);
+        final String soundName = array[0];
+        final Optional<XSound> optional = parseSound(soundName);
 
         if (optional.isPresent()) {
-            sound.set(optional.get());
-        } else {
-            javaPlugin.getLogger().warning(String.format(Constants.SOUND_PARSE_ERROR, array[0]));
+            sound = optional;
+        } else if (!soundName.equalsIgnoreCase("NONE")) {
+            javaPlugin.getLogger().warning(String.format(Constants.SOUND_PARSE_ERROR, soundName));
         }
 
         try {
@@ -60,9 +60,12 @@ public class SoundParser {
             javaPlugin.getLogger().warning(String.format(Constants.SOUND_PARSE_ERROR, array[0]));
         }
 
-        final MLGSound mlgSound = new MLGSound(sound.get().parseSound(), volume, pitch);
-        cache.put(input, mlgSound);
-        return mlgSound;
+        if (sound.isPresent()) {
+            final Optional<MLGSound> mlgSound = Optional.of(new MLGSound(sound.get().parseSound(), volume, pitch));
+            cache.put(input, mlgSound);
+            return mlgSound;
+        }
+        return Optional.empty();
     }
 
     public String parseString(final @NotNull String soundName, final float volume, final float pitch) {

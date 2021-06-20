@@ -18,13 +18,13 @@ import java.util.concurrent.ExecutionException;
 public abstract class DataSaver {
 
     @Inject
+    protected ExceptionHandler exceptionHandler;
+    @Inject
+    protected ThreadPoolManager threadPoolManager;
+    @Inject
     private JavaPlugin plugin;
     @Inject
-    private ExceptionHandler exceptionHandler;
-    @Inject
     private ConnectionManager connectionManager;
-    @Inject
-    private ThreadPoolManager threadPoolManager;
 
     private DataSaverParams params;
 
@@ -61,41 +61,19 @@ public abstract class DataSaver {
         threadPoolManager.submit(() -> executeUpdateSync(query));
     }
 
-    @Nullable
-    protected ResultSet executeQuerySync(final @NotNull String query) {
+    protected Optional<ResultSet> executeQuerySync(final @NotNull String query) {
+        System.out.println(query);
         if (checkConnection()) {
             try {
                 final PreparedStatement preparedStatement = connection.prepareStatement(replaceName(query));
-                return preparedStatement.executeQuery();
+                final ResultSet resultSet = preparedStatement.executeQuery();
+                return Optional.of(resultSet);
             } catch (SQLException exception) {
                 exceptionHandler.handle(exception);
             }
         }
-        return null;
+        return Optional.empty();
     }
-
-    protected void executeQueryAsync(final @NotNull String query, final @NotNull Callback callback) {
-        if (checkConnection()) {
-            final CompletableFuture<ResultSet> future = CompletableFuture.supplyAsync(() -> executeQuerySync(query), threadPoolManager.getThreadPool());
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    if (future.isDone()) {
-                        try {
-                            callback.onSuccess(future.get());
-                        } catch (SQLException | ExecutionException | InterruptedException exception) {
-                            exceptionHandler.handle(exception);
-                        } finally {
-                            cancel();
-                        }
-                    }
-                }
-            }.runTaskTimer(plugin, 0, params.getAsyncUpdatePeriod());
-        } else {
-            callback.onFailure(Optional.empty());
-        }
-    }
-
 
     protected abstract DataSaverParams initParams();
 
@@ -161,7 +139,7 @@ public abstract class DataSaver {
 
     public interface Callback {
 
-        void onSuccess(final @Nullable ResultSet resultSet) throws SQLException;
+        void onSuccess(final @NotNull Optional<ResultSet> optional) throws SQLException;
 
         void onFailure(final @NotNull Optional<Exception> optional);
 

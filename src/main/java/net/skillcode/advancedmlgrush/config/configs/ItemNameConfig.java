@@ -46,12 +46,12 @@ public class ItemNameConfig extends Configurable implements Replaceable {
 
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
-        list.add(new Pair<>(EnumItem.CHALLENGER.getConfigPath(), "&8» &eChallenge player"));
+        list.add(new Pair<>(EnumItem.CHALLENGER.getConfigPath(), "&8» &eChallenge Player"));
         list.add(new Pair<>(EnumItem.SETTINGS.getConfigPath(), "&8» &eSettings"));
         list.add(new Pair<>(EnumItem.SPECTATE.getConfigPath(), "&8» &eSpectate"));
         list.add(new Pair<>(EnumItem.EXTRAS.getConfigPath(), "&8» &eExtras"));
         list.add(new Pair<>(EnumItem.STATS.getConfigPath(), "&8» &eStats"));
-        list.add(new Pair<>(EnumItem.QUEUE_LEAVE.getConfigPath(), "&8» &cLeave queue"));
+        list.add(new Pair<>(EnumItem.QUEUE_LEAVE.getConfigPath(), "&8» &cLeave Queue"));
         list.add(new Pair<>(EnumItem.INVENTORY_BACKGROUND.getConfigPath(), " "));
         list.add(new Pair<>(EnumItem.ARROW_LEFT.getConfigPath(), "&e«"));
         list.add(new Pair<>(EnumItem.ARROW_RIGHT.getConfigPath(), "&e»"));

@@ -3,7 +3,6 @@ package net.skillcode.advancedmlgrush.inventory.multipage;
 import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
-import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventListener;
 import net.skillcode.advancedmlgrush.inventory.AbstractInventory;
 import net.skillcode.advancedmlgrush.item.EnumItem;

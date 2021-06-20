@@ -18,7 +18,6 @@ public class DataConfig extends Configurable {
     public static final String MYSQL_DATABASE = "mysql_database";
     public static final String MYSQL_USER = "mysql_user";
     public static final String MYSQL_PASSWORD = "mysql_password";
-    public static final String ASYNC_UPDATE_PERIOD = "async_update_period";
 
     @PostConstruct
     public void initConfig() {
@@ -38,6 +37,5 @@ public class DataConfig extends Configurable {
         list.add(new Pair<>(MYSQL_DATABASE, "database"));
         list.add(new Pair<>(MYSQL_USER, "root"));
         list.add(new Pair<>(MYSQL_PASSWORD, "password"));
-        list.add(new Pair<>(ASYNC_UPDATE_PERIOD, 10L));
     }
 }

@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
-import net.skillcode.advancedmlgrush.inventory.inventories.TestMPInventory;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,9 +20,6 @@ public class BuildCommand implements CommandExecutor {
     private final MessageConfig messageConfig;
 
     @Inject
-    private TestMPInventory testInventory;
-
-    @Inject
     public BuildCommand(final @NotNull BuildModeManager buildModeManager, final @NotNull MessageConfig messageConfig) {
         this.buildModeManager = buildModeManager;
         this.messageConfig = messageConfig;
@@ -33,11 +29,7 @@ public class BuildCommand implements CommandExecutor {
     public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] strings) {
         if (!(commandSender instanceof Player)) return false;
 
-
         final Player player = (Player) commandSender;
-
-        //test
-        testInventory.open(player);
 
         if (!buildModeManager.isRegistered(player)) {
             buildModeManager.register(player);

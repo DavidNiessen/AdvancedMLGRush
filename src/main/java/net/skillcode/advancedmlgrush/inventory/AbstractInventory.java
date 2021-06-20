@@ -12,6 +12,7 @@ import net.skillcode.advancedmlgrush.sound.SoundUtil;
 import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
@@ -75,6 +76,16 @@ public abstract class AbstractInventory implements EventHandler {
 
     @Override
     public void registerListeners(final @NotNull List<EventListener<?>> eventListeners) {
+        final Class<? extends AbstractInventory> clazz = this.getClass();
+        eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class) {
+            @Override
+            protected void onEvent(final @NotNull InventoryClickEvent event) {
+                final Player player = (Player) event.getWhoClicked();
+                if (inventoryUtils.isOpenInventory(player, clazz)) {
+                    event.setCancelled(true);
+                }
+            }
+        });
         eventListeners.addAll(listeners(new ArrayList<>()));
     }
 }

@@ -8,7 +8,7 @@ import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.parser.MaterialParser;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.util.Pair;
-import net.skillcode.advancedmlgrush.util.XMaterial;
+import net.skillcode.advancedmlgrush.libs.xseries.XMaterial;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,6 +1,6 @@
 package net.skillcode.advancedmlgrush.miscellaneous;
 
-import net.skillcode.advancedmlgrush.util.XMaterial;
+import net.skillcode.advancedmlgrush.libs.xseries.XMaterial;
 import org.bukkit.Material;
 import org.fusesource.jansi.Ansi;
 

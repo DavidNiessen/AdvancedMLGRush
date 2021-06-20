@@ -83,7 +83,6 @@ public abstract class MultiPageInventory extends AbstractInventory {
         eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class) {
             @Override
             protected void onEvent(final @NotNull InventoryClickEvent event) {
-                event.setCancelled(true);
                 final Player player = (Player) event.getWhoClicked();
                 if (inventoryUtils.isOpenInventory(player, clazz)) {
 

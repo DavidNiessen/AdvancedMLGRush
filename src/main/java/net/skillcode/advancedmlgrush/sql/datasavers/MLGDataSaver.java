@@ -26,7 +26,8 @@ public class MLGDataSaver extends DataSaver {
     }
 
     public void updatePlayer(final @NotNull Player player, final @NotNull CachedSQLData cachedSQLData) {
-        if (isConnected()) {
+        if (isConnected()
+                && !cachedSQLData.isDefaultData()) {
             executeUpdateAsync(String.format("" +
                             "UPDATE {name} " +
                             "SET " +
@@ -80,12 +81,12 @@ public class MLGDataSaver extends DataSaver {
     private CachedSQLData getPlayerDataSync(final @NotNull Player player) {
         final CachedSQLData cachedSQLData = new CachedSQLData();
         if (isConnected()) {
-            if (isInDatabase(player)) {
-                checkName(player);
-                getData(player, cachedSQLData);
-            } else {
+            if (!isInDatabase(player)) {
                 insertPlayer(player);
             }
+            checkName(player);
+            getData(player, cachedSQLData);
+            cachedSQLData.setDefaultData(false);
         }
         return cachedSQLData;
     }
@@ -120,7 +121,7 @@ public class MLGDataSaver extends DataSaver {
                 final ResultSet resultSet = optional.get();
                 try {
                     if (resultSet.next()
-                    && !resultSet.getString("player_name").equals(player.getName())) {
+                            && !resultSet.getString("player_name").equals(player.getName())) {
                         executeUpdateSync(String.format(
                                 "UPDATE {name} " +
                                         "SET player_name = '%1$s'" +

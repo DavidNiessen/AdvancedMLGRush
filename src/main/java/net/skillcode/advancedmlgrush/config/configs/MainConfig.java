@@ -1,5 +1,6 @@
 package net.skillcode.advancedmlgrush.config.configs;
 
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.Configurable;
 import net.skillcode.advancedmlgrush.item.GlassColor;
@@ -9,9 +10,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+@Singleton
 public class MainConfig extends Configurable {
 
     public static final String INVENTORY_BACKGROUND_COLOR = "inventory_background_color";
+    public static final String STICK_KNOCKBACK_LEVEL = "stick_knockback_level";
 
     @PostConstruct
     public void initConfig() {
@@ -26,5 +29,6 @@ public class MainConfig extends Configurable {
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
         list.add(new Pair<>(INVENTORY_BACKGROUND_COLOR, GlassColor.GRAY.name()));
+        list.add(new Pair<>(STICK_KNOCKBACK_LEVEL, 1));
     }
 }

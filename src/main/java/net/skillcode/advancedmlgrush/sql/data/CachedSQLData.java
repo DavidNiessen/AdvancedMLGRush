@@ -7,6 +7,8 @@ public class CachedSQLData {
 
     public static final CachedSQLData DEFAULT_SQL_DATA = new CachedSQLData();
 
+    private boolean defaultData = true;
+
     private int settingsStickSlot = 0;
     private int settingsBlockSlot = 1;
     private int settingsPickaxeSlot = 8;

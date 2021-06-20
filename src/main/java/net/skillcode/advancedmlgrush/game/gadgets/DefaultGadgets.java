@@ -1,6 +1,6 @@
 package net.skillcode.advancedmlgrush.game.gadgets;
 
-import net.skillcode.advancedmlgrush.util.XMaterial;
+import net.skillcode.advancedmlgrush.libs.xseries.XMaterial;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +33,7 @@ public class DefaultGadgets {
                 ),
                 new Gadget(
                         "&8» &eArrow",
-                        XMaterial.BLAZE_ROD.name(),
+                        XMaterial.ARROW.name(),
                         "gadgets.mvp",
                         "&aUnlocked",
                         "&cRequires &bMVP"
@@ -80,7 +80,7 @@ public class DefaultGadgets {
                 ),
                 new Gadget(
                         "&8» &eNether Brick",
-                        XMaterial.NETHER_BRICK.name(),
+                        XMaterial.NETHER_BRICKS.name(),
                         "gadgets.mvp",
                         "&aUnlocked",
                         "&cRequires &bMVP"

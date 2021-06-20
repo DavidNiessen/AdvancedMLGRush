@@ -25,6 +25,8 @@ public class InventoryNameConfig extends Configurable implements Replaceable {
     }
 
     public static final String SETTINGS = "settings";
+    public static final String STICK = "stick";
+    public static final String BLOCKS = "blocks";
 
     @PostConstruct
     public void initConfig() {
@@ -44,5 +46,7 @@ public class InventoryNameConfig extends Configurable implements Replaceable {
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
         list.add(new Pair<>(SETTINGS, "&8» &eSettings"));
+        list.add(new Pair<>(STICK, "&8» &eStick"));
+        list.add(new Pair<>(BLOCKS, "&8» &eBlocks"));
     }
 }

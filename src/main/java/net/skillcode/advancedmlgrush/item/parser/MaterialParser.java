@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.util.EnumUtils;
-import net.skillcode.advancedmlgrush.util.XMaterial;
+import net.skillcode.advancedmlgrush.libs.xseries.XMaterial;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;

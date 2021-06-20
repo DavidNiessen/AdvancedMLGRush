@@ -7,7 +7,7 @@ import net.skillcode.advancedmlgrush.config.Configurable;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.sound.SoundParser;
 import net.skillcode.advancedmlgrush.util.Pair;
-import net.skillcode.advancedmlgrush.util.XSound;
+import net.skillcode.advancedmlgrush.libs.xseries.XSound;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -16,6 +16,8 @@ import java.util.List;
 public class SoundConfig extends Configurable {
 
     public static final String INVENTORY_OPEN = "inventory_open";
+    public static final String INVENTORY_CLICK = "inventory_click";
+    public static final String INVENTORY_CLICK_LOCKED = "inventory_click_locked";
 
     private final SoundParser soundParser;
 
@@ -37,5 +39,7 @@ public class SoundConfig extends Configurable {
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
         list.add(new Pair<>(INVENTORY_OPEN, soundParser.parseString(XSound.BLOCK_PISTON_EXTEND, 1, 1.9F)));
+        list.add(new Pair<>(INVENTORY_CLICK, soundParser.parseString(XSound.UI_BUTTON_CLICK, 1, 2F)));
+        list.add(new Pair<>(INVENTORY_CLICK_LOCKED, soundParser.parseString(XSound.ENTITY_ITEM_BREAK, 1, 0.6F)));
     }
 }

@@ -32,15 +32,9 @@ public abstract class MultiPageInventory extends AbstractInventory {
     @Inject
     private ItemNameConfig itemNameConfig;
 
-    private String leftArrowName;
-    private String rightArrowName;
-
     @PostConstruct
     public void initInventory() {
         super.init();
-
-        leftArrowName = itemNameConfig.getString(Optional.empty(), EnumItem.ARROW_LEFT);
-        rightArrowName = itemNameConfig.getString(Optional.empty(), EnumItem.ARROW_RIGHT);
     }
 
     protected abstract String title();
@@ -52,6 +46,9 @@ public abstract class MultiPageInventory extends AbstractInventory {
     @Override
     protected Pair<Inventory, String> onCreate() {
         final Inventory inventory = Bukkit.createInventory(null, 6 * 9, title());
+
+        final String leftArrowName = itemNameConfig.getString(Optional.empty(), EnumItem.ARROW_LEFT);
+        final String rightArrowName = itemNameConfig.getString(Optional.empty(), EnumItem.ARROW_RIGHT);
 
         inventoryUtils.frame(inventory);
         inventory.setItem(Constants.LEFT_ARROW_SLOT, skullUtils
@@ -86,7 +83,6 @@ public abstract class MultiPageInventory extends AbstractInventory {
         eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class) {
             @Override
             protected void onEvent(final @NotNull InventoryClickEvent event) {
-                event.setCancelled(true);
                 final Player player = (Player) event.getWhoClicked();
                 if (inventoryUtils.isOpenInventory(player, clazz)) {
 
@@ -94,9 +90,13 @@ public abstract class MultiPageInventory extends AbstractInventory {
                     final int slot = event.getSlot();
 
                     if (slot == Constants.LEFT_ARROW_SLOT) {
-                        multiPageHelper.loadPreviousPage();
+                        if (multiPageHelper.loadPreviousPage()) {
+                            inventoryUtils.playClickSound(player);
+                        }
                     } else if (slot == Constants.RIGHT_ARROW_SLOT) {
-                        multiPageHelper.loadNextPage();
+                        if (multiPageHelper.loadNextPage()) {
+                            inventoryUtils.playClickSound(player);
+                        }
                     } else if (elementSlots.contains(slot)
                             && itemUtils.isValidItem(event.getCurrentItem())) {
                         onElementClick(player, multiPageHelper.getElement(slot));

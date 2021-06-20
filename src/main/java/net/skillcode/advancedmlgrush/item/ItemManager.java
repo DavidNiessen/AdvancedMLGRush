@@ -3,8 +3,8 @@ package net.skillcode.advancedmlgrush.item;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
+import net.skillcode.advancedmlgrush.config.configs.ItemMaterialConfig;
 import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
-import net.skillcode.advancedmlgrush.config.configs.MaterialConfig;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import net.skillcode.advancedmlgrush.item.builder.MetaType;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOWManager;
@@ -22,7 +22,7 @@ public class ItemManager {
     @Inject
     private ItemNameConfig itemNameConfig;
     @Inject
-    private MaterialConfig materialConfig;
+    private ItemMaterialConfig itemMaterialConfig;
     @Inject
     private ItemOWManager itemOWManager;
     @Inject
@@ -50,11 +50,11 @@ public class ItemManager {
     }
 
     private Material getConfigMaterial(final @NotNull EnumItem enumItem) {
-        return materialConfig.getMaterial(enumItem);
+        return itemMaterialConfig.getMaterial(enumItem);
     }
 
     private int getConfigData(final @NotNull EnumItem enumItem) {
-        return materialConfig.getData(enumItem);
+        return itemMaterialConfig.getData(enumItem);
     }
 
 }

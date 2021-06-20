@@ -8,19 +8,19 @@ import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.parser.MaterialParser;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.util.Pair;
-import net.skillcode.advancedmlgrush.util.XMaterial;
+import net.skillcode.advancedmlgrush.libs.xseries.XMaterial;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 @Singleton
-public class MaterialConfig extends Configurable {
+public class ItemMaterialConfig extends Configurable {
 
     private final MaterialParser materialParser;
 
     @Inject
-    public MaterialConfig(final MaterialParser materialParser) {
+    public ItemMaterialConfig(final MaterialParser materialParser) {
         this.materialParser = materialParser;
     }
 
@@ -39,8 +39,13 @@ public class MaterialConfig extends Configurable {
         list.add(new Pair<>(EnumItem.CHALLENGER.getConfigPath(), XMaterial.IRON_SWORD.name()));
         list.add(new Pair<>(EnumItem.SETTINGS.getConfigPath(), XMaterial.REPEATER.name()));
         list.add(new Pair<>(EnumItem.SPECTATE.getConfigPath(), XMaterial.COMPASS.name()));
-        list.add(new Pair<>(EnumItem.EXTRAS.getConfigPath(), XMaterial.CHEST.name()));
+        list.add(new Pair<>(EnumItem.GADGETS.getConfigPath(), XMaterial.CHEST.name()));
         list.add(new Pair<>(EnumItem.QUEUE_LEAVE.getConfigPath(), XMaterial.BARRIER.name()));
+        list.add(new Pair<>(EnumItem.SETTINGS_INVENTORY_SORTING.getConfigPath(), XMaterial.REPEATER.name()));
+        list.add(new Pair<>(EnumItem.SETTINGS_MAP.getConfigPath(), XMaterial.MAP.name()));
+        list.add(new Pair<>(EnumItem.SETTINGS_ROUNDS.getConfigPath(), XMaterial.SLIME_BALL.name()));
+        list.add(new Pair<>(EnumItem.GADGETS_STICK.getConfigPath(), XMaterial.STICK.name()));
+        list.add(new Pair<>(EnumItem.GADGETS_BLOCKS.getConfigPath(), XMaterial.SANDSTONE.name()));
     }
 
     public Material getMaterial(final @NotNull String path) {

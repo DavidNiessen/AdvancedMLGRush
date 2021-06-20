@@ -4,7 +4,10 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.item.items.handlers.ChallengerHandler;
+import net.skillcode.advancedmlgrush.item.items.handlers.GadgetsHandler;
 import net.skillcode.advancedmlgrush.item.items.handlers.QueueLeaveHandler;
+import net.skillcode.advancedmlgrush.item.items.handlers.SettingsHandler;
+import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import net.skillcode.advancedmlgrush.util.Initializer;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +23,11 @@ public class EventHandlerInitializer implements Initializer {
 
     @Override
     public void init(final @NotNull Injector injector) {
+        eventManager.registerEventListeners(injector.getInstance(SQLDataCache.class));
+
         eventManager.registerEventListeners(injector.getInstance(ChallengerHandler.class));
         eventManager.registerEventListeners(injector.getInstance(QueueLeaveHandler.class));
+        eventManager.registerEventListeners(injector.getInstance(SettingsHandler.class));
+        eventManager.registerEventListeners(injector.getInstance(GadgetsHandler.class));
     }
 }

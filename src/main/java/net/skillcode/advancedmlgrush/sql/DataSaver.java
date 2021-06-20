@@ -2,29 +2,29 @@ package net.skillcode.advancedmlgrush.sql;
 
 import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
+import net.skillcode.advancedmlgrush.config.configs.DebugConfig;
 import net.skillcode.advancedmlgrush.exception.ExceptionHandler;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.sql.*;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public abstract class DataSaver {
 
     @Inject
-    private JavaPlugin plugin;
+    protected ExceptionHandler exceptionHandler;
     @Inject
-    private ExceptionHandler exceptionHandler;
+    protected ThreadPoolManager threadPoolManager;
+    @Inject
+    private JavaPlugin javaPlugin;
     @Inject
     private ConnectionManager connectionManager;
     @Inject
-    private ThreadPoolManager threadPoolManager;
+    private DebugConfig debugConfig;
 
     private DataSaverParams params;
 
@@ -48,6 +48,9 @@ public abstract class DataSaver {
     }
 
     protected void executeUpdateSync(final @NotNull String query) {
+        if (debugConfig.getBoolean(DebugConfig.LOG_QUERIES)) {
+            javaPlugin.getLogger().info(String.format(Constants.QUERY_MESSA, query));
+        }
         if (checkConnection()) {
             try (final PreparedStatement preparedStatement = connection.prepareStatement(replaceName(query))) {
                 preparedStatement.executeUpdate();
@@ -61,41 +64,21 @@ public abstract class DataSaver {
         threadPoolManager.submit(() -> executeUpdateSync(query));
     }
 
-    @Nullable
-    protected ResultSet executeQuerySync(final @NotNull String query) {
+    protected Optional<ResultSet> executeQuerySync(final @NotNull String query) {
+        if (debugConfig.getBoolean(DebugConfig.LOG_QUERIES)) {
+            javaPlugin.getLogger().info(String.format(Constants.QUERY_MESSA, query));
+        }
         if (checkConnection()) {
             try {
                 final PreparedStatement preparedStatement = connection.prepareStatement(replaceName(query));
-                return preparedStatement.executeQuery();
+                final ResultSet resultSet = preparedStatement.executeQuery();
+                return Optional.of(resultSet);
             } catch (SQLException exception) {
                 exceptionHandler.handle(exception);
             }
         }
-        return null;
+        return Optional.empty();
     }
-
-    protected void executeQueryAsync(final @NotNull String query, final @NotNull Callback callback) {
-        if (checkConnection()) {
-            final CompletableFuture<ResultSet> future = CompletableFuture.supplyAsync(() -> executeQuerySync(query), threadPoolManager.getThreadPool());
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    if (future.isDone()) {
-                        try {
-                            callback.onSuccess(future.get());
-                        } catch (SQLException | ExecutionException | InterruptedException exception) {
-                            exceptionHandler.handle(exception);
-                        } finally {
-                            cancel();
-                        }
-                    }
-                }
-            }.runTaskTimer(plugin, 0, params.getAsyncUpdatePeriod());
-        } else {
-            callback.onFailure(Optional.empty());
-        }
-    }
-
 
     protected abstract DataSaverParams initParams();
 
@@ -150,20 +133,12 @@ public abstract class DataSaver {
             Integer.parseInt(port);
         } catch (final NumberFormatException exception) {
             finalPort = "3306";
-            plugin.getLogger().warning(Constants.INVALID_PORT_MESSAGE);
+            javaPlugin.getLogger().warning(Constants.INVALID_PORT_MESSAGE);
         }
         return finalPort;
     }
 
     private String replaceName(final @NotNull String query) {
         return query.replace("{name}", params.getTable());
-    }
-
-    public interface Callback {
-
-        void onSuccess(final @Nullable ResultSet resultSet) throws SQLException;
-
-        void onFailure(final @NotNull Optional<Exception> optional);
-
     }
 }

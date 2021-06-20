@@ -3,7 +3,6 @@ package net.skillcode.advancedmlgrush.config.configs;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.Configurable;
-import net.skillcode.advancedmlgrush.item.GlassColor;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.util.Pair;
 import org.jetbrains.annotations.NotNull;
@@ -11,10 +10,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Singleton
-public class MainConfig extends Configurable {
+public class DebugConfig extends Configurable {
 
-    public static final String INVENTORY_BACKGROUND_COLOR = "inventory_background_color";
-    public static final String STICK_KNOCKBACK_LEVEL = "stick_knockback_level";
+    public static final String LOG_STACKTRACES = "log_stacktraces";
+    public static final String LOG_QUERIES = "log_queries";
 
     @PostConstruct
     public void initConfig() {
@@ -23,12 +22,12 @@ public class MainConfig extends Configurable {
 
     @Override
     protected String filePath() {
-        return Constants.MAIN_CONFIG_PATH;
+        return Constants.DEBUG_CONFIG_PATH;
     }
 
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
-        list.add(new Pair<>(INVENTORY_BACKGROUND_COLOR, GlassColor.GRAY.name()));
-        list.add(new Pair<>(STICK_KNOCKBACK_LEVEL, 1));
+        list.add(new Pair<>(LOG_STACKTRACES, true));
+        list.add(new Pair<>(LOG_QUERIES, false));
     }
 }

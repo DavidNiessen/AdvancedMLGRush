@@ -14,7 +14,6 @@ public class DataSaverParams {
     private final String database;
     private final String user;
     private final String password;
-    private final long asyncUpdatePeriod;
     //other values
     private final String table;
     private final String dataFilePath;

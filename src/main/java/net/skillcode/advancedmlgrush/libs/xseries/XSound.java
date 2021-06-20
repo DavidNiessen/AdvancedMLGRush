@@ -1,4 +1,4 @@
-package net.skillcode.advancedmlgrush.util;
+package net.skillcode.advancedmlgrush.libs.xseries;
 
 import com.google.common.base.Enums;
 import com.google.common.base.Strings;

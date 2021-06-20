@@ -36,6 +36,7 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String SETUP_BED_PLAYER_3 = "setup_bed_player_3";
     public static final String SETUP_BED_PLAYER_4 = "setup_bed_player_4";
     public static final String SETUP_FINISH = "setup_finish";
+    public static final String LOADING_DATA = "loading_data";
 
     private final Placeholders placeholders;
 
@@ -83,6 +84,7 @@ public class MessageConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(SETUP_BED_PLAYER_1, "&7Stand on the lower part of the third player's bed and look at the upper part. Type '&enext&7'."));
         list.add(new Pair<>(SETUP_BED_PLAYER_1, "&7Stand on the lower part of the fourth player's bed and look at the upper part. Type '&enext&7'."));
         list.add(new Pair<>(SETUP_FINISH, "§aThe setup has been finished!"));
+        list.add(new Pair<>(LOADING_DATA, "&cYour data is being loaded, please wait."));
     }
 
 }

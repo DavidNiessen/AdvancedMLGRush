@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021 SkillCode
  *
- * This class is a part of the source code of the
+ * This file is a part of the source code of the
  * AdvancedMLGRush plugin from SkillCode.
  *
  * This class may only be used in compliance with the
@@ -20,14 +20,17 @@ import java.util.List;
 
 public class DefaultGadgets {
 
+    private DefaultGadgets() {
+    }
+
     public static List<Gadget> getDefaultSticks() {
         return new ArrayList<>(Arrays.asList(
                 new Gadget(
                         "&8» &eStick",
                         XMaterial.STICK.name(),
-                        "gadgets.vip",
+                        "none",
                         "&aUnlocked",
-                        "&cRequires &6VIP"
+                        " "
                 ),
                 new Gadget(
                         "&8» &eBlaze Rod",
@@ -65,7 +68,7 @@ public class DefaultGadgets {
                 new Gadget(
                         "&8» &eSandstone",
                         XMaterial.SANDSTONE.name(),
-                        "gadgets.vip",
+                        "none",
                         "&aUnlocked",
                         "&cRequires &6VIP"
                 ),

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021 SkillCode
  *
- * This class is a part of the source code of the
+ * This file is a part of the source code of the
  * AdvancedMLGRush plugin from SkillCode.
  *
  * This class may only be used in compliance with the
@@ -24,7 +24,7 @@ public class CachedSQLData {
     private int settingsStickSlot = 0;
     private int settingsBlockSlot = 1;
     private int settingsPickaxeSlot = 8;
-    private int settingsArena = -1;
+    private int settingsArena = 0;
     private int settingsRounds = 5;
     private int gadgetsStick = 0;
     private int gadgetsBlocks = 0;

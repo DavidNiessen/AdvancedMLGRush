@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021 SkillCode
  *
- * This class is a part of the source code of the
+ * This file is a part of the source code of the
  * AdvancedMLGRush plugin from SkillCode.
  *
  * This class may only be used in compliance with the
@@ -63,6 +63,7 @@ public class ItemNameConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(EnumItem.SPECTATE.getConfigPath(), "&8» &eSpectate"));
         list.add(new Pair<>(EnumItem.GADGETS.getConfigPath(), "&8» &eGadgets"));
         list.add(new Pair<>(EnumItem.STATS.getConfigPath(), "&8» &eStats"));
+        list.add(new Pair<>(EnumItem.PICKAXE.getConfigPath(), "&8» &ePickaxe"));
         list.add(new Pair<>(EnumItem.QUEUE_LEAVE.getConfigPath(), "&8» &cLeave Queue"));
         list.add(new Pair<>(EnumItem.INVENTORY_BACKGROUND.getConfigPath(), " "));
         list.add(new Pair<>(EnumItem.ARROW_LEFT.getConfigPath(), "&e«"));
@@ -72,6 +73,8 @@ public class ItemNameConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(EnumItem.SETTINGS_ROUNDS.getConfigPath(), "&8» &eRounds"));
         list.add(new Pair<>(EnumItem.GADGETS_STICK.getConfigPath(), "&8» &eStick"));
         list.add(new Pair<>(EnumItem.GADGETS_BLOCKS.getConfigPath(), "&8» &eBlocks"));
+        list.add(new Pair<>(EnumItem.SORTING_SAVE.getConfigPath(), "&8» &aSave"));
+        list.add(new Pair<>(EnumItem.SORTING_RESET.getConfigPath(), "&8» &cReset"));
     }
 
 }

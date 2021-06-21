@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021 SkillCode
  *
- * This class is a part of the source code of the
+ * This file is a part of the source code of the
  * AdvancedMLGRush plugin from SkillCode.
  *
  * This class may only be used in compliance with the
@@ -41,6 +41,8 @@ public class ListenerInitializer implements Initializer {
         pluginManager.registerEvents(injector.getInstance(AsyncPlayerChatListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(InventoryCloseListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(InventoryClickListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(InventoryDragListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(PlayerDropItemListener.class), plugin);
     }
 
 }

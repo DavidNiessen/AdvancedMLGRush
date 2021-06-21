@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021 SkillCode
  *
- * This class is a part of the source code of the
+ * This file is a part of the source code of the
  * AdvancedMLGRush plugin from SkillCode.
  *
  * This class may only be used in compliance with the
@@ -29,7 +29,7 @@ public class SoundConfig extends Configurable {
 
     public static final String INVENTORY_OPEN = "inventory_open";
     public static final String INVENTORY_CLICK = "inventory_click";
-    public static final String INVENTORY_CLICK_LOCKED = "inventory_click_locked";
+    public static final String ERROR = "error";
 
     private final SoundParser soundParser;
 
@@ -52,6 +52,6 @@ public class SoundConfig extends Configurable {
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
         list.add(new Pair<>(INVENTORY_OPEN, soundParser.parseString(XSound.BLOCK_PISTON_EXTEND, 1, 1.9F)));
         list.add(new Pair<>(INVENTORY_CLICK, soundParser.parseString(XSound.UI_BUTTON_CLICK, 1, 2F)));
-        list.add(new Pair<>(INVENTORY_CLICK_LOCKED, soundParser.parseString(XSound.ENTITY_ITEM_BREAK, 1, 0.6F)));
+        list.add(new Pair<>(ERROR, soundParser.parseString(XSound.ENTITY_ITEM_BREAK, 1, 0.6F)));
     }
 }

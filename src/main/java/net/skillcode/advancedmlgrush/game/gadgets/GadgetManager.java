@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021 SkillCode
  *
- * This class is a part of the source code of the
+ * This file is a part of the source code of the
  * AdvancedMLGRush plugin from SkillCode.
  *
  * This class may only be used in compliance with the
@@ -66,9 +66,12 @@ public class GadgetManager {
     public ItemBuilder getGadgetAsBuilder(final @NotNull Player player, final @NotNull Gadget gadget) {
         final Material material = materialParser.parseMaterial(gadget.getMaterial());
         final int data = materialParser.parseData(gadget.getMaterial());
+        final int index =
+                sticks.contains(gadget) ? sticks.indexOf(gadget) : blocks.contains(gadget) ? blocks.indexOf(gadget) : 0;
+
         final List<String> lore = new ArrayList<>(Arrays.asList(" ",
                 placeholders.replace(Optional.of(player), player.hasPermission(gadget.getPermission())
-                        ? gadget.getLoreUnlocked() : gadget.getLoreLocked())));
+                        || index == 0 ? gadget.getLoreUnlocked() : gadget.getLoreLocked())));
 
         return ibFactory.create(MetaType.ITEM_META, data).material(material)
                 .name(placeholders.replace(Optional.of(player), gadget.getName()))
@@ -91,6 +94,6 @@ public class GadgetManager {
     }
 
     public ItemBuilder getBlockAsBuilder(final @NotNull Player player) {
-        return getGadgetAsBuilder(player, getBlock(player));
+        return getGadgetAsBuilder(player, getBlock(player)).lore(new ArrayList<>());
     }
 }

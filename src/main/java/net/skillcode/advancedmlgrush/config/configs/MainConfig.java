@@ -27,6 +27,8 @@ public class MainConfig extends Configurable {
 
     public static final String INVENTORY_BACKGROUND_COLOR = "inventory_background_color";
     public static final String STICK_KNOCKBACK_LEVEL = "stick_knockback_level";
+    public static final String PLACEHOLDER_NULL_VALUE = "placeholder_null_value";
+    public static final String PLACEHOLDER_LOADING_VALUE = "placeholder_loading_value";
 
     @PostConstruct
     public void initConfig() {
@@ -42,5 +44,7 @@ public class MainConfig extends Configurable {
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
         list.add(new Pair<>(INVENTORY_BACKGROUND_COLOR, GlassColor.GRAY.name()));
         list.add(new Pair<>(STICK_KNOCKBACK_LEVEL, 1));
+        list.add(new Pair<>(PLACEHOLDER_NULL_VALUE, "-"));
+        list.add(new Pair<>(PLACEHOLDER_LOADING_VALUE, "Loading..."));
     }
 }

@@ -21,6 +21,7 @@ import net.skillcode.advancedmlgrush.dependencyinjection.MLGBinderModule;
 import net.skillcode.advancedmlgrush.event.EventHandlerInitializer;
 import net.skillcode.advancedmlgrush.listener.ListenerInitializer;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.RegistrableInitializer;
+import net.skillcode.advancedmlgrush.placeholder.PlaceholderInitializer;
 import net.skillcode.advancedmlgrush.sql.ConnectionManager;
 import net.skillcode.advancedmlgrush.sql.DataInitializer;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,6 +30,8 @@ public class MLGRush extends JavaPlugin {
 
     @Inject
     private DataInitializer dataInitializer;
+    @Inject
+    private PlaceholderInitializer placeholderInitializer;
     @Inject
     private FileInitializer fileInitializer;
     @Inject
@@ -48,6 +51,7 @@ public class MLGRush extends JavaPlugin {
         injector.injectMembers(this);
 
         dataInitializer.init(injector);
+        placeholderInitializer.init(injector);
         fileInitializer.init(injector);
         registrableInitializer.init(injector);
         listenerInitializer.init(injector);

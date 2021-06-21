@@ -14,9 +14,9 @@ package net.skillcode.advancedmlgrush.sound;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.libs.xseries.XSound;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.util.EnumUtils;
-import net.skillcode.advancedmlgrush.libs.xseries.XSound;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 

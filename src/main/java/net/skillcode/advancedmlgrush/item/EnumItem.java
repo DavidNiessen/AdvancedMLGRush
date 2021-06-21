@@ -34,7 +34,10 @@ public enum EnumItem {
     GADGETS_STICK("gadgets_stick"),
     GADGETS_BLOCKS("gadgets_blocks"),
     SORTING_SAVE("sorting_save"),
-    SORTING_RESET("sorting_reset");
+    SORTING_RESET("sorting_reset"),
+    ROUNDS_INCREASE("rounds_increase"),
+    ROUNDS_DECREASE("rounds_decrease"),
+    ROUNDS("rounds");
 
     private final String configPath;
 

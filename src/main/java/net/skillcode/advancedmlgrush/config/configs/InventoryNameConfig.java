@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021 SkillCode
  *
- * This class is a part of the source code of the
+ * This file is a part of the source code of the
  * AdvancedMLGRush plugin from SkillCode.
  *
  * This class may only be used in compliance with the
@@ -39,6 +39,7 @@ public class InventoryNameConfig extends Configurable implements Replaceable {
     public static final String SETTINGS = "settings";
     public static final String STICK = "stick";
     public static final String BLOCKS = "blocks";
+    public static final String INVENTORY_SORTING = "inventory_sorting";
 
     @PostConstruct
     public void initConfig() {
@@ -60,5 +61,6 @@ public class InventoryNameConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(SETTINGS, "&8» &eSettings"));
         list.add(new Pair<>(STICK, "&8» &eStick"));
         list.add(new Pair<>(BLOCKS, "&8» &eBlocks"));
+        list.add(new Pair<>(INVENTORY_SORTING, "&8» &eInventory Sorting"));
     }
 }

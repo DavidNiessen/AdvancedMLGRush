@@ -15,26 +15,26 @@ package net.skillcode.advancedmlgrush.listener.listeners;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.event.EventManager;
-import net.skillcode.advancedmlgrush.miscellaneous.registrable.RegistrableManager;
+import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.jetbrains.annotations.NotNull;
 
 @Singleton
-public class PlayerQuitListener implements Listener {
+public class InventoryDragListener implements Listener {
 
-    @Inject
-    private RegistrableManager registrableManager;
     @Inject
     private EventManager eventManager;
 
     @EventHandler
-    public void onQuit(final PlayerQuitEvent event) {
-        final Player player = event.getPlayer();
-        eventManager.callEvent(event);
+    public void onClick(final @NotNull InventoryDragEvent event) {
+        if (event.getWhoClicked() instanceof Player) {
+            eventManager.callEvent(event);
+        }
 
-        registrableManager.unregisterPlayer(player);
     }
 
 }

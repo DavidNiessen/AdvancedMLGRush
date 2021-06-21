@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021 SkillCode
  *
- * This class is a part of the source code of the
+ * This file is a part of the source code of the
  * AdvancedMLGRush plugin from SkillCode.
  *
  * This class may only be used in compliance with the
@@ -23,6 +23,7 @@ public enum EnumItem {
     SPECTATE("spectate"),
     GADGETS("gadgets"),
     STATS("stats"),
+    PICKAXE("pickaxe"),
     QUEUE_LEAVE("queue_leave"),
     INVENTORY_BACKGROUND("inventory_background"),
     ARROW_LEFT("arrow_left"),
@@ -31,7 +32,9 @@ public enum EnumItem {
     SETTINGS_MAP("settings_map"),
     SETTINGS_ROUNDS("settings_rounds"),
     GADGETS_STICK("gadgets_stick"),
-    GADGETS_BLOCKS("gadgets_blocks");
+    GADGETS_BLOCKS("gadgets_blocks"),
+    SORTING_SAVE("sorting_save"),
+    SORTING_RESET("sorting_reset");
 
     private final String configPath;
 

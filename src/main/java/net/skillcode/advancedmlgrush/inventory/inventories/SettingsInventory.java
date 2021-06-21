@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021 SkillCode
  *
- * This class is a part of the source code of the
+ * This file is a part of the source code of the
  * AdvancedMLGRush plugin from SkillCode.
  *
  * This class may only be used in compliance with the
@@ -12,16 +12,20 @@
 
 package net.skillcode.advancedmlgrush.inventory.inventories;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.InventoryNameConfig;
+import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventListener;
 import net.skillcode.advancedmlgrush.inventory.AbstractInventory;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -29,6 +33,9 @@ import java.util.Optional;
 
 @Singleton
 public class SettingsInventory extends AbstractInventory {
+
+    @Inject
+    private SortingInventory sortingInventory;
 
     @PostConstruct
     public void initInventory() {
@@ -65,6 +72,24 @@ public class SettingsInventory extends AbstractInventory {
 
     @Override
     protected List<EventListener<?>> listeners(final @NotNull List<EventListener<?>> eventListeners) {
+        final Class<? extends AbstractInventory> clazz = this.getClass();
+        eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class) {
+            @Override
+            protected void onEvent(final @NotNull InventoryClickEvent event) {
+                final Player player = (Player) event.getWhoClicked();
+                if (inventoryUtils.isOpenInventory(player, clazz)) {
+                    final ItemStack currentItem = event.getCurrentItem();
+                    if (itemUtils.compare(currentItem, EnumItem.SETTINGS_INVENTORY_SORTING, Optional.of(player))) {
+                        sortingInventory.open(player);
+                        soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
+                    } else if (itemUtils.compare(currentItem, EnumItem.SETTINGS_MAP, Optional.of(player))) {
+                        soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
+                    } else if (itemUtils.compare(currentItem, EnumItem.SETTINGS_ROUNDS, Optional.of(player))) {
+                        soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
+                    }
+                }
+            }
+        });
         return eventListeners;
     }
 }

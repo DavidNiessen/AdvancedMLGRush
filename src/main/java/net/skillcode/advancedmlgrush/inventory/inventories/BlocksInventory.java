@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021 SkillCode
  *
- * This class is a part of the source code of the
+ * This file is a part of the source code of the
  * AdvancedMLGRush plugin from SkillCode.
  *
  * This class may only be used in compliance with the
@@ -13,6 +13,7 @@
 package net.skillcode.advancedmlgrush.inventory.inventories;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.InventoryNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.game.gadgets.Gadget;
@@ -29,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
+@Singleton
 public class BlocksInventory extends MultiPageInventory {
 
     @Inject
@@ -67,13 +69,16 @@ public class BlocksInventory extends MultiPageInventory {
     protected void onElementClick(final Player player, final @NotNull Optional<Object> optional) {
         if (optional.isPresent() && optional.get() instanceof Gadget) {
             final Gadget gadget = (Gadget) optional.get();
+            final int index = gadgetManager.getBlocks().indexOf(gadget);
 
-            if (player.hasPermission(gadget.getPermission())) {
+            if (player.hasPermission(gadget.getPermission())
+            || index == 0) {
                 final CachedSQLData cachedSQLData = sqlDataCache.getSQLData(player);
-                cachedSQLData.setGadgetsBlocks(gadgetManager.getBlocks().indexOf(gadget));
+                cachedSQLData.setGadgetsBlocks(index);
                 soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
+                player.closeInventory();
             } else {
-                soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK_LOCKED);
+                soundUtil.playSound(player, SoundConfig.ERROR);
             }
         }
     }

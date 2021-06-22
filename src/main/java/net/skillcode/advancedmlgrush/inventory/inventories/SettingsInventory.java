@@ -2,7 +2,7 @@
  * Copyright (c) 2021 SkillCode
  *
  * This file is a part of the source code of the
- * AdvancedMLGRush plugin from SkillCode.
+ * AdvancedMLGRush plugin by SkillCode.
  *
  * This class may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
@@ -36,6 +36,8 @@ public class SettingsInventory extends AbstractInventory {
 
     @Inject
     private SortingInventory sortingInventory;
+    @Inject
+    private RoundsInventory roundsInventory;
 
     @PostConstruct
     public void initInventory() {
@@ -85,6 +87,7 @@ public class SettingsInventory extends AbstractInventory {
                     } else if (itemUtils.compare(currentItem, EnumItem.SETTINGS_MAP, Optional.of(player))) {
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
                     } else if (itemUtils.compare(currentItem, EnumItem.SETTINGS_ROUNDS, Optional.of(player))) {
+                        roundsInventory.open(player);
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
                     }
                 }

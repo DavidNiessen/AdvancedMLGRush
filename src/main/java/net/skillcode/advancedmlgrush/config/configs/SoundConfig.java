@@ -2,7 +2,7 @@
  * Copyright (c) 2021 SkillCode
  *
  * This file is a part of the source code of the
- * AdvancedMLGRush plugin from SkillCode.
+ * AdvancedMLGRush plugin by SkillCode.
  *
  * This class may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
@@ -16,10 +16,10 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.Configurable;
+import net.skillcode.advancedmlgrush.libs.xseries.XSound;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.sound.SoundParser;
 import net.skillcode.advancedmlgrush.util.Pair;
-import net.skillcode.advancedmlgrush.libs.xseries.XSound;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

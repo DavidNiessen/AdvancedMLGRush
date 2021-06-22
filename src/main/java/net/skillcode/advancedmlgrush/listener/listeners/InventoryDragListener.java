@@ -2,7 +2,7 @@
  * Copyright (c) 2021 SkillCode
  *
  * This file is a part of the source code of the
- * AdvancedMLGRush plugin from SkillCode.
+ * AdvancedMLGRush plugin by SkillCode.
  *
  * This class may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
@@ -15,11 +15,9 @@ package net.skillcode.advancedmlgrush.listener.listeners;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.event.EventManager;
-import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.jetbrains.annotations.NotNull;
 

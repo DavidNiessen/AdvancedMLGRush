@@ -2,7 +2,7 @@
  * Copyright (c) 2021 SkillCode
  *
  * This file is a part of the source code of the
- * AdvancedMLGRush plugin from SkillCode.
+ * AdvancedMLGRush plugin by SkillCode.
  *
  * This class may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
@@ -81,8 +81,10 @@ public class SortingInventory extends AbstractInventory {
         final Pair<ItemStack, Integer> block = ingameItems.getBlock(player);
         final Pair<ItemStack, Integer> pickaxe = ingameItems.getPickaxe(player);
 
-        inventory.setItem(21, itemManager.getItem(Optional.of(player), EnumItem.SORTING_SAVE));
-        inventory.setItem(23, itemManager.getItem(Optional.of(player), EnumItem.SORTING_RESET));
+        final Optional<Player> optionalPlayer = Optional.of(player);
+
+        inventory.setItem(21, itemManager.getItem(optionalPlayer, EnumItem.SORTING_SAVE));
+        inventory.setItem(23, itemManager.getItem(optionalPlayer, EnumItem.SORTING_RESET));
 
         inventory.setItem(stick.getValue() + 9, stick.getKey());
         inventory.setItem(block.getValue() + 9, block.getKey());

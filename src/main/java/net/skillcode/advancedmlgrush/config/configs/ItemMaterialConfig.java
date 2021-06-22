@@ -2,7 +2,7 @@
  * Copyright (c) 2021 SkillCode
  *
  * This file is a part of the source code of the
- * AdvancedMLGRush plugin from SkillCode.
+ * AdvancedMLGRush plugin by SkillCode.
  *
  * This class may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
@@ -18,9 +18,9 @@ import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.Configurable;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.parser.MaterialParser;
+import net.skillcode.advancedmlgrush.libs.xseries.XMaterial;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.util.Pair;
-import net.skillcode.advancedmlgrush.libs.xseries.XMaterial;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 
@@ -61,6 +61,12 @@ public class ItemMaterialConfig extends Configurable {
         list.add(new Pair<>(EnumItem.GADGETS_BLOCKS.getConfigPath(), XMaterial.SANDSTONE.name()));
         list.add(new Pair<>(EnumItem.SORTING_SAVE.getConfigPath(), XMaterial.DYE.name() + ":10"));
         list.add(new Pair<>(EnumItem.SORTING_RESET.getConfigPath(), XMaterial.DYE.name() + ":1"));
+        list.add(new Pair<>(EnumItem.ROUNDS.getConfigPath(), XMaterial.SLIME_BALL.name()));
+        list.add(new Pair<>(EnumItem.STATS_WINS.getConfigPath(), XMaterial.IRON_SWORD.name()));
+        list.add(new Pair<>(EnumItem.STATS_LOSES.getConfigPath(), XMaterial.COAL.name()));
+        list.add(new Pair<>(EnumItem.STATS_WIN_RATE.getConfigPath(), XMaterial.DIAMOND.name()));
+        list.add(new Pair<>(EnumItem.STATS_BEDS.getConfigPath(), XMaterial.BED.name()));
+        list.add(new Pair<>(EnumItem.STATS_RANKING.getConfigPath(), XMaterial.GOLD_BLOCK.name()));
     }
 
     public Material getMaterial(final @NotNull String path) {

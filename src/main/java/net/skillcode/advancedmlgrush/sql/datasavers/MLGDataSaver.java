@@ -2,7 +2,7 @@
  * Copyright (c) 2021 SkillCode
  *
  * This file is a part of the source code of the
- * AdvancedMLGRush plugin from SkillCode.
+ * AdvancedMLGRush plugin by SkillCode.
  *
  * This class may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
@@ -15,6 +15,7 @@ package net.skillcode.advancedmlgrush.sql.datasavers;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.DataConfig;
+import net.skillcode.advancedmlgrush.game.stats.Ranking;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.sql.DataSaver;
 import net.skillcode.advancedmlgrush.sql.DataSaverParams;
@@ -24,6 +25,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -32,6 +35,8 @@ public class MLGDataSaver extends DataSaver {
 
     @Inject
     private DataConfig dataConfig;
+    @Inject
+    private Ranking ranking;
 
     public CompletableFuture<CachedSQLData> getPlayerData(final @NotNull Player player) {
         return CompletableFuture.supplyAsync(() -> getPlayerDataSync(player), threadPoolManager.getThreadPool());
@@ -60,6 +65,33 @@ public class MLGDataSaver extends DataSaver {
                     cachedSQLData.getGadgetsBlocks(), cachedSQLData.getStatsWins(),
                     cachedSQLData.getStatsLoses(), cachedSQLData.getStatsBeds(),
                     player.getUniqueId().toString()));
+        }
+    }
+
+    public void updateRanking(final @NotNull RankingRunnable rankingRunnable) {
+        if (isConnected()) {
+            final Callback callback = new Callback() {
+                @Override
+                public void onSuccess(final @NotNull ResultSet resultSet) throws SQLException {
+                    final Map<String, Integer> map = new HashMap<>();
+                    int count = 0;
+                    while (resultSet.next()) {
+                        map.put(resultSet.getString("player_name"), ++count);
+                    }
+
+                    rankingRunnable.run(map);
+                }
+
+                @Override
+                public void onFailure(final @NotNull Optional<Exception> optional) {
+                    //empty
+                }
+            };
+
+            executeQueryAsync(
+                    "SELECT player_name " +
+                            "FROM {name} " +
+                            "ORDER BY stats_wins DESC;", callback);
         }
     }
 
@@ -182,5 +214,11 @@ public class MLGDataSaver extends DataSaver {
                     "INSERT INTO {name} (player_uuid, player_name) " +
                             "VALUES ('%1$s', '%2$s');", player.getUniqueId().toString(), player.getName()));
         }
+    }
+
+    public interface RankingRunnable {
+
+        void run(final @NotNull Map<String, Integer> map);
+
     }
 }

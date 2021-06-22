@@ -2,7 +2,7 @@
  * Copyright (c) 2021 SkillCode
  *
  * This file is a part of the source code of the
- * AdvancedMLGRush plugin from SkillCode.
+ * AdvancedMLGRush plugin by SkillCode.
  *
  * This class may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.event.events.PlayerDataLoadEvent;
 import net.skillcode.advancedmlgrush.exception.ExceptionHandler;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.Registrable;
 import net.skillcode.advancedmlgrush.sql.datasavers.MLGDataSaver;
@@ -76,9 +77,12 @@ public class SQLDataCache implements Registrable, EventHandler {
                             cancel();
                         } else if (future.isDone()) {
                             try {
-                                cache.put(player, future.get());
+                                final CachedSQLData cachedSQLData = future.get();
+                                javaPlugin.getServer().getPluginManager().callEvent(
+                                        new PlayerDataLoadEvent(player, cachedSQLData.isDefaultData(), cachedSQLData));
+                                cache.put(player, cachedSQLData);
                             } catch (ExecutionException | InterruptedException e) {
-                                e.printStackTrace();
+                                exceptionHandler.handle(e);
                             } finally {
                                 cancel();
                             }

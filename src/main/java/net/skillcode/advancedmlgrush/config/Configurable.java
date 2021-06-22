@@ -89,6 +89,11 @@ public abstract class Configurable implements ConfigData {
         return new ArrayList<>((Collection<? extends String>) yamlConfiguration.getList(path));
     }
 
+    @Override
+    public List<Integer> getIntegerList(final @NotNull String path) {
+        return yamlConfiguration.getIntegerList(path);
+    }
+
     private void checkFile() {
         if (!file.exists()) {
             file.getParentFile().mkdirs();

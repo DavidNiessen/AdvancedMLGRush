@@ -17,14 +17,20 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.InventoryNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
+import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.game.rounds.RoundManager;
 import net.skillcode.advancedmlgrush.inventory.AbstractInventory;
 import net.skillcode.advancedmlgrush.item.EnumItem;
+import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import net.skillcode.advancedmlgrush.util.Pair;
 import net.skillcode.advancedmlgrush.util.SkullUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -37,6 +43,11 @@ public class RoundsInventory extends AbstractInventory {
     private SkullUtils skullUtils;
     @Inject
     private ItemNameConfig itemNameConfig;
+    @Inject
+    private SQLDataCache sqlDataCache;
+    @Inject
+    private RoundManager roundManager;
+
 
     @PostConstruct
     public void initInventory() {
@@ -67,11 +78,49 @@ public class RoundsInventory extends AbstractInventory {
 
     @Override
     protected Inventory onOpen(final @NotNull Inventory inventory, final @NotNull Player player) {
+        setRoundsItem(inventory, player);
         return inventory;
     }
 
     @Override
     protected List<EventListener<?>> listeners(final @NotNull List<EventListener<?>> eventListeners) {
+        final Class<? extends AbstractInventory> clazz = this.getClass();
+        eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class) {
+            @Override
+            protected void onEvent(final @NotNull InventoryClickEvent event) {
+                final Player player = (Player) event.getWhoClicked();
+                if (inventoryUtils.isOpenInventory(player, clazz)) {
+                    final ItemStack currentItem = event.getCurrentItem();
+                    if (itemUtils.isValidItem(currentItem)) {
+
+                        if (itemUtils.compare(currentItem, EnumItem.ROUNDS_INCREASE, Optional.empty())
+                                && roundManager.increaseRounds(player)) {
+                            soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
+                        } else if (itemUtils.compare(currentItem, EnumItem.ROUNDS_DECREASE, Optional.empty())
+                                && roundManager.decreaseRounds(player)) {
+                            soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
+                        }
+                        setRoundsItem(event.getInventory(), player);
+                    }
+                }
+            }
+        });
+
+        eventListeners.add(new EventListener<InventoryCloseEvent>(InventoryCloseEvent.class) {
+            @Override
+            protected void onEvent(final @NotNull InventoryCloseEvent event) {
+                final Player player = (Player) event.getPlayer();
+                if (inventoryUtils.isOpenInventory(player, clazz)) {
+                    roundManager.unregister(player);
+                }
+            }
+        });
         return eventListeners;
+    }
+
+    private void setRoundsItem(final @NotNull Inventory inventory, final @NotNull Player player) {
+        final ItemStack rounds = itemManager.getItem(Optional.of(player), EnumItem.ROUNDS);
+        rounds.setAmount(sqlDataCache.getSQLData(player).getSettingsRounds());
+        inventory.setItem(13, rounds);
     }
 }

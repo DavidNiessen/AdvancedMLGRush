@@ -61,6 +61,7 @@ public class ItemMaterialConfig extends Configurable {
         list.add(new Pair<>(EnumItem.GADGETS_BLOCKS.getConfigPath(), XMaterial.SANDSTONE.name()));
         list.add(new Pair<>(EnumItem.SORTING_SAVE.getConfigPath(), XMaterial.DYE.name() + ":10"));
         list.add(new Pair<>(EnumItem.SORTING_RESET.getConfigPath(), XMaterial.DYE.name() + ":1"));
+        list.add(new Pair<>(EnumItem.ROUNDS.getConfigPath(), XMaterial.SLIME_BALL.name()));
     }
 
     public Material getMaterial(final @NotNull String path) {

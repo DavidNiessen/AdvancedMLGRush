@@ -19,6 +19,7 @@ import com.google.inject.matcher.Matchers;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
+import net.skillcode.advancedmlgrush.MLGRush;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.inventory.multipage.MPHFactory;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
@@ -33,10 +34,10 @@ import java.util.Arrays;
 
 public class MLGBinderModule extends AbstractModule implements TypeListener {
 
-    private final JavaPlugin javaPlugin;
+    private final MLGRush mlgRush;
 
-    public MLGBinderModule(final @NotNull JavaPlugin javaPlugin) {
-        this.javaPlugin = javaPlugin;
+    public MLGBinderModule(final @NotNull MLGRush mlgRush) {
+        this.mlgRush = mlgRush;
     }
 
     @Override
@@ -46,9 +47,10 @@ public class MLGBinderModule extends AbstractModule implements TypeListener {
         super.install(new FactoryModuleBuilder().build(IBFactory.class));
         super.install(new FactoryModuleBuilder().build(MPHFactory.class));
 
-        super.bind(JavaPlugin.class).toInstance(javaPlugin);
+        super.bind(JavaPlugin.class).toInstance(mlgRush);
+        super.bind(MLGRush.class).toInstance(mlgRush);
         super.bind(JsonConfigAPI.class).toInstance(new JsonConfigAPI(true));
-        super.bind(PluginManager.class).toInstance(javaPlugin.getServer().getPluginManager());
+        super.bind(PluginManager.class).toInstance(mlgRush.getServer().getPluginManager());
     }
 
     @Override

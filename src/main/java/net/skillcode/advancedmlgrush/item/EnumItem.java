@@ -37,7 +37,12 @@ public enum EnumItem {
     SORTING_RESET("sorting_reset"),
     ROUNDS_INCREASE("rounds_increase"),
     ROUNDS_DECREASE("rounds_decrease"),
-    ROUNDS("rounds");
+    ROUNDS("rounds"),
+    STATS_WINS("stats_wins"),
+    STATS_LOSES("stats_loses"),
+    STATS_WIN_RATE("stats_winrate"),
+    STATS_BEDS("stats_beds"),
+    STATS_RANKING("stats_ranking");
 
     private final String configPath;
 

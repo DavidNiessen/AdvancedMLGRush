@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
+import net.skillcode.advancedmlgrush.game.rounds.RoundManager;
 import net.skillcode.advancedmlgrush.inventory.InventoryManager;
 import net.skillcode.advancedmlgrush.util.Initializer;
 import org.jetbrains.annotations.NotNull;
@@ -34,5 +35,6 @@ public class RegistrableInitializer implements Initializer {
     public void init(final @NotNull Injector injector) {
         manager.registerRegistrable(injector.getInstance(BuildModeManager.class));
         manager.registerRegistrable(injector.getInstance(InventoryManager.class));
+        manager.registerRegistrable(injector.getInstance(RoundManager.class));
     }
 }

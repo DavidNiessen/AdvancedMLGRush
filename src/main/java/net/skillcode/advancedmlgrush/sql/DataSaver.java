@@ -18,12 +18,15 @@ import net.skillcode.advancedmlgrush.config.configs.DebugConfig;
 import net.skillcode.advancedmlgrush.exception.ExceptionHandler;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.sql.*;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public abstract class DataSaver {
 
@@ -92,6 +95,34 @@ public abstract class DataSaver {
         return Optional.empty();
     }
 
+    protected void executeQueryAsync(final @NotNull String query, final @NotNull Callback callback) {
+        if (checkConnection()) {
+            final CompletableFuture<Optional<ResultSet>> future = CompletableFuture.supplyAsync(() -> executeQuerySync(query), threadPoolManager.getThreadPool());
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (future.isDone()) {
+                        try {
+                            final Optional<ResultSet> optional= future.get();
+                            if (optional.isPresent()) {
+                                callback.onSuccess(optional.get());
+                            }  else {
+                                callback.onFailure(Optional.empty());
+                            }
+                        } catch (SQLException | ExecutionException | InterruptedException exception) {
+                            exceptionHandler.handle(exception);
+                            callback.onFailure(Optional.of(exception));
+                        } finally {
+                            cancel();
+                        }
+                    }
+                }
+            }.runTaskTimer(javaPlugin, 5, 5);
+        } else {
+            callback.onFailure(Optional.empty());
+        }
+    }
+
     protected abstract DataSaverParams initParams();
 
     protected abstract String creationQuery();
@@ -152,5 +183,13 @@ public abstract class DataSaver {
 
     private String replaceName(final @NotNull String query) {
         return query.replace("{name}", params.getTable());
+    }
+
+    public interface Callback {
+
+        void onSuccess(final @NotNull ResultSet resultSet) throws SQLException;
+
+        void onFailure(final @NotNull Optional<Exception> optional);
+
     }
 }

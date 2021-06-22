@@ -10,10 +10,10 @@
  * Support: https://discord.skillplugins.com
  */
 
-package net.skillcode.advancedmlgrush.placeholder.placeholders;
+package net.skillcode.advancedmlgrush.placeholder.placeholders.ranking;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.game.stats.Ranking;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.entity.Player;
@@ -21,19 +21,20 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-@Singleton
-public class RoundsPlaceholder extends Placeholder {
+public class RankingPlaceholder extends Placeholder {
 
     private final SQLDataCache sqlDataCache;
+    private final Ranking ranking;
 
     @Inject
-    public RoundsPlaceholder(final @NotNull SQLDataCache sqlDataCache) {
+    public RankingPlaceholder(final @NotNull SQLDataCache sqlDataCache, final @NotNull Ranking ranking) {
         this.sqlDataCache = sqlDataCache;
+        this.ranking = ranking;
     }
 
     @Override
     public String identifier() {
-        return "%rounds%";
+        return "%ranking%";
     }
 
     @Override
@@ -46,6 +47,7 @@ public class RoundsPlaceholder extends Placeholder {
         if (!sqlDataCache.isLoaded(player)) {
             return getLoadingValue();
         }
-        return String.valueOf(sqlDataCache.getSQLData(player).getSettingsRounds());
+        return String.valueOf(ranking.getRankingByName(player));
     }
+
 }

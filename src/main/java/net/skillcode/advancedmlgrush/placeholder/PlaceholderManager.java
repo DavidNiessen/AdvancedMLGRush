@@ -30,6 +30,8 @@ public class PlaceholderManager {
 
     private final Map<String, Placeholder> placeholderMap = new ConcurrentHashMap<>();
 
+    private final Pattern pattern1 = Pattern.compile("%(.*?)%", Pattern.DOTALL);
+
     public void registerPlaceholder(final @NotNull Placeholder placeholder) {
         placeholderMap.put(placeholder.identifier(), placeholder);
     }
@@ -39,13 +41,13 @@ public class PlaceholderManager {
         getPlaceholders(string).forEach(placeholder -> Optional.ofNullable(placeholderMap.getOrDefault(placeholder, null))
                 .ifPresent(placeholder1 -> atomicReference.set(string.replace(placeholder, placeholder1.onRequest(optionalPlayer)))));
 
+
         return atomicReference.get();
     }
 
     private List<String> getPlaceholders(final @NotNull String string) {
         final List<String> list = new ArrayList<>();
-        final Pattern pattern = Pattern.compile("%(.*?)%", Pattern.DOTALL);
-        final Matcher matcher = pattern.matcher(string);
+        final Matcher matcher = pattern1.matcher(string);
 
         while (matcher.find()) {
             list.add("%" + matcher.group(1).toLowerCase() + "%");

@@ -48,10 +48,6 @@ public class RoundManager implements Registrable {
         Collections.sort(roundList);
     }
 
-    public int getRounds(final @NotNull Player player) {
-        return roundMap.getOrDefault(player, mainConfig.getInt(MainConfig.DEFAULT_ROUNDS));
-    }
-
     public boolean increaseRounds(final @NotNull Player player) {
         final CachedSQLData cachedSQLData = sqlDataCache.getSQLData(player);
         int rounds = getRoundsFromMap(player, cachedSQLData);

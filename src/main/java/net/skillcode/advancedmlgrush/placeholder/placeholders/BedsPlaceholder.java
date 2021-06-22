@@ -13,7 +13,6 @@
 package net.skillcode.advancedmlgrush.placeholder.placeholders;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.entity.Player;
@@ -21,19 +20,18 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-@Singleton
-public class RoundsPlaceholder extends Placeholder {
+public class BedsPlaceholder extends Placeholder {
 
     private final SQLDataCache sqlDataCache;
 
     @Inject
-    public RoundsPlaceholder(final @NotNull SQLDataCache sqlDataCache) {
+    public BedsPlaceholder(final @NotNull SQLDataCache sqlDataCache) {
         this.sqlDataCache = sqlDataCache;
     }
 
     @Override
     public String identifier() {
-        return "%rounds%";
+        return "%beds%";
     }
 
     @Override
@@ -46,6 +44,7 @@ public class RoundsPlaceholder extends Placeholder {
         if (!sqlDataCache.isLoaded(player)) {
             return getLoadingValue();
         }
-        return String.valueOf(sqlDataCache.getSQLData(player).getSettingsRounds());
+        return String.valueOf(sqlDataCache.getSQLData(player).getStatsBeds());
     }
+
 }

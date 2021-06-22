@@ -56,7 +56,7 @@ public class GadgetsInventory extends AbstractInventory {
 
     @Override
     protected Pair<Inventory, String> onCreate() {
-        final String title = inventoryUtils.getInventoryName(InventoryNameConfig.SETTINGS);
+        final String title = inventoryUtils.getInventoryName(InventoryNameConfig.GADGETS);
         final Inventory inventory = Bukkit.createInventory(null, 3 * 9, title);
         inventoryUtils.fill(inventory);
 

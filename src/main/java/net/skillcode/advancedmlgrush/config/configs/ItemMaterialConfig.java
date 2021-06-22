@@ -62,6 +62,11 @@ public class ItemMaterialConfig extends Configurable {
         list.add(new Pair<>(EnumItem.SORTING_SAVE.getConfigPath(), XMaterial.DYE.name() + ":10"));
         list.add(new Pair<>(EnumItem.SORTING_RESET.getConfigPath(), XMaterial.DYE.name() + ":1"));
         list.add(new Pair<>(EnumItem.ROUNDS.getConfigPath(), XMaterial.SLIME_BALL.name()));
+        list.add(new Pair<>(EnumItem.STATS_WINS.getConfigPath(), XMaterial.IRON_SWORD.name()));
+        list.add(new Pair<>(EnumItem.STATS_LOSES.getConfigPath(), XMaterial.COAL.name()));
+        list.add(new Pair<>(EnumItem.STATS_WIN_RATE.getConfigPath(), XMaterial.DIAMOND.name()));
+        list.add(new Pair<>(EnumItem.STATS_BEDS.getConfigPath(), XMaterial.BED.name()));
+        list.add(new Pair<>(EnumItem.STATS_RANKING.getConfigPath(), XMaterial.GOLD_BLOCK.name()));
     }
 
     public Material getMaterial(final @NotNull String path) {

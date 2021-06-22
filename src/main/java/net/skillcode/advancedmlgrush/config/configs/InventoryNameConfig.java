@@ -29,18 +29,20 @@ import java.util.Optional;
 @Singleton
 public class InventoryNameConfig extends Configurable implements Replaceable {
 
+    public static final String SETTINGS = "settings";
+    public static final String GADGETS = "gadgets";
+    public static final String STICK = "stick";
+    public static final String BLOCKS = "blocks";
+    public static final String INVENTORY_SORTING = "inventory_sorting";
+    public static final String ROUNDS = "rounds";
+    public static final String STATS = "stats";
+
     private final Placeholders placeholders;
 
     @Inject
     public InventoryNameConfig(final Placeholders placeholders) {
         this.placeholders = placeholders;
     }
-
-    public static final String SETTINGS = "settings";
-    public static final String STICK = "stick";
-    public static final String BLOCKS = "blocks";
-    public static final String INVENTORY_SORTING = "inventory_sorting";
-    public static final String ROUNDS = "rounds";
 
     @PostConstruct
     public void initConfig() {
@@ -60,9 +62,11 @@ public class InventoryNameConfig extends Configurable implements Replaceable {
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
         list.add(new Pair<>(SETTINGS, "&8» &eSettings"));
+        list.add(new Pair<>(GADGETS, "&8» &eGadgets"));
         list.add(new Pair<>(STICK, "&8» &eStick"));
         list.add(new Pair<>(BLOCKS, "&8» &eBlocks"));
         list.add(new Pair<>(INVENTORY_SORTING, "&8» &eInventory Sorting"));
         list.add(new Pair<>(ROUNDS, "&8» &eRounds"));
+        list.add(new Pair<>(STATS, "&8» &eStats"));
     }
 }

@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Getter
 public enum EnumItem {
-
+    INVENTORY_BACKGROUND("inventory_background"),
     CHALLENGER("challenger"),
     SETTINGS("settings"),
     SPECTATE("spectate"),
@@ -25,7 +25,6 @@ public enum EnumItem {
     STATS("stats"),
     PICKAXE("pickaxe"),
     QUEUE_LEAVE("queue_leave"),
-    INVENTORY_BACKGROUND("inventory_background"),
     ARROW_LEFT("arrow_left"),
     ARROW_RIGHT("arrow_right"),
     SETTINGS_INVENTORY_SORTING("settings_inventory_sorting"),

@@ -20,7 +20,8 @@ import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import net.skillcode.advancedmlgrush.item.builder.MetaType;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOWManager;
-import net.skillcode.advancedmlgrush.item.overwriter.ItemOWRegistry;
+import net.skillcode.advancedmlgrush.item.overwriter.ItemOWInitializer;
+import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -38,22 +39,17 @@ public class ItemManager {
     @Inject
     private ItemOWManager itemOWManager;
     @Inject
-    private ItemOWRegistry itemOWRegistry;
-    @Inject
     private IBFactory ibFactory;
 
-    @PostConstruct
-    public void init() {
-        itemOWRegistry.registerOWs();
-    }
 
     public ItemStack getItem(final @NotNull Optional<Player> optionalPlayer, final @NotNull EnumItem enumItem) {
 
         final Optional<ItemStack> optional = itemOWManager.getItem(optionalPlayer, enumItem);
+        final Pair<Material, Integer> pair = getConfigMaterial(enumItem);
 
-        return optional.orElseGet(() -> ibFactory.create(MetaType.ITEM_META, getConfigData(enumItem))
+        return optional.orElseGet(() -> ibFactory.create(MetaType.ITEM_META, pair.getValue())
                 .name(itemNameConfig.getString(optionalPlayer, enumItem.getConfigPath()))
-                .material(getConfigMaterial(enumItem))
+                .material(pair.getKey())
                 .unbreakable()
                 .hideAttributes()
                 .hideEnchants()
@@ -61,12 +57,8 @@ public class ItemManager {
                 .build());
     }
 
-    private Material getConfigMaterial(final @NotNull EnumItem enumItem) {
+    private Pair<Material, Integer> getConfigMaterial(final @NotNull EnumItem enumItem) {
         return itemMaterialConfig.getMaterial(enumItem);
-    }
-
-    private int getConfigData(final @NotNull EnumItem enumItem) {
-        return itemMaterialConfig.getData(enumItem);
     }
 
 }

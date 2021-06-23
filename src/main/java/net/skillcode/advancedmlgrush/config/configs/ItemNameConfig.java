@@ -58,6 +58,7 @@ public class ItemNameConfig extends Configurable implements Replaceable {
 
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
+        list.add(new Pair<>(EnumItem.INVENTORY_BACKGROUND.getConfigPath(), " "));
         list.add(new Pair<>(EnumItem.CHALLENGER.getConfigPath(), "&8» &eChallenge Player"));
         list.add(new Pair<>(EnumItem.SETTINGS.getConfigPath(), "&8» &eSettings"));
         list.add(new Pair<>(EnumItem.SPECTATE.getConfigPath(), "&8» &eSpectate"));
@@ -65,7 +66,6 @@ public class ItemNameConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(EnumItem.STATS.getConfigPath(), "&8» &eStats"));
         list.add(new Pair<>(EnumItem.PICKAXE.getConfigPath(), "&8» &ePickaxe"));
         list.add(new Pair<>(EnumItem.QUEUE_LEAVE.getConfigPath(), "&8» &cLeave Queue"));
-        list.add(new Pair<>(EnumItem.INVENTORY_BACKGROUND.getConfigPath(), " "));
         list.add(new Pair<>(EnumItem.ARROW_LEFT.getConfigPath(), "&e«"));
         list.add(new Pair<>(EnumItem.ARROW_RIGHT.getConfigPath(), "&e»"));
         list.add(new Pair<>(EnumItem.SETTINGS_INVENTORY_SORTING.getConfigPath(), "&8» &eInventory Sorting"));
@@ -82,7 +82,7 @@ public class ItemNameConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(EnumItem.STATS_LOSES.getConfigPath(), "&8» &eLoses &8| &e&l%loses%"));
         list.add(new Pair<>(EnumItem.STATS_WIN_RATE.getConfigPath(), "&8» &eWin Rate &8| &e&l%win_rate%"));
         list.add(new Pair<>(EnumItem.STATS_BEDS.getConfigPath(), "&8» &eBeds &8| &e&l%beds%"));
-        list.add(new Pair<>(EnumItem.STATS_RANKING.getConfigPath(), "&8» &eRanking &8| &e&l%ranking%"));
+        list.add(new Pair<>(EnumItem.STATS_RANKING.getConfigPath(), "&8» &eRanking &8| &e&l#%ranking%"));
     }
 
 }

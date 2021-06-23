@@ -21,9 +21,11 @@ import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import net.skillcode.advancedmlgrush.item.builder.ItemBuilder;
 import net.skillcode.advancedmlgrush.item.builder.MetaType;
 import net.skillcode.advancedmlgrush.item.parser.MaterialParser;
+import net.skillcode.advancedmlgrush.libs.xseries.XEnchantment;
 import net.skillcode.advancedmlgrush.placeholder.Placeholders;
 import net.skillcode.advancedmlgrush.sql.data.CachedSQLData;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
+import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -64,8 +66,7 @@ public class GadgetManager {
     }
 
     public ItemBuilder getGadgetAsBuilder(final @NotNull Player player, final @NotNull Gadget gadget) {
-        final Material material = materialParser.parseMaterial(gadget.getMaterial());
-        final int data = materialParser.parseData(gadget.getMaterial());
+        final Pair<Material, Integer> pair = materialParser.parse(gadget.getMaterial());
         final int index =
                 sticks.contains(gadget) ? sticks.indexOf(gadget) : blocks.contains(gadget) ? blocks.indexOf(gadget) : 0;
 
@@ -73,7 +74,7 @@ public class GadgetManager {
                 placeholders.replace(Optional.of(player), player.hasPermission(gadget.getPermission())
                         || index == 0 ? gadget.getLoreUnlocked() : gadget.getLoreLocked())));
 
-        return ibFactory.create(MetaType.ITEM_META, data).material(material)
+        return ibFactory.create(MetaType.ITEM_META, pair.getValue()).material(pair.getKey())
                 .name(placeholders.replace(Optional.of(player), gadget.getName()))
                 .lore(lore).unbreakable().hideEnchants().hideUnbreakable();
     }
@@ -84,7 +85,7 @@ public class GadgetManager {
     }
 
     public ItemBuilder getStickAsBuilder(final @NotNull Player player) {
-        return getGadgetAsBuilder(player, getStick(player)).enchantment(Enchantment.KNOCKBACK,
+        return getGadgetAsBuilder(player, getStick(player)).enchantment(XEnchantment.KNOCKBACK.parseEnchantment(),
                 mainConfig.getInt(MainConfig.STICK_KNOCKBACK_LEVEL)).lore(new ArrayList<>());
     }
 

@@ -17,6 +17,7 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.libs.xseries.XMaterial;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.util.EnumUtils;
+import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +31,7 @@ public class MaterialParser {
     private final JavaPlugin javaPlugin;
     private final EnumUtils enumUtils;
 
-    private final Map<String, Material> cache = new ConcurrentHashMap<>();
+    private final Map<String, Pair<Material, Integer>> cache = new ConcurrentHashMap<>();
 
     @Inject
     public MaterialParser(final @NotNull JavaPlugin javaPlugin, final @NotNull EnumUtils enumUtils) {
@@ -38,41 +39,26 @@ public class MaterialParser {
         this.enumUtils = enumUtils;
     }
 
-    public Material parseMaterial(final @NotNull String input) {
+    public Pair<Material, Integer> parse(final @NotNull String input) {
         if (cache.containsKey(input)) {
             return cache.get(input);
         }
 
-        String materialName = input;
-        final String[] array = materialName.split(":");
-
-        if (array.length > 1) {
-            materialName = array[0];
-        }
-
-        Material material;
-        if (!enumUtils.isInEnum(XMaterial.class, materialName)
-                || (material = XMaterial.valueOf(materialName).parseMaterial()) == null) {
+        if (!enumUtils.isInEnum(XMaterial.class, input)) {
             javaPlugin.getLogger().warning(String.format(Constants.MATERIAL_PARSE_ERROR, input));
-            return Constants.DEFAULT_MATERIAL;
-        }
-        cache.put(input, material);
-        return material;
-    }
-
-    public int parseData(final @NotNull String input) {
-        int data = 0;
-        final String[] array = input.split(":");
-
-        if (array.length > 1) {
-            try {
-                data = Integer.parseInt(array[1]);
-            } catch (final NumberFormatException exception) {
-                javaPlugin.getLogger().warning(String.format(Constants.MATERIAL_PARSE_ERROR, input));
-            }
+            return new Pair<>(Constants.DEFAULT_MATERIAL, 0);
         }
 
-        return data;
-    }
+        final XMaterial xMaterial = XMaterial.valueOf(input);
+        final Material material = xMaterial.parseMaterial();
+        final int data = xMaterial.getData();
 
+        if (material == null) {
+            javaPlugin.getLogger().warning(String.format(Constants.MATERIAL_PARSE_ERROR, input));
+            return new Pair<>(Constants.DEFAULT_MATERIAL, 0);
+        }
+
+        cache.put(input, new Pair<>(material, data));
+        return new Pair<>(material, data);
+    }
 }

@@ -20,10 +20,8 @@ import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.item.EnumItem;
-import net.skillcode.advancedmlgrush.item.GlassColor;
+import net.skillcode.advancedmlgrush.item.ItemManager;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
-import net.skillcode.advancedmlgrush.item.builder.MetaType;
-import net.skillcode.advancedmlgrush.item.parser.GlassColorParser;
 import net.skillcode.advancedmlgrush.sound.SoundUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -43,8 +41,6 @@ public class InventoryUtils {
     @Inject
     private MainConfig mainConfig;
     @Inject
-    private GlassColorParser glassColorParser;
-    @Inject
     private ItemNameConfig itemNameConfig;
     @Inject
     private IBFactory ibFactory;
@@ -52,14 +48,14 @@ public class InventoryUtils {
     private SoundUtil soundUtil;
     @Inject
     private InventoryNameConfig inventoryNameConfig;
+    @Inject
+    private ItemManager itemManager;
 
     private ItemStack background;
 
     @PostConstruct
     public void init() {
-        final GlassColor glassColor = glassColorParser.parse(mainConfig.getString(MainConfig.INVENTORY_BACKGROUND_COLOR));
-        background = ibFactory.create(MetaType.ITEM_META, glassColor.getData()).name(itemNameConfig.getString(
-                Optional.empty(), EnumItem.INVENTORY_BACKGROUND)).material(Material.STAINED_GLASS_PANE).build();
+        background = itemManager.getItem(Optional.empty(), EnumItem.INVENTORY_BACKGROUND);
     }
 
 

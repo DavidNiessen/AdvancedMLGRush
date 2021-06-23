@@ -20,15 +20,14 @@ import net.skillcode.advancedmlgrush.MLGRush;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.sql.datasavers.MLGDataSaver;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Singleton
 public class Ranking {
@@ -42,6 +41,8 @@ public class Ranking {
 
     //<name, ranking>
     private final BiMap<String, Integer> biMap = HashBiMap.create();
+    //<ranking, wins>
+    private final Map<Integer, Integer> wins = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void init() {
@@ -57,15 +58,18 @@ public class Ranking {
                 if (!mlgRush.getUuid().equals(uuid)) {
                     cancel();
                 } else {
-                    mlgDataSaver.updateRanking(map -> updateRanking(map));
+                    mlgDataSaver.updateRanking((map, wins) -> updateRanking(map, wins));
                 }
             }
         }.runTaskTimer(mlgRush, 0, mainConfig.getLong(MainConfig.RANKING_UPDATE_PERIOND) * 60 * 20);
     }
 
-    public void updateRanking(final @NotNull Map<String, Integer> map) {
+    public void updateRanking(final @NotNull Map<String, Integer> map, final @NotNull Map<Integer, Integer> map2) {
         biMap.clear();
         biMap.putAll(map);
+
+        wins.clear();
+        wins.putAll(map2);
     }
 
     public int getRankingByName(final @NotNull String playerName) {

@@ -15,6 +15,7 @@ package net.skillcode.advancedmlgrush.item.builder;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import lombok.Getter;
+import net.skillcode.advancedmlgrush.libs.xseries.XMaterial;
 import net.skillcode.advancedmlgrush.util.NMSUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -54,9 +55,9 @@ public class ItemBuilder {
     private ItemStack initItemStack() {
         final ItemStack itemStack;
         if (metaType == MetaType.SKULL_META) {
-            itemStack = new ItemStack(Material.SKULL_ITEM, 1, (byte) 3);
+            itemStack = new ItemStack(XMaterial.PLAYER_HEAD.parseMaterial(), 1, (byte) 3);
         } else {
-            itemStack = new ItemStack(Material.STONE, 1, Byte.parseByte(String.valueOf(data)));
+            itemStack = new ItemStack(XMaterial.STONE.parseMaterial(), 1, Byte.parseByte(String.valueOf(data)));
         }
         return itemStack;
     }

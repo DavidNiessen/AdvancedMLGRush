@@ -26,6 +26,7 @@ import net.skillcode.advancedmlgrush.sql.data.CachedSQLData;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
@@ -71,7 +72,11 @@ public class SortingInventory extends AbstractInventory {
         final String title = inventoryUtils.getInventoryName(InventoryNameConfig.INVENTORY_SORTING);
         final Inventory inventory = Bukkit.createInventory(null, 3 * 9, title);
 
-        inventoryUtils.frame(inventory);
+        inventoryUtils.fill(inventory);
+
+        for (int i = LOWER_RANGE; i < HIGHER_RANGE; i++) {
+            inventory.setItem(i, new ItemStack(Material.AIR));
+        }
         return new Pair<>(inventory, title);
     }
 

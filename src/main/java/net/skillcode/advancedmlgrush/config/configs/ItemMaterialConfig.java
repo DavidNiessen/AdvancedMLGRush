@@ -48,10 +48,12 @@ public class ItemMaterialConfig extends Configurable {
 
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
+        list.add(new Pair<>(EnumItem.INVENTORY_BACKGROUND.getConfigPath(), XMaterial.GRAY_STAINED_GLASS_PANE.name()));
         list.add(new Pair<>(EnumItem.CHALLENGER.getConfigPath(), XMaterial.IRON_SWORD.name()));
         list.add(new Pair<>(EnumItem.SETTINGS.getConfigPath(), XMaterial.REPEATER.name()));
         list.add(new Pair<>(EnumItem.SPECTATE.getConfigPath(), XMaterial.COMPASS.name()));
         list.add(new Pair<>(EnumItem.GADGETS.getConfigPath(), XMaterial.CHEST.name()));
+        list.add(new Pair<>(EnumItem.STATS.getConfigPath(), XMaterial.PLAYER_HEAD.name()));
         list.add(new Pair<>(EnumItem.PICKAXE.getConfigPath(), XMaterial.STONE_PICKAXE.name()));
         list.add(new Pair<>(EnumItem.QUEUE_LEAVE.getConfigPath(), XMaterial.BARRIER.name()));
         list.add(new Pair<>(EnumItem.SETTINGS_INVENTORY_SORTING.getConfigPath(), XMaterial.REPEATER.name()));
@@ -59,8 +61,8 @@ public class ItemMaterialConfig extends Configurable {
         list.add(new Pair<>(EnumItem.SETTINGS_ROUNDS.getConfigPath(), XMaterial.SLIME_BALL.name()));
         list.add(new Pair<>(EnumItem.GADGETS_STICK.getConfigPath(), XMaterial.STICK.name()));
         list.add(new Pair<>(EnumItem.GADGETS_BLOCKS.getConfigPath(), XMaterial.SANDSTONE.name()));
-        list.add(new Pair<>(EnumItem.SORTING_SAVE.getConfigPath(), XMaterial.DYE.name() + ":10"));
-        list.add(new Pair<>(EnumItem.SORTING_RESET.getConfigPath(), XMaterial.DYE.name() + ":1"));
+        list.add(new Pair<>(EnumItem.SORTING_SAVE.getConfigPath(), XMaterial.LIME_DYE.name()));
+        list.add(new Pair<>(EnumItem.SORTING_RESET.getConfigPath(), XMaterial.RED_DYE.name()));
         list.add(new Pair<>(EnumItem.ROUNDS.getConfigPath(), XMaterial.SLIME_BALL.name()));
         list.add(new Pair<>(EnumItem.STATS_WINS.getConfigPath(), XMaterial.IRON_SWORD.name()));
         list.add(new Pair<>(EnumItem.STATS_LOSES.getConfigPath(), XMaterial.COAL.name()));
@@ -69,19 +71,11 @@ public class ItemMaterialConfig extends Configurable {
         list.add(new Pair<>(EnumItem.STATS_RANKING.getConfigPath(), XMaterial.GOLD_BLOCK.name()));
     }
 
-    public Material getMaterial(final @NotNull String path) {
-        return materialParser.parseMaterial(super.getString(path));
+    public Pair<Material, Integer> getMaterial(final @NotNull String path) {
+        return materialParser.parse(super.getString(path));
     }
 
-    public Material getMaterial(final @NotNull EnumItem enumItem) {
+    public Pair<Material, Integer> getMaterial(final @NotNull EnumItem enumItem) {
         return getMaterial(enumItem.getConfigPath());
-    }
-
-    public int getData(final @NotNull String path) {
-        return materialParser.parseData(getString(path));
-    }
-
-    public int getData(final @NotNull EnumItem enumItem) {
-        return getData(enumItem.getConfigPath());
     }
 }

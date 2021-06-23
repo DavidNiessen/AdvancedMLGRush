@@ -16,13 +16,13 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import lombok.Getter;
+import net.skillcode.advancedmlgrush.api.APIImplementation;
+import net.skillcode.advancedmlgrush.api.MLGRushAPI;
 import net.skillcode.advancedmlgrush.command.CommandInitializer;
 import net.skillcode.advancedmlgrush.config.FileInitializer;
 import net.skillcode.advancedmlgrush.dependencyinjection.MLGBinderModule;
 import net.skillcode.advancedmlgrush.event.EventHandlerInitializer;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOWInitializer;
-import net.skillcode.advancedmlgrush.libs.xseries.XMaterial;
-import net.skillcode.advancedmlgrush.libs.xseries.XSound;
 import net.skillcode.advancedmlgrush.listener.ListenerInitializer;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.RegistrableInitializer;
 import net.skillcode.advancedmlgrush.placeholder.PlaceholderInitializer;
@@ -33,6 +33,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.UUID;
 
 public class MLGRush extends JavaPlugin {
+
+    @Getter
+    private static MLGRushAPI api;
 
     @Inject
     private DataInitializer dataInitializer;
@@ -70,6 +73,8 @@ public class MLGRush extends JavaPlugin {
         listenerInitializer.init(injector);
         eventHandlerInitializer.init(injector);
         commandInitializer.init(injector);
+
+        api = injector.getInstance(APIImplementation.class);
     }
 
     @Override

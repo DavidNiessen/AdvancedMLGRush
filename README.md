@@ -6,7 +6,7 @@ Make sure to read LICENSE.txt
 To import the source code without errors you have to do the following things first:
 <ol>
   <li>Install the Spigot <a href="https://www.spigotmc.org/wiki/buildtools/#1-13">BuildTools</a> for version 1.13</li>
-  <li>Create the "Settings.xml" file in your .m2 directory if it does not already exist. Create the variable "output-mlgrush" and set it to the path where you want to export the plugin. A bit further below you will find an example settings.xml file</li>
+  <li>Create the "settings.xml" file in your .m2 directory if it does not already exist. Create the variable "output-mlgrush" and set it to the path where you want to export the plugin. A bit further below you will find an example settings.xml file</li>
 </ol>
 
 ```xml

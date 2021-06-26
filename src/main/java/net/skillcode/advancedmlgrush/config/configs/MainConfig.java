@@ -26,6 +26,7 @@ import java.util.List;
 @Singleton
 public class MainConfig extends Configurable {
 
+    public static final String ADMIN_PERMISSION = "admin_permission";
     public static final String STICK_KNOCKBACK_LEVEL = "stick_knockback_level";
     public static final String PICKAXE_EFFICIENCY_LEVEL = "pickaxe_efficiency_level";
     public static final String PLACEHOLDER_NULL_VALUE = "placeholder_null_value";
@@ -47,6 +48,7 @@ public class MainConfig extends Configurable {
 
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
+        list.add(new Pair<>(ADMIN_PERMISSION, "mlgrush.admin"));
         list.add(new Pair<>(STICK_KNOCKBACK_LEVEL, 1));
         list.add(new Pair<>(PICKAXE_EFFICIENCY_LEVEL, 1));
         list.add(new Pair<>(PLACEHOLDER_NULL_VALUE, "-"));

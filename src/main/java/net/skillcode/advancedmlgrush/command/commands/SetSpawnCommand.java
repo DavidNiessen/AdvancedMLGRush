@@ -13,11 +13,11 @@
 package net.skillcode.advancedmlgrush.command.commands;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
-import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
-import org.bukkit.GameMode;
+import net.skillcode.advancedmlgrush.game.spawn.SpawnFile;
+import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,15 +25,15 @@ import org.bukkit.entity.Player;
 
 import java.util.Optional;
 
-@Singleton
-public class BuildCommand implements CommandExecutor {
+public class SetSpawnCommand implements CommandExecutor {
 
     @Inject
-    private BuildModeManager buildModeManager;
-    @Inject
-    private MainConfig mainConfig;
+    private SpawnFileLoader spawnFileLoader;
     @Inject
     private MessageConfig messageConfig;
+    @Inject
+    private MainConfig mainConfig;
+
 
     @Override
     public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] strings) {
@@ -47,22 +47,11 @@ public class BuildCommand implements CommandExecutor {
             return false;
         }
 
-        if (!buildModeManager.isRegistered(player)) {
-            buildModeManager.register(player);
-        }
+        final Location location = player.getLocation();
+        spawnFileLoader.createSpawnFile(new SpawnFile(player.getWorld().getName(), location.getX(),
+                location.getY(), location.getZ(), location.getYaw(), location.getPitch()));
 
-        final boolean isInBuildMode = buildModeManager.isInBuildMode(player);
-
-        if (isInBuildMode) {
-            player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.BUILD_MODE_OFF));
-            player.setGameMode(GameMode.SURVIVAL);
-            buildModeManager.setBuildMode(player, false);
-        } else {
-            player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.BUILD_MODE_ON));
-            player.setGameMode(GameMode.CREATIVE);
-            buildModeManager.setBuildMode(player, true);
-        }
-
+        player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.SPAWN_SET));
         return false;
     }
 }

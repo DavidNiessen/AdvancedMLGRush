@@ -61,7 +61,7 @@ public class Ranking {
                     mlgDataSaver.updateRanking((map, wins) -> updateRanking(map, wins));
                 }
             }
-        }.runTaskTimer(mlgRush, 0, mainConfig.getLong(MainConfig.RANKING_UPDATE_PERIOND) * 60 * 20);
+        }.runTaskTimer(mlgRush, 0, mainConfig.getLong(MainConfig.RANKING_UPDATE_PERIOD) * 60 * 20);
     }
 
     public void updateRanking(final @NotNull Map<String, Integer> map, final @NotNull Map<Integer, Integer> map2) {

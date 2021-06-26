@@ -34,7 +34,7 @@ public class WinRatePlaceholder extends Placeholder {
 
     @Override
     public String identifier() {
-        return "%win_rate%";
+        return "%stats_win_rate%";
     }
 
     @Override

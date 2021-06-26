@@ -15,6 +15,7 @@ package net.skillcode.advancedmlgrush.item.overwriter;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -29,6 +30,6 @@ public interface ItemOW {
 
     ItemOWPriority getPriority();
 
-    ItemStack getItemStack(final Optional<Player> optionalPlayer);
+    ItemStack getItemStack(final Optional<Player> optionalPlayer, final @NotNull String itemName);
 
 }

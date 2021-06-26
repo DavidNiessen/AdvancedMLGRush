@@ -83,6 +83,8 @@ public class ItemNameConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(EnumItem.STATS_WIN_RATE.getConfigPath(), "&8» &eWin Rate &8| &e&l%win_rate%"));
         list.add(new Pair<>(EnumItem.STATS_BEDS.getConfigPath(), "&8» &eBeds &8| &e&l%beds%"));
         list.add(new Pair<>(EnumItem.STATS_RANKING.getConfigPath(), "&8» &eRanking &8| &e&l#%ranking%"));
+        list.add(new Pair<>(EnumItem.QUEUE_1x1.getConfigPath(), "&8» &e1x1 &7(&e%queue_1x1%&7)"));
+        list.add(new Pair<>(EnumItem.QUEUE_1x4.getConfigPath(), "&8» &e1x4 &7(&e%queue_1x4%&7)"));
     }
 
 }

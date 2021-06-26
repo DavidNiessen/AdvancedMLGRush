@@ -17,6 +17,8 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.game.queue.Queue1x1;
+import net.skillcode.advancedmlgrush.game.queue.Queue1x4;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.ItemUtils;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
@@ -38,6 +40,10 @@ public class QueueLeaveHandler implements EventHandler {
     private LobbyItems lobbyItems;
     @Inject
     private MessageConfig messageConfig;
+    @Inject
+    private Queue1x1 queue1x1;
+    @Inject
+    private Queue1x4 queue1x4;
 
     @Override
     public void registerListeners(final @NotNull List<EventListener<?>> eventListeners) {
@@ -59,8 +65,8 @@ public class QueueLeaveHandler implements EventHandler {
                         player.getInventory().clear();
                         lobbyItems.setLobbyItems(player);
 
-                        // TODO: 23.04.2021 leave queue
-                        player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.QUEUE_LEAVE));
+                        queue1x1.unregister(player);
+                        queue1x4.unregister(player);
                     }
                 }
             }

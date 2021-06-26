@@ -10,11 +10,11 @@
  * Support: https://discord.skillplugins.com
  */
 
-package net.skillcode.advancedmlgrush.placeholder.placeholders.ranking;
+package net.skillcode.advancedmlgrush.placeholder.placeholders;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import net.skillcode.advancedmlgrush.game.stats.Ranking;
+import net.skillcode.advancedmlgrush.game.queue.Queue1x4;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -22,22 +22,22 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 @Singleton
-public class Ranking8Placeholder extends Placeholder {
+public class Queue1x4Placeholder extends Placeholder {
 
-    private final Ranking ranking;
+    private final Queue1x4 queue1x4;
 
     @Inject
-    public Ranking8Placeholder(final @NotNull Ranking ranking) {
-        this.ranking = ranking;
+    public Queue1x4Placeholder(final @NotNull Queue1x4 queue1x4) {
+        this.queue1x4 = queue1x4;
     }
 
     @Override
     public String identifier() {
-        return "%stats_ranking_8%";
+        return "%queue_1x4%";
     }
 
     @Override
     public String onRequest(final @NotNull Optional<Player> optionalPlayer) {
-        return ranking.getPlayerByRanking(8).orElse(getNullValue());
+        return String.valueOf(queue1x4.getSize());
     }
 }

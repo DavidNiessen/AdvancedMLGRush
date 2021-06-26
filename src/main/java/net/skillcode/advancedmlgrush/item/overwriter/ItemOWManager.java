@@ -12,7 +12,9 @@
 
 package net.skillcode.advancedmlgrush.item.overwriter;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -24,21 +26,29 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Singleton
 public class ItemOWManager {
-    
+
+    private final ItemNameConfig itemNameConfig;
+
     private final Map<EnumItem, ItemOW> ows = new ConcurrentHashMap<>();
+
+    @Inject
+    public ItemOWManager(final @NotNull ItemNameConfig itemNameConfig) {
+        this.itemNameConfig = itemNameConfig;
+    }
 
     public void registerItemOW(final @NotNull ItemOW itemOW) {
 
-       if (ows.containsKey(itemOW.getEnumItem()) && itemOW.getPriority() != ItemOWPriority.HIGH) {
-           return;
-       }
+        if (ows.containsKey(itemOW.getEnumItem()) && itemOW.getPriority() != ItemOWPriority.HIGH) {
+            return;
+        }
 
-       ows.put(itemOW.getEnumItem(), itemOW);
+        ows.put(itemOW.getEnumItem(), itemOW);
     }
 
     public Optional<ItemStack> getItem(final @NotNull Optional<Player> optionalPlayer, final @NotNull EnumItem enumItem) {
         if (ows.containsKey(enumItem)) {
-            return Optional.of(ows.get(enumItem).getItemStack(optionalPlayer));
+            return Optional.of(ows.get(enumItem).getItemStack(optionalPlayer,
+                    itemNameConfig.getString(optionalPlayer, enumItem)));
         }
 
         return Optional.empty();

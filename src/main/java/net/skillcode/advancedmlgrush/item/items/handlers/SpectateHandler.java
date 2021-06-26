@@ -17,7 +17,7 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
-import net.skillcode.advancedmlgrush.inventory.inventories.GadgetsInventory;
+import net.skillcode.advancedmlgrush.inventory.inventories.SpectateInventory;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.ItemUtils;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
@@ -31,12 +31,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public class GadgetsHandler implements EventHandler {
+public class SpectateHandler implements EventHandler {
 
     @Inject
     private ItemUtils itemUtils;
     @Inject
-    private GadgetsInventory gadgetsInventory;
+    private SpectateInventory spectateInventory;
     @Inject
     private MessageConfig messageConfig;
     @Inject
@@ -57,11 +57,11 @@ public class GadgetsHandler implements EventHandler {
                     final Player player = event.getPlayer();
                     final ItemStack clickedItem = player.getItemInHand();
 
-                    if (itemUtils.compare(clickedItem, EnumItem.GADGETS, Optional.of(player))) {
+                    if (itemUtils.compare(clickedItem, EnumItem.SPECTATE, Optional.of(player))) {
                         if (!sqlDataCache.isLoaded(player)) {
                             player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.LOADING_DATA));
                         } else {
-                            gadgetsInventory.open(player);
+                            spectateInventory.open(player);
                         }
                     }
                 }

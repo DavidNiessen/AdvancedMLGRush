@@ -14,7 +14,6 @@ package net.skillcode.advancedmlgrush.item.overwriter.overwriters;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import net.skillcode.advancedmlgrush.item.builder.MetaType;
@@ -29,12 +28,10 @@ import java.util.Optional;
 @Singleton
 public class StatsItemOW implements ItemOW {
 
-    private final ItemNameConfig itemNameConfig;
     private final IBFactory ibFactory;
 
     @Inject
-    public StatsItemOW(final ItemNameConfig itemNameConfig, final @NotNull IBFactory ibFactory) {
-        this.itemNameConfig = itemNameConfig;
+    public StatsItemOW(final @NotNull IBFactory ibFactory) {
         this.ibFactory = ibFactory;
     }
 
@@ -49,9 +46,7 @@ public class StatsItemOW implements ItemOW {
     }
 
     @Override
-    public ItemStack getItemStack(final @NotNull Optional<Player> optionalPlayer) {
-        final String itemName = itemNameConfig.getString(optionalPlayer, EnumItem.STATS);
-
+    public ItemStack getItemStack(final @NotNull Optional<Player> optionalPlayer, final @NotNull String itemName) {
         return optionalPlayer.map(player -> ibFactory.create(MetaType.SKULL_META, 3)
                 .owner(player.getName()).name(itemName).build()).orElseGet(()
                 -> ibFactory.create(MetaType.SKULL_META, 3).name(itemName).build());

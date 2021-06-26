@@ -31,7 +31,7 @@ public class LosesPlaceholder extends Placeholder {
 
     @Override
     public String identifier() {
-        return "%loses%";
+        return "%stats_loses%";
     }
 
     @Override

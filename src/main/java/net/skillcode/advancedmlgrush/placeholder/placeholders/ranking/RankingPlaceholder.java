@@ -34,7 +34,7 @@ public class RankingPlaceholder extends Placeholder {
 
     @Override
     public String identifier() {
-        return "%ranking%";
+        return "%stats_ranking%";
     }
 
     @Override

@@ -16,7 +16,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.stats.Ranking;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
-import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,7 +33,7 @@ public class Ranking5Placeholder extends Placeholder {
 
     @Override
     public String identifier() {
-        return "%ranking_5%";
+        return "%stats_ranking_5%";
     }
 
     @Override

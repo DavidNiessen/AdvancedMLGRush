@@ -14,7 +14,6 @@ package net.skillcode.advancedmlgrush.item.overwriter.overwriters;
 
 import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.config.configs.ItemMaterialConfig;
-import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
@@ -33,8 +32,6 @@ import java.util.Optional;
 
 public class RankingOW implements ItemOW {
 
-    @Inject
-    private ItemNameConfig itemNameConfig;
     @Inject
     private ItemMaterialConfig itemMaterialConfig;
     @Inject
@@ -56,14 +53,13 @@ public class RankingOW implements ItemOW {
     }
 
     @Override
-    public ItemStack getItemStack(final @NotNull Optional<Player> optionalPlayer) {
-        final String itemName = itemNameConfig.getString(optionalPlayer, EnumItem.STATS_RANKING);
+    public ItemStack getItemStack(final @NotNull Optional<Player> optionalPlayer, final @NotNull String itemName) {
         final Pair<Material, Integer> material = itemMaterialConfig.getMaterial(EnumItem.STATS_RANKING);
         final List<String> lore = mainConfig.getArrayList(MainConfig.STATS_ITEM_LORE);
         placeholders.replace(optionalPlayer, lore);
 
         return optionalPlayer.map(player -> ibFactory.create(MetaType.ITEM_META, material.getValue())
-        .name(itemName).material(material.getKey()).lore(lore).build()).orElse(ibFactory
-        .create(MetaType.ITEM_META, material.getValue()).name(itemName).material(material.getKey()).build());
+                .name(itemName).material(material.getKey()).lore(lore).build()).orElse(ibFactory
+                .create(MetaType.ITEM_META, material.getValue()).name(itemName).material(material.getKey()).build());
     }
 }

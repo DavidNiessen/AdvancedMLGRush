@@ -16,7 +16,8 @@ import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 @Getter
-public enum EnumItem {
+public enum
+EnumItem {
     INVENTORY_BACKGROUND("inventory_background"),
     CHALLENGER("challenger"),
     SETTINGS("settings"),
@@ -41,7 +42,9 @@ public enum EnumItem {
     STATS_LOSES("stats_loses"),
     STATS_WIN_RATE("stats_winrate"),
     STATS_BEDS("stats_beds"),
-    STATS_RANKING("stats_ranking");
+    STATS_RANKING("stats_ranking"),
+    QUEUE_1x1("queue_1x1"),
+    QUEUE_1x4("queue_1x4");
 
     private final String configPath;
 

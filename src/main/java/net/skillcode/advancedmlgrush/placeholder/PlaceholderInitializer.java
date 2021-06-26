@@ -49,5 +49,7 @@ public class PlaceholderInitializer implements Initializer {
         placeholderManager.registerPlaceholder(injector.getInstance(Ranking8Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(Ranking9Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(Ranking10Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(Queue1x1Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(Queue1x4Placeholder.class));
     }
 }

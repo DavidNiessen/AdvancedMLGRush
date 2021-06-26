@@ -38,6 +38,9 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String LOADING_DATA = "loading_data";
     public static final String ERROR = "error";
     public static final String SPAWN_SET = "spawn_set";
+    public static final String CHALLENGE_1 = "challenge_1";
+    public static final String CHALLENGE_2 = "challenge_2";
+    public static final String ALREADY_CHALLENGED = "already_challenged";
     //setup
     public static final String SETUP_FIRST_CORNER = "setup_first_corner";
     public static final String SETUP_SECOND_CORNER = "setup_second_corner";
@@ -90,6 +93,9 @@ public class MessageConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(LOADING_DATA, "&cYour data is being loaded, please wait."));
         list.add(new Pair<>(ERROR, "&cAn error occurred."));
         list.add(new Pair<>(SPAWN_SET, "&aThe spawn has been set."));
+        list.add(new Pair<>(CHALLENGE_1, "&aYou have been challenged by &e%s &aon &e%settings_map% &a(&e%settings_rounds% &a).  "));
+        list.add(new Pair<>(CHALLENGE_2, "&aYou challenged %s."));
+        list.add(new Pair<>(ALREADY_CHALLENGED, "&cYou already challenged &e%s&a."));
 
         list.add(new Pair<>(SETUP_FIRST_CORNER, "&7Go to the lower left corner of the arena and type '&enext&7'."));
         list.add(new Pair<>(SETUP_SECOND_CORNER, "&7Go to the higher right corner of the arena and type '&enext&7'."));

@@ -38,9 +38,7 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onBreak(final @NotNull BlockBreakEvent event) {
         final Player player = event.getPlayer();
-        if (!buildModeManager.isInBuildMode(player)) {
-            event.setCancelled(true);
-        }
+        event.setCancelled(!buildModeManager.isInBuildMode(player));
 
         eventManager.callEvent(event);
     }

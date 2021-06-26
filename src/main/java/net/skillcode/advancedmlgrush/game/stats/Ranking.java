@@ -14,6 +14,7 @@ package net.skillcode.advancedmlgrush.game.stats;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.MLGRush;
@@ -40,7 +41,7 @@ public class Ranking {
     private MainConfig mainConfig;
 
     //<name, ranking>
-    private final BiMap<String, Integer> biMap = HashBiMap.create();
+    private final BiMap<String, Integer> biMap = Maps.synchronizedBiMap(HashBiMap.create());
     //<ranking, wins>
     private final Map<Integer, Integer> wins = new ConcurrentHashMap<>();
 

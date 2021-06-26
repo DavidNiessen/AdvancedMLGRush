@@ -15,27 +15,28 @@ package net.skillcode.advancedmlgrush.listener.listeners;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.event.EventManager;
-import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.jetbrains.annotations.NotNull;
 
 @Singleton
-public class PlayerDropItemListener implements Listener {
+public class FoodLevelChangeListener implements Listener {
+
+    private final EventManager eventManager;
 
     @Inject
-    private EventManager eventManager;
-    @Inject
-    private BuildModeManager buildModeManager;
+    public FoodLevelChangeListener(final @NotNull EventManager eventManager) {
+        this.eventManager = eventManager;
+    }
 
     @EventHandler
-    public void onClick(final @NotNull PlayerDropItemEvent event) {
-        final Player player = event.getPlayer();
-        event.setCancelled(!buildModeManager.isInBuildMode(player));
+    public void onFoodLevelChange(final @NotNull FoodLevelChangeEvent event) {
+        event.setCancelled(true);
+        event.setFoodLevel(20);
 
         eventManager.callEvent(event);
     }
+
 
 }

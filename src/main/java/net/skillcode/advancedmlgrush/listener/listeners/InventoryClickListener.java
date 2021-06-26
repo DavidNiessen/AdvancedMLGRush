@@ -34,9 +34,7 @@ public class InventoryClickListener implements Listener {
     public void onClick(final @NotNull InventoryClickEvent event) {
         if (event.getWhoClicked() instanceof Player) {
             final Player player = (Player) event.getWhoClicked();
-            if (!buildModeManager.isInBuildMode(player)) {
-                event.setCancelled(true);
-            }
+            event.setCancelled(!buildModeManager.isInBuildMode(player));
 
             eventManager.callEvent(event);
         }

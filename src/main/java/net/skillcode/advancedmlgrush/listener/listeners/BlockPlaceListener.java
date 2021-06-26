@@ -38,9 +38,7 @@ public class BlockPlaceListener implements Listener {
     @EventHandler
     public void onPlace(final @NotNull BlockPlaceEvent event) {
         final Player player = event.getPlayer();
-        if (!buildModeManager.isInBuildMode(player)) {
-            event.setCancelled(true);
-        }
+        event.setCancelled(!buildModeManager.isInBuildMode(player));
 
         eventManager.callEvent(event);
     }

@@ -19,21 +19,28 @@ import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.jetbrains.annotations.NotNull;
 
 @Singleton
-public class PlayerDropItemListener implements Listener {
+public class EntityDamageByEntityListener implements Listener {
+
+    private final BuildModeManager buildModeManager;
+    private final EventManager eventManager;
 
     @Inject
-    private EventManager eventManager;
-    @Inject
-    private BuildModeManager buildModeManager;
+    public EntityDamageByEntityListener(final @NotNull BuildModeManager buildModeManager,
+                                        final @NotNull EventManager eventManager) {
+        this.buildModeManager = buildModeManager;
+        this.eventManager = eventManager;
+    }
 
     @EventHandler
-    public void onClick(final @NotNull PlayerDropItemEvent event) {
-        final Player player = event.getPlayer();
-        event.setCancelled(!buildModeManager.isInBuildMode(player));
+    public void onDamage(final @NotNull EntityDamageByEntityEvent event) {
+        if (event.getDamager() instanceof Player) {
+            final Player player = (Player) event.getDamager();
+            event.setCancelled(!buildModeManager.isInBuildMode(player));
+        }
 
         eventManager.callEvent(event);
     }

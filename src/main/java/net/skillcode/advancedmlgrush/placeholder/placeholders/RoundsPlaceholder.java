@@ -33,7 +33,7 @@ public class RoundsPlaceholder extends Placeholder {
 
     @Override
     public String identifier() {
-        return "%rounds%";
+        return "%settings_rounds%";
     }
 
     @Override

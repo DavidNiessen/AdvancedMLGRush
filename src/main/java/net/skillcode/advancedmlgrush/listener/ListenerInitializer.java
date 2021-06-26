@@ -44,6 +44,8 @@ public class ListenerInitializer implements Initializer {
         pluginManager.registerEvents(injector.getInstance(InventoryDragListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(PlayerDropItemListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(PlayerDataLoadListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(BlockBreakListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(BlockPlaceListener.class), plugin);
     }
 
 }

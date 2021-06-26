@@ -15,14 +15,19 @@ package net.skillcode.advancedmlgrush.listener.listeners;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.event.EventManager;
+import net.skillcode.advancedmlgrush.game.spawn.SpawnFile;
+import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
-import net.skillcode.advancedmlgrush.sound.SoundUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 
 @Singleton
 public class PlayerJoinListener implements Listener {
@@ -32,7 +37,7 @@ public class PlayerJoinListener implements Listener {
     @Inject
     private EventManager eventManager;
     @Inject
-    private SoundUtil soundUtil;
+    private SpawnFileLoader spawnFileLoader;
 
     @EventHandler
     public void onJoin(final @NotNull PlayerJoinEvent event) {
@@ -40,6 +45,12 @@ public class PlayerJoinListener implements Listener {
 
         final Player player = event.getPlayer();
 
+        final Optional<SpawnFile> spawnFileOptional = spawnFileLoader.getSpawnFileOptional();
+        if (spawnFileOptional.isPresent()) {
+            final SpawnFile spawnFile = spawnFileOptional.get();
+            player.teleport(new Location(Bukkit.getWorld(spawnFile.getWorldName()), spawnFile.getX(),
+                    spawnFile.getY(), spawnFile.getZ(), spawnFile.getPitch(), spawnFile.getYaw()));
+        }
         player.getInventory().clear();
         player.setHealth(20D);
         player.setFoodLevel(20);

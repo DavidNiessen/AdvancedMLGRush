@@ -16,6 +16,7 @@ import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.*;
 import net.skillcode.advancedmlgrush.game.gadgets.GadgetManager;
+import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
 import net.skillcode.advancedmlgrush.util.Initializer;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,5 +34,6 @@ public class FileInitializer implements Initializer {
         injector.getInstance(InventoryNameConfig.class);
         injector.getInstance(DebugConfig.class);
         injector.getInstance(GadgetManager.class);
+        injector.getInstance(SpawnFileLoader.class);
     }
 }

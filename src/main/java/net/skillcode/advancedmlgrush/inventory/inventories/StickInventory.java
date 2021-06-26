@@ -20,6 +20,7 @@ import net.skillcode.advancedmlgrush.game.gadgets.Gadget;
 import net.skillcode.advancedmlgrush.game.gadgets.GadgetManager;
 import net.skillcode.advancedmlgrush.inventory.multipage.MultiPageInventory;
 import net.skillcode.advancedmlgrush.item.builder.ItemBuilder;
+import net.skillcode.advancedmlgrush.libs.xseries.XEnchantment;
 import net.skillcode.advancedmlgrush.sql.data.CachedSQLData;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.enchantments.Enchantment;
@@ -57,7 +58,7 @@ public class StickInventory extends MultiPageInventory {
             final ItemBuilder itemBuilder = gadgetManager.getGadgetAsBuilder(player, gadget);
 
             if (gadgetManager.getStick(player).equals(gadget)) {
-                itemBuilder.enchantment(Enchantment.LUCK, 1);
+                itemBuilder.enchantment(XEnchantment.LUCK.parseEnchantment(), 1);
             }
 
             map.put(itemBuilder.build(), gadget);

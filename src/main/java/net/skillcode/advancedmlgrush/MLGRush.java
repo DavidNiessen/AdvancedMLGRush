@@ -16,10 +16,13 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import lombok.Getter;
+import net.skillcode.advancedmlgrush.api.APIImplementation;
+import net.skillcode.advancedmlgrush.api.MLGRushAPI;
 import net.skillcode.advancedmlgrush.command.CommandInitializer;
 import net.skillcode.advancedmlgrush.config.FileInitializer;
 import net.skillcode.advancedmlgrush.dependencyinjection.MLGBinderModule;
 import net.skillcode.advancedmlgrush.event.EventHandlerInitializer;
+import net.skillcode.advancedmlgrush.item.overwriter.ItemOWInitializer;
 import net.skillcode.advancedmlgrush.listener.ListenerInitializer;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.RegistrableInitializer;
 import net.skillcode.advancedmlgrush.placeholder.PlaceholderInitializer;
@@ -31,12 +34,17 @@ import java.util.UUID;
 
 public class MLGRush extends JavaPlugin {
 
+    @Getter
+    private static MLGRushAPI api;
+
     @Inject
     private DataInitializer dataInitializer;
     @Inject
     private PlaceholderInitializer placeholderInitializer;
     @Inject
     private FileInitializer fileInitializer;
+    @Inject
+    private ItemOWInitializer itemOWInitializer;
     @Inject
     private ListenerInitializer listenerInitializer;
     @Inject
@@ -60,10 +68,13 @@ public class MLGRush extends JavaPlugin {
         dataInitializer.init(injector);
         placeholderInitializer.init(injector);
         fileInitializer.init(injector);
+        itemOWInitializer.init(injector);
         registrableInitializer.init(injector);
         listenerInitializer.init(injector);
         eventHandlerInitializer.init(injector);
         commandInitializer.init(injector);
+
+        api = injector.getInstance(APIImplementation.class);
     }
 
     @Override

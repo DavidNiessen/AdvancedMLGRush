@@ -39,5 +39,6 @@ public class EventHandlerInitializer implements Initializer {
         eventManager.registerEventListeners(injector.getInstance(SettingsHandler.class));
         eventManager.registerEventListeners(injector.getInstance(GadgetsHandler.class));
         eventManager.registerEventListeners(injector.getInstance(StatsHandler.class));
+        eventManager.registerEventListeners(injector.getInstance(SpectateHandler.class));
     }
 }

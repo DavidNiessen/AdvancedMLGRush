@@ -74,12 +74,14 @@ public class MLGDataSaver extends DataSaver {
                 @Override
                 public void onSuccess(final @NotNull ResultSet resultSet) throws SQLException {
                     final Map<String, Integer> map = new HashMap<>();
+                    final Map<Integer, Integer> wins = new HashMap<>();
                     int count = 0;
                     while (resultSet.next()) {
                         map.put(resultSet.getString("player_name"), ++count);
+                        wins.put(count, resultSet.getInt("stats_wins"));
                     }
 
-                    rankingRunnable.run(map);
+                    rankingRunnable.run(map, wins);
                 }
 
                 @Override
@@ -89,7 +91,7 @@ public class MLGDataSaver extends DataSaver {
             };
 
             executeQueryAsync(
-                    "SELECT player_name " +
+                    "SELECT player_name, stats_wins " +
                             "FROM {name} " +
                             "ORDER BY stats_wins DESC;", callback);
         }
@@ -218,7 +220,7 @@ public class MLGDataSaver extends DataSaver {
 
     public interface RankingRunnable {
 
-        void run(final @NotNull Map<String, Integer> map);
+        void run(final @NotNull Map<String, Integer> map, final @NotNull Map<Integer, Integer> wins);
 
     }
 }

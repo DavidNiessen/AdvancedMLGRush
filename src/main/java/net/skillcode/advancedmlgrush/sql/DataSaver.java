@@ -64,7 +64,7 @@ public abstract class DataSaver {
 
     protected void executeUpdateSync(final @NotNull String query) {
         if (debugConfig.getBoolean(DebugConfig.LOG_QUERIES)) {
-            javaPlugin.getLogger().info(String.format(Constants.QUERY_MESSA, query));
+            javaPlugin.getLogger().info(String.format(Constants.QUERY_MESSAGE, query));
         }
         if (checkConnection()) {
             try (final PreparedStatement preparedStatement = connection.prepareStatement(replaceName(query))) {
@@ -81,7 +81,7 @@ public abstract class DataSaver {
 
     protected Optional<ResultSet> executeQuerySync(final @NotNull String query) {
         if (debugConfig.getBoolean(DebugConfig.LOG_QUERIES)) {
-            javaPlugin.getLogger().info(String.format(Constants.QUERY_MESSA, query));
+            javaPlugin.getLogger().info(String.format(Constants.QUERY_MESSAGE, query));
         }
         if (checkConnection()) {
             try {

@@ -48,7 +48,8 @@ public class PlayerDataLoadListener implements Listener {
 
         if (!player.hasPermission(gadgetManager.getStick(player).getPermission())) {
             cachedSQLData.setGadgetsStick(0);
-        } else if (!player.hasPermission(gadgetManager.getBlock(player).getPermission())) {
+        }
+        if (!player.hasPermission(gadgetManager.getBlock(player).getPermission())) {
             cachedSQLData.setGadgetsBlocks(0);
         }
 

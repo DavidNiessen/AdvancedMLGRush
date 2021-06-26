@@ -16,6 +16,8 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
+import net.skillcode.advancedmlgrush.game.queue.Queue1x1;
+import net.skillcode.advancedmlgrush.game.queue.Queue1x4;
 import net.skillcode.advancedmlgrush.game.rounds.RoundManager;
 import net.skillcode.advancedmlgrush.inventory.InventoryManager;
 import net.skillcode.advancedmlgrush.util.Initializer;
@@ -36,5 +38,7 @@ public class RegistrableInitializer implements Initializer {
         manager.registerRegistrable(injector.getInstance(BuildModeManager.class));
         manager.registerRegistrable(injector.getInstance(InventoryManager.class));
         manager.registerRegistrable(injector.getInstance(RoundManager.class));
+        manager.registerRegistrable(injector.getInstance(Queue1x1.class));
+        manager.registerRegistrable(injector.getInstance(Queue1x4.class));
     }
 }

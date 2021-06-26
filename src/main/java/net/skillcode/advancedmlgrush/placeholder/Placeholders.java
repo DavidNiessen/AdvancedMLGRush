@@ -17,6 +17,8 @@ import com.google.inject.Singleton;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -30,7 +32,13 @@ public class Placeholders {
         this.placeholderManager = placeholderManager;
     }
 
-    public String replace(final Optional<Player> optionalPlayer, final @NotNull String input) {
+    public void replace(final @NotNull Optional<Player> optionalPlayer, final @NotNull List<String> list) {
+        for (int i = 0; i < list.size(); i++) {
+            list.set(i, replace(optionalPlayer, list.get(i)));
+        }
+    }
+
+    public String replace(final @NotNull Optional<Player> optionalPlayer, final @NotNull String input) {
         final AtomicReference<String> result = new AtomicReference<>(input);
         result.set(replaceColors(result.get()));
         result.set(replaceBuiltinPlaceholders(optionalPlayer, result.get()));

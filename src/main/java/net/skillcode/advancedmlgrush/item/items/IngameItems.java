@@ -14,9 +14,11 @@ package net.skillcode.advancedmlgrush.item.items;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.game.gadgets.GadgetManager;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.ItemManager;
+import net.skillcode.advancedmlgrush.libs.xseries.XEnchantment;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.entity.Player;
@@ -34,6 +36,8 @@ public class IngameItems {
     private SQLDataCache sqlDataCache;
     @Inject
     private GadgetManager gadgetManager;
+    @Inject
+    private MainConfig mainConfig;
 
     public Pair<ItemStack, Integer> getStick(final @NotNull Player player) {
         final ItemStack stick = gadgetManager.getStickAsBuilder(player).build();
@@ -47,6 +51,7 @@ public class IngameItems {
 
     public Pair<ItemStack, Integer> getPickaxe(final @NotNull Player player) {
         final ItemStack pickaxe = itemManager.getItem(Optional.of(player), EnumItem.PICKAXE);
+        pickaxe.addUnsafeEnchantment(XEnchantment.DIG_SPEED.parseEnchantment(), mainConfig.getInt(MainConfig.PICKAXE_EFFICIENCY_LEVEL));
         return new Pair<>(pickaxe, sqlDataCache.getSQLData(player).getSettingsPickaxeSlot());
     }
 

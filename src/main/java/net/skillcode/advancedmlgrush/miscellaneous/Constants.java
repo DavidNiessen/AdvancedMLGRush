@@ -38,6 +38,7 @@ public class Constants {
     public static final String GADGETS_CONFIG_PATH = PLUGIN_PATH + "gadgets.json";
     public static final String INVENTORY_CONFIG_PATH = PLUGIN_PATH + "inventories.yml";
     public static final String DEBUG_CONFIG_PATH = PLUGIN_PATH + "debug.yml";
+    public static final String SPAWN_FILE_PATH = PLUGIN_PATH + "spawn.json";
     /* Slots */
     public static final int CHALLENGER_SLOT = 0;
     public static final int SETTINGS_SLOT = 2;
@@ -52,8 +53,9 @@ public class Constants {
     public static final String MATERIAL_PARSE_ERROR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "An error occurred while parsing material: %s " + Ansi.ansi().reset();
     public static final String SOUND_PARSE_ERROR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "An error occurred while parsing sound: %s " + Ansi.ansi().reset();
     public static final String COLOR_PARSE_ERROR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "An error occurred while parsing color: %s " + Ansi.ansi().reset();
+    public static final String SPAWN_FILE_DELETE_ERROR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "Cannot delete spawn file. Please delete it manually." + Ansi.ansi().reset();
     public static final String ERROR_MESSAGE = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "An error occurred: %s" + Ansi.ansi().reset();
-    public static final String QUERY_MESSA = "Executing query: " + Ansi.ansi().fg(Ansi.Color.CYAN).boldOff().toString() + "%s" + Ansi.ansi().reset();
+    public static final String QUERY_MESSAGE = "Executing query: " + Ansi.ansi().fg(Ansi.Color.CYAN).boldOff().toString() + "%s" + Ansi.ansi().reset();
     /* Skulls */
     public static final String ARROW_LEFT_VALUE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzYyNTkwMmIzODllZDZjMTQ3NTc0ZTQyMmRhOGY4ZjM2MWM4ZWI1N2U3NjMxNjc2YTcyNzc3ZTdiMWQifX19";
     public static final String ARROW_RIGHT_VALUE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDRiZThhZWVjMTE4NDk2OTdhZGM2ZmQxZjE4OWIxNjY0MmRmZjE5ZjI5NTVjMDVkZWFiYTY4YzlkZmYxYmUifX19";

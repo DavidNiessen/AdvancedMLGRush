@@ -23,7 +23,6 @@ import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

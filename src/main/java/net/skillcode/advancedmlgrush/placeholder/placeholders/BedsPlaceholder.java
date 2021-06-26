@@ -31,7 +31,7 @@ public class BedsPlaceholder extends Placeholder {
 
     @Override
     public String identifier() {
-        return "%beds%";
+        return "%stats_beds%";
     }
 
     @Override

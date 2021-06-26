@@ -12,6 +12,7 @@
 
 package net.skillcode.advancedmlgrush.util.json;
 
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.util.json.utils.JsonUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,6 +21,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+@Singleton
 public class JsonConfigAPI {
 
     private Map<Class<? extends JsonConfig>, JsonConfig> configMap = new HashMap<>();

@@ -44,17 +44,24 @@ public class SetupMapCommand implements CommandExecutor {
             return false;
         }
 
-        if (args.length == 0) {
+        if (args.length < 2) {
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.SETUP_MAP_COMMAND_SYNTAX));
             return false;
         }
 
         final String arg = args[0];
+        final StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 1; i < args.length; i++) {
+            stringBuilder.append(args[i]).append(" ");
+        }
+
+        final String name = stringBuilder.substring(stringBuilder.toString().length() - 1);
 
         if (arg.equals("1x1")) {
-            mapSetup1x1.startSetup(player);
+            mapSetup1x1.startSetup(player, name);
         } else if (arg.equals("1x4")) {
-            mapSetup1x4.startSetup(player);
+            mapSetup1x4.startSetup(player, name);
         } else {
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.SETUP_MAP_COMMAND_SYNTAX));
 

@@ -10,17 +10,22 @@
  * Support: https://discord.skillplugins.com
  */
 
-package net.skillcode.advancedmlgrush.game.spawn;
+package net.skillcode.advancedmlgrush.util.json;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.skillcode.advancedmlgrush.util.json.JsonConfig;
-import net.skillcode.advancedmlgrush.util.json.JsonLocation;
 
 @Getter
 @AllArgsConstructor
-public class SpawnFile implements JsonConfig {
+public class JsonLocation {
 
-    private JsonLocation jsonLocation;
+    private String worldName;
+
+    private double x;
+    private double y;
+    private double z;
+
+    private float pitch;
+    private float yaw;
 
 }

@@ -19,7 +19,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 @Singleton
-public class DeathHeightStep implements SetupStep<Double> {
+public class DeathHeightStep implements SetupStep<Integer> {
 
     @Override
     public String configPath() {
@@ -27,7 +27,7 @@ public class DeathHeightStep implements SetupStep<Double> {
     }
 
     @Override
-    public Double onPerform(final @NotNull Player player) {
-        return player.getLocation().getY();
+    public Integer onPerform(final @NotNull Player player) {
+        return (int) player.getLocation().getY();
     }
 }

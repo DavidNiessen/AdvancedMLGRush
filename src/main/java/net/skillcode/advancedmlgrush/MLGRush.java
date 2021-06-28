@@ -22,6 +22,7 @@ import net.skillcode.advancedmlgrush.command.CommandInitializer;
 import net.skillcode.advancedmlgrush.config.FileInitializer;
 import net.skillcode.advancedmlgrush.dependencyinjection.MLGBinderModule;
 import net.skillcode.advancedmlgrush.event.EventHandlerInitializer;
+import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOWInitializer;
 import net.skillcode.advancedmlgrush.listener.ListenerInitializer;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.RegistrableInitializer;
@@ -55,6 +56,8 @@ public class MLGRush extends JavaPlugin {
     private EventHandlerInitializer eventHandlerInitializer;
     @Inject
     private ConnectionManager connectionManager;
+    @Inject
+    private MapManager mapManager;
 
     @Getter
     private UUID uuid;
@@ -73,7 +76,10 @@ public class MLGRush extends JavaPlugin {
         listenerInitializer.init(injector);
         eventHandlerInitializer.init(injector);
         commandInitializer.init(injector);
+        mapManager.init(injector);
 
+        System.out.println("--" + mapManager.getMaps().size());
+        mapManager.getMaps().forEach(map -> System.out.println(map.getMapData().getName()));
         api = injector.getInstance(APIImplementation.class);
     }
 

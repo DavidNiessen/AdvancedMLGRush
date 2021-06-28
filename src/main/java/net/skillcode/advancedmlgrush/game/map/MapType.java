@@ -10,17 +10,16 @@
  * Support: https://discord.skillplugins.com
  */
 
-package net.skillcode.advancedmlgrush.game.spawn;
+package net.skillcode.advancedmlgrush.game.map;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.skillcode.advancedmlgrush.util.json.JsonConfig;
-import net.skillcode.advancedmlgrush.util.json.JsonLocation;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
-public class SpawnFile implements JsonConfig {
+@RequiredArgsConstructor
+public enum MapType {
+    ONE_X_ONE(2),
+    ONE_X_FOUR(4);
 
-    private JsonLocation jsonLocation;
-
+    private final int players;
 }

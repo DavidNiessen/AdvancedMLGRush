@@ -21,6 +21,7 @@ import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
 import net.skillcode.advancedmlgrush.MLGRush;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
+import net.skillcode.advancedmlgrush.game.map.MapFactory;
 import net.skillcode.advancedmlgrush.inventory.multipage.MPHFactory;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import net.skillcode.advancedmlgrush.util.json.JsonConfigAPI;
@@ -46,6 +47,7 @@ public class MLGBinderModule extends AbstractModule implements TypeListener {
 
         super.install(new FactoryModuleBuilder().build(IBFactory.class));
         super.install(new FactoryModuleBuilder().build(MPHFactory.class));
+        super.install(new FactoryModuleBuilder().build(MapFactory.class));
 
         super.bind(JavaPlugin.class).toInstance(mlgRush);
         super.bind(MLGRush.class).toInstance(mlgRush);

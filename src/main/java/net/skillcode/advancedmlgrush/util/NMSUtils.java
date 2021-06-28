@@ -15,6 +15,7 @@ package net.skillcode.advancedmlgrush.util;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.exception.ExceptionHandler;
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -53,6 +54,14 @@ public class NMSUtils {
             exceptionHandler.handle(e);
         }
         return null;
+    }
+
+    public void setBlockData(final @NotNull Block block, final byte blockData) {
+        try {
+            block.getClass().getMethod("setData", byte.class).invoke(block, blockData);
+        } catch (Exception e) {
+            exceptionHandler.handle(e);
+        }
     }
 
     public ItemStack setUnbreakable(@NotNull ItemStack itemStack) {

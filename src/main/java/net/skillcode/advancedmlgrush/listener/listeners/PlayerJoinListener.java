@@ -18,6 +18,7 @@ import net.skillcode.advancedmlgrush.event.EventManager;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFile;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
+import net.skillcode.advancedmlgrush.util.json.JsonLocation;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -47,9 +48,9 @@ public class PlayerJoinListener implements Listener {
 
         final Optional<SpawnFile> spawnFileOptional = spawnFileLoader.getSpawnFileOptional();
         if (spawnFileOptional.isPresent()) {
-            final SpawnFile spawnFile = spawnFileOptional.get();
-            player.teleport(new Location(Bukkit.getWorld(spawnFile.getWorldName()), spawnFile.getX(),
-                    spawnFile.getY(), spawnFile.getZ(), spawnFile.getPitch(), spawnFile.getYaw()));
+            final JsonLocation jsonLocation = spawnFileOptional.get().getJsonLocation();
+            player.teleport(new Location(Bukkit.getWorld(jsonLocation.getWorldName()), jsonLocation.getX(),
+                    jsonLocation.getY(), jsonLocation.getZ(), jsonLocation.getPitch(), jsonLocation.getYaw()));
         }
         player.getInventory().clear();
         player.setHealth(20D);

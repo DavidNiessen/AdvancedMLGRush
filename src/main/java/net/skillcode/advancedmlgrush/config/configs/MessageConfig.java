@@ -45,6 +45,8 @@ public class MessageConfig extends Configurable implements Replaceable {
     //Command syntaxes
     public static final String SETUP_MAP_COMMAND_SYNTAX = "setup_max_command_syntax";
     //setup
+
+    public static final String SETUP_ICON = "setup_icon";
     public static final String SETUP_FIRST_CORNER = "setup_first_corner";
     public static final String SETUP_SECOND_CORNER = "setup_second_corner";
     public static final String SETUP_MAX_BUILD_HEIGHT = "setup_max_build_height";
@@ -102,10 +104,11 @@ public class MessageConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(ALREADY_CHALLENGED, "&cYou already challenged &e%s&a."));
         list.add(new Pair<>(ALREADY_SETTING_UP_MAP, "&cYou are already setting up a map."));
 
-        list.add(new Pair<>(SETUP_MAP_COMMAND_SYNTAX, "&cWrong syntax: /setupmap <1x1, 1x4>"));
+        list.add(new Pair<>(SETUP_MAP_COMMAND_SYNTAX, "&cWrong syntax: /setupmap <1x1, 1x4> <name>"));
 
-        list.add(new Pair<>(SETUP_FIRST_CORNER, "&7Go to the lower left corner of the arena and type '&enext&7'."));
-        list.add(new Pair<>(SETUP_SECOND_CORNER, "&7Go to the higher right corner of the arena and type '&enext&7'."));
+        list.add(new Pair<>(SETUP_ICON, "&7Hold an item in your hand that will serve as an icon for this map and type '&e&enext&7'."));
+        list.add(new Pair<>(SETUP_FIRST_CORNER, "&7Go to the lower left corner of the map and type '&enext&7'."));
+        list.add(new Pair<>(SETUP_SECOND_CORNER, "&7Go to the higher right corner of the map and type '&enext&7'."));
         list.add(new Pair<>(SETUP_MAX_BUILD_HEIGHT, "&7Go to the maximum build height and type '&enext&7'."));
         list.add(new Pair<>(SETUP_DEATH_HEIGHT, "&7Go to the death height and enter '&enext&7'."));
         list.add(new Pair<>(SETUP_SPECTATOR_SPAWN, "&7Go to the spectator spawn and enter '&enext&7'."));

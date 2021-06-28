@@ -16,6 +16,8 @@ import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.game.map.file.MapFile;
+import net.skillcode.advancedmlgrush.game.map.file.MapFileLoader;
 import net.skillcode.advancedmlgrush.game.map.setup.step.SetupStep;
 import net.skillcode.advancedmlgrush.game.map.setup.step.SetupSteps;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.Registrable;
@@ -31,11 +33,15 @@ public abstract class MapSetup implements Registrable, EventHandler {
 
     @Inject
     private MessageConfig messageConfig;
+    @Inject
+    private MapFileLoader mapFileLoader;
 
     private final Map<Player, Pair<Integer, List<Object>>> map = new ConcurrentHashMap<>();
+    private final Map<Player, String> nameMap = new ConcurrentHashMap<>();
 
-    public void startSetup(final @NotNull Player player) {
+    public void startSetup(final @NotNull Player player, final @NotNull String mapName) {
         map.put(player, new Pair<>(0, new ArrayList<>()));
+        nameMap.put(player, mapName);
 
         final Optional<SetupStep<Object>> optionalSetupStep = setupSteps().getSetupStep(0);
 
@@ -68,7 +74,13 @@ public abstract class MapSetup implements Registrable, EventHandler {
             final SetupStep<?> setupStep = optionalSetupStep.get();
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, setupStep.configPath()));
         } else {
-            player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.SETUP_FINISH));
+            final Optional<MapFile> optional = createMapFile(list, nameMap.getOrDefault(player, "null"));
+            if (optional.isPresent()) {
+                mapFileLoader.createMapFile(optional.get());
+                player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.SETUP_FINISH));
+            } else {
+                player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.ERROR));
+            }
             map.remove(player);
         }
         return true;
@@ -93,8 +105,11 @@ public abstract class MapSetup implements Registrable, EventHandler {
     @Override
     public void unregister(final @NotNull Player player) {
         map.remove(player);
+        nameMap.remove(player);
     }
 
     abstract SetupSteps setupSteps();
+
+    abstract Optional<MapFile> createMapFile(final @NotNull List<Object> objects, final @NotNull String mapName);
 
 }

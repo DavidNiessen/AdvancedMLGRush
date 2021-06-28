@@ -17,6 +17,7 @@ import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFile;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
+import net.skillcode.advancedmlgrush.util.json.JsonLocation;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -48,8 +49,8 @@ public class SetSpawnCommand implements CommandExecutor {
         }
 
         final Location location = player.getLocation();
-        spawnFileLoader.createSpawnFile(new SpawnFile(player.getWorld().getName(), location.getX(),
-                location.getY(), location.getZ(), location.getYaw(), location.getPitch()));
+        spawnFileLoader.createSpawnFile(new SpawnFile(new JsonLocation(player.getWorld().getName(), location.getX(),
+                location.getY(), location.getZ(), location.getYaw(), location.getPitch())));
 
         player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.SPAWN_SET));
         return false;

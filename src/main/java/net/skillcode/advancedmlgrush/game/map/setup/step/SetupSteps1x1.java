@@ -20,6 +20,7 @@ public class SetupSteps1x1 extends SetupSteps {
 
     @Override
     void registerSteps() {
+        registerStep(Steps.ICON_STEP);
         registerStep(Steps.FIRST_CORNER_STEP);
         registerStep(Steps.SECOND_CORNER_STEP);
         registerStep(Steps.MAX_BUILD_HEIGHT_STEP);

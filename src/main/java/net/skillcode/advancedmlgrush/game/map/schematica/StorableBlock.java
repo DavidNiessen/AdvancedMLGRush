@@ -10,17 +10,23 @@
  * Support: https://discord.skillplugins.com
  */
 
-package net.skillcode.advancedmlgrush.game.spawn;
+package net.skillcode.advancedmlgrush.game.map.schematica;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.skillcode.advancedmlgrush.util.json.JsonConfig;
-import net.skillcode.advancedmlgrush.util.json.JsonLocation;
+
+import java.io.Serializable;
 
 @Getter
 @AllArgsConstructor
-public class SpawnFile implements JsonConfig {
+public class StorableBlock implements Serializable {
 
-    private JsonLocation jsonLocation;
+    private final double x;
+    private final double y;
+    private final double z;
+
+    private final String material;
+    private final byte data;
+
 
 }

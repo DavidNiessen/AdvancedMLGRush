@@ -19,6 +19,7 @@ public class Steps {
     private Steps() {
     }
 
+    public static final IconStep ICON_STEP = new IconStep();
     public static final FirstCornerStep FIRST_CORNER_STEP = new FirstCornerStep();
     public static final SecondCornerStep SECOND_CORNER_STEP = new SecondCornerStep();
     public static final MaxBuildHeightStep MAX_BUILD_HEIGHT_STEP = new MaxBuildHeightStep();

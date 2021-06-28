@@ -19,6 +19,7 @@ import org.fusesource.jansi.Ansi;
 public class Constants {
 
     public static final Material DEFAULT_MATERIAL = XMaterial.STONE.parseMaterial();
+    public static final Material DEFAULT_MAP_MATERIAL = XMaterial.MAP.parseMaterial();
     public static final float DEFAULT_SOUND_VOLUME = 1.F;
     public static final float DEFAULT_SOUND_PITCH = 1.F;
     public static final String PLUGIN_PATH = "plugins/MLGRush/";
@@ -39,6 +40,8 @@ public class Constants {
     public static final String INVENTORY_CONFIG_PATH = PLUGIN_PATH + "inventories.yml";
     public static final String DEBUG_CONFIG_PATH = PLUGIN_PATH + "debug.yml";
     public static final String SPAWN_FILE_PATH = PLUGIN_PATH + "spawn.json";
+    //Maps
+    public static final String MAP_PATH = PLUGIN_PATH + "maps/";
     /* Slots */
     public static final int CHALLENGER_SLOT = 0;
     public static final int SETTINGS_SLOT = 2;

@@ -22,6 +22,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+
 @Singleton
 public class BlockBreakListener implements Listener {
 
@@ -36,7 +38,7 @@ public class BlockBreakListener implements Listener {
     }
 
     @EventHandler
-    public void onBreak(final @NotNull BlockBreakEvent event) {
+    public void onBreak(final @NotNull BlockBreakEvent event) throws IOException {
         final Player player = event.getPlayer();
         event.setCancelled(!buildModeManager.isInBuildMode(player));
 

@@ -12,22 +12,25 @@
 
 package net.skillcode.advancedmlgrush.game.map.setup.step.steps;
 
-import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.game.map.setup.step.SetupStep;
+import net.skillcode.advancedmlgrush.miscellaneous.Constants;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-@Singleton
-public class MaxBuildHeightStep implements SetupStep<Integer> {
+public class IconStep implements SetupStep<String> {
 
     @Override
     public String configPath() {
-        return MessageConfig.SETUP_MAX_BUILD_HEIGHT;
+        return MessageConfig.SETUP_ICON;
     }
 
     @Override
-    public Integer onPerform(final @NotNull Player player) {
-        return (int) player.getLocation().getY();
+    public String onPerform(final @NotNull Player player) {
+        final ItemStack itemStack = player.getItemInHand();
+        return itemStack.getType() == null || itemStack.getType() == Material.AIR
+                ? Constants.DEFAULT_MAP_MATERIAL.name() : itemStack.getType().name();
     }
 }

@@ -23,7 +23,6 @@ import net.skillcode.advancedmlgrush.item.builder.ItemBuilder;
 import net.skillcode.advancedmlgrush.libs.xseries.XEnchantment;
 import net.skillcode.advancedmlgrush.sql.data.CachedSQLData;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;

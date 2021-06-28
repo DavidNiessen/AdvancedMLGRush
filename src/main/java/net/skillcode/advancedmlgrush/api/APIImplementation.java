@@ -15,7 +15,6 @@ package net.skillcode.advancedmlgrush.api;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOW;
-import net.skillcode.advancedmlgrush.item.overwriter.ItemOWInitializer;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOWManager;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
 import net.skillcode.advancedmlgrush.placeholder.PlaceholderManager;

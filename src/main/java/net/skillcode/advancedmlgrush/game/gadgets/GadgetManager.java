@@ -27,7 +27,6 @@ import net.skillcode.advancedmlgrush.sql.data.CachedSQLData;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 

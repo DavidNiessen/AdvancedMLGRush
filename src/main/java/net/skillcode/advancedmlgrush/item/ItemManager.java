@@ -14,13 +14,11 @@ package net.skillcode.advancedmlgrush.item;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.ItemMaterialConfig;
 import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import net.skillcode.advancedmlgrush.item.builder.MetaType;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOWManager;
-import net.skillcode.advancedmlgrush.item.overwriter.ItemOWInitializer;
 import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

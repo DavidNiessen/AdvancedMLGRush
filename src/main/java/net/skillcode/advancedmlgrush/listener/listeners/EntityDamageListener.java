@@ -17,22 +17,25 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.event.EventManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.jetbrains.annotations.NotNull;
 
 @Singleton
-public class AsyncPlayerChatListener implements Listener {
+public class EntityDamageListener implements Listener {
 
-    final EventManager eventManager;
+    private final EventManager eventManager;
 
     @Inject
-    public AsyncPlayerChatListener(final EventManager eventManager) {
+    public EntityDamageListener(final EventManager eventManager) {
         this.eventManager = eventManager;
     }
 
     @EventHandler
-    public void onChat(final @NotNull AsyncPlayerChatEvent event) {
+    public void onDamage(final @NotNull EntityDamageEvent event) {
+        if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+            event.setCancelled(true);
+        }
+
         eventManager.callEvent(event);
     }
-
 }

@@ -58,15 +58,19 @@ public class ChallengeManager implements Registrable {
         }
 
         final List<Player> challengedPlayers = challengeMap.get(challenger);
+
         final Optional<Player> optionalChallenger = Optional.of(challenger);
+        final Optional<Player> optionalChallenged = Optional.of(challenged);
 
         if (challengedPlayers.contains(challenged)) {
             challenger.sendMessage(messageConfig.getWithPrefix(Optional.of(challenger), MessageConfig.ALREADY_CHALLENGED));
             return;
         }
 
-        challenged.sendMessage(messageConfig.getWithPrefix(optionalChallenger, MessageConfig.CHALLENGE_1));
-        challenger.sendMessage(messageConfig.getWithPrefix(optionalChallenger, MessageConfig.CHALLENGE_2));
+        challenger.sendMessage(String.format(messageConfig
+                .getWithPrefix(optionalChallenger, MessageConfig.CHALLENGE_2), challenged));
+        challenged.sendMessage(String.format(messageConfig
+                .getWithPrefix(optionalChallenged, MessageConfig.CHALLENGE_1), challenger));
         challengedPlayers.add(challenged);
     }
 

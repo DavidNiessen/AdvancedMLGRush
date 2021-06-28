@@ -8,3 +8,9 @@ commands:
     aliases:
       - buildmode
   setspawn:
+  setupmap:
+    aliases:
+      - setupmaptemplate
+      - setuptemplate
+      - createmap
+      - setup

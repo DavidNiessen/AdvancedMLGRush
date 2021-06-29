@@ -16,7 +16,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.map.MapType;
 import net.skillcode.advancedmlgrush.game.map.file.MapFile;
-import net.skillcode.advancedmlgrush.game.map.schematica.BlockStorage;
+import net.skillcode.advancedmlgrush.game.map.schematic.BlockStorage;
 import net.skillcode.advancedmlgrush.game.map.setup.step.SetupSteps;
 import net.skillcode.advancedmlgrush.game.map.setup.step.SetupSteps1x4;
 import net.skillcode.advancedmlgrush.util.BlockUtils;
@@ -51,7 +51,10 @@ public class MapSetup1x4 extends MapSetup {
     @Override
     Optional<MapFile> createMapFile(final @NotNull List<Object> objects, final @NotNull String mapName) {
         if (objects.size() == 13) {
-            final String icon = (String) objects.get(0);
+            final Pair<String, Integer> pair = (Pair<String, Integer>) objects.get(0);
+            final String icon = pair.getKey();
+            final int data = pair.getValue();
+
             final Location firstCorner = (Location) objects.get(1);
             final Location secondCorner = (Location) objects.get(2);
 
@@ -82,7 +85,7 @@ public class MapSetup1x4 extends MapSetup {
                 return Optional.empty();
             }
 
-            return Optional.of(new MapFile(MapType.ONE_X_ONE, mapName, icon, blocks.get(), maxBuildHeight, deathHeight,
+            return Optional.of(new MapFile(MapType.ONE_X_ONE, mapName, icon, data, blocks.get(), maxBuildHeight, deathHeight,
                     jSpectatorSpawn, jPlayerSpawns, jPlayerBeds));
         }
         return Optional.empty();

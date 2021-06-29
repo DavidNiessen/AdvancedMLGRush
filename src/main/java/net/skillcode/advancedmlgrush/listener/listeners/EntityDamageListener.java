@@ -34,8 +34,8 @@ public class EntityDamageListener implements Listener {
     public void onDamage(final @NotNull EntityDamageEvent event) {
         if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
             event.setCancelled(true);
+            eventManager.callEvent(event);
         }
 
-        eventManager.callEvent(event);
     }
 }

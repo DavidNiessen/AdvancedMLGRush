@@ -12,11 +12,9 @@
 
 package net.skillcode.advancedmlgrush.util;
 
-import com.google.common.collect.ImmutableList;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.libs.cuboid.Cuboid;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,14 +25,7 @@ public class BlockUtils {
 
     public List<Block> getBlocksBetweenLocations(final @NotNull Location location1,
                                                  final @NotNull Location location2) {
-        final List<Block> list = ImmutableList.copyOf(new Cuboid(location1, location2).blockList());
-        list.forEach(block -> {
-            if (block == null
-                    || block.getType() == Material.AIR) {
-                list.remove(block);
-            }
-        });
-        return list;
+         return new Cuboid(location1, location2).blockList(true);
     }
 
 }

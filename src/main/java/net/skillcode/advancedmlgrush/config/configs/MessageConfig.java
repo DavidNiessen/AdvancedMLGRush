@@ -42,6 +42,7 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String CHALLENGE_2 = "challenge_2";
     public static final String ALREADY_CHALLENGED = "already_challenged";
     public static final String ALREADY_SETTING_UP_MAP = "already_setting_up_map";
+    public static final String MAP_GENERATE = "map_generate";
     //Command syntaxes
     public static final String SETUP_MAP_COMMAND_SYNTAX = "setup_max_command_syntax";
     //setup
@@ -99,10 +100,11 @@ public class MessageConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(LOADING_DATA, "&cYour data is being loaded, please wait."));
         list.add(new Pair<>(ERROR, "&cAn error occurred."));
         list.add(new Pair<>(SPAWN_SET, "&aThe spawn has been set."));
-        list.add(new Pair<>(CHALLENGE_1, "&aYou have been challenged by &e%s &aon &e%settings_map% &a(&e%settings_rounds% &a).  "));
-        list.add(new Pair<>(CHALLENGE_2, "&aYou challenged %s."));
-        list.add(new Pair<>(ALREADY_CHALLENGED, "&cYou already challenged &e%s&a."));
+        list.add(new Pair<>(CHALLENGE_1, "&e%player% &achallenged you &aon &e%settings_map% &a(&e%settings_rounds% rounds&a)."));
+        list.add(new Pair<>(CHALLENGE_2, "&aYou challenged %player%."));
+        list.add(new Pair<>(ALREADY_CHALLENGED, "&cYou already challenged &e%player%&a."));
         list.add(new Pair<>(ALREADY_SETTING_UP_MAP, "&cYou are already setting up a map."));
+        list.add(new Pair<>(MAP_GENERATE, "&aGenerating map..."));
 
         list.add(new Pair<>(SETUP_MAP_COMMAND_SYNTAX, "&cWrong syntax: /setupmap <1x1, 1x4> <name>"));
 
@@ -110,8 +112,8 @@ public class MessageConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(SETUP_FIRST_CORNER, "&7Go to the lower left corner of the map and type '&enext&7'."));
         list.add(new Pair<>(SETUP_SECOND_CORNER, "&7Go to the higher right corner of the map and type '&enext&7'."));
         list.add(new Pair<>(SETUP_MAX_BUILD_HEIGHT, "&7Go to the maximum build height and type '&enext&7'."));
-        list.add(new Pair<>(SETUP_DEATH_HEIGHT, "&7Go to the death height and enter '&enext&7'."));
-        list.add(new Pair<>(SETUP_SPECTATOR_SPAWN, "&7Go to the spectator spawn and enter '&enext&7'."));
+        list.add(new Pair<>(SETUP_DEATH_HEIGHT, "&7Go to the death height and type '&enext&7'."));
+        list.add(new Pair<>(SETUP_SPECTATOR_SPAWN, "&7Go to the spectator spawn and type '&enext&7'."));
         list.add(new Pair<>(SETUP_SPAWN_PLAYER_1, "&7Go to the spawn of the first player and type '&enext&7'."));
         list.add(new Pair<>(SETUP_SPAWN_PLAYER_2, "&7Go to the spawn of the second player and type '&enext&7'."));
         list.add(new Pair<>(SETUP_SPAWN_PLAYER_3, "&7Go to the spawn of the third player and type '&enext&7'."));

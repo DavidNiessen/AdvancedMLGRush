@@ -24,7 +24,7 @@ public class CachedSQLData {
     private int settingsStickSlot = 0;
     private int settingsBlockSlot = 1;
     private int settingsPickaxeSlot = 8;
-    private int settingsArena = 0;
+    private int settingsMap = 0;
     private int settingsRounds = 5;
     private int gadgetsStick = 0;
     private int gadgetsBlocks = 0;

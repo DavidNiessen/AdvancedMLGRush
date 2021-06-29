@@ -12,12 +12,15 @@
 
 package net.skillcode.advancedmlgrush.game.map;
 
-import net.skillcode.advancedmlgrush.game.map.file.MapFile;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public interface MapFactory {
+import java.util.List;
 
-    Map create(final @NotNull MapData mapData,
-               final @NotNull MapFile mapFile);
+public interface MapInstanceFactory {
+
+    MapInstance create(final @NotNull MapTemplate mapTemplate,
+                       final @NotNull MapData mapData,
+                       final @NotNull List<Player> players);
 
 }

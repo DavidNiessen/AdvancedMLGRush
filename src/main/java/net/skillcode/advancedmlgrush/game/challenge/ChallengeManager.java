@@ -15,6 +15,8 @@ package net.skillcode.advancedmlgrush.game.challenge;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
+import net.skillcode.advancedmlgrush.game.map.MapManager;
+import net.skillcode.advancedmlgrush.game.map.MapTemplate;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.Registrable;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -26,13 +28,16 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChallengeManager implements Registrable {
 
     private final MessageConfig messageConfig;
+    private final MapManager mapManager;
 
     //<challenger, challenged>
     private final Map<Player, List<Player>> challengeMap = new ConcurrentHashMap<>();
 
     @Inject
-    public ChallengeManager(final @NotNull MessageConfig messageConfig) {
+    public ChallengeManager(final @NotNull MessageConfig messageConfig,
+                            final @NotNull MapManager mapManager) {
         this.messageConfig = messageConfig;
+        this.mapManager = mapManager;
     }
 
     public void challengePlayer(final @NotNull Player challenger, final @NotNull Player challenged) {
@@ -46,9 +51,13 @@ public class ChallengeManager implements Registrable {
                 unregister(challenger);
                 unregister(challenged);
 
-                // TODO: 26.06.21 start game
-                challenger.sendMessage("STARTING GAME");
-                challenged.sendMessage("STARTING GAME");
+                final Optional<MapTemplate> optional = mapManager.getPlayerMap(challenger);
+                if (!optional.isPresent()) {
+                    challenger.sendMessage(messageConfig.getWithPrefix(Optional.of(challenger), MessageConfig.ERROR));
+                    challenged.sendMessage(messageConfig.getWithPrefix(Optional.of(challenged), MessageConfig.ERROR));
+                } else {
+                    optional.get().createInstance(new ArrayList<>(Arrays.asList(challenger, challenged)));
+                }
                 return;
             }
         }
@@ -63,14 +72,14 @@ public class ChallengeManager implements Registrable {
         final Optional<Player> optionalChallenged = Optional.of(challenged);
 
         if (challengedPlayers.contains(challenged)) {
-            challenger.sendMessage(messageConfig.getWithPrefix(Optional.of(challenger), MessageConfig.ALREADY_CHALLENGED));
+            challenger.sendMessage(messageConfig.getWithPrefix(Optional.of(challenged), MessageConfig.ALREADY_CHALLENGED));
             return;
         }
 
-        challenger.sendMessage(String.format(messageConfig
-                .getWithPrefix(optionalChallenger, MessageConfig.CHALLENGE_2), challenged));
-        challenged.sendMessage(String.format(messageConfig
-                .getWithPrefix(optionalChallenged, MessageConfig.CHALLENGE_1), challenger));
+        challenger.sendMessage(messageConfig
+                .getWithPrefix(optionalChallenged, MessageConfig.CHALLENGE_2));
+        challenged.sendMessage(messageConfig
+                .getWithPrefix(optionalChallenger, MessageConfig.CHALLENGE_1));
         challengedPlayers.add(challenged);
     }
 

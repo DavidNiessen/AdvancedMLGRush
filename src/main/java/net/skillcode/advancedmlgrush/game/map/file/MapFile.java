@@ -16,17 +16,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.skillcode.advancedmlgrush.game.map.MapType;
 import net.skillcode.advancedmlgrush.util.Pair;
+import net.skillcode.advancedmlgrush.util.json.JsonConfig;
 import net.skillcode.advancedmlgrush.util.json.JsonLocation;
 
 import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class MapFile {
+public class MapFile implements JsonConfig {
 
     private MapType mapType;
     private String name;
     private String icon;
+    private int iconData;
     private String blocks;
 
     private int maxBuildHeight;

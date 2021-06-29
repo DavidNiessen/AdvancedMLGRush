@@ -56,7 +56,7 @@ public class SetupMapCommand implements CommandExecutor {
             stringBuilder.append(args[i]).append(" ");
         }
 
-        final String name = stringBuilder.substring(stringBuilder.toString().length() - 1);
+        final String name = stringBuilder.substring(0, stringBuilder.toString().length() - 1);
 
         if (arg.equals("1x1")) {
             mapSetup1x1.startSetup(player, name);

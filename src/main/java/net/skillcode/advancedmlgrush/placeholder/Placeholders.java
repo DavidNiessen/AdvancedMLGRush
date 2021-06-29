@@ -39,8 +39,10 @@ public class Placeholders {
 
     public String replace(final @NotNull Optional<Player> optionalPlayer, final @NotNull String input) {
         final AtomicReference<String> result = new AtomicReference<>(input);
+
         result.set(replaceColors(result.get()));
         result.set(replaceBuiltinPlaceholders(optionalPlayer, result.get()));
+
         optionalPlayer.ifPresent(player -> result.set(replacePAPIPlaceholders(player, result.get())));
 
         return result.get();

@@ -37,7 +37,7 @@ public abstract class Queue implements Registrable {
     private final List<Player> queue = new CopyOnWriteArrayList<>();
 
     /**
-     * @return the number of players that can play on this arena
+     * @return the number of players that can play on this map
      */
     protected abstract int playerAmount();
 

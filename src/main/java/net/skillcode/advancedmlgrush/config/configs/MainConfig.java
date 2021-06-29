@@ -35,6 +35,8 @@ public class MainConfig extends Configurable {
     public static final String DEFAULT_ROUNDS = "default_rounds";
     public static final String RANKING_UPDATE_PERIOD = "ranking_update_period";
     public static final String STATS_ITEM_LORE = "stats_item_lore";
+    public static final String MAP_ITEM_PREFIX = "map_item_prefix";
+    public static final String PASTE_BLOCKS_PER_TICK = "paste_blocks_per_second";
 
     @PostConstruct
     public void initConfig() {
@@ -62,5 +64,7 @@ public class MainConfig extends Configurable {
                 "&7&l#2 &8» &e%stats_ranking_2%",
                 "&c&l#3 &8» &e%stats_ranking_3%"
         ))));
+        list.add(new Pair<>(MAP_ITEM_PREFIX, "&8» &e"));
+        list.add(new Pair<>(PASTE_BLOCKS_PER_TICK, 5));
     }
 }

@@ -42,7 +42,6 @@ public class MapFileLoader {
     public void loadFilesIfExists() {
         mapFiles.clear();
         final File directory = new File(Constants.MAP_PATH);
-        if (directory.exists()) {
             if (directory.exists()) {
                 for (final File file : directory.listFiles()) {
                     final MapFile mapFile = JsonUtils.getFromFile(MapFile.class, file);
@@ -50,12 +49,11 @@ public class MapFileLoader {
                         mapFiles.add(mapFile);
                     }
                 }
-            }
         }
     }
 
     public void createMapFile(final @NotNull MapFile mapFile) {
-        final String filePath = Constants.MAP_PATH + mapFile.getName().toLowerCase(Locale.ROOT).replace(" ", "_");
+        final String filePath = Constants.MAP_PATH + mapFile.getName().toLowerCase(Locale.ROOT).replace(" ", "_") + ".json";
         final File file = new File(filePath);
 
         if (!file.exists()) {

@@ -12,22 +12,12 @@
 
 package net.skillcode.advancedmlgrush.game.map;
 
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
-import lombok.Getter;
 import net.skillcode.advancedmlgrush.game.map.file.MapFile;
 import org.jetbrains.annotations.NotNull;
 
-public class Map {
+public interface MapTemplateFactory {
 
-    @Getter
-    private final MapData mapData;
-    private final MapFile mapFile;
+    MapTemplate create(final @NotNull MapData mapData,
+                       final @NotNull MapFile mapFile);
 
-    @Inject
-    public Map(final @Assisted @NotNull MapData mapData,
-               final @Assisted @NotNull MapFile mapFile) {
-        this.mapData = mapData;
-        this.mapFile = mapFile;
-    }
 }

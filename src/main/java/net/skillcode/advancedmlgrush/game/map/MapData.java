@@ -14,7 +14,7 @@ package net.skillcode.advancedmlgrush.game.map;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.skillcode.advancedmlgrush.game.map.schematica.StorableBlock;
+import net.skillcode.advancedmlgrush.game.map.schematic.StorableBlock;
 import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,6 +28,7 @@ public class MapData {
     private final MapType mapType;
     private final String name;
     private final Material icon;
+    private final int iconData;
     private final List<StorableBlock> blocks;
 
     private final int maxBuild;

@@ -15,8 +15,8 @@ package net.skillcode.advancedmlgrush.game.map;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.map.file.MapFile;
-import net.skillcode.advancedmlgrush.game.map.schematica.BlockStorage;
-import net.skillcode.advancedmlgrush.game.map.schematica.StorableBlock;
+import net.skillcode.advancedmlgrush.game.map.schematic.BlockStorage;
+import net.skillcode.advancedmlgrush.game.map.schematic.StorableBlock;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.util.EnumUtils;
 import net.skillcode.advancedmlgrush.util.LocationWrapper;
@@ -43,13 +43,15 @@ public class MapDataWrapper {
         final Material material = enumUtils.isInEnum(Material.class, materialName)
                 ? Material.valueOf(materialName) : Constants.DEFAULT_MAP_MATERIAL;
 
+        final int data = mapFile.getIconData();
+
         final List<StorableBlock> blocks = blockStorage.toList(mapFile.getBlocks()).orElse(new ArrayList<>());
 
         final Location spectatorSpawn = locationWrapper.toLocation(mapFile.getSpectatorSpawn());
         final List<Location> spawns = locationWrapper.toList(mapFile.getSpawns());
         final List<Pair<Location, Location>> beds = locationWrapper.toPairList(mapFile.getBeds());
 
-        return new MapData(mapFile.getMapType(), mapFile.getName(), material, blocks, mapFile.getMaxBuildHeight(),
+        return new MapData(mapFile.getMapType(), mapFile.getName(), material, data, blocks, mapFile.getMaxBuildHeight(),
                 mapFile.getDeathHeight(), spectatorSpawn, spawns, beds);
     }
 

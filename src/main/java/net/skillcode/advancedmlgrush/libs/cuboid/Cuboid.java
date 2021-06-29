@@ -13,12 +13,13 @@
 package net.skillcode.advancedmlgrush.libs.cuboid;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 public class Cuboid {
@@ -53,17 +54,19 @@ public class Cuboid {
         this.zMaxCentered = this.zMax + 0.5;
     }
 
-    public Iterator<Block> blockList() {
+    public List<Block> blockList(final boolean ignoreAir) {
         final ArrayList<Block> bL = new ArrayList<>(this.getTotalBlockSize());
         for (int x = this.xMin; x <= this.xMax; ++x) {
             for (int y = this.yMin; y <= this.yMax; ++y) {
                 for (int z = this.zMin; z <= this.zMax; ++z) {
                     final Block b = this.world.getBlockAt(x, y, z);
+                    if (ignoreAir && b.getType() == null
+                            || b.getType() == Material.AIR) continue;
                     bL.add(b);
                 }
             }
         }
-        return bL.iterator();
+        return bL;
     }
 
     public Location getCenter() {

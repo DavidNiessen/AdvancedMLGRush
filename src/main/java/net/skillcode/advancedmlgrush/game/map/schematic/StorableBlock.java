@@ -10,7 +10,7 @@
  * Support: https://discord.skillplugins.com
  */
 
-package net.skillcode.advancedmlgrush.game.map.schematica;
+package net.skillcode.advancedmlgrush.game.map.schematic;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

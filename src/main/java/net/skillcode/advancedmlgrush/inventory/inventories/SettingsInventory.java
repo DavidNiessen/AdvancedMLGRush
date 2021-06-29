@@ -38,6 +38,8 @@ public class SettingsInventory extends AbstractInventory {
     private SortingInventory sortingInventory;
     @Inject
     private RoundsInventory roundsInventory;
+    @Inject
+    private MapInventory mapInventory;
 
     @PostConstruct
     public void initInventory() {
@@ -80,13 +82,15 @@ public class SettingsInventory extends AbstractInventory {
             protected void onEvent(final @NotNull InventoryClickEvent event) {
                 final Player player = (Player) event.getWhoClicked();
                 if (inventoryUtils.isOpenInventory(player, clazz)) {
+                    final Optional<Player> optionalPlayer = Optional.of(player);
                     final ItemStack currentItem = event.getCurrentItem();
-                    if (itemUtils.compare(currentItem, EnumItem.SETTINGS_INVENTORY_SORTING, Optional.of(player))) {
+                    if (itemUtils.compare(currentItem, EnumItem.SETTINGS_INVENTORY_SORTING, optionalPlayer)) {
                         sortingInventory.open(player);
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
-                    } else if (itemUtils.compare(currentItem, EnumItem.SETTINGS_MAP, Optional.of(player))) {
+                    } else if (itemUtils.compare(currentItem, EnumItem.SETTINGS_MAP, optionalPlayer)) {
+                        mapInventory.open(player);
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
-                    } else if (itemUtils.compare(currentItem, EnumItem.SETTINGS_ROUNDS, Optional.of(player))) {
+                    } else if (itemUtils.compare(currentItem, EnumItem.SETTINGS_ROUNDS, optionalPlayer)) {
                         roundsInventory.open(player);
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
                     }

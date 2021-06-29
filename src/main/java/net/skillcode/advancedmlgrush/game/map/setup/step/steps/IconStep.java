@@ -15,12 +15,13 @@ package net.skillcode.advancedmlgrush.game.map.setup.step.steps;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.game.map.setup.step.SetupStep;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
+import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class IconStep implements SetupStep<String> {
+public class IconStep implements SetupStep<Pair<String, Integer>> {
 
     @Override
     public String configPath() {
@@ -28,9 +29,9 @@ public class IconStep implements SetupStep<String> {
     }
 
     @Override
-    public String onPerform(final @NotNull Player player) {
+    public Pair<String, Integer> onPerform(final @NotNull Player player) {
         final ItemStack itemStack = player.getItemInHand();
-        return itemStack.getType() == null || itemStack.getType() == Material.AIR
-                ? Constants.DEFAULT_MAP_MATERIAL.name() : itemStack.getType().name();
+        return new Pair<>(itemStack.getType() == null || itemStack.getType() == Material.AIR
+                ? Constants.DEFAULT_MAP_MATERIAL.name() : itemStack.getType().name(), 0);
     }
 }

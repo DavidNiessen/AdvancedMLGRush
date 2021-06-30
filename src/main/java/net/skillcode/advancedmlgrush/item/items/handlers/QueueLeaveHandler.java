@@ -14,7 +14,6 @@ package net.skillcode.advancedmlgrush.item.items.handlers;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
 import net.skillcode.advancedmlgrush.game.queue.Queue1x1;
@@ -38,8 +37,6 @@ public class QueueLeaveHandler implements EventHandler {
     private ItemUtils itemUtils;
     @Inject
     private LobbyItems lobbyItems;
-    @Inject
-    private MessageConfig messageConfig;
     @Inject
     private Queue1x1 queue1x1;
     @Inject
@@ -65,8 +62,8 @@ public class QueueLeaveHandler implements EventHandler {
                         player.getInventory().clear();
                         lobbyItems.setLobbyItems(player);
 
-                        queue1x1.unregister(player);
-                        queue1x4.unregister(player);
+                        queue1x1.removeFromQueue(player);
+                        queue1x4.removeFromQueue(player);
                     }
                 }
             }

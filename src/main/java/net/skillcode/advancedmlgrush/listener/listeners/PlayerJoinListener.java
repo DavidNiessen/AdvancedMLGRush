@@ -42,7 +42,7 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onJoin(final @NotNull PlayerJoinEvent event) {
-        event.setJoinMessage(" ");
+        event.setJoinMessage("");
         eventManager.callEvent(event);
 
         final Player player = event.getPlayer();

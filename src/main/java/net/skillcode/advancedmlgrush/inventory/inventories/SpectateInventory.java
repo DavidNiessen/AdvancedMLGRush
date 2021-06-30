@@ -12,21 +12,39 @@
 
 package net.skillcode.advancedmlgrush.inventory.inventories;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.InventoryNameConfig;
+import net.skillcode.advancedmlgrush.config.configs.MainConfig;
+import net.skillcode.advancedmlgrush.game.map.MapInstance;
+import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
+import net.skillcode.advancedmlgrush.game.queue.Queue1x1;
+import net.skillcode.advancedmlgrush.game.queue.Queue1x4;
 import net.skillcode.advancedmlgrush.inventory.multipage.MultiPageInventory;
+import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.builder.MetaType;
-import net.skillcode.advancedmlgrush.libs.xseries.XMaterial;
+import net.skillcode.advancedmlgrush.placeholder.Placeholders;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Optional;
 
 @Singleton
 public class SpectateInventory extends MultiPageInventory {
 
+    @Inject
+    private MapInstanceManager mapInstanceManager;
+    @Inject
+    private Queue1x1 queue1x1;
+    @Inject
+    private Queue1x4 queue1x4;
+    @Inject
+    private MainConfig mainConfig;
+    @Inject
+    private Placeholders placeholders;
 
     @Override
     protected boolean playSound() {
@@ -40,14 +58,31 @@ public class SpectateInventory extends MultiPageInventory {
 
     @Override
     protected LinkedHashMap<ItemStack, Object> onOpen(final @NotNull Player player) {
-        final LinkedHashMap<ItemStack, Object> map = new LinkedHashMap<>(); // TODO: 26.06.21
-        map.put(ibFactory.create(MetaType.ITEM_META, 0)
-                .material(XMaterial.DIRT.parseMaterial()).build(), null);
+        final LinkedHashMap<ItemStack, Object> map = new LinkedHashMap<>();
+        final Optional<Player> optionalPlayer = Optional.of(player);
+
+        mapInstanceManager.getMapInstances().forEach(mapInstance -> {
+            final List<String> lore = mainConfig.getArrayList(MainConfig.MAP_ITEM_LORE);
+            placeholders.replace(Optional.ofNullable(mapInstance.getPlayers().get(0)), lore);
+
+            map.put(ibFactory.create(MetaType.ITEM_META, mapInstance.getMapData().getIconData())
+                    .material(mapInstance.getMapData().getIcon()).name(itemManager
+                            .getItemName(Optional.ofNullable(mapInstance.getPlayers().get(0)), EnumItem.MAP))
+                    .lore(lore).build(), mapInstance);
+        });
+
         return map;
     }
 
     @Override
     protected void onElementClick(final Player player, final @NotNull Optional<Object> optional) {
-        // TODO: 26.06.21
+        if (optional.isPresent() && optional.get() instanceof MapInstance) {
+            final MapInstance mapInstance = (MapInstance) optional.get();
+
+            queue1x1.unregister(player);
+            queue1x4.unregister(player);
+
+            mapInstance.addSpectator(player);
+        }
     }
 }

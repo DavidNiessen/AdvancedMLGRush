@@ -38,6 +38,7 @@ public class PlayerMoveListener implements Listener {
 
     @EventHandler
     public void onMove(final @NotNull PlayerMoveEvent event) {
+        eventManager.callEvent(event);
         if (event.getTo().getY() <= 0) {
             final Optional<SpawnFile> spawnFileOptional = spawnFileLoader.getSpawnFileOptional();
             if (spawnFileOptional.isPresent()) {
@@ -48,6 +49,5 @@ public class PlayerMoveListener implements Listener {
             }
 
         }
-        eventManager.callEvent(event);
     }
 }

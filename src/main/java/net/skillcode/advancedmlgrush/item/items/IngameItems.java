@@ -66,4 +66,8 @@ public class IngameItems {
         player.getInventory().setItem(block.getValue(), block.getKey());
         player.getInventory().setItem(pickaxe.getValue(), pickaxe.getKey());
     }
+
+    public void setSpectatorItems(final @NotNull Player player) {
+        player.getInventory().setItem(4, itemManager.getItem(Optional.of(player), EnumItem.SPECTATE_LEAVE));
+    }
 }

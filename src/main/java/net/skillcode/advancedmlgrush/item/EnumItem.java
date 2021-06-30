@@ -44,7 +44,9 @@ EnumItem {
     STATS_BEDS("stats_beds"),
     STATS_RANKING("stats_ranking"),
     QUEUE_1x1("queue_1x1"),
-    QUEUE_1x4("queue_1x4");
+    QUEUE_1x4("queue_1x4"),
+    SPECTATE_LEAVE("spectate_leave"),
+    MAP("map");
 
     private final String configPath;
 

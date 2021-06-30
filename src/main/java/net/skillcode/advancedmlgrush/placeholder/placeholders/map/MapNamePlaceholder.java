@@ -10,31 +10,29 @@
  * Support: https://discord.skillplugins.com
  */
 
-package net.skillcode.advancedmlgrush.placeholder.placeholders;
+package net.skillcode.advancedmlgrush.placeholder.placeholders.map;
 
 import com.google.inject.Inject;
-import net.skillcode.advancedmlgrush.game.stats.StatsUtils;
+import net.skillcode.advancedmlgrush.game.map.MapInstance;
+import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
-import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class WinRatePlaceholder extends Placeholder {
+public class MapNamePlaceholder extends Placeholder {
 
-    private final SQLDataCache sqlDataCache;
-    private final StatsUtils statsUtils;
+    private final MapInstanceManager mapInstanceManager;
 
     @Inject
-    public WinRatePlaceholder(final @NotNull SQLDataCache sqlDataCache, final @NotNull StatsUtils statsUtils) {
-        this.sqlDataCache = sqlDataCache;
-        this.statsUtils = statsUtils;
+    public MapNamePlaceholder(final @NotNull MapInstanceManager mapInstanceManager) {
+        this.mapInstanceManager = mapInstanceManager;
     }
 
     @Override
     public String identifier() {
-        return "%stats_win_rate%";
+        return "%map_name%";
     }
 
     @Override
@@ -43,11 +41,13 @@ public class WinRatePlaceholder extends Placeholder {
             return getNullValue();
         }
         final Player player = optionalPlayer.get();
+        final Optional<MapInstance> mapInstanceOptional = mapInstanceManager.getMapInstance(player);
 
-        if (!sqlDataCache.isLoaded(player)) {
-            return getLoadingValue();
+        if (!mapInstanceOptional.isPresent()) {
+            return getNullValue();
         }
-        return statsUtils.getWinRate(player);
-    }
 
+        final MapInstance mapInstance = mapInstanceOptional.get();
+        return mapInstance.getMapData().getName();
+    }
 }

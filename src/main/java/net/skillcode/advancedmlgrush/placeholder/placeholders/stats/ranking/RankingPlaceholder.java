@@ -10,34 +10,44 @@
  * Support: https://discord.skillplugins.com
  */
 
-package net.skillcode.advancedmlgrush.placeholder.placeholders.ranking;
+package net.skillcode.advancedmlgrush.placeholder.placeholders.stats.ranking;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.stats.Ranking;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
+import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-@Singleton
-public class Ranking8Placeholder extends Placeholder {
+public class RankingPlaceholder extends Placeholder {
 
+    private final SQLDataCache sqlDataCache;
     private final Ranking ranking;
 
     @Inject
-    public Ranking8Placeholder(final @NotNull Ranking ranking) {
+    public RankingPlaceholder(final @NotNull SQLDataCache sqlDataCache, final @NotNull Ranking ranking) {
+        this.sqlDataCache = sqlDataCache;
         this.ranking = ranking;
     }
 
     @Override
     public String identifier() {
-        return "%stats_ranking_8%";
+        return "%stats_ranking%";
     }
 
     @Override
     public String onRequest(final @NotNull Optional<Player> optionalPlayer) {
-        return ranking.getPlayerByRanking(8).orElse(getNullValue());
+        if (!optionalPlayer.isPresent()) {
+            return getNullValue();
+        }
+        final Player player = optionalPlayer.get();
+
+        if (!sqlDataCache.isLoaded(player)) {
+            return getLoadingValue();
+        }
+        return String.valueOf(ranking.getRankingByName(player));
     }
+
 }

@@ -31,6 +31,7 @@ public class PlayerQuitListener implements Listener {
 
     @EventHandler
     public void onQuit(final PlayerQuitEvent event) {
+        event.setQuitMessage("");
         final Player player = event.getPlayer();
         eventManager.callEvent(event);
 

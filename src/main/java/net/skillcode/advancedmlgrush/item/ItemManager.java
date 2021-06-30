@@ -55,6 +55,10 @@ public class ItemManager {
                 .build());
     }
 
+    public String getItemName(final @NotNull Optional<Player> optionalPlayer, final @NotNull EnumItem enumItem) {
+        return itemNameConfig.getString(optionalPlayer, enumItem);
+    }
+
     private Pair<Material, Integer> getConfigMaterial(final @NotNull EnumItem enumItem) {
         return itemMaterialConfig.getMaterial(enumItem);
     }

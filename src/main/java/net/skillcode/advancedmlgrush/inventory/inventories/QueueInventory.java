@@ -70,6 +70,8 @@ public class QueueInventory extends AbstractInventory {
     @Override
     protected Inventory onOpen(@NotNull Inventory inventory, @NotNull Player player) {
         final Optional<Player> optionalPlayer = Optional.of(player);
+        queue1x1.unregister(player);
+        queue1x4.unregister(player);
         inventory.setItem(QUEUE_1X1_SLOT, itemManager.getItem(optionalPlayer, EnumItem.QUEUE_1x1));
         inventory.setItem(QUEUE_1X4_SLOT, itemManager.getItem(optionalPlayer, EnumItem.QUEUE_1x4));
         return inventory;

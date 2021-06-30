@@ -71,6 +71,7 @@ public class ItemMaterialConfig extends Configurable {
         list.add(new Pair<>(EnumItem.STATS_RANKING.getConfigPath(), XMaterial.GOLD_BLOCK.name()));
         list.add(new Pair<>(EnumItem.QUEUE_1x1.getConfigPath(), XMaterial.NETHER_STAR.name()));
         list.add(new Pair<>(EnumItem.QUEUE_1x4.getConfigPath(), XMaterial.NETHER_STAR.name()));
+        list.add(new Pair<>(EnumItem.SPECTATE_LEAVE.getConfigPath(), XMaterial.MAGMA_CREAM.name()));
     }
 
     public Pair<Material, Integer> getMaterial(final @NotNull String path) {

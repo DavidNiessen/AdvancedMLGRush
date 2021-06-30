@@ -10,7 +10,7 @@
  * Support: https://discord.skillplugins.com
  */
 
-package net.skillcode.advancedmlgrush.placeholder.placeholders;
+package net.skillcode.advancedmlgrush.placeholder.placeholders.settings;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

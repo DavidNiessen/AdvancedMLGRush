@@ -10,34 +10,41 @@
  * Support: https://discord.skillplugins.com
  */
 
-package net.skillcode.advancedmlgrush.placeholder.placeholders.ranking;
+package net.skillcode.advancedmlgrush.placeholder.placeholders.stats;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import net.skillcode.advancedmlgrush.game.stats.Ranking;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
+import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-@Singleton
-public class Ranking2Placeholder extends Placeholder {
+public class LosesPlaceholder extends Placeholder {
 
-    private final Ranking ranking;
+    private final SQLDataCache sqlDataCache;
 
     @Inject
-    public Ranking2Placeholder(final @NotNull Ranking ranking) {
-        this.ranking = ranking;
+    public LosesPlaceholder(final @NotNull SQLDataCache sqlDataCache) {
+        this.sqlDataCache = sqlDataCache;
     }
 
     @Override
     public String identifier() {
-        return "%stats_ranking_2%";
+        return "%stats_loses%";
     }
 
     @Override
     public String onRequest(final @NotNull Optional<Player> optionalPlayer) {
-        return ranking.getPlayerByRanking(2).orElse(getNullValue());
+        if (!optionalPlayer.isPresent()) {
+            return getNullValue();
+        }
+        final Player player = optionalPlayer.get();
+
+        if (!sqlDataCache.isLoaded(player)) {
+            return getLoadingValue();
+        }
+        return String.valueOf(sqlDataCache.getSQLData(player).getStatsLoses());
     }
+
 }

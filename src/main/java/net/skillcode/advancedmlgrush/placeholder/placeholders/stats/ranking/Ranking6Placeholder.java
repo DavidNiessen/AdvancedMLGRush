@@ -10,7 +10,7 @@
  * Support: https://discord.skillplugins.com
  */
 
-package net.skillcode.advancedmlgrush.placeholder.placeholders.ranking;
+package net.skillcode.advancedmlgrush.placeholder.placeholders.stats.ranking;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -22,22 +22,22 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 @Singleton
-public class Ranking4Placeholder extends Placeholder {
+public class Ranking6Placeholder extends Placeholder {
 
     private final Ranking ranking;
 
     @Inject
-    public Ranking4Placeholder(final @NotNull Ranking ranking) {
+    public Ranking6Placeholder(final @NotNull Ranking ranking) {
         this.ranking = ranking;
     }
 
     @Override
     public String identifier() {
-        return "%stats_ranking_4%";
+        return "%stats_ranking_6%";
     }
 
     @Override
     public String onRequest(final @NotNull Optional<Player> optionalPlayer) {
-        return ranking.getPlayerByRanking(4).orElse(getNullValue());
+        return ranking.getPlayerByRanking(6).orElse(getNullValue());
     }
 }

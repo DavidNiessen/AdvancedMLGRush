@@ -65,9 +65,13 @@ public class MapManager implements Initializer {
         final Random random = new Random();
         switch (mapType) {
             case ONE_X_ONE:
-                return Optional.of(mapTemplates1x1.get(random.nextInt(mapTemplates1x1.size())));
+                return mapTemplates1x1.isEmpty()
+                        ? Optional.empty()
+                        : Optional.of(mapTemplates1x1.get(random.nextInt(mapTemplates1x1.size())));
             case ONE_X_FOUR:
-                return Optional.of(mapTemplates1x4.get(random.nextInt(mapTemplates1x4.size())));
+                return mapTemplates1x4.isEmpty()
+                        ? Optional.empty()
+                        : Optional.of(mapTemplates1x4.get(random.nextInt(mapTemplates1x4.size())));
             default:
                 return Optional.empty();
         }

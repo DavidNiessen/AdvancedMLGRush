@@ -36,9 +36,10 @@ public class MainConfig extends Configurable {
     public static final String RANKING_UPDATE_PERIOD = "ranking_update_period";
     public static final String BLOCK_AMOUNT = "block_amount";
     public static final String INFINITE_BLOCKS = "infinity_blocks";
-    public static final String STATS_ITEM_LORE = "stats_item_lore";
     public static final String MAP_ITEM_PREFIX = "map_item_prefix";
     public static final String PASTE_BLOCKS_PER_TICK = "paste_blocks_per_second";
+    public static final String STATS_ITEM_LORE = "stats_item_lore";
+    public static final String MAP_ITEM_LORE = "map_item_lore";
 
     @PostConstruct
     public void initConfig() {
@@ -62,13 +63,24 @@ public class MainConfig extends Configurable {
         list.add(new Pair<>(RANKING_UPDATE_PERIOD, 5.0));
         list.add(new Pair<>(BLOCK_AMOUNT, 32));
         list.add(new Pair<>(INFINITE_BLOCKS, true));
+        list.add(new Pair<>(MAP_ITEM_PREFIX, "&8» &e"));
+        list.add(new Pair<>(PASTE_BLOCKS_PER_TICK, 5));
         list.add(new Pair<>(STATS_ITEM_LORE, new ArrayList<>(Arrays.asList(
                 " ",
                 "&6&l#1 &8» &e%stats_ranking_1%",
                 "&7&l#2 &8» &e%stats_ranking_2%",
                 "&c&l#3 &8» &e%stats_ranking_3%"
         ))));
-        list.add(new Pair<>(MAP_ITEM_PREFIX, "&8» &e"));
-        list.add(new Pair<>(PASTE_BLOCKS_PER_TICK, 5));
+        list.add(new Pair<>(MAP_ITEM_LORE, new ArrayList<>(Arrays.asList(
+                " ",
+                "&7Mode&8: ",
+                "&8» &e%map_mode%",
+                " ",
+                "&7Players&8:",
+                "&8» &e%map_player_1%",
+                "&8» &e%map_player_2%",
+                "&8» &e%map_player_3%",
+                "&8» &e%map_player_4%"
+        ))));
     }
 }

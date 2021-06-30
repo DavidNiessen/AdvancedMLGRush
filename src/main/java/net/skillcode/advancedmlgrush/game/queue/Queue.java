@@ -52,7 +52,6 @@ public abstract class Queue implements Registrable {
     /**
      * @return the number of players that can play on this map
      */
-
     public int getSize() {
         return queue.size();
     }
@@ -79,6 +78,10 @@ public abstract class Queue implements Registrable {
 
     @Override
     public void unregister(final @NotNull Player player) {
+        queue.remove(player);
+    }
+
+    public void removeFromQueue(final @NotNull Player player) {
         if (queue.contains(player)) {
             soundUtil.playSound(player, SoundConfig.QUEUE_LEAVE);
             queue.remove(player);
@@ -93,7 +96,7 @@ public abstract class Queue implements Registrable {
     abstract MapType mapType();
 
     private void startGame() {
-        final Optional<MapTemplate> mapTemplate = mapManager.getPlayerMap(queue.get(0));
+        final Optional<MapTemplate> mapTemplate = mapManager.getRandomMapTemplate(mapType());
         if (!mapTemplate.isPresent()) {
             queue.forEach(player -> {
                 player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.ERROR));

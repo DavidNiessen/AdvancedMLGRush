@@ -26,6 +26,8 @@ import net.skillcode.advancedmlgrush.game.map.schematic.SchematicLoader;
 import net.skillcode.advancedmlgrush.game.map.world.MapWorldGenerator;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFile;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
+import net.skillcode.advancedmlgrush.item.EnumItem;
+import net.skillcode.advancedmlgrush.item.ItemUtils;
 import net.skillcode.advancedmlgrush.item.items.IngameItems;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
 import net.skillcode.advancedmlgrush.sound.SoundUtil;
@@ -33,15 +35,20 @@ import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import net.skillcode.advancedmlgrush.util.LocationUtils;
 import net.skillcode.advancedmlgrush.util.LocationWrapper;
 import net.skillcode.advancedmlgrush.util.Pair;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -52,11 +59,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class MapInstance implements EventHandler {
 
     private final List<Location> placedBlocks = new ArrayList<>();
+    @Getter
     private final List<Player> spectators = new CopyOnWriteArrayList<>();
 
+    @Getter
     private final MapTemplate mapTemplate;
+    @Getter
     private final MapData mapData;
+    @Getter
     private final List<Player> players;
+    @Getter
     private final int rounds;
 
     @Getter
@@ -91,6 +103,10 @@ public class MapInstance implements EventHandler {
     private MainConfig mainConfig;
     @Inject
     private SoundUtil soundUtil;
+    @Inject
+    private ItemUtils itemUtils;
+    @Inject
+    private JavaPlugin javaPlugin;
 
     @Inject
     public MapInstance(final @Assisted @NotNull MapTemplate mapTemplate,
@@ -218,12 +234,71 @@ public class MapInstance implements EventHandler {
             @Override
             protected void onEvent(final @NotNull PlayerMoveEvent event) {
                 final Player player = event.getPlayer();
-                if (event.getTo().getY() <= mapData.getDeathHeight()) {
-                    teleportToPlayerSpawn(player);
-                    soundUtil.playSound(player, SoundConfig.DEATH);
+
+                if (players.contains(player)
+                        || spectators.contains(player)) {
+
+                    if (event.getTo().getY() <= mapData.getDeathHeight()) {
+                        if (players.contains(player)) {
+                            teleportToPlayerSpawn(player);
+                            soundUtil.playSound(player, SoundConfig.DEATH);
+                        } else if (spectators.contains(player)) {
+                            teleportToSpectatorSpawn(player);
+                        }
+                    }
+
+                    if (players.contains(player)) {
+                        final List<Entity> list = player.getNearbyEntities(1, 1, 1);
+                        list.forEach(entity -> {
+                            if (entity instanceof Player) {
+                                final Player player1 = (Player) entity;
+                                if (spectators.contains(player1)) {
+                                    player1.setVelocity(player1.getLocation().getDirection().multiply(-0.5));
+                                }
+                            }
+                        });
+                    }
                 }
             }
         });
+        eventListeners.add(new EventListener<PlayerInteractEvent>(PlayerInteractEvent.class) {
+            @Override
+            protected void onEvent(final @NotNull PlayerInteractEvent event) {
+                if (event.getAction() == Action.RIGHT_CLICK_AIR
+                        || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                    final Player player = event.getPlayer();
+                    if (itemUtils.compare(player.getItemInHand(), EnumItem.SPECTATE_LEAVE, Optional.of(player))) {
+                        removeSpectator(player);
+                    }
+                }
+            }
+        });
+    }
+
+    public void addSpectator(final @NotNull Player player) {
+        spectators.add(player);
+        player.getInventory().clear();
+        player.setAllowFlight(true);
+        player.setFlying(true);
+        player.spigot().setCollidesWithEntities(false);
+
+        teleportToSpectatorSpawn(player);
+        players.forEach(player1 -> player1.hidePlayer(player));
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> ingameItems.setSpectatorItems(player), 10);
+    }
+
+    public void removeSpectator(final @NotNull Player player) {
+        spectators.remove(player);
+        player.getInventory().clear();
+        player.setAllowFlight(false);
+        player.setFlying(false);
+        player.spigot().setCollidesWithEntities(true);
+
+        teleportToSpawn(player);
+        players.forEach(player1 -> player1.showPlayer(player));
+
+        lobbyItems.setLobbyItems(player);
     }
 
     private void prepareMap() {
@@ -240,7 +315,7 @@ public class MapInstance implements EventHandler {
 
     private void endGame(final @NotNull Player winner) {
         sqlDataCache.getSQLData(winner).increaseWins();
-        final Optional<SpawnFile> optional = spawnFileLoader.getSpawnFileOptional();
+        spectators.forEach(this::removeSpectator);
         players.forEach(player -> {
             final Optional<Player> optionalPlayer = Optional.of(player);
             if (!player.equals(winner)) {
@@ -289,6 +364,10 @@ public class MapInstance implements EventHandler {
         } else {
             player.kickPlayer(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.ERROR));
         }
+    }
+
+    private void teleportToSpectatorSpawn(final @NotNull Player player) {
+        teleport(player, mapData.getSpectatorSpawn());
     }
 
     private void teleportToPlayerSpawn(final @NotNull List<Player> list) {

@@ -37,6 +37,7 @@ public class ListenerInitializer implements Initializer {
     public void init(final @NotNull Injector injector) {
         pluginManager.registerEvents(injector.getInstance(PlayerJoinListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(PlayerQuitListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(PlayerMoveListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(PlayerInteractListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(AsyncPlayerChatListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(InventoryCloseListener.class), plugin);
@@ -51,7 +52,7 @@ public class ListenerInitializer implements Initializer {
         pluginManager.registerEvents(injector.getInstance(EntityDamageListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(WeatherChangeListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(EntitySpawnListener.class), plugin);
-        pluginManager.registerEvents(injector.getInstance(PlayerMoveListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(BlockCanBuildListener.class), plugin);
     }
 
 }

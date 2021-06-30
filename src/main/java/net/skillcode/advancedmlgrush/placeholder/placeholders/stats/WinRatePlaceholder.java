@@ -10,10 +10,10 @@
  * Support: https://discord.skillplugins.com
  */
 
-package net.skillcode.advancedmlgrush.placeholder.placeholders.ranking;
+package net.skillcode.advancedmlgrush.placeholder.placeholders.stats;
 
 import com.google.inject.Inject;
-import net.skillcode.advancedmlgrush.game.stats.Ranking;
+import net.skillcode.advancedmlgrush.game.stats.StatsUtils;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.entity.Player;
@@ -21,20 +21,20 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class RankingPlaceholder extends Placeholder {
+public class WinRatePlaceholder extends Placeholder {
 
     private final SQLDataCache sqlDataCache;
-    private final Ranking ranking;
+    private final StatsUtils statsUtils;
 
     @Inject
-    public RankingPlaceholder(final @NotNull SQLDataCache sqlDataCache, final @NotNull Ranking ranking) {
+    public WinRatePlaceholder(final @NotNull SQLDataCache sqlDataCache, final @NotNull StatsUtils statsUtils) {
         this.sqlDataCache = sqlDataCache;
-        this.ranking = ranking;
+        this.statsUtils = statsUtils;
     }
 
     @Override
     public String identifier() {
-        return "%stats_ranking%";
+        return "%stats_win_rate%";
     }
 
     @Override
@@ -47,7 +47,7 @@ public class RankingPlaceholder extends Placeholder {
         if (!sqlDataCache.isLoaded(player)) {
             return getLoadingValue();
         }
-        return String.valueOf(ranking.getRankingByName(player));
+        return statsUtils.getWinRate(player);
     }
 
 }

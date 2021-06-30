@@ -15,8 +15,13 @@ package net.skillcode.advancedmlgrush.placeholder;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
-import net.skillcode.advancedmlgrush.placeholder.placeholders.*;
-import net.skillcode.advancedmlgrush.placeholder.placeholders.ranking.*;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.PlayerPlaceholder;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.Queue1x1Placeholder;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.Queue1x4Placeholder;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.map.*;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.settings.MapPlaceholder;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.*;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.ranking.*;
 import net.skillcode.advancedmlgrush.util.Initializer;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,5 +57,11 @@ public class PlaceholderInitializer implements Initializer {
         placeholderManager.registerPlaceholder(injector.getInstance(Queue1x1Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(Queue1x4Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapPlaceholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapNamePlaceholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapModePlaceholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapPlayer1Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapPlayer2Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapPlayer3Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapPlayer4Placeholder.class));
     }
 }

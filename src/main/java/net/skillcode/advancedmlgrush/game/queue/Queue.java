@@ -13,14 +13,21 @@
 package net.skillcode.advancedmlgrush.game.queue;
 
 import com.google.inject.Inject;
+import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
+import net.skillcode.advancedmlgrush.game.map.MapManager;
+import net.skillcode.advancedmlgrush.game.map.MapTemplate;
+import net.skillcode.advancedmlgrush.game.map.MapType;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.Registrable;
 import net.skillcode.advancedmlgrush.sound.SoundUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -33,13 +40,18 @@ public abstract class Queue implements Registrable {
     private MessageConfig messageConfig;
     @Inject
     private SoundUtil soundUtil;
+    @Inject
+    private MainConfig mainConfig;
+    @Inject
+    private MapManager mapManager;
+    @Inject
+    private JavaPlugin javaPlugin;
 
     private final List<Player> queue = new CopyOnWriteArrayList<>();
 
     /**
      * @return the number of players that can play on this map
      */
-    protected abstract int playerAmount();
 
     public int getSize() {
         return queue.size();
@@ -58,10 +70,9 @@ public abstract class Queue implements Registrable {
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.QUEUE_JOIN));
 
             if (queue.size() == playerAmount()) {
-                queue.forEach(player1 -> {
-                    player.getInventory().clear();
-                    // TODO: 25.06.21 start game
-                });
+                queue.forEach(player1 -> player1.getInventory().clear());
+                startGame();
+                queue.clear();
             }
         }
     }
@@ -72,8 +83,25 @@ public abstract class Queue implements Registrable {
             soundUtil.playSound(player, SoundConfig.QUEUE_LEAVE);
             queue.remove(player);
             player.getInventory().clear();
-            lobbyItems.setLobbyItems(player);
             player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.QUEUE_LEAVE));
+            Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> lobbyItems.setLobbyItems(player), 5);
+        }
+    }
+
+    protected abstract int playerAmount();
+
+    abstract MapType mapType();
+
+    private void startGame() {
+        final Optional<MapTemplate> mapTemplate = mapManager.getPlayerMap(queue.get(0));
+        if (!mapTemplate.isPresent()) {
+            queue.forEach(player -> {
+                player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.ERROR));
+                lobbyItems.setLobbyItems(player);
+            });
+        } else {
+            final int rounds = mainConfig.getInt(MainConfig.DEFAULT_ROUNDS);
+            mapTemplate.get().createInstance(new ArrayList<>(queue), rounds);
         }
     }
 }

@@ -77,12 +77,12 @@ public class ItemNameConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(EnumItem.SORTING_RESET.getConfigPath(), "&8» &cReset"));
         list.add(new Pair<>(EnumItem.ROUNDS_INCREASE.getConfigPath(), "&e+"));
         list.add(new Pair<>(EnumItem.ROUNDS_DECREASE.getConfigPath(), "&e-"));
-        list.add(new Pair<>(EnumItem.ROUNDS.getConfigPath(), "&8» &e%rounds% &8«"));
-        list.add(new Pair<>(EnumItem.STATS_WINS.getConfigPath(), "&8» &eWins &8| &e&l%wins%"));
-        list.add(new Pair<>(EnumItem.STATS_LOSES.getConfigPath(), "&8» &eLoses &8| &e&l%loses%"));
-        list.add(new Pair<>(EnumItem.STATS_WIN_RATE.getConfigPath(), "&8» &eWin Rate &8| &e&l%win_rate%"));
-        list.add(new Pair<>(EnumItem.STATS_BEDS.getConfigPath(), "&8» &eBeds &8| &e&l%beds%"));
-        list.add(new Pair<>(EnumItem.STATS_RANKING.getConfigPath(), "&8» &eRanking &8| &e&l#%ranking%"));
+        list.add(new Pair<>(EnumItem.ROUNDS.getConfigPath(), "&8» &e%settings_rounds% &8«"));
+        list.add(new Pair<>(EnumItem.STATS_WINS.getConfigPath(), "&8» &eWins &8| &e&l%stats_wins%"));
+        list.add(new Pair<>(EnumItem.STATS_LOSES.getConfigPath(), "&8» &eLoses &8| &e&l%stats_loses%"));
+        list.add(new Pair<>(EnumItem.STATS_WIN_RATE.getConfigPath(), "&8» &eWin Rate &8| &e&l%stats_win_rate%"));
+        list.add(new Pair<>(EnumItem.STATS_BEDS.getConfigPath(), "&8» &eBeds &8| &e&l%stats_beds%"));
+        list.add(new Pair<>(EnumItem.STATS_RANKING.getConfigPath(), "&8» &eRanking &8| &e&l#%stats_ranking%"));
         list.add(new Pair<>(EnumItem.QUEUE_1x1.getConfigPath(), "&8» &e1x1 &7(&e%queue_1x1%&7)"));
         list.add(new Pair<>(EnumItem.QUEUE_1x4.getConfigPath(), "&8» &e1x4 &7(&e%queue_1x4%&7)"));
     }

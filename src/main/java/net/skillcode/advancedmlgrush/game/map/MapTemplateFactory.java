@@ -12,12 +12,10 @@
 
 package net.skillcode.advancedmlgrush.game.map;
 
-import net.skillcode.advancedmlgrush.game.map.file.MapFile;
 import org.jetbrains.annotations.NotNull;
 
 public interface MapTemplateFactory {
 
-    MapTemplate create(final @NotNull MapData mapData,
-                       final @NotNull MapFile mapFile);
+    MapTemplate create(final @NotNull MapData mapData);
 
 }

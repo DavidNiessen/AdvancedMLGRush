@@ -13,6 +13,9 @@
 package net.skillcode.advancedmlgrush.placeholder.placeholders;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.game.map.MapManager;
+import net.skillcode.advancedmlgrush.game.map.MapTemplate;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.entity.Player;
@@ -20,18 +23,22 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class WinsPlaceholder extends Placeholder {
+@Singleton
+public class MapPlaceholder extends Placeholder {
 
     private final SQLDataCache sqlDataCache;
+    private final MapManager mapManager;
 
     @Inject
-    public WinsPlaceholder(final SQLDataCache sqlDataCache) {
+    public MapPlaceholder(final @NotNull SQLDataCache sqlDataCache,
+                          final @NotNull MapManager mapManager) {
         this.sqlDataCache = sqlDataCache;
+        this.mapManager = mapManager;
     }
 
     @Override
     public String identifier() {
-        return "%stats_wins%";
+        return "%settings_map%";
     }
 
     @Override
@@ -44,7 +51,12 @@ public class WinsPlaceholder extends Placeholder {
         if (!sqlDataCache.isLoaded(player)) {
             return getLoadingValue();
         }
-        return String.valueOf(sqlDataCache.getSQLData(player).getStatsWins());
-    }
+        final Optional<MapTemplate> optionalMapTemplate = mapManager.getPlayerMap(player);
 
+        if (!optionalMapTemplate.isPresent()) {
+            return getNullValue();
+        }
+
+        return optionalMapTemplate.get().getMapData().getName();
+    }
 }

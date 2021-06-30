@@ -34,6 +34,8 @@ public class MainConfig extends Configurable {
     public static final String ROUNDS = "rounds";
     public static final String DEFAULT_ROUNDS = "default_rounds";
     public static final String RANKING_UPDATE_PERIOD = "ranking_update_period";
+    public static final String BLOCK_AMOUNT = "block_amount";
+    public static final String INFINITE_BLOCKS = "infinity_blocks";
     public static final String STATS_ITEM_LORE = "stats_item_lore";
     public static final String MAP_ITEM_PREFIX = "map_item_prefix";
     public static final String PASTE_BLOCKS_PER_TICK = "paste_blocks_per_second";
@@ -58,6 +60,8 @@ public class MainConfig extends Configurable {
         list.add(new Pair<>(ROUNDS, new ArrayList<>(Arrays.asList(3, 5, 10, 15))));
         list.add(new Pair<>(DEFAULT_ROUNDS, 5));
         list.add(new Pair<>(RANKING_UPDATE_PERIOD, 5.0));
+        list.add(new Pair<>(BLOCK_AMOUNT, 32));
+        list.add(new Pair<>(INFINITE_BLOCKS, true));
         list.add(new Pair<>(STATS_ITEM_LORE, new ArrayList<>(Arrays.asList(
                 " ",
                 "&6&l#1 &8» &e%stats_ranking_1%",

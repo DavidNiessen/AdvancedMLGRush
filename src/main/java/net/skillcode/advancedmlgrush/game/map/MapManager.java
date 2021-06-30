@@ -49,7 +49,7 @@ public class MapManager implements Initializer {
     public void init(final @NotNull Injector injector) {
         mapFileLoader.loadFilesIfExists();
         mapFileLoader.getMapFiles().forEach(mapFile -> {
-            final MapTemplate mapTemplate = mapTemplateFactory.create(mapDataWrapper.getMapData(mapFile), mapFile);
+            final MapTemplate mapTemplate = mapTemplateFactory.create(mapDataWrapper.getMapData(mapFile));
             switch (mapTemplate.getMapData().getMapType()) {
                 case ONE_X_ONE:
                     mapTemplates1x1.add(mapTemplate);

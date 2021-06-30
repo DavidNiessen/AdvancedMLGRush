@@ -49,6 +49,9 @@ public class ListenerInitializer implements Initializer {
         pluginManager.registerEvents(injector.getInstance(FoodLevelChangeListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(EntityDamageByEntityListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(EntityDamageListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(WeatherChangeListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(EntitySpawnListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(PlayerMoveListener.class), plugin);
     }
 
 }

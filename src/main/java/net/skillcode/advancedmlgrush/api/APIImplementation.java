@@ -14,6 +14,8 @@ package net.skillcode.advancedmlgrush.api;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
+import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOW;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOWManager;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
@@ -32,6 +34,10 @@ public class APIImplementation implements MLGRushAPI {
     private SQLDataCache sqlDataCache;
     @Inject
     private PlaceholderManager placeholderManager;
+    @Inject
+    private MapInstanceManager mapInstanceManager;
+    @Inject
+    private MapManager mapManager;
 
     @Override
     public void registerItemOW(final @NotNull ItemOW itemOW) {
@@ -51,5 +57,15 @@ public class APIImplementation implements MLGRushAPI {
     @Override
     public boolean isLoaded(final @NotNull Player player) {
         return sqlDataCache.isLoaded(player);
+    }
+
+    @Override
+    public MapManager getMapManager() {
+        return mapManager;
+    }
+
+    @Override
+    public MapInstanceManager getMapInstanceManager() {
+        return mapInstanceManager;
     }
 }

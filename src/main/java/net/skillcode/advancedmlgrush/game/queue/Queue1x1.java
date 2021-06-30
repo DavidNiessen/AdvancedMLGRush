@@ -13,6 +13,7 @@
 package net.skillcode.advancedmlgrush.game.queue;
 
 import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.game.map.MapType;
 
 @Singleton
 public class Queue1x1 extends Queue {
@@ -20,5 +21,10 @@ public class Queue1x1 extends Queue {
     @Override
     protected int playerAmount() {
         return 2;
+    }
+
+    @Override
+    MapType mapType() {
+        return MapType.ONE_X_ONE;
     }
 }

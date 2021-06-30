@@ -3,7 +3,6 @@ main: net.skillcode.advancedmlgrush.MLGRush
 version: 1.0
 author: SkillCode
 api-version: "1.13"
-load: STARTUP
 commands:
   build:
     aliases:
@@ -15,3 +14,7 @@ commands:
       - setuptemplate
       - createmap
       - setup
+  quit:
+    aliases:
+      - leave
+      - l

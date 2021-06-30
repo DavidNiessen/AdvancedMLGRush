@@ -12,16 +12,20 @@
 
 package net.skillcode.advancedmlgrush.game.map;
 
-import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
+import lombok.Getter;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-public interface MapInstanceFactory {
+@Getter
+public class MapStats {
 
-    MapInstance create(final @NotNull MapTemplate mapTemplate,
-                       final @NotNull MapData mapData,
-                       final @NotNull List<Player> players,
-                       final int rounds);
+    private final List<Integer> scores = new CopyOnWriteArrayList<>(Arrays.asList(0, 0, 0, 0));
 
+    public void increaseScore(final int index) {
+        if (index < scores.size()) {
+            scores.set(index, scores.get(index) + 1);
+        }
+    }
 }

@@ -37,12 +37,16 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String QUEUE_LEAVE = "queue_leave";
     public static final String LOADING_DATA = "loading_data";
     public static final String ERROR = "error";
+    public static final String RESTART = "restart";
+    public static final String CANNOT_USE_COMMAND = "cannot_use_command";
     public static final String SPAWN_SET = "spawn_set";
     public static final String CHALLENGE_1 = "challenge_1";
     public static final String CHALLENGE_2 = "challenge_2";
     public static final String ALREADY_CHALLENGED = "already_challenged";
     public static final String ALREADY_SETTING_UP_MAP = "already_setting_up_map";
     public static final String MAP_GENERATE = "map_generate";
+    public static final String BREAK_OWN_BED = "break_own_bed";
+    public static final String GAME_END = "game_end";
     //Command syntaxes
     public static final String SETUP_MAP_COMMAND_SYNTAX = "setup_max_command_syntax";
     //setup
@@ -99,12 +103,16 @@ public class MessageConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(QUEUE_LEAVE, "&aYou left the queue."));
         list.add(new Pair<>(LOADING_DATA, "&cYour data is being loaded, please wait."));
         list.add(new Pair<>(ERROR, "&cAn error occurred."));
+        list.add(new Pair<>(RESTART, "&cThis server is restarting."));
+        list.add(new Pair<>(CANNOT_USE_COMMAND, "&cYou can't use this command now."));
         list.add(new Pair<>(SPAWN_SET, "&aThe spawn has been set."));
         list.add(new Pair<>(CHALLENGE_1, "&e%player% &achallenged you &aon &e%settings_map% &a(&e%settings_rounds% rounds&a)."));
         list.add(new Pair<>(CHALLENGE_2, "&aYou challenged %player%."));
         list.add(new Pair<>(ALREADY_CHALLENGED, "&cYou already challenged &e%player%&a."));
         list.add(new Pair<>(ALREADY_SETTING_UP_MAP, "&cYou are already setting up a map."));
         list.add(new Pair<>(MAP_GENERATE, "&aGenerating map..."));
+        list.add(new Pair<>(BREAK_OWN_BED, "&cYou cannot break your own bed!"));
+        list.add(new Pair<>(GAME_END, "&e%winner% &awon the game."));
 
         list.add(new Pair<>(SETUP_MAP_COMMAND_SYNTAX, "&cWrong syntax: /setupmap <1x1, 1x4> <name>"));
 

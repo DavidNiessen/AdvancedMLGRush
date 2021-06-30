@@ -13,6 +13,7 @@
 package net.skillcode.advancedmlgrush.command.commands;
 
 import com.google.inject.Inject;
+import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.game.map.setup.MapSetup1x1;
 import net.skillcode.advancedmlgrush.game.map.setup.MapSetup1x4;
@@ -31,12 +32,20 @@ public class SetupMapCommand implements CommandExecutor {
     private MapSetup1x4 mapSetup1x4;
     @Inject
     private MessageConfig messageConfig;
+    @Inject
+    private MainConfig mainConfig;
 
     @Override
     public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] args) {
         if (!(commandSender instanceof Player)) return false;
+
         final Player player = (Player) commandSender;
         final Optional<Player> optionalPlayer = Optional.of(player);
+
+        if (!player.hasPermission(mainConfig.getString(MainConfig.ADMIN_PERMISSION))) {
+            player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.NO_PERMISSION));
+            return false;
+        }
 
         if (mapSetup1x1.isSettingUp(player)
                 || mapSetup1x4.isSettingUp(player)) {

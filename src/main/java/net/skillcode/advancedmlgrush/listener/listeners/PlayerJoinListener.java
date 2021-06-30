@@ -42,6 +42,7 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onJoin(final @NotNull PlayerJoinEvent event) {
+        event.setJoinMessage(" ");
         eventManager.callEvent(event);
 
         final Player player = event.getPlayer();
@@ -52,6 +53,7 @@ public class PlayerJoinListener implements Listener {
             player.teleport(new Location(Bukkit.getWorld(jsonLocation.getWorldName()), jsonLocation.getX(),
                     jsonLocation.getY(), jsonLocation.getZ(), jsonLocation.getPitch(), jsonLocation.getYaw()));
         }
+
         player.getInventory().clear();
         player.setHealth(20D);
         player.setFoodLevel(20);

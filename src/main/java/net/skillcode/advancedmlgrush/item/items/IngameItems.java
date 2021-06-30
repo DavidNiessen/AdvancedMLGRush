@@ -60,6 +60,8 @@ public class IngameItems {
         final Pair<ItemStack, Integer> block = getBlock(player);
         final Pair<ItemStack, Integer> pickaxe = getPickaxe(player);
 
+        final ItemStack blocks = block.getKey();
+        blocks.setAmount(mainConfig.getInt(MainConfig.BLOCK_AMOUNT));
         player.getInventory().setItem(stick.getValue(), stick.getKey());
         player.getInventory().setItem(block.getValue(), block.getKey());
         player.getInventory().setItem(pickaxe.getValue(), pickaxe.getKey());

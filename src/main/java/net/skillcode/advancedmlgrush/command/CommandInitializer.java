@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.command.commands.BuildCommand;
+import net.skillcode.advancedmlgrush.command.commands.QuitCommand;
 import net.skillcode.advancedmlgrush.command.commands.SetSpawnCommand;
 import net.skillcode.advancedmlgrush.command.commands.SetupMapCommand;
 import net.skillcode.advancedmlgrush.util.Initializer;
@@ -37,5 +38,6 @@ public class CommandInitializer implements Initializer {
         javaPlugin.getCommand("build").setExecutor(injector.getInstance(BuildCommand.class));
         javaPlugin.getCommand("setspawn").setExecutor(injector.getInstance(SetSpawnCommand.class));
         javaPlugin.getCommand("setupmap").setExecutor(injector.getInstance(SetupMapCommand.class));
+        javaPlugin.getCommand("quit").setExecutor(injector.getInstance(QuitCommand.class));
     }
 }

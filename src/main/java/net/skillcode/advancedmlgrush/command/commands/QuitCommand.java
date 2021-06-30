@@ -13,12 +13,9 @@
 package net.skillcode.advancedmlgrush.command.commands;
 
 import com.google.inject.Inject;
-import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
-import net.skillcode.advancedmlgrush.game.spawn.SpawnFile;
-import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
-import net.skillcode.advancedmlgrush.util.json.JsonLocation;
-import org.bukkit.Location;
+import net.skillcode.advancedmlgrush.game.map.MapInstance;
+import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,15 +23,12 @@ import org.bukkit.entity.Player;
 
 import java.util.Optional;
 
-public class SetSpawnCommand implements CommandExecutor {
+public class QuitCommand implements CommandExecutor {
 
     @Inject
-    private SpawnFileLoader spawnFileLoader;
+    private MapInstanceManager mapInstanceManager;
     @Inject
     private MessageConfig messageConfig;
-    @Inject
-    private MainConfig mainConfig;
-
 
     @Override
     public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] strings) {
@@ -43,11 +37,13 @@ public class SetSpawnCommand implements CommandExecutor {
         final Player player = (Player) commandSender;
         final Optional<Player> optionalPlayer = Optional.of(player);
 
-        final Location location = player.getLocation();
-        spawnFileLoader.createSpawnFile(new SpawnFile(new JsonLocation(player.getWorld().getName(), location.getX(),
-                location.getY(), location.getZ(), location.getYaw(), location.getPitch())));
+        final Optional<MapInstance> optionalMapInstance = mapInstanceManager.getMapInstance(player);
 
-        player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.SPAWN_SET));
+        if (!optionalMapInstance.isPresent()) {
+            player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.CANNOT_USE_COMMAND));
+        } else {
+            optionalMapInstance.get().quitMap(player);
+        }
         return false;
     }
 }

@@ -13,15 +13,14 @@
 package net.skillcode.advancedmlgrush.game.map.world;
 
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.sql.ThreadPoolManager;
-import net.skillcode.advancedmlgrush.util.Initializer;
-import net.skillcode.advancedmlgrush.util.Pair;
+import net.skillcode.advancedmlgrush.util.WorldUtils;
 import org.bukkit.*;
 import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -30,10 +29,14 @@ import java.util.Random;
 import java.util.UUID;
 
 @Singleton
-public class MapWorldGenerator extends ChunkGenerator implements Initializer {
+public class MapWorldGenerator extends ChunkGenerator {
 
-    private final MessageConfig messageConfig;
-    private final ThreadPoolManager threadPoolManager;
+    @Inject
+    private MessageConfig messageConfig;
+    @Inject
+    private ThreadPoolManager threadPoolManager;
+    @Inject
+    private JavaPlugin javaPlugin;
 
     @Inject
     public MapWorldGenerator(final @NotNull MessageConfig messageConfig,
@@ -43,7 +46,7 @@ public class MapWorldGenerator extends ChunkGenerator implements Initializer {
     }
 
 
-    public Pair<World, UUID> createWorld() {
+    public World createWorld() {
         final UUID uuid = UUID.randomUUID();
         final WorldCreator worldCreator = new WorldCreator(Constants.WORLD_PATH + uuid);
 
@@ -52,20 +55,18 @@ public class MapWorldGenerator extends ChunkGenerator implements Initializer {
         worldCreator.generateStructures(false);
         worldCreator.generatorSettings("2;0;1;");
 
-        return new Pair<>(worldCreator.createWorld(), uuid);
+        return worldCreator.createWorld();
     }
 
-    public void deleteWorld(final @NotNull UUID uuid) {
-        final World world = Bukkit.getWorld(uuid.toString());
+    public void deleteWorld(final @NotNull World world) {
         if (world != null) {
             world.getPlayers().forEach(player -> player.kickPlayer(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.ERROR)));
-            Bukkit.unloadWorld(world, false);
-            deleteFilesAsync(world.getWorldFolder());
+            Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> {
+                Bukkit.unloadWorld(world, false);
+                Bukkit.getWorlds().remove(world);
+                deleteWorldFilesAsync(world.getWorldFolder());
+            }, 20);
         }
-    }
-
-    public void deleteWorlds() {
-        final File directory = new File(Constants.WORLD_PATH);
     }
 
     @Override
@@ -83,22 +84,8 @@ public class MapWorldGenerator extends ChunkGenerator implements Initializer {
         return createChunkData(world);
     }
 
-    @Override
-    public void init(final @NotNull Injector injector) {
-        deleteWorlds();
+    private void deleteWorldFilesAsync(final File file) {
+        threadPoolManager.submit(() -> WorldUtils.deleteWorldFiles(file));
     }
 
-    private void deleteFilesAsync(final File file) {
-        threadPoolManager.submit(() -> deleteFiles(file));
-    }
-
-    private void deleteFiles(final File file) {
-        if (file.isDirectory()) {
-            for (File file1 : file.listFiles()) {
-                file1.delete();
-                deleteFiles(file1);
-            }
-        }
-        file.delete();
-    }
 }

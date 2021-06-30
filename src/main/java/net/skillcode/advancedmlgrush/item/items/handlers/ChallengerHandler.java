@@ -62,9 +62,10 @@ public class ChallengerHandler implements EventHandler {
                     final Player target = (Player) event.getEntity();
 
                     if (itemUtils.compare(attacker.getItemInHand(), EnumItem.CHALLENGER, Optional.of(attacker))) {
-                        if (!sqlDataCache.isLoaded(attacker)) {
+                        if (!sqlDataCache.isLoaded(attacker)
+                                || !sqlDataCache.isLoaded(target)) {
                             attacker.sendMessage(messageConfig.getWithPrefix(Optional.of(attacker), MessageConfig.LOADING_DATA));
-                        } else if (sqlDataCache.isLoaded(target)) {
+                        } else {
                             challengeManager.challengePlayer(attacker, target);
                         }
                     }

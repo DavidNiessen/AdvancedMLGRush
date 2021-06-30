@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -31,6 +31,7 @@ public class SoundConfig extends Configurable {
     public static final String INVENTORY_CLICK = "inventory_click";
     public static final String ERROR = "error";
     public static final String QUEUE_LEAVE = "queue_leave";
+    public static final String DEATH = "death";
 
     private final SoundParser soundParser;
 
@@ -55,5 +56,6 @@ public class SoundConfig extends Configurable {
         list.add(new Pair<>(INVENTORY_CLICK, soundParser.parseString(XSound.UI_BUTTON_CLICK, 1, 2F)));
         list.add(new Pair<>(ERROR, soundParser.parseString(XSound.ENTITY_ITEM_BREAK, 1, 0.6F)));
         list.add(new Pair<>(QUEUE_LEAVE, soundParser.parseString(XSound.BLOCK_NOTE_BLOCK_PLING, 1, 1F)));
+        list.add(new Pair<>(DEATH, soundParser.parseString(XSound.ENTITY_BAT_TAKEOFF, 1, 2F)));
     }
 }

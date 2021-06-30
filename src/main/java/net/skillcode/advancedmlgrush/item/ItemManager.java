@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -14,13 +14,11 @@ package net.skillcode.advancedmlgrush.item;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.ItemMaterialConfig;
 import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import net.skillcode.advancedmlgrush.item.builder.MetaType;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOWManager;
-import net.skillcode.advancedmlgrush.item.overwriter.ItemOWInitializer;
 import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -55,6 +53,10 @@ public class ItemManager {
                 .hideEnchants()
                 .hideUnbreakable()
                 .build());
+    }
+
+    public String getItemName(final @NotNull Optional<Player> optionalPlayer, final @NotNull EnumItem enumItem) {
+        return itemNameConfig.getString(optionalPlayer, enumItem);
     }
 
     private Pair<Material, Integer> getConfigMaterial(final @NotNull EnumItem enumItem) {

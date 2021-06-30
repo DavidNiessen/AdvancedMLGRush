@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -14,6 +14,7 @@ package net.skillcode.advancedmlgrush.game.stats;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.MLGRush;
@@ -40,7 +41,7 @@ public class Ranking {
     private MainConfig mainConfig;
 
     //<name, ranking>
-    private final BiMap<String, Integer> biMap = HashBiMap.create();
+    private final BiMap<String, Integer> biMap = Maps.synchronizedBiMap(HashBiMap.create());
     //<ranking, wins>
     private final Map<Integer, Integer> wins = new ConcurrentHashMap<>();
 

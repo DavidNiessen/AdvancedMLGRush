@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -51,7 +51,7 @@ public class MLGDataSaver extends DataSaver {
                             "settings_stick_slot = '%1$s', " +
                             "settings_block_slot = '%2$s', " +
                             "settings_pickaxe_slot = '%3$s', " +
-                            "settings_arena = '%4$s', " +
+                            "settings_map = '%4$s', " +
                             "settings_rounds = '%5$s', " +
                             "gadgets_stick = '%6$s', " +
                             "gadgets_blocks = '%7$s', " +
@@ -60,7 +60,7 @@ public class MLGDataSaver extends DataSaver {
                             "stats_beds = '%10$s' " +
                             "WHERE player_uuid = '%11$s';",
                     cachedSQLData.getSettingsStickSlot(), cachedSQLData.getSettingsBlockSlot(),
-                    cachedSQLData.getSettingsPickaxeSlot(), cachedSQLData.getSettingsArena(),
+                    cachedSQLData.getSettingsPickaxeSlot(), cachedSQLData.getSettingsMap(),
                     cachedSQLData.getSettingsRounds(), cachedSQLData.getGadgetsStick(),
                     cachedSQLData.getGadgetsBlocks(), cachedSQLData.getStatsWins(),
                     cachedSQLData.getStatsLoses(), cachedSQLData.getStatsBeds(),
@@ -114,7 +114,7 @@ public class MLGDataSaver extends DataSaver {
                 "settings_stick_slot TINYINT NOT NULL DEFAULT 0, " +
                 "settings_block_slot TINYINT NOT NULL DEFAULT 1, " +
                 "settings_pickaxe_slot TINYINT NOT NULL DEFAULT 8, " +
-                "settings_arena SMALLINT NOT NULL DEFAULT -1, " +
+                "settings_map SMALLINT NOT NULL DEFAULT -1, " +
                 "settings_rounds TINYINT NOT NULL DEFAULT 5, " +
                 "gadgets_stick SMALLINT NOT NULL DEFAULT 0, " +
                 "gadgets_blocks SMALLINT NOT NULL DEFAULT 0, " +
@@ -194,7 +194,7 @@ public class MLGDataSaver extends DataSaver {
                         cachedSQLData.setSettingsStickSlot(resultSet.getInt("settings_stick_slot"));
                         cachedSQLData.setSettingsBlockSlot(resultSet.getInt("settings_block_slot"));
                         cachedSQLData.setSettingsPickaxeSlot(resultSet.getInt("settings_pickaxe_slot"));
-                        cachedSQLData.setSettingsArena(resultSet.getInt("settings_arena"));
+                        cachedSQLData.setSettingsMap(resultSet.getInt("settings_map"));
                         cachedSQLData.setSettingsRounds(resultSet.getInt("settings_rounds"));
                         cachedSQLData.setGadgetsStick(resultSet.getInt("gadgets_stick"));
                         cachedSQLData.setGadgetsBlocks(resultSet.getInt("gadgets_blocks"));

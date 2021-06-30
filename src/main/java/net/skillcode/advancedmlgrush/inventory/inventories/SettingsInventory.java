@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -38,6 +38,8 @@ public class SettingsInventory extends AbstractInventory {
     private SortingInventory sortingInventory;
     @Inject
     private RoundsInventory roundsInventory;
+    @Inject
+    private MapInventory mapInventory;
 
     @PostConstruct
     public void initInventory() {
@@ -80,13 +82,15 @@ public class SettingsInventory extends AbstractInventory {
             protected void onEvent(final @NotNull InventoryClickEvent event) {
                 final Player player = (Player) event.getWhoClicked();
                 if (inventoryUtils.isOpenInventory(player, clazz)) {
+                    final Optional<Player> optionalPlayer = Optional.of(player);
                     final ItemStack currentItem = event.getCurrentItem();
-                    if (itemUtils.compare(currentItem, EnumItem.SETTINGS_INVENTORY_SORTING, Optional.of(player))) {
+                    if (itemUtils.compare(currentItem, EnumItem.SETTINGS_INVENTORY_SORTING, optionalPlayer)) {
                         sortingInventory.open(player);
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
-                    } else if (itemUtils.compare(currentItem, EnumItem.SETTINGS_MAP, Optional.of(player))) {
+                    } else if (itemUtils.compare(currentItem, EnumItem.SETTINGS_MAP, optionalPlayer)) {
+                        mapInventory.open(player);
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
-                    } else if (itemUtils.compare(currentItem, EnumItem.SETTINGS_ROUNDS, Optional.of(player))) {
+                    } else if (itemUtils.compare(currentItem, EnumItem.SETTINGS_ROUNDS, optionalPlayer)) {
                         roundsInventory.open(player);
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
                     }

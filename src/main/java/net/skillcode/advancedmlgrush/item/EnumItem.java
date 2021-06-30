@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -44,7 +44,9 @@ EnumItem {
     STATS_BEDS("stats_beds"),
     STATS_RANKING("stats_ranking"),
     QUEUE_1x1("queue_1x1"),
-    QUEUE_1x4("queue_1x4");
+    QUEUE_1x4("queue_1x4"),
+    SPECTATE_LEAVE("spectate_leave"),
+    MAP("map");
 
     private final String configPath;
 

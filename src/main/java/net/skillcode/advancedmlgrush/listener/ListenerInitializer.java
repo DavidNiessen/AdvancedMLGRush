@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -37,6 +37,7 @@ public class ListenerInitializer implements Initializer {
     public void init(final @NotNull Injector injector) {
         pluginManager.registerEvents(injector.getInstance(PlayerJoinListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(PlayerQuitListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(PlayerMoveListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(PlayerInteractListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(AsyncPlayerChatListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(InventoryCloseListener.class), plugin);
@@ -46,6 +47,12 @@ public class ListenerInitializer implements Initializer {
         pluginManager.registerEvents(injector.getInstance(PlayerDataLoadListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(BlockBreakListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(BlockPlaceListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(FoodLevelChangeListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(EntityDamageByEntityListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(EntityDamageListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(WeatherChangeListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(EntitySpawnListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(BlockCanBuildListener.class), plugin);
     }
 
 }

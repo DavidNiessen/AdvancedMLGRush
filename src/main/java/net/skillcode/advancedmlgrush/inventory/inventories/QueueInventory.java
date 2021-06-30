@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -27,7 +27,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -35,6 +34,9 @@ import java.util.Optional;
 
 @Singleton
 public class QueueInventory extends AbstractInventory {
+
+    private static final int QUEUE_1X1_SLOT = 11;
+    private static final int QUEUE_1X4_SLOT = 15;
 
     @Inject
     private Queue1x1 queue1x1;
@@ -48,7 +50,7 @@ public class QueueInventory extends AbstractInventory {
 
     @Override
     protected boolean cloneOnOpen() {
-        return false;
+        return true;
     }
 
     @Override
@@ -60,16 +62,18 @@ public class QueueInventory extends AbstractInventory {
     protected Pair<Inventory, String> onCreate() {
         final String title = inventoryUtils.getInventoryName(InventoryNameConfig.QUEUE);
         final Inventory inventory = Bukkit.createInventory(null, 3 * 9, title);
+
         inventoryUtils.fill(inventory);
-
-        inventory.setItem(11, itemManager.getItem(Optional.empty(), EnumItem.QUEUE_1x1));
-        inventory.setItem(15, itemManager.getItem(Optional.empty(), EnumItem.QUEUE_1x4));
-
         return new Pair<>(inventory, title);
     }
 
     @Override
     protected Inventory onOpen(@NotNull Inventory inventory, @NotNull Player player) {
+        final Optional<Player> optionalPlayer = Optional.of(player);
+        queue1x1.unregister(player);
+        queue1x4.unregister(player);
+        inventory.setItem(QUEUE_1X1_SLOT, itemManager.getItem(optionalPlayer, EnumItem.QUEUE_1x1));
+        inventory.setItem(QUEUE_1X4_SLOT, itemManager.getItem(optionalPlayer, EnumItem.QUEUE_1x4));
         return inventory;
     }
 
@@ -81,13 +85,13 @@ public class QueueInventory extends AbstractInventory {
             protected void onEvent(final @NotNull InventoryClickEvent event) {
                 final Player player = (Player) event.getWhoClicked();
                 if (inventoryUtils.isOpenInventory(player, clazz)) {
-                    final Optional<Player> optionalPlayer = Optional.of(player);
-                    final ItemStack currentItem = event.getCurrentItem();
-                    if (itemUtils.compare(currentItem, EnumItem.QUEUE_1x1, optionalPlayer)) {
+
+                    final int slot = event.getSlot();
+                    if (slot == QUEUE_1X1_SLOT) {
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
                         player.closeInventory();
                         queue1x1.register(player);
-                    } else if (itemUtils.compare(currentItem, EnumItem.QUEUE_1x4, optionalPlayer)) {
+                    } else if (slot == QUEUE_1X4_SLOT) {
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
                         player.closeInventory();
                         queue1x4.register(player);

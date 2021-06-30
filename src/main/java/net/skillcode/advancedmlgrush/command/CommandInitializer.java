@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -16,7 +16,9 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.command.commands.BuildCommand;
+import net.skillcode.advancedmlgrush.command.commands.QuitCommand;
 import net.skillcode.advancedmlgrush.command.commands.SetSpawnCommand;
+import net.skillcode.advancedmlgrush.command.commands.SetupMapCommand;
 import net.skillcode.advancedmlgrush.util.Initializer;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -35,5 +37,7 @@ public class CommandInitializer implements Initializer {
     public void init(final @NotNull Injector injector) {
         javaPlugin.getCommand("build").setExecutor(injector.getInstance(BuildCommand.class));
         javaPlugin.getCommand("setspawn").setExecutor(injector.getInstance(SetSpawnCommand.class));
+        javaPlugin.getCommand("setupmap").setExecutor(injector.getInstance(SetupMapCommand.class));
+        javaPlugin.getCommand("quit").setExecutor(injector.getInstance(QuitCommand.class));
     }
 }

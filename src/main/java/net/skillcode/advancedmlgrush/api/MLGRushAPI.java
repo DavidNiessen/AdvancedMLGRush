@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -13,6 +13,8 @@
 package net.skillcode.advancedmlgrush.api;
 
 import net.skillcode.advancedmlgrush.event.events.PlayerDataLoadEvent;
+import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
+import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOW;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
 import net.skillcode.advancedmlgrush.sql.data.CachedSQLData;
@@ -56,6 +58,21 @@ public interface MLGRushAPI {
      * @return whether the SQL data of the player has been loaded.
      */
     boolean isLoaded(final @NotNull Player player);
+
+    /**
+     * The MapManager stores all map templates.
+     *
+     * @return the MapManager.
+     */
+    MapManager getMapManager();
+
+    /**
+     * The MapInstanceManager allows you to get a players current map instance
+     * or to create a new one.
+     *
+     * @return the MapInstanceManager.
+     */
+    MapInstanceManager getMapInstanceManager();
 
 
 }

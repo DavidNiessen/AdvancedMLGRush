@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -39,7 +39,7 @@ public class PlaceholderManager {
     public String replaceString(final @NotNull Optional<Player> optionalPlayer, final @NotNull String string) {
         final AtomicReference<String> atomicReference = new AtomicReference<>(string);
         getPlaceholders(string).forEach(placeholder -> Optional.ofNullable(placeholderMap.getOrDefault(placeholder, null))
-                .ifPresent(placeholder1 -> atomicReference.set(string.replace(placeholder, placeholder1.onRequest(optionalPlayer)))));
+                .ifPresent(placeholder1 -> atomicReference.set(atomicReference.get().replace(placeholder, placeholder1.onRequest(optionalPlayer)))));
 
 
         return atomicReference.get();

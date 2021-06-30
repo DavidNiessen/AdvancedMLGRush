@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -17,7 +17,6 @@ import com.google.inject.Singleton;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -40,8 +39,10 @@ public class Placeholders {
 
     public String replace(final @NotNull Optional<Player> optionalPlayer, final @NotNull String input) {
         final AtomicReference<String> result = new AtomicReference<>(input);
+
         result.set(replaceColors(result.get()));
         result.set(replaceBuiltinPlaceholders(optionalPlayer, result.get()));
+
         optionalPlayer.ifPresent(player -> result.set(replacePAPIPlaceholders(player, result.get())));
 
         return result.get();

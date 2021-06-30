@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -34,6 +34,7 @@ public class InventoryNameConfig extends Configurable implements Replaceable {
     public static final String STICK = "stick";
     public static final String BLOCKS = "blocks";
     public static final String INVENTORY_SORTING = "inventory_sorting";
+    public static final String MAP = "map";
     public static final String ROUNDS = "rounds";
     public static final String STATS = "stats";
     public static final String QUEUE = "queue";
@@ -68,6 +69,7 @@ public class InventoryNameConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(STICK, "&8» &eStick"));
         list.add(new Pair<>(BLOCKS, "&8» &eBlocks"));
         list.add(new Pair<>(INVENTORY_SORTING, "&8» &eInventory Sorting"));
+        list.add(new Pair<>(MAP, "&8» &eMap"));
         list.add(new Pair<>(ROUNDS, "&8» &eRounds"));
         list.add(new Pair<>(STATS, "&8» &eStats"));
         list.add(new Pair<>(QUEUE, "&8» &eQueue"));

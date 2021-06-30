@@ -4,7 +4,7 @@
  * This file is a part of the source code of the
  * AdvancedMLGRush plugin by SkillCode.
  *
- * This class may only be used in compliance with the
+ * This file may only be used in compliance with the
  * LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
  *
  * Support: https://discord.skillplugins.com
@@ -19,6 +19,7 @@ import org.fusesource.jansi.Ansi;
 public class Constants {
 
     public static final Material DEFAULT_MATERIAL = XMaterial.STONE.parseMaterial();
+    public static final Material DEFAULT_MAP_MATERIAL = XMaterial.MAP.parseMaterial();
     public static final float DEFAULT_SOUND_VOLUME = 1.F;
     public static final float DEFAULT_SOUND_PITCH = 1.F;
     public static final String PLUGIN_PATH = "plugins/MLGRush/";
@@ -39,6 +40,13 @@ public class Constants {
     public static final String INVENTORY_CONFIG_PATH = PLUGIN_PATH + "inventories.yml";
     public static final String DEBUG_CONFIG_PATH = PLUGIN_PATH + "debug.yml";
     public static final String SPAWN_FILE_PATH = PLUGIN_PATH + "spawn.json";
+    //Maps
+    public static final String MAP_PATH = PLUGIN_PATH + "maps/";
+    //Worlds
+    public static final String WORLD_PATH = PLUGIN_PATH + "worlds/";
+    //Cache
+    public static final String CACHE_PATH = PLUGIN_PATH + "cache/";
+    public static final String UUID_CACHE_PATH = CACHE_PATH + "uuids.cache";
     /* Slots */
     public static final int CHALLENGER_SLOT = 0;
     public static final int SETTINGS_SLOT = 2;
@@ -52,7 +60,6 @@ public class Constants {
     public static final String INVALID_PORT_MESSAGE = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "The specified port is invalid, the default port 3306 will be used." + Ansi.ansi().reset();
     public static final String MATERIAL_PARSE_ERROR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "An error occurred while parsing material: %s " + Ansi.ansi().reset();
     public static final String SOUND_PARSE_ERROR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "An error occurred while parsing sound: %s " + Ansi.ansi().reset();
-    public static final String COLOR_PARSE_ERROR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "An error occurred while parsing color: %s " + Ansi.ansi().reset();
     public static final String SPAWN_FILE_DELETE_ERROR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "Cannot delete spawn file. Please delete it manually." + Ansi.ansi().reset();
     public static final String ERROR_MESSAGE = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "An error occurred: %s" + Ansi.ansi().reset();
     public static final String QUERY_MESSAGE = "Executing query: " + Ansi.ansi().fg(Ansi.Color.CYAN).boldOff().toString() + "%s" + Ansi.ansi().reset();

@@ -36,6 +36,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @Singleton
 public class Ranking {
 
+    //<name, ranking>
+    private final BiMap<String, Integer> biMap = Maps.synchronizedBiMap(HashBiMap.create());
+    //<ranking, wins>
+    private final Map<Integer, Integer> wins = new ConcurrentHashMap<>();
     @Inject
     private MLGRush mlgRush;
     @Inject
@@ -44,11 +48,6 @@ public class Ranking {
     private MainConfig mainConfig;
     @Inject
     private ScoreboardManager scoreboardManager;
-
-    //<name, ranking>
-    private final BiMap<String, Integer> biMap = Maps.synchronizedBiMap(HashBiMap.create());
-    //<ranking, wins>
-    private final Map<Integer, Integer> wins = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void init() {

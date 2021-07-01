@@ -47,7 +47,7 @@ public class SchematicLoader {
     public void load(final @NotNull List<StorableBlock> list, final @NotNull World world, final @NotNull Runnable onFinish) {
         final int blocksPerTick = mainConfig.getInt(MainConfig.PASTE_BLOCKS_PER_TICK);
         final Queue<StorableBlock> queue = new LinkedList<>(list);
-        
+
         new BukkitRunnable() {
             @Override
             public void run() {

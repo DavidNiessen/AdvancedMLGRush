@@ -31,13 +31,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class MapSetup implements Registrable, EventHandler {
 
+    private final Map<Player, Pair<Integer, List<Object>>> map = new ConcurrentHashMap<>();
+    private final Map<Player, String> nameMap = new ConcurrentHashMap<>();
     @Inject
     private MessageConfig messageConfig;
     @Inject
     private MapFileLoader mapFileLoader;
-
-    private final Map<Player, Pair<Integer, List<Object>>> map = new ConcurrentHashMap<>();
-    private final Map<Player, String> nameMap = new ConcurrentHashMap<>();
 
     public void startSetup(final @NotNull Player player, final @NotNull String mapName) {
         map.put(player, new Pair<>(0, new ArrayList<>()));

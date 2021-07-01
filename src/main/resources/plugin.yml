@@ -20,3 +20,8 @@ commands:
     aliases:
       - leave
       - l
+  queue:
+  settings:
+  spectate:
+  gadgets:
+  stats:

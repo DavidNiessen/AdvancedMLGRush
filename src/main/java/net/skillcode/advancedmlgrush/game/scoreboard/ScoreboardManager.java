@@ -34,14 +34,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @Singleton
 public class ScoreboardManager implements Registrable {
 
+    private final Map<Player, FastBoard> map = new ConcurrentHashMap<>();
     @Inject
     private ScoreboardConfig scoreboardConfig;
     @Inject
     private Placeholders placeholders;
     @Inject
     private MapInstanceManager mapInstanceManager;
-
-    private final Map<Player, FastBoard> map = new ConcurrentHashMap<>();
 
     @Override
     public void unregister(final @NotNull Player player) {

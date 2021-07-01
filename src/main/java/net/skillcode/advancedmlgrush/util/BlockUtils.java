@@ -25,7 +25,7 @@ public class BlockUtils {
 
     public List<Block> getBlocksBetweenLocations(final @NotNull Location location1,
                                                  final @NotNull Location location2) {
-         return new Cuboid(location1, location2).blockList(true);
+        return new Cuboid(location1, location2).blockList(true);
     }
 
 }

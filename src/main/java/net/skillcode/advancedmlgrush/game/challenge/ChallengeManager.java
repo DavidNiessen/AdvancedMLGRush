@@ -28,15 +28,14 @@ import java.util.concurrent.ConcurrentHashMap;
 @Singleton
 public class ChallengeManager implements Registrable {
 
+    //<challenger, challenged>
+    private final Map<Player, List<Player>> challengeMap = new ConcurrentHashMap<>();
     @Inject
     private MessageConfig messageConfig;
     @Inject
     private MapManager mapManager;
     @Inject
     private SQLDataCache sqlDataCache;
-
-    //<challenger, challenged>
-    private final Map<Player, List<Player>> challengeMap = new ConcurrentHashMap<>();
 
     public void challengePlayer(final @NotNull Player challenger, final @NotNull Player challenged) {
         final Set<Map.Entry<Player, List<Player>>> entries = challengeMap.entrySet();

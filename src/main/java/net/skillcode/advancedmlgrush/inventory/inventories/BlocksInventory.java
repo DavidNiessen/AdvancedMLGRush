@@ -72,7 +72,7 @@ public class BlocksInventory extends MultiPageInventory {
             final int index = gadgetManager.getBlocks().indexOf(gadget);
 
             if (player.hasPermission(gadget.getPermission())
-            || index == 0) {
+                    || index == 0) {
                 final CachedSQLData cachedSQLData = sqlDataCache.getSQLData(player);
                 cachedSQLData.setGadgetsBlocks(index);
                 soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);

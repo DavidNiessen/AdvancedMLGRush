@@ -25,6 +25,7 @@ import net.skillcode.advancedmlgrush.event.EventHandlerInitializer;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOWInitializer;
 import net.skillcode.advancedmlgrush.listener.ListenerInitializer;
+import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.RegistrableInitializer;
 import net.skillcode.advancedmlgrush.placeholder.PlaceholderInitializer;
 import net.skillcode.advancedmlgrush.sql.ConnectionManager;
@@ -68,6 +69,7 @@ public class MLGRush extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        getLogger().info(Constants.STARTUP_MESSAGE);
         uuid = UUID.randomUUID();
         final Injector injector = Guice.createInjector(new MLGBinderModule(this));
         injector.injectMembers(this);

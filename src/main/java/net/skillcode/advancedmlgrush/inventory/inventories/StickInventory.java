@@ -72,7 +72,7 @@ public class StickInventory extends MultiPageInventory {
             final int index = gadgetManager.getSticks().indexOf(gadget);
 
             if (player.hasPermission(gadget.getPermission())
-            || index == 0) {
+                    || index == 0) {
                 final CachedSQLData cachedSQLData = sqlDataCache.getSQLData(player);
                 cachedSQLData.setGadgetsStick(index);
                 soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);

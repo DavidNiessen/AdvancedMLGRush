@@ -31,6 +31,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Singleton
 public class MapManager implements Initializer {
 
+    @Getter
+    private final List<MapTemplate> mapTemplates1x1 = new CopyOnWriteArrayList<>();
+    @Getter
+    private final List<MapTemplate> mapTemplates1x4 = new CopyOnWriteArrayList<>();
     @Inject
     private MapFileLoader mapFileLoader;
     @Inject
@@ -39,11 +43,6 @@ public class MapManager implements Initializer {
     private MapDataWrapper mapDataWrapper;
     @Inject
     private SQLDataCache sqlDataCache;
-
-    @Getter
-    private final List<MapTemplate> mapTemplates1x1 = new CopyOnWriteArrayList<>();
-    @Getter
-    private final List<MapTemplate> mapTemplates1x4 = new CopyOnWriteArrayList<>();
 
     @Override
     public void init(final @NotNull Injector injector) {

@@ -42,13 +42,13 @@ public class MapFileLoader {
     public void loadFilesIfExists() {
         mapFiles.clear();
         final File directory = new File(Constants.MAP_PATH);
-            if (directory.exists()) {
-                for (final File file : directory.listFiles()) {
-                    final MapFile mapFile = JsonUtils.getFromFile(MapFile.class, file);
-                    if (mapFile != null) {
-                        mapFiles.add(mapFile);
-                    }
+        if (directory.exists()) {
+            for (final File file : directory.listFiles()) {
+                final MapFile mapFile = JsonUtils.getFromFile(MapFile.class, file);
+                if (mapFile != null) {
+                    mapFiles.add(mapFile);
                 }
+            }
         }
     }
 

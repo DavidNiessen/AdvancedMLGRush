@@ -35,6 +35,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class Queue implements Registrable {
 
+    private final List<Player> queue = new CopyOnWriteArrayList<>();
     @Inject
     private LobbyItems lobbyItems;
     @Inject
@@ -49,8 +50,6 @@ public abstract class Queue implements Registrable {
     private JavaPlugin javaPlugin;
     @Inject
     private ScoreboardManager scoreboardManager;
-
-    private final List<Player> queue = new CopyOnWriteArrayList<>();
 
     /**
      * @return the number of players that can play on this map

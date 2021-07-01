@@ -20,10 +20,9 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class FileLoader {
 
+    protected JsonConfig jsonConfig;
     @Inject
     private JsonConfigAPI jsonConfigAPI;
-
-    protected JsonConfig jsonConfig;
 
     @PostConstruct
     public void register() {

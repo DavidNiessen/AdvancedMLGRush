@@ -16,9 +16,6 @@ import net.skillcode.advancedmlgrush.game.map.setup.step.steps.*;
 
 public class Steps {
 
-    private Steps() {
-    }
-
     public static final IconStep ICON_STEP = new IconStep();
     public static final FirstCornerStep FIRST_CORNER_STEP = new FirstCornerStep();
     public static final SecondCornerStep SECOND_CORNER_STEP = new SecondCornerStep();
@@ -33,5 +30,8 @@ public class Steps {
     public static final BedPlayer2Step BED_PLAYER_2_STEP = new BedPlayer2Step();
     public static final BedPlayer3Step BED_PLAYER_3_STEP = new BedPlayer3Step();
     public static final BedPlayer4Step BED_PLAYER_4_STEP = new BedPlayer4Step();
+
+    private Steps() {
+    }
 
 }

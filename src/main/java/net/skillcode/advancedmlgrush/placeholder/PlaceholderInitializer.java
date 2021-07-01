@@ -20,7 +20,11 @@ import net.skillcode.advancedmlgrush.placeholder.placeholders.Queue1x1Placeholde
 import net.skillcode.advancedmlgrush.placeholder.placeholders.Queue1x4Placeholder;
 import net.skillcode.advancedmlgrush.placeholder.placeholders.map.*;
 import net.skillcode.advancedmlgrush.placeholder.placeholders.settings.MapPlaceholder;
-import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.*;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.settings.RoundsPlaceholder;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.BedsPlaceholder;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.LosesPlaceholder;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.WinRatePlaceholder;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.WinsPlaceholder;
 import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.ranking.*;
 import net.skillcode.advancedmlgrush.util.Initializer;
 import org.jetbrains.annotations.NotNull;
@@ -58,10 +62,14 @@ public class PlaceholderInitializer implements Initializer {
         placeholderManager.registerPlaceholder(injector.getInstance(Queue1x4Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapPlaceholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapNamePlaceholder.class));
-        placeholderManager.registerPlaceholder(injector.getInstance(MapModePlaceholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapTypePlaceholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapPlayer1Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapPlayer2Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapPlayer3Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapPlayer4Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapScore1Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapScore2Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapScore3Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapScore4Placeholder.class));
     }
 }

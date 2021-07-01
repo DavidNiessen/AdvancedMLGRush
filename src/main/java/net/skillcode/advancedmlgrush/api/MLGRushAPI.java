@@ -16,7 +16,6 @@ import net.skillcode.advancedmlgrush.event.events.PlayerDataLoadEvent;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOW;
-import net.skillcode.advancedmlgrush.placeholder.Placeholder;
 import net.skillcode.advancedmlgrush.sql.data.CachedSQLData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -32,13 +31,6 @@ public interface MLGRushAPI {
      * @param itemOW the overwriter you want to register.
      */
     void registerItemOW(final @NotNull ItemOW itemOW);
-
-    /**
-     * Allows you to register a custom placeholder.
-     *
-     * @param placeholder the placeholder.
-     */
-    void registerPlaceholder(final @NotNull Placeholder placeholder);
 
     /**
      * Returns the SQL data of a player

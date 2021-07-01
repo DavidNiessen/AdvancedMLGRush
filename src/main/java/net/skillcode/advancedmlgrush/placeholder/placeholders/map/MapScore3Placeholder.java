@@ -10,30 +10,29 @@
  * Support: https://discord.skillplugins.com
  */
 
-package net.skillcode.advancedmlgrush.placeholder.placeholders.stats;
+package net.skillcode.advancedmlgrush.placeholder.placeholders.map;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.game.map.MapInstance;
+import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
-import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-@Singleton
-public class RoundsPlaceholder extends Placeholder {
+public class MapScore3Placeholder extends Placeholder {
 
-    private final SQLDataCache sqlDataCache;
+    private final MapInstanceManager mapInstanceManager;
 
     @Inject
-    public RoundsPlaceholder(final @NotNull SQLDataCache sqlDataCache) {
-        this.sqlDataCache = sqlDataCache;
+    public MapScore3Placeholder(final @NotNull MapInstanceManager mapInstanceManager) {
+        this.mapInstanceManager = mapInstanceManager;
     }
 
     @Override
     public String identifier() {
-        return "%settings_rounds%";
+        return "%map_score_3%";
     }
 
     @Override
@@ -42,10 +41,13 @@ public class RoundsPlaceholder extends Placeholder {
             return getNullValue();
         }
         final Player player = optionalPlayer.get();
+        final Optional<MapInstance> mapInstanceOptional = mapInstanceManager.getMapInstance(player);
 
-        if (!sqlDataCache.isLoaded(player)) {
-            return getLoadingValue();
+        if (!mapInstanceOptional.isPresent()) {
+            return getNullValue();
         }
-        return String.valueOf(sqlDataCache.getSQLData(player).getSettingsRounds());
+
+        final MapInstance mapInstance = mapInstanceOptional.get();
+        return String.valueOf(mapInstance.getMapStats().getScore(2));
     }
 }

@@ -50,7 +50,7 @@ public class MapPlayer4Placeholder extends Placeholder {
         }
 
         final MapInstance mapInstance = mapInstanceOptional.get();
-        if (mapInstance.getMapData().getMapType() == MapType.ONE_X_FOUR) {
+        if (mapInstance.getMapData().getMapType() == MapType.M1x4) {
             return Optional.ofNullable(mapInstance.getPlayers().get(3)).map(HumanEntity::getName).orElse(getNullValue());
         }
         return getNullValue();

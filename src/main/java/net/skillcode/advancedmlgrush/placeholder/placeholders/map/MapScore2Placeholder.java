@@ -21,18 +21,18 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class MapModePlaceholder extends Placeholder {
+public class MapScore2Placeholder extends Placeholder {
 
     private final MapInstanceManager mapInstanceManager;
 
     @Inject
-    public MapModePlaceholder(final @NotNull MapInstanceManager mapInstanceManager) {
+    public MapScore2Placeholder(final @NotNull MapInstanceManager mapInstanceManager) {
         this.mapInstanceManager = mapInstanceManager;
     }
 
     @Override
     public String identifier() {
-        return "%map_mode%";
+        return "%map_score_2%";
     }
 
     @Override
@@ -48,13 +48,6 @@ public class MapModePlaceholder extends Placeholder {
         }
 
         final MapInstance mapInstance = mapInstanceOptional.get();
-        switch (mapInstance.getMapData().getMapType()) {
-            case ONE_X_ONE:
-                return "1x1";
-            case ONE_X_FOUR:
-                return "1x4";
-            default:
-                return getNullValue();
-        }
+        return String.valueOf(mapInstance.getMapStats().getScore(1));
     }
 }

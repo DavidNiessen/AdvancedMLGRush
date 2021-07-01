@@ -22,8 +22,11 @@ import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
 import net.skillcode.advancedmlgrush.event.EventManager;
+import net.skillcode.advancedmlgrush.event.events.GameEndEvent;
+import net.skillcode.advancedmlgrush.event.events.GameStartEvent;
 import net.skillcode.advancedmlgrush.game.map.schematic.SchematicLoader;
 import net.skillcode.advancedmlgrush.game.map.world.MapWorldGenerator;
+import net.skillcode.advancedmlgrush.game.scoreboard.ScoreboardManager;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFile;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
 import net.skillcode.advancedmlgrush.item.EnumItem;
@@ -107,6 +110,8 @@ public class MapInstance implements EventHandler {
     private ItemUtils itemUtils;
     @Inject
     private JavaPlugin javaPlugin;
+    @Inject
+    private ScoreboardManager scoreboardManager;
 
     @Inject
     public MapInstance(final @Assisted @NotNull MapTemplate mapTemplate,
@@ -171,12 +176,13 @@ public class MapInstance implements EventHandler {
                             } else {
                                 mapStats.increaseScore(index);
                                 sqlDataCache.getSQLData(player).increaseBeds();
-                                final int score = mapStats.getScores().get(index);
+                                final int score = mapStats.getScore(index);
                                 if (score == rounds) {
                                     endGame(player);
                                 } else {
                                     clearBlocks();
                                     teleportToPlayerSpawn(players);
+                                    scoreboardManager.updateScoreboard(players);
                                     players.forEach(player1 -> {
                                         player.getInventory().clear();
                                         ingameItems.setIngameItems(player1);
@@ -310,10 +316,13 @@ public class MapInstance implements EventHandler {
 
     private void startGame() {
         teleportToPlayerSpawn(players);
+        scoreboardManager.updateScoreboard(players);
         players.forEach(ingameItems::setIngameItems);
+        Bukkit.getPluginManager().callEvent(new GameStartEvent(this));
     }
 
     private void endGame(final @NotNull Player winner) {
+        Bukkit.getPluginManager().callEvent(new GameEndEvent(this));
         sqlDataCache.getSQLData(winner).increaseWins();
         spectators.forEach(this::removeSpectator);
         players.forEach(player -> {
@@ -326,6 +335,7 @@ public class MapInstance implements EventHandler {
             mapInstanceManager.unregister(player);
 
             teleportToSpawn(player);
+            scoreboardManager.updateScoreboard(player);
 
         });
         eventManager.unregister(this);
@@ -338,6 +348,7 @@ public class MapInstance implements EventHandler {
         sqlDataCache.getSQLData(player).increaseLoses();
 
         teleportToSpawn(player);
+        scoreboardManager.updateScoreboard(player);
         if (players.size() == 1) {
             endGame(players.get(0));
         }

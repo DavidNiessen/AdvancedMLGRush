@@ -62,8 +62,4 @@ public class MapInstanceManager implements Registrable {
     public void unregister(final @NotNull Player player) {
         mapInstanceMap.remove(player);
     }
-
-    public void onDisable() {
-        mapInstanceMap.values().forEach(mapInstance -> mapWorldGenerator.deleteWorld(mapInstance.getWorld()));
-    }
 }

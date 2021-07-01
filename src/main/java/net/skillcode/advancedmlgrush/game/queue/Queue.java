@@ -19,6 +19,7 @@ import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.game.map.MapTemplate;
 import net.skillcode.advancedmlgrush.game.map.MapType;
+import net.skillcode.advancedmlgrush.game.scoreboard.ScoreboardManager;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.Registrable;
 import net.skillcode.advancedmlgrush.sound.SoundUtil;
@@ -46,6 +47,8 @@ public abstract class Queue implements Registrable {
     private MapManager mapManager;
     @Inject
     private JavaPlugin javaPlugin;
+    @Inject
+    private ScoreboardManager scoreboardManager;
 
     private final List<Player> queue = new CopyOnWriteArrayList<>();
 
@@ -56,8 +59,10 @@ public abstract class Queue implements Registrable {
         return queue.size();
     }
 
+
     public void register(final @NotNull Player player) {
         final Optional<Player> optionalPlayer = Optional.of(player);
+        scoreboardManager.updateScoreboard();
         if (queue.contains(player)
                 || queue.size() >= playerAmount()) {
             lobbyItems.setLobbyItems(player);

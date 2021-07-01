@@ -78,9 +78,9 @@ public class SQLDataCache implements Registrable, EventHandler {
                         } else if (future.isDone()) {
                             try {
                                 final CachedSQLData cachedSQLData = future.get();
+                                cache.put(player, cachedSQLData);
                                 javaPlugin.getServer().getPluginManager().callEvent(
                                         new PlayerDataLoadEvent(player, cachedSQLData.isDefaultData(), cachedSQLData));
-                                cache.put(player, cachedSQLData);
                             } catch (ExecutionException | InterruptedException e) {
                                 exceptionHandler.handle(e);
                             } finally {

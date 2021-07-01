@@ -25,6 +25,6 @@ public class Queue1x4 extends Queue {
 
     @Override
     MapType mapType() {
-        return MapType.ONE_X_FOUR;
+        return MapType.M1x4;
     }
 }

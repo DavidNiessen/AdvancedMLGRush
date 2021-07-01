@@ -74,7 +74,7 @@ public class MainConfig extends Configurable {
         list.add(new Pair<>(MAP_ITEM_LORE, new ArrayList<>(Arrays.asList(
                 " ",
                 "&7Mode&8: ",
-                "&8» &e%map_mode%",
+                "&8» &e%map_type%",
                 " ",
                 "&7Players&8:",
                 "&8» &e%map_player_1%",

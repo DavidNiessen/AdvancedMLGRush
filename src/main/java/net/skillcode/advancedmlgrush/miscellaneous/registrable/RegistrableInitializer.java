@@ -22,6 +22,7 @@ import net.skillcode.advancedmlgrush.game.map.setup.MapSetup1x4;
 import net.skillcode.advancedmlgrush.game.queue.Queue1x1;
 import net.skillcode.advancedmlgrush.game.queue.Queue1x4;
 import net.skillcode.advancedmlgrush.game.rounds.RoundManager;
+import net.skillcode.advancedmlgrush.game.scoreboard.ScoreboardManager;
 import net.skillcode.advancedmlgrush.inventory.InventoryManager;
 import net.skillcode.advancedmlgrush.util.Initializer;
 import org.jetbrains.annotations.NotNull;
@@ -46,5 +47,6 @@ public class RegistrableInitializer implements Initializer {
         manager.registerRegistrable(injector.getInstance(MapSetup1x1.class));
         manager.registerRegistrable(injector.getInstance(MapSetup1x4.class));
         manager.registerRegistrable(injector.getInstance(MapInstanceManager.class));
+        manager.registerRegistrable(injector.getInstance(ScoreboardManager.class));
     }
 }

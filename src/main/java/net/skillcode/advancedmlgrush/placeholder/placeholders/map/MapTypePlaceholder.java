@@ -15,26 +15,24 @@ package net.skillcode.advancedmlgrush.placeholder.placeholders.map;
 import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.game.map.MapInstance;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
-import net.skillcode.advancedmlgrush.game.map.MapType;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class MapPlayer3Placeholder extends Placeholder {
+public class MapTypePlaceholder extends Placeholder {
 
     private final MapInstanceManager mapInstanceManager;
 
     @Inject
-    public MapPlayer3Placeholder(final @NotNull MapInstanceManager mapInstanceManager) {
+    public MapTypePlaceholder(final @NotNull MapInstanceManager mapInstanceManager) {
         this.mapInstanceManager = mapInstanceManager;
     }
 
     @Override
     public String identifier() {
-        return "%map_player_3%";
+        return "%map_type%";
     }
 
     @Override
@@ -50,9 +48,13 @@ public class MapPlayer3Placeholder extends Placeholder {
         }
 
         final MapInstance mapInstance = mapInstanceOptional.get();
-        if (mapInstance.getMapData().getMapType() == MapType.M1x4) {
-            return Optional.ofNullable(mapInstance.getPlayers().get(2)).map(HumanEntity::getName).orElse(getNullValue());
+        switch (mapInstance.getMapData().getMapType()) {
+            case M1x1:
+                return "1x1";
+            case M1x4:
+                return "1x4";
+            default:
+                return getNullValue();
         }
-        return getNullValue();
     }
 }

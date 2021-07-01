@@ -61,6 +61,10 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
     </repositories>
     <dependencies>
         <!-- spigot dependency -->
@@ -95,6 +99,13 @@
             <groupId>com.google.inject.extensions</groupId>
             <artifactId>guice-assistedinject</artifactId>
             <version>4.0</version>
+        </dependency>
+        <!-- papi -->
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>LATEST</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

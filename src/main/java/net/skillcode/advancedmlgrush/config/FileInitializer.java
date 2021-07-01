@@ -35,5 +35,6 @@ public class FileInitializer implements Initializer {
         injector.getInstance(DebugConfig.class);
         injector.getInstance(GadgetManager.class);
         injector.getInstance(SpawnFileLoader.class);
+        injector.getInstance(ScoreboardConfig.class);
     }
 }

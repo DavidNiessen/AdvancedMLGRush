@@ -2,7 +2,9 @@ name: AdvancedMLGRush
 main: net.skillcode.advancedmlgrush.MLGRush
 version: 1.0
 author: SkillCode
+website: https://skillplugins.com
 api-version: "1.13"
+softdepend: [ PlaceholderAPI ]
 commands:
   build:
     aliases:

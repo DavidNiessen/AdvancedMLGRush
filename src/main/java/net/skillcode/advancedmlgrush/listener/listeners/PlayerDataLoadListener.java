@@ -19,6 +19,7 @@ import net.skillcode.advancedmlgrush.event.EventManager;
 import net.skillcode.advancedmlgrush.event.events.PlayerDataLoadEvent;
 import net.skillcode.advancedmlgrush.game.gadgets.GadgetManager;
 import net.skillcode.advancedmlgrush.game.rounds.RoundManager;
+import net.skillcode.advancedmlgrush.game.scoreboard.ScoreboardManager;
 import net.skillcode.advancedmlgrush.sql.data.CachedSQLData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -38,6 +39,8 @@ public class PlayerDataLoadListener implements Listener {
     private RoundManager roundManager;
     @Inject
     private MainConfig mainConfig;
+    @Inject
+    private ScoreboardManager scoreboardManager;
 
     @EventHandler
     public void onLoad(final @NotNull PlayerDataLoadEvent event) {
@@ -61,6 +64,8 @@ public class PlayerDataLoadListener implements Listener {
                 && cachedSQLData.getSettingsRounds() != defaultRounds) {
             cachedSQLData.setSettingsRounds(mainConfig.getInt(MainConfig.DEFAULT_ROUNDS));
         }
+
+        scoreboardManager.updateScoreboard(player);
     }
 
 }

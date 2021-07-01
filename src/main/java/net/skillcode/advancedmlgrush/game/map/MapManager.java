@@ -51,10 +51,10 @@ public class MapManager implements Initializer {
         mapFileLoader.getMapFiles().forEach(mapFile -> {
             final MapTemplate mapTemplate = mapTemplateFactory.create(mapDataWrapper.getMapData(mapFile));
             switch (mapTemplate.getMapData().getMapType()) {
-                case ONE_X_ONE:
+                case M1x1:
                     mapTemplates1x1.add(mapTemplate);
                     break;
-                case ONE_X_FOUR:
+                case M1x4:
                     mapTemplates1x4.add(mapTemplate);
                     break;
             }
@@ -64,11 +64,11 @@ public class MapManager implements Initializer {
     public Optional<MapTemplate> getRandomMapTemplate(final @NotNull MapType mapType) {
         final Random random = new Random();
         switch (mapType) {
-            case ONE_X_ONE:
+            case M1x1:
                 return mapTemplates1x1.isEmpty()
                         ? Optional.empty()
                         : Optional.of(mapTemplates1x1.get(random.nextInt(mapTemplates1x1.size())));
-            case ONE_X_FOUR:
+            case M1x4:
                 return mapTemplates1x4.isEmpty()
                         ? Optional.empty()
                         : Optional.of(mapTemplates1x4.get(random.nextInt(mapTemplates1x4.size())));

@@ -15,26 +15,24 @@ package net.skillcode.advancedmlgrush.placeholder.placeholders.map;
 import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.game.map.MapInstance;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
-import net.skillcode.advancedmlgrush.game.map.MapType;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class MapPlayer3Placeholder extends Placeholder {
+public class MapScore4Placeholder extends Placeholder {
 
     private final MapInstanceManager mapInstanceManager;
 
     @Inject
-    public MapPlayer3Placeholder(final @NotNull MapInstanceManager mapInstanceManager) {
+    public MapScore4Placeholder(final @NotNull MapInstanceManager mapInstanceManager) {
         this.mapInstanceManager = mapInstanceManager;
     }
 
     @Override
     public String identifier() {
-        return "%map_player_3%";
+        return "%map_score_4%";
     }
 
     @Override
@@ -50,9 +48,6 @@ public class MapPlayer3Placeholder extends Placeholder {
         }
 
         final MapInstance mapInstance = mapInstanceOptional.get();
-        if (mapInstance.getMapData().getMapType() == MapType.M1x4) {
-            return Optional.ofNullable(mapInstance.getPlayers().get(2)).map(HumanEntity::getName).orElse(getNullValue());
-        }
-        return getNullValue();
+        return String.valueOf(mapInstance.getMapStats().getScore(3));
     }
 }

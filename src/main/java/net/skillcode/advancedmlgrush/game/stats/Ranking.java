@@ -20,7 +20,10 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.MLGRush;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
+import net.skillcode.advancedmlgrush.event.events.RankingUpdateEvent;
+import net.skillcode.advancedmlgrush.game.scoreboard.ScoreboardManager;
 import net.skillcode.advancedmlgrush.sql.datasavers.MLGDataSaver;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -39,6 +42,8 @@ public class Ranking {
     private MLGDataSaver mlgDataSaver;
     @Inject
     private MainConfig mainConfig;
+    @Inject
+    private ScoreboardManager scoreboardManager;
 
     //<name, ranking>
     private final BiMap<String, Integer> biMap = Maps.synchronizedBiMap(HashBiMap.create());
@@ -60,6 +65,8 @@ public class Ranking {
                     cancel();
                 } else {
                     mlgDataSaver.updateRanking((map, wins) -> updateRanking(map, wins));
+                    scoreboardManager.updateScoreboard();
+                    Bukkit.getPluginManager().callEvent(new RankingUpdateEvent());
                 }
             }
         }.runTaskTimer(mlgRush, 0, mainConfig.getLong(MainConfig.RANKING_UPDATE_PERIOD) * 60 * 20);

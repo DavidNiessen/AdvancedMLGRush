@@ -16,7 +16,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.libs.xseries.XMaterial;
-import net.skillcode.advancedmlgrush.sql.ThreadPoolManager;
 import net.skillcode.advancedmlgrush.util.EnumUtils;
 import net.skillcode.advancedmlgrush.util.NMSUtils;
 import org.bukkit.Material;
@@ -35,8 +34,6 @@ public class SchematicLoader {
 
     @Inject
     private NMSUtils nmsUtils;
-    @Inject
-    private ThreadPoolManager threadPoolManager;
     @Inject
     private EnumUtils enumUtils;
     @Inject
@@ -62,6 +59,7 @@ public class SchematicLoader {
                     final String materialName = storableBlock.getMaterial();
                     final Material material = enumUtils.isInEnum(Material.class, materialName)
                             ? Material.valueOf(materialName) : XMaterial.STONE.parseMaterial();
+
 
                     block.setType(material);
                     nmsUtils.setBlockData(block, storableBlock.getData());

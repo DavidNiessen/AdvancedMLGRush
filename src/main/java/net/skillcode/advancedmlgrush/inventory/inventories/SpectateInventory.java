@@ -59,9 +59,8 @@ public class SpectateInventory extends MultiPageInventory {
     @Override
     protected LinkedHashMap<ItemStack, Object> onOpen(final @NotNull Player player) {
         final LinkedHashMap<ItemStack, Object> map = new LinkedHashMap<>();
-        final Optional<Player> optionalPlayer = Optional.of(player);
 
-        mapInstanceManager.getMapInstances().forEach(mapInstance -> {
+        mapInstanceManager.getMapInstances().stream().filter(MapInstance::isLoaded).forEach(mapInstance -> {
             final List<String> lore = mainConfig.getArrayList(MainConfig.MAP_ITEM_LORE);
             placeholders.replace(Optional.ofNullable(mapInstance.getPlayers().get(0)), lore);
 

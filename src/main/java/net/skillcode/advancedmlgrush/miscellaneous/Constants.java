@@ -68,6 +68,8 @@ public class Constants {
             "/_/    \\_\\__,_| \\_/ \\__,_|_| |_|\\___\\___|\\__,_|_|  |_|______\\_____|_|  \\_\\__,_|___/_| |_| by SkillCode\n" +
             "==============================================================================================================="
             + Ansi.ansi().reset();
+    public static final String OFFLINE_MODE = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "WARNING: This server is running in offline/cracked mode. Make sure that each player has a unique name and UUID." + Ansi.ansi().reset();
+    public static final String AFTER_STARTUP_MESSAGE = "Successfully loaded in %s ms!";
     public static final String INVALID_PORT_MESSAGE = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "The specified port is invalid, the default port 3306 will be used." + Ansi.ansi().reset();
     public static final String MATERIAL_PARSE_ERROR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "An error occurred while parsing material: %s " + Ansi.ansi().reset();
     public static final String SOUND_PARSE_ERROR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "An error occurred while parsing sound: %s " + Ansi.ansi().reset();

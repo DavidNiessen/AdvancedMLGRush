@@ -32,6 +32,7 @@ import net.skillcode.advancedmlgrush.sql.ConnectionManager;
 import net.skillcode.advancedmlgrush.sql.DataInitializer;
 import net.skillcode.advancedmlgrush.util.PlayerUtils;
 import net.skillcode.advancedmlgrush.util.WorldUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.UUID;
@@ -70,6 +71,8 @@ public class MLGRush extends JavaPlugin {
     @Override
     public void onEnable() {
         getLogger().info(Constants.STARTUP_MESSAGE);
+        final long millis = System.currentTimeMillis();
+
         uuid = UUID.randomUUID();
         final Injector injector = Guice.createInjector(new MLGBinderModule(this));
         injector.injectMembers(this);
@@ -86,6 +89,11 @@ public class MLGRush extends JavaPlugin {
 
         WorldUtils.deleteWorlds();
         api = injector.getInstance(APIImplementation.class);
+
+        if (!Bukkit.getOnlineMode()) {
+            getLogger().warning(Constants.OFFLINE_MODE);
+        }
+        getLogger().info(String.format(Constants.AFTER_STARTUP_MESSAGE, System.currentTimeMillis() - millis));
     }
 
     @Override

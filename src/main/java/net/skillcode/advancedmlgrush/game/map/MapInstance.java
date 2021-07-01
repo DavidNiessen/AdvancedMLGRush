@@ -64,6 +64,9 @@ public class MapInstance implements EventHandler {
     private final List<Location> placedBlocks = new ArrayList<>();
     @Getter
     private final List<Player> spectators = new CopyOnWriteArrayList<>();
+    @Getter
+    //Tasks which will be executed after the map is loaded
+    private final List<Runnable> tasks = new CopyOnWriteArrayList<>();
 
     @Getter
     private final MapTemplate mapTemplate;
@@ -73,6 +76,8 @@ public class MapInstance implements EventHandler {
     private final List<Player> players;
     @Getter
     private final int rounds;
+    @Getter
+    private boolean loaded = false;
 
     @Getter
     private World world;
@@ -135,7 +140,10 @@ public class MapInstance implements EventHandler {
         eventListeners.add(new EventListener<PlayerQuitEvent>(PlayerQuitEvent.class) {
             @Override
             protected void onEvent(final @NotNull PlayerQuitEvent event) {
-                quitMap(event.getPlayer());
+                final Player player = event.getPlayer();
+                if (players.contains(player)) {
+                    quitMap(event.getPlayer());
+                }
             }
         });
 
@@ -150,8 +158,10 @@ public class MapInstance implements EventHandler {
 
                     if (players.contains(damager)
                             && players.contains(entity)) {
-                        event.setCancelled(false);
-                        event.setDamage(0);
+                        if (loaded) {
+                            event.setCancelled(false);
+                            event.setDamage(0);
+                        }
                     }
                 }
             }
@@ -161,41 +171,43 @@ public class MapInstance implements EventHandler {
             protected void onEvent(final @NotNull BlockBreakEvent event) {
                 final Player player = event.getPlayer();
                 if (players.contains(player)) {
-                    final Location blockLocation = event.getBlock().getLocation();
+                    if (loaded) {
+                        final Location blockLocation = event.getBlock().getLocation();
 
-                    for (int i = 0; i < players.size(); i++) {
-                        final Pair<Location, Location> pair = mapData.getBeds().get(i);
-                        if (locationUtils.compare(pair.getKey(), blockLocation, world)
-                                || locationUtils.compare(pair.getValue(), blockLocation, world)) {
+                        for (int i = 0; i < players.size(); i++) {
+                            final Pair<Location, Location> pair = mapData.getBeds().get(i);
+                            if (locationUtils.compare(pair.getKey(), blockLocation, world)
+                                    || locationUtils.compare(pair.getValue(), blockLocation, world)) {
 
-                            final Optional<Player> optionalPlayer = Optional.of(player);
-                            final int index = players.indexOf(player);
+                                final Optional<Player> optionalPlayer = Optional.of(player);
+                                final int index = players.indexOf(player);
 
-                            if (index == i) {
-                                player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.BREAK_OWN_BED));
-                            } else {
-                                mapStats.increaseScore(index);
-                                sqlDataCache.getSQLData(player).increaseBeds();
-                                final int score = mapStats.getScore(index);
-                                if (score == rounds) {
-                                    endGame(player);
+                                if (index == i) {
+                                    player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.BREAK_OWN_BED));
                                 } else {
-                                    clearBlocks();
-                                    teleportToPlayerSpawn(players);
-                                    scoreboardManager.updateScoreboard(players);
-                                    players.forEach(player1 -> {
-                                        player.getInventory().clear();
-                                        ingameItems.setIngameItems(player1);
-                                    });
+                                    mapStats.increaseScore(index);
+                                    sqlDataCache.getSQLData(player).increaseBeds();
+                                    final int score = mapStats.getScore(index);
+                                    if (score == rounds) {
+                                        endGame(player);
+                                    } else {
+                                        clearBlocks();
+                                        teleportToPlayerSpawn(players);
+                                        scoreboardManager.updateScoreboard(players);
+                                        players.forEach(player1 -> {
+                                            player.getInventory().clear();
+                                            ingameItems.setIngameItems(player1);
+                                        });
+                                    }
                                 }
+                                break;
                             }
-                            break;
                         }
-                    }
 
-                    if (placedBlocks.contains(blockLocation)) {
-                        event.getBlock().getDrops().clear();
-                        event.setCancelled(false);
+                        if (placedBlocks.contains(blockLocation)) {
+                            event.getBlock().getDrops().clear();
+                            event.setCancelled(false);
+                        }
                     }
                 }
             }
@@ -206,31 +218,33 @@ public class MapInstance implements EventHandler {
                 final Player player = event.getPlayer();
 
                 if (players.contains(player)) {
-                    final Location location = event.getBlock().getLocation();
-                    final Location higherLocation = location.clone();
-                    higherLocation.setY(higherLocation.getY() + 1);
+                    if (loaded) {
+                        final Location location = event.getBlock().getLocation();
+                        final Location higherLocation = location.clone();
+                        higherLocation.setY(higherLocation.getY() + 1);
 
-                    if (player.getItemInHand().isSimilar(ingameItems.getBlock(player).getKey())
-                            && location.getY() <= mapData.getMaxBuild()
-                            && (event.getBlockReplacedState() == null
-                            || event.getBlockReplacedState().getType() == null
-                            || event.getBlockReplacedState().getType() == Material.AIR)) {
+                        if (player.getItemInHand().isSimilar(ingameItems.getBlock(player).getKey())
+                                && location.getY() <= mapData.getMaxBuild()
+                                && (event.getBlockReplacedState() == null
+                                || event.getBlockReplacedState().getType() == null
+                                || event.getBlockReplacedState().getType() == Material.AIR)) {
 
-                        boolean isSpawnLocation = false;
-                        for (final Location spawnLocation : mapData.getSpawns()) {
-                            if (locationUtils.compare(location, spawnLocation, world)
-                                    || locationUtils.compare(higherLocation, spawnLocation, world)) {
-                                isSpawnLocation = true;
+                            boolean isSpawnLocation = false;
+                            for (final Location spawnLocation : mapData.getSpawns()) {
+                                if (locationUtils.compare(location, spawnLocation, world)
+                                        || locationUtils.compare(higherLocation, spawnLocation, world)) {
+                                    isSpawnLocation = true;
+                                }
                             }
-                        }
 
-                        if (!isSpawnLocation) {
-                            event.setCancelled(false);
-                            final boolean infiniteBlocks = mainConfig.getBoolean(MainConfig.INFINITE_BLOCKS);
-                            if (infiniteBlocks) {
-                                player.getItemInHand().setAmount(mainConfig.getInt(MainConfig.BLOCK_AMOUNT));
+                            if (!isSpawnLocation) {
+                                event.setCancelled(false);
+                                final boolean infiniteBlocks = mainConfig.getBoolean(MainConfig.INFINITE_BLOCKS);
+                                if (infiniteBlocks) {
+                                    player.getItemInHand().setAmount(mainConfig.getInt(MainConfig.BLOCK_AMOUNT));
+                                }
+                                placedBlocks.add(location);
                             }
-                            placedBlocks.add(location);
                         }
                     }
                 }
@@ -243,26 +257,28 @@ public class MapInstance implements EventHandler {
 
                 if (players.contains(player)
                         || spectators.contains(player)) {
+                    if (loaded) {
 
-                    if (event.getTo().getY() <= mapData.getDeathHeight()) {
-                        if (players.contains(player)) {
-                            teleportToPlayerSpawn(player);
-                            soundUtil.playSound(player, SoundConfig.DEATH);
-                        } else if (spectators.contains(player)) {
-                            teleportToSpectatorSpawn(player);
-                        }
-                    }
-
-                    if (players.contains(player)) {
-                        final List<Entity> list = player.getNearbyEntities(1, 1, 1);
-                        list.forEach(entity -> {
-                            if (entity instanceof Player) {
-                                final Player player1 = (Player) entity;
-                                if (spectators.contains(player1)) {
-                                    player1.setVelocity(player1.getLocation().getDirection().multiply(-0.5));
-                                }
+                        if (event.getTo().getY() <= mapData.getDeathHeight()) {
+                            if (players.contains(player)) {
+                                teleportToPlayerSpawn(player);
+                                soundUtil.playSound(player, SoundConfig.DEATH);
+                            } else if (spectators.contains(player)) {
+                                teleportToSpectatorSpawn(player);
                             }
-                        });
+                        }
+
+                        if (players.contains(player)) {
+                            final List<Entity> list = player.getNearbyEntities(1, 1, 1);
+                            list.forEach(entity -> {
+                                if (entity instanceof Player) {
+                                    final Player player1 = (Player) entity;
+                                    if (spectators.contains(player1)) {
+                                        player1.setVelocity(player1.getLocation().getDirection().multiply(-0.5));
+                                    }
+                                }
+                            });
+                        }
                     }
                 }
             }
@@ -316,6 +332,8 @@ public class MapInstance implements EventHandler {
 
     private void startGame() {
         teleportToPlayerSpawn(players);
+        loaded = true;
+        tasks.forEach(Runnable::run);
         scoreboardManager.updateScoreboard(players);
         players.forEach(ingameItems::setIngameItems);
         Bukkit.getPluginManager().callEvent(new GameStartEvent(this));
@@ -339,7 +357,12 @@ public class MapInstance implements EventHandler {
 
         });
         eventManager.unregister(this);
-        mapWorldGenerator.deleteWorld(world);
+        players.clear();
+        if (isLoaded()) {
+            mapWorldGenerator.deleteWorld(world);
+        } else {
+            tasks.add(() -> mapWorldGenerator.deleteWorld(world));
+        }
     }
 
     public void quitMap(final @NotNull Player player) {

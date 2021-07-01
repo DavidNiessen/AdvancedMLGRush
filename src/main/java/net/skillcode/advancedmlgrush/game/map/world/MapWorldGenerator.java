@@ -48,14 +48,7 @@ public class MapWorldGenerator extends ChunkGenerator {
 
     public World createWorld() {
         final UUID uuid = UUID.randomUUID();
-        final WorldCreator worldCreator = new WorldCreator(Constants.WORLD_PATH + uuid);
-
-        worldCreator.type(WorldType.FLAT);
-        worldCreator.generator(this);
-        worldCreator.generateStructures(false);
-        worldCreator.generatorSettings("2;0;1;");
-
-        return worldCreator.createWorld();
+        return new WorldCreator(Constants.WORLD_PATH + uuid).type(WorldType.FLAT).generator(this).createWorld();
     }
 
     public void deleteWorld(final @NotNull World world) {

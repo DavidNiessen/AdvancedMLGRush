@@ -46,6 +46,7 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String ALREADY_SETTING_UP_MAP = "already_setting_up_map";
     public static final String MAP_GENERATE = "map_generate";
     public static final String BREAK_OWN_BED = "break_own_bed";
+    public static final String GAME_START = "game_start";
     public static final String GAME_END = "game_end";
     //Command syntaxes
     public static final String SETUP_MAP_COMMAND_SYNTAX = "setup_max_command_syntax";
@@ -112,6 +113,7 @@ public class MessageConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(ALREADY_SETTING_UP_MAP, "&cYou are already setting up a map."));
         list.add(new Pair<>(MAP_GENERATE, "&aGenerating map..."));
         list.add(new Pair<>(BREAK_OWN_BED, "&cYou cannot break your own bed!"));
+        list.add(new Pair<>(GAME_START, "&8&m------------------------------------&r\n \n   &7Map&8: &e%map_name%\n   &7Mode&8: &e%map_mode%\n   &7Rounds&8: &e%map_rounds%\n \n&8&m------------------------------------&r"));
         list.add(new Pair<>(GAME_END, "&e%winner% &awon the game."));
 
         list.add(new Pair<>(SETUP_MAP_COMMAND_SYNTAX, "&cWrong syntax: /setupmap <1x1, 1x4> <name>"));

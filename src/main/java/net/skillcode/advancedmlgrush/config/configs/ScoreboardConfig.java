@@ -71,7 +71,7 @@ public class ScoreboardConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(MAP_1X1_SCOREBOARD, new ArrayList<>(Arrays.asList(
                 "&1",
                 "&7Map&8:",
-                "&8» &e%map_name% &7(&e%map_type%&7)",
+                "&8» &e%map_name% &7(&e%map_mode%&7)",
                 "&3",
                 "&7Scores&8:",
                 "&8» &e%map_player_1% &8| &e&l%map_score_1%",
@@ -81,7 +81,7 @@ public class ScoreboardConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(MAP_1X4_SCOREBOARD, new ArrayList<>(Arrays.asList(
                 "&1",
                 "&7Map&8:",
-                "&8» &e%map_name% &7(&e%map_type%&7)",
+                "&8» &e%map_name% &7(&e%map_mode%&7)",
                 "&3",
                 "&7Scores&8:",
                 "&8» &e%map_player_1% &8| &e&l%map_score_1%",

@@ -33,8 +33,10 @@ import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.ItemUtils;
 import net.skillcode.advancedmlgrush.item.items.IngameItems;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
+import net.skillcode.advancedmlgrush.libs.xseries.XMaterial;
 import net.skillcode.advancedmlgrush.sound.SoundUtil;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
+import net.skillcode.advancedmlgrush.util.ListBuilder;
 import net.skillcode.advancedmlgrush.util.LocationUtils;
 import net.skillcode.advancedmlgrush.util.LocationWrapper;
 import net.skillcode.advancedmlgrush.util.Pair;
@@ -42,6 +44,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
@@ -292,6 +295,17 @@ public class MapInstance implements EventHandler {
                     if (itemUtils.compare(player.getItemInHand(), EnumItem.SPECTATE_LEAVE, Optional.of(player))) {
                         removeSpectator(player);
                     }
+
+                    final XMaterial xMaterial = XMaterial.BED;
+                    final Block clickedBlock = event.getClickedBlock();
+                    final List<String> materialNames = ListBuilder.create(String.class).add(xMaterial.name())
+                            .add(xMaterial.getLegacy()).build();
+
+                    if (clickedBlock != null
+                            && clickedBlock.getType() != null
+                            && (materialNames.contains(clickedBlock.getType().name()))) {
+                        event.setCancelled(true);
+                    }
                 }
             }
         });
@@ -335,7 +349,10 @@ public class MapInstance implements EventHandler {
         loaded = true;
         tasks.forEach(Runnable::run);
         scoreboardManager.updateScoreboard(players);
-        players.forEach(ingameItems::setIngameItems);
+        players.forEach(player -> {
+            ingameItems.setIngameItems(player);
+            player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.GAME_START));
+        });
         Bukkit.getPluginManager().callEvent(new GameStartEvent(this));
     }
 

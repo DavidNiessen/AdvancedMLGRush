@@ -62,7 +62,7 @@ public class PlaceholderInitializer implements Initializer {
         placeholderManager.registerPlaceholder(injector.getInstance(Queue1x4Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapPlaceholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapNamePlaceholder.class));
-        placeholderManager.registerPlaceholder(injector.getInstance(MapTypePlaceholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapModePlaceholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapPlayer1Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapPlayer2Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapPlayer3Placeholder.class));
@@ -71,5 +71,6 @@ public class PlaceholderInitializer implements Initializer {
         placeholderManager.registerPlaceholder(injector.getInstance(MapScore2Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapScore3Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapScore4Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapRoundsPlaceholder.class));
     }
 }

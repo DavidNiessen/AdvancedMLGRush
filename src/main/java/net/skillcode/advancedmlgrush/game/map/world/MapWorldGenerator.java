@@ -57,7 +57,9 @@ public class MapWorldGenerator extends ChunkGenerator {
             Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> {
                 Bukkit.unloadWorld(world, false);
                 Bukkit.getWorlds().remove(world);
-                deleteWorldFilesAsync(world.getWorldFolder());
+                Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> {
+                    deleteWorldFilesAsync(world.getWorldFolder());
+                }, 20);
             }, 20);
         }
     }

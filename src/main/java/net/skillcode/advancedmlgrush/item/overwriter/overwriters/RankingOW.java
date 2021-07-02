@@ -13,6 +13,7 @@
 package net.skillcode.advancedmlgrush.item.overwriter.overwriters;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.ItemMaterialConfig;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.item.EnumItem;
@@ -30,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Optional;
 
+@Singleton
 public class RankingOW implements ItemOW {
 
     @Inject

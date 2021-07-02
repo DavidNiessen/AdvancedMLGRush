@@ -15,6 +15,7 @@ package net.skillcode.advancedmlgrush;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
 import lombok.Getter;
 import net.skillcode.advancedmlgrush.api.APIImplementation;
 import net.skillcode.advancedmlgrush.api.MLGRushAPI;
@@ -37,6 +38,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.UUID;
 
+@Singleton
 public class MLGRush extends JavaPlugin {
 
     @Getter

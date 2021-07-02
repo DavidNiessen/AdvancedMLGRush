@@ -25,10 +25,16 @@ import org.jetbrains.annotations.NotNull;
 @Singleton
 public class InventoryClickListener implements Listener {
 
+
+    private final EventManager eventManager;
+    private final BuildModeManager buildModeManager;
+
     @Inject
-    private EventManager eventManager;
-    @Inject
-    private BuildModeManager buildModeManager;
+    public InventoryClickListener(final @NotNull EventManager eventManager,
+                                  final @NotNull BuildModeManager buildModeManager) {
+        this.eventManager = eventManager;
+        this.buildModeManager = buildModeManager;
+    }
 
     @EventHandler
     public void onClick(final @NotNull InventoryClickEvent event) {

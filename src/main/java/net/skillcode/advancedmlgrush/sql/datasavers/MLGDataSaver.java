@@ -15,7 +15,6 @@ package net.skillcode.advancedmlgrush.sql.datasavers;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.DataConfig;
-import net.skillcode.advancedmlgrush.game.stats.Ranking;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.sql.DataSaver;
 import net.skillcode.advancedmlgrush.sql.DataSaverParams;
@@ -33,10 +32,14 @@ import java.util.concurrent.CompletableFuture;
 @Singleton
 public class MLGDataSaver extends DataSaver {
 
+
+    private final DataConfig dataConfig;
+
     @Inject
-    private DataConfig dataConfig;
-    @Inject
-    private Ranking ranking;
+    public MLGDataSaver(final @NotNull DataConfig dataConfig) {
+        this.dataConfig = dataConfig;
+    }
+
 
     public CompletableFuture<CachedSQLData> getPlayerData(final @NotNull Player player) {
         return CompletableFuture.supplyAsync(() -> getPlayerDataSync(player), threadPoolManager.getThreadPool());

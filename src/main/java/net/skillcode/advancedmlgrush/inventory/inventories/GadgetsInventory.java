@@ -34,10 +34,16 @@ import java.util.Optional;
 @Singleton
 public class GadgetsInventory extends AbstractInventory {
 
+
+    private final StickInventory stickInventory;
+    private final BlocksInventory blocksInventory;
+
     @Inject
-    private StickInventory stickInventory;
-    @Inject
-    private BlocksInventory blocksInventory;
+    public GadgetsInventory(final @NotNull StickInventory stickInventory,
+                            final @NotNull BlocksInventory blocksInventory) {
+        this.stickInventory = stickInventory;
+        this.blocksInventory = blocksInventory;
+    }
 
     @PostConstruct
     public void initInventory() {

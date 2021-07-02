@@ -25,10 +25,15 @@ import org.jetbrains.annotations.NotNull;
 @Singleton
 public class InventoryCloseListener implements Listener {
 
+    private final EventManager eventManager;
+    private final InventoryManager inventoryManager;
+
     @Inject
-    private EventManager eventManager;
-    @Inject
-    private InventoryManager inventoryManager;
+    public InventoryCloseListener(final @NotNull EventManager eventManager,
+                                  final @NotNull InventoryManager inventoryManager) {
+        this.eventManager = eventManager;
+        this.inventoryManager = inventoryManager;
+    }
 
     @EventHandler
     public void onClose(final @NotNull InventoryCloseEvent event) {

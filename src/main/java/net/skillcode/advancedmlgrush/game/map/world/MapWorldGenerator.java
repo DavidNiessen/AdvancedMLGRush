@@ -38,13 +38,6 @@ public class MapWorldGenerator extends ChunkGenerator {
     @Inject
     private JavaPlugin javaPlugin;
 
-    @Inject
-    public MapWorldGenerator(final @NotNull MessageConfig messageConfig,
-                             final @NotNull ThreadPoolManager threadPoolManager) {
-        this.messageConfig = messageConfig;
-        this.threadPoolManager = threadPoolManager;
-    }
-
 
     public World createWorld() {
         final UUID uuid = UUID.randomUUID();

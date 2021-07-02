@@ -12,6 +12,7 @@
 
 package net.skillcode.advancedmlgrush.util;
 
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Singleton
 public class WorldUtils {
 
     private WorldUtils() {

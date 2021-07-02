@@ -38,10 +38,15 @@ public class QueueInventory extends AbstractInventory {
     private static final int QUEUE_1X1_SLOT = 11;
     private static final int QUEUE_1X4_SLOT = 15;
 
+    private final Queue1x1 queue1x1;
+    private final Queue1x4 queue1x4;
+
     @Inject
-    private Queue1x1 queue1x1;
-    @Inject
-    private Queue1x4 queue1x4;
+    public QueueInventory(final @NotNull Queue1x1 queue1x1,
+                          final @NotNull Queue1x4 queue1x4) {
+        this.queue1x1 = queue1x1;
+        this.queue1x4 = queue1x4;
+    }
 
     @PostConstruct
     public void initInventory() {

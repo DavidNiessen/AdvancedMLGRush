@@ -13,6 +13,7 @@
 package net.skillcode.advancedmlgrush.command.commands;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.inventory.inventories.SettingsInventory;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
@@ -23,6 +24,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Optional;
 
+@Singleton
 public class SettingsCommand implements CommandExecutor {
 
     @Inject

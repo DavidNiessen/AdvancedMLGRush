@@ -45,9 +45,6 @@ public class Constants {
     public static final String MAP_PATH = PLUGIN_PATH + "maps/";
     //Worlds
     public static final String WORLD_PATH = PLUGIN_PATH + "worlds/";
-    //Cache
-    public static final String CACHE_PATH = PLUGIN_PATH + "cache/";
-    public static final String UUID_CACHE_PATH = CACHE_PATH + "uuids.cache";
     /* Slots */
     public static final int CHALLENGER_SLOT = 0;
     public static final int SETTINGS_SLOT = 2;

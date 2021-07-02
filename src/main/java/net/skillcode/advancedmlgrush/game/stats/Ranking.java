@@ -40,6 +40,7 @@ public class Ranking {
     private final BiMap<String, Integer> biMap = Maps.synchronizedBiMap(HashBiMap.create());
     //<ranking, wins>
     private final Map<Integer, Integer> wins = new ConcurrentHashMap<>();
+
     @Inject
     private MLGRush mlgRush;
     @Inject

@@ -17,8 +17,8 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
-@RequiredArgsConstructor
 @Getter
+@RequiredArgsConstructor
 public abstract class EventListener<E extends Event> {
 
     private final Class<? extends Event> eventClass;

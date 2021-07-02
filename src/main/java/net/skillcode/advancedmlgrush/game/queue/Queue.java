@@ -36,6 +36,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public abstract class Queue implements Registrable {
 
     private final List<Player> queue = new CopyOnWriteArrayList<>();
+
     @Inject
     private LobbyItems lobbyItems;
     @Inject
@@ -63,7 +64,7 @@ public abstract class Queue implements Registrable {
         final Optional<Player> optionalPlayer = Optional.of(player);
         scoreboardManager.updateScoreboard();
         if (queue.contains(player)
-                || queue.size() >= playerAmount()) {
+                || queue.size() >= mapType().getPlayers()) {
             lobbyItems.setLobbyItems(player);
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.ERROR));
         } else {
@@ -72,7 +73,7 @@ public abstract class Queue implements Registrable {
             queue.add(player);
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.QUEUE_JOIN));
 
-            if (queue.size() == playerAmount()) {
+            if (queue.size() == mapType().getPlayers()) {
                 queue.forEach(player1 -> player1.getInventory().clear());
                 startGame();
                 queue.clear();
@@ -94,8 +95,6 @@ public abstract class Queue implements Registrable {
             Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> lobbyItems.setLobbyItems(player), 5);
         }
     }
-
-    protected abstract int playerAmount();
 
     abstract MapType mapType();
 

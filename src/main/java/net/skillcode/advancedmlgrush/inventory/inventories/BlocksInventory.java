@@ -33,10 +33,16 @@ import java.util.Optional;
 @Singleton
 public class BlocksInventory extends MultiPageInventory {
 
+
+    private final GadgetManager gadgetManager;
+    private final SQLDataCache sqlDataCache;
+
     @Inject
-    private GadgetManager gadgetManager;
-    @Inject
-    private SQLDataCache sqlDataCache;
+    public BlocksInventory(final @NotNull GadgetManager gadgetManager,
+                           final @NotNull SQLDataCache sqlDataCache) {
+        this.gadgetManager = gadgetManager;
+        this.sqlDataCache = sqlDataCache;
+    }
 
     @Override
     protected boolean playSound() {

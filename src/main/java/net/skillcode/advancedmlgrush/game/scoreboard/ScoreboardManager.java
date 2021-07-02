@@ -35,6 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ScoreboardManager implements Registrable {
 
     private final Map<Player, FastBoard> map = new ConcurrentHashMap<>();
+
     @Inject
     private ScoreboardConfig scoreboardConfig;
     @Inject

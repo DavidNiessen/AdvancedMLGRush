@@ -13,7 +13,7 @@
 package net.skillcode.advancedmlgrush.command.commands;
 
 import com.google.inject.Inject;
-import net.skillcode.advancedmlgrush.config.configs.MainConfig;
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFile;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
@@ -23,17 +23,22 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
+@Singleton
 public class SetSpawnCommand implements CommandExecutor {
 
+    private final SpawnFileLoader spawnFileLoader;
+    private final MessageConfig messageConfig;
+
     @Inject
-    private SpawnFileLoader spawnFileLoader;
-    @Inject
-    private MessageConfig messageConfig;
-    @Inject
-    private MainConfig mainConfig;
+    public SetSpawnCommand(final @NotNull SpawnFileLoader spawnFileLoader,
+                           final @NotNull MessageConfig messageConfig) {
+        this.spawnFileLoader = spawnFileLoader;
+        this.messageConfig = messageConfig;
+    }
 
 
     @Override

@@ -33,6 +33,7 @@ public abstract class MapSetup implements Registrable, EventHandler {
 
     private final Map<Player, Pair<Integer, List<Object>>> map = new ConcurrentHashMap<>();
     private final Map<Player, String> nameMap = new ConcurrentHashMap<>();
+
     @Inject
     private MessageConfig messageConfig;
     @Inject

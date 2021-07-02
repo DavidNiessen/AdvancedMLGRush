@@ -13,6 +13,7 @@
 package net.skillcode.advancedmlgrush.command.commands;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.game.map.setup.MapSetup1x1;
@@ -24,6 +25,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Optional;
 
+@Singleton
 public class SetupMapCommand implements CommandExecutor {
 
     @Inject

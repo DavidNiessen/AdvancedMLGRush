@@ -13,6 +13,7 @@
 package net.skillcode.advancedmlgrush.command.commands;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.game.map.MapInstance;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
@@ -20,15 +21,22 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
+@Singleton
 public class QuitCommand implements CommandExecutor {
 
+    private final MapInstanceManager mapInstanceManager;
+    private final MessageConfig messageConfig;
+
     @Inject
-    private MapInstanceManager mapInstanceManager;
-    @Inject
-    private MessageConfig messageConfig;
+    public QuitCommand(final @NotNull MapInstanceManager mapInstanceManager,
+                       final @NotNull MessageConfig messageConfig) {
+        this.mapInstanceManager = mapInstanceManager;
+        this.messageConfig = messageConfig;
+    }
 
     @Override
     public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] strings) {

@@ -340,7 +340,7 @@ public class MapInstance implements EventHandler {
     }
 
     private void endGame(final @NotNull Player winner) {
-        Bukkit.getPluginManager().callEvent(new GameEndEvent(this));
+        Bukkit.getPluginManager().callEvent(new GameEndEvent(this, winner));
         sqlDataCache.getSQLData(winner).increaseWins();
         spectators.forEach(this::removeSpectator);
         players.forEach(player -> {

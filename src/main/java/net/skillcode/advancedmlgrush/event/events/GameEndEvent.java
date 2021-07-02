@@ -14,6 +14,7 @@ package net.skillcode.advancedmlgrush.event.events;
 
 import lombok.Getter;
 import net.skillcode.advancedmlgrush.game.map.MapInstance;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -24,9 +25,12 @@ public class GameEndEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     private final MapInstance mapInstance;
+    private final Player winner;
 
-    public GameEndEvent(final @NotNull MapInstance mapInstance) {
+    public GameEndEvent(final @NotNull MapInstance mapInstance,
+                        final @NotNull Player winner) {
         this.mapInstance = mapInstance;
+        this.winner = winner;
     }
 
     public static HandlerList getHandlerList() {

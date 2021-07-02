@@ -319,7 +319,7 @@ public class MapInstance implements EventHandler {
         player.spigot().setCollidesWithEntities(false);
 
         teleportToSpectatorSpawn(player);
-        players.forEach(player1 -> player1.hidePlayer(player));
+        Bukkit.getOnlinePlayers().forEach(player1 -> player1.hidePlayer(player));
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> ingameItems.setSpectatorItems(player), 10);
     }
@@ -332,7 +332,7 @@ public class MapInstance implements EventHandler {
         player.spigot().setCollidesWithEntities(true);
 
         teleportToSpawn(player);
-        players.forEach(player1 -> player1.showPlayer(player));
+        Bukkit.getOnlinePlayers().forEach(player1 -> player1.showPlayer(player));
 
         lobbyItems.setLobbyItems(player);
     }

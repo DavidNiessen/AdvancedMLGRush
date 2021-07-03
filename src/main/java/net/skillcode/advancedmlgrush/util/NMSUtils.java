@@ -41,17 +41,21 @@ public class NMSUtils {
     public Class<?> getOBCClass(final @NotNull String name) {
         try {
             return Class.forName("org.bukkit.craftbukkit." + getServerVersion() + '.' + name);
-        } catch (Exception e) {
+        } catch (ClassNotFoundException e) {
             exceptionHandler.handle(e);
         }
         return null;
     }
 
-    public Class<?> getNMSClass(final @NotNull String name) {
+    public Class<?> getNMSClass(final @NotNull String className, final @NotNull String newFullClassName) {
         try {
-            return Class.forName("net.minecraft.server." + getServerVersion() + '.' + name);
-        } catch (Exception e) {
-            exceptionHandler.handle(e);
+            return Class.forName("net.minecraft.server." + getServerVersion() + '.' + className);
+        } catch (ClassNotFoundException e) {
+            try {
+                return Class.forName(newFullClassName);
+            } catch (ClassNotFoundException classNotFoundException) {
+                exceptionHandler.handle(e);
+            }
         }
         return null;
     }
@@ -69,7 +73,7 @@ public class NMSUtils {
             Class<?> craftItemStack = getOBCClass("inventory.CraftItemStack");
             Method getNMSI = craftItemStack.getMethod("asNMSCopy", ItemStack.class);
             Object nms = getNMSI.invoke(null, itemStack);
-            Object tag = getNMSClass("NBTTagCompound").getConstructor().newInstance();
+            Object tag = getNMSClass("NBTTagCompound", "net.minecraft.nbt.NBTTagCompound").getConstructor().newInstance();
             tag.getClass().getMethod("setInt", String.class, int.class).invoke(tag, "Unbreakable", 1);
             nms.getClass().getMethod("setTag", tag.getClass()).invoke(nms, tag);
             itemStack = (ItemStack) craftItemStack.getMethod("asCraftMirror", nms.getClass()).invoke(null, nms);

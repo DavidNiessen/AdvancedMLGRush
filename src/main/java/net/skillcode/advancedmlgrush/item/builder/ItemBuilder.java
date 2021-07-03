@@ -32,7 +32,7 @@ public class ItemBuilder {
     private final NMSUtils nmsUtils;
     private final MetaType metaType;
     private final int data;
-    private final ItemStack itemStack;
+    private ItemStack itemStack;
 
     @Getter
     private ItemMeta itemMeta;
@@ -82,7 +82,7 @@ public class ItemBuilder {
 
     @NotNull
     public ItemBuilder unbreakable() {
-        nmsUtils.setUnbreakable(itemStack);
+        itemStack = nmsUtils.setUnbreakable(itemStack);
         return this;
     }
 

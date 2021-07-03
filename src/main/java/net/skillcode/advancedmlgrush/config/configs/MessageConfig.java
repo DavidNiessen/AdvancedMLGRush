@@ -48,6 +48,7 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String BREAK_OWN_BED = "break_own_bed";
     public static final String GAME_START = "game_start";
     public static final String GAME_END = "game_end";
+
     //Command syntaxes
     public static final String SETUP_MAP_COMMAND_SYNTAX = "setup_max_command_syntax";
     //setup
@@ -67,6 +68,7 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String SETUP_BED_PLAYER_3 = "setup_bed_player_3";
     public static final String SETUP_BED_PLAYER_4 = "setup_bed_player_4";
     public static final String SETUP_FINISH = "setup_finish";
+    public static final String LOADING_PROGRESS_ACTION_BAR = "loading_progress_action_bar";
 
     private final Placeholders placeholders;
 
@@ -115,6 +117,7 @@ public class MessageConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(BREAK_OWN_BED, "&cYou cannot break your own bed!"));
         list.add(new Pair<>(GAME_START, "&8&m------------------------------------&r\n \n   &7Map&8: &e%map_name%\n   &7Mode&8: &e%map_mode%\n   &7Rounds&8: &e%map_rounds%\n \n&8&m------------------------------------&r"));
         list.add(new Pair<>(GAME_END, "&e%winner% &awon the game."));
+        list.add(new Pair<>(LOADING_PROGRESS_ACTION_BAR, "&8» &eLoading... &8> &e%progress%%"));
 
         list.add(new Pair<>(SETUP_MAP_COMMAND_SYNTAX, "&cWrong syntax: /setupmap <1x1, 1x4> <name>"));
 

@@ -17,6 +17,7 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.inventory.inventories.SettingsInventory;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.ItemUtils;
@@ -48,7 +49,7 @@ public class SettingsHandler implements EventHandler {
     }
 
     private EventListener<PlayerInteractEvent> onRightClick() {
-        return new EventListener<PlayerInteractEvent>(PlayerInteractEvent.class) {
+        return new EventListener<PlayerInteractEvent>(PlayerInteractEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull PlayerInteractEvent event) {
                 if (event.getAction() == Action.RIGHT_CLICK_AIR

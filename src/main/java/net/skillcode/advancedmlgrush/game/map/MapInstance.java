@@ -21,6 +21,7 @@ import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.event.EventManager;
 import net.skillcode.advancedmlgrush.event.events.GameEndEvent;
 import net.skillcode.advancedmlgrush.event.events.GameStartEvent;
@@ -140,7 +141,7 @@ public class MapInstance implements EventHandler {
 
     @Override
     public void registerListeners(final @NotNull List<EventListener<?>> eventListeners) {
-        eventListeners.add(new EventListener<PlayerQuitEvent>(PlayerQuitEvent.class) {
+        eventListeners.add(new EventListener<PlayerQuitEvent>(PlayerQuitEvent.class, EventListenerPriority.HIGH) {
             @Override
             protected void onEvent(final @NotNull PlayerQuitEvent event) {
                 final Player player = event.getPlayer();
@@ -150,7 +151,7 @@ public class MapInstance implements EventHandler {
             }
         });
 
-        eventListeners.add(new EventListener<EntityDamageByEntityEvent>(EntityDamageByEntityEvent.class) {
+        eventListeners.add(new EventListener<EntityDamageByEntityEvent>(EntityDamageByEntityEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull EntityDamageByEntityEvent event) {
                 if (event.getDamager() instanceof Player
@@ -169,7 +170,7 @@ public class MapInstance implements EventHandler {
                 }
             }
         });
-        eventListeners.add(new EventListener<BlockBreakEvent>(BlockBreakEvent.class) {
+        eventListeners.add(new EventListener<BlockBreakEvent>(BlockBreakEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull BlockBreakEvent event) {
                 final Player player = event.getPlayer();
@@ -198,7 +199,7 @@ public class MapInstance implements EventHandler {
                                         teleportToPlayerSpawn(players);
                                         scoreboardManager.updateScoreboard(players);
                                         players.forEach(player1 -> {
-                                            player.getInventory().clear();
+                                            player1.getInventory().clear();
                                             ingameItems.setIngameItems(player1);
                                         });
                                     }
@@ -215,7 +216,7 @@ public class MapInstance implements EventHandler {
                 }
             }
         });
-        eventListeners.add(new EventListener<BlockPlaceEvent>(BlockPlaceEvent.class) {
+        eventListeners.add(new EventListener<BlockPlaceEvent>(BlockPlaceEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull BlockPlaceEvent event) {
                 final Player player = event.getPlayer();
@@ -223,8 +224,6 @@ public class MapInstance implements EventHandler {
                 if (players.contains(player)) {
                     if (loaded) {
                         final Location location = event.getBlock().getLocation();
-                        final Location higherLocation = location.clone();
-                        higherLocation.setY(higherLocation.getY() + 1);
 
                         if (player.getItemInHand().isSimilar(ingameItems.getBlock(player).getKey())
                                 && location.getY() <= mapData.getMaxBuild()
@@ -234,8 +233,12 @@ public class MapInstance implements EventHandler {
 
                             boolean isSpawnLocation = false;
                             for (final Location spawnLocation : mapData.getSpawns()) {
+
+                                final Location higherLocation = spawnLocation.clone();
+                                higherLocation.setY(higherLocation.getY() + 1);
+
                                 if (locationUtils.compare(location, spawnLocation, world)
-                                        || locationUtils.compare(higherLocation, spawnLocation, world)) {
+                                        || locationUtils.compare(location, higherLocation, world)) {
                                     isSpawnLocation = true;
                                 }
                             }
@@ -253,7 +256,7 @@ public class MapInstance implements EventHandler {
                 }
             }
         });
-        eventListeners.add(new EventListener<PlayerMoveEvent>(PlayerMoveEvent.class) {
+        eventListeners.add(new EventListener<PlayerMoveEvent>(PlayerMoveEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull PlayerMoveEvent event) {
                 final Player player = event.getPlayer();
@@ -286,7 +289,7 @@ public class MapInstance implements EventHandler {
                 }
             }
         });
-        eventListeners.add(new EventListener<PlayerInteractEvent>(PlayerInteractEvent.class) {
+        eventListeners.add(new EventListener<PlayerInteractEvent>(PlayerInteractEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull PlayerInteractEvent event) {
                 if (event.getAction() == Action.RIGHT_CLICK_AIR
@@ -341,7 +344,7 @@ public class MapInstance implements EventHandler {
         players.forEach(player -> player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.MAP_GENERATE)));
         world = mapWorldGenerator.createWorld();
 
-        schematicLoader.load(mapData.getBlocks(), world, this::startGame);
+        schematicLoader.load(mapData.getBlocks(), players, world, this::startGame);
     }
 
     private void startGame() {

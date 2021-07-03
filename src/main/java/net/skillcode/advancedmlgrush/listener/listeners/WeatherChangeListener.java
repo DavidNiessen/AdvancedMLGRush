@@ -32,7 +32,7 @@ public class WeatherChangeListener implements Listener {
 
     @EventHandler
     public void onWeatherChange(final @NotNull WeatherChangeEvent event) {
-        event.setCancelled(event.toWeatherState());
+        event.setCancelled(true);
         eventManager.callEvent(event);
     }
 }

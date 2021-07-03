@@ -19,6 +19,7 @@ import net.skillcode.advancedmlgrush.config.configs.InventoryNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.inventory.AbstractInventory;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.items.IngameItems;
@@ -100,7 +101,7 @@ public class SortingInventory extends AbstractInventory {
     @Override
     protected List<EventListener<?>> listeners(final @NotNull List<EventListener<?>> eventListeners) {
         final Class<? extends AbstractInventory> clazz = this.getClass();
-        eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class) {
+        eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull InventoryClickEvent event) {
                 final Player player = (Player) event.getWhoClicked();
@@ -186,7 +187,7 @@ public class SortingInventory extends AbstractInventory {
             }
         });
 
-        eventListeners.add(new EventListener<InventoryDragEvent>(InventoryDragEvent.class) {
+        eventListeners.add(new EventListener<InventoryDragEvent>(InventoryDragEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull InventoryDragEvent event) {
                 final Player player = (Player) event.getWhoClicked();
@@ -196,7 +197,7 @@ public class SortingInventory extends AbstractInventory {
             }
         });
 
-        eventListeners.add(new EventListener<InventoryCloseEvent>(InventoryCloseEvent.class) {
+        eventListeners.add(new EventListener<InventoryCloseEvent>(InventoryCloseEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull InventoryCloseEvent event) {
                 final Player player = (Player) event.getPlayer();

@@ -18,6 +18,7 @@ import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.InventoryNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.game.queue.Queue1x1;
 import net.skillcode.advancedmlgrush.game.queue.Queue1x4;
 import net.skillcode.advancedmlgrush.inventory.AbstractInventory;
@@ -85,7 +86,7 @@ public class QueueInventory extends AbstractInventory {
     @Override
     protected List<EventListener<?>> listeners(@NotNull List<EventListener<?>> eventListeners) {
         final Class<? extends AbstractInventory> clazz = this.getClass();
-        eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class) {
+        eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull InventoryClickEvent event) {
                 final Player player = (Player) event.getWhoClicked();

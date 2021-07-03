@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 public abstract class EventListener<E extends Event> {
 
     private final Class<? extends Event> eventClass;
+    private final EventListenerPriority eventListenerPriority;
 
     protected abstract void onEvent(final @NotNull E event);
 

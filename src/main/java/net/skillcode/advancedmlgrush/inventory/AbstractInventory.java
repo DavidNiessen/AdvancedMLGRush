@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.event.EventManager;
 import net.skillcode.advancedmlgrush.item.ItemManager;
 import net.skillcode.advancedmlgrush.item.ItemUtils;
@@ -89,7 +90,7 @@ public abstract class AbstractInventory implements EventHandler {
     @Override
     public void registerListeners(final @NotNull List<EventListener<?>> eventListeners) {
         final Class<? extends AbstractInventory> clazz = this.getClass();
-        eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class) {
+        eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull InventoryClickEvent event) {
                 final Player player = (Player) event.getWhoClicked();

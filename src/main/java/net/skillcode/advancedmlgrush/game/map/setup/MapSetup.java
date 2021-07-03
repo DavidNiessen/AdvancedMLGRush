@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.game.map.file.MapFile;
 import net.skillcode.advancedmlgrush.game.map.file.MapFileLoader;
 import net.skillcode.advancedmlgrush.game.map.setup.step.SetupStep;
@@ -88,7 +89,7 @@ public abstract class MapSetup implements Registrable, EventHandler {
 
     @Override
     public void registerListeners(final @NotNull List<EventListener<?>> eventListeners) {
-        eventListeners.add(new EventListener<AsyncPlayerChatEvent>(AsyncPlayerChatEvent.class) {
+        eventListeners.add(new EventListener<AsyncPlayerChatEvent>(AsyncPlayerChatEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull AsyncPlayerChatEvent event) {
                 final Player player = event.getPlayer();

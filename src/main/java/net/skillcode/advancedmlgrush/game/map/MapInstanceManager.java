@@ -12,6 +12,8 @@
 
 package net.skillcode.advancedmlgrush.game.map;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
@@ -25,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Singleton
 public class MapInstanceManager implements Registrable {
@@ -43,7 +44,11 @@ public class MapInstanceManager implements Registrable {
             players.forEach(player -> player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.ERROR)));
             return Optional.empty();
         } else {
-            final MapInstance mapInstance = mapInstanceFactory.create(mapTemplate, mapTemplate.getMapData(), new CopyOnWriteArrayList<>(players), rounds);
+            final BiMap<Player, Integer> biMap = HashBiMap.create();
+            for (int i = 0; i < players.size(); i++) {
+                biMap.put(players.get(i), i);
+            }
+            final MapInstance mapInstance = mapInstanceFactory.create(mapTemplate, mapTemplate.getMapData(), biMap, rounds);
             players.forEach(player -> mapInstanceMap.put(player, mapInstance));
             return Optional.of(mapInstance);
         }

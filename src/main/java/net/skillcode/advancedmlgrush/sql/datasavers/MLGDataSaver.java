@@ -204,7 +204,6 @@ public class MLGDataSaver extends DataSaver {
                         cachedSQLData.setStatsWins(resultSet.getInt("stats_wins"));
                         cachedSQLData.setStatsLoses(resultSet.getInt("stats_loses"));
                         cachedSQLData.setStatsBeds(resultSet.getInt("stats_beds"));
-                        cachedSQLData.setRanking(-1); // TODO: 20.06.2021
                     }
                 } catch (SQLException throwables) {
                     exceptionHandler.handle(throwables);

@@ -52,8 +52,8 @@ public class ScoreboardManager implements Registrable {
         Bukkit.getOnlinePlayers().forEach(this::updateScoreboard);
     }
 
-    public void updateScoreboard(final @NotNull List<Player> players) {
-        players.forEach(this::updateScoreboard);
+    public void updateScoreboard(final @NotNull Iterable<Player> iterable) {
+        iterable.forEach(this::updateScoreboard);
     }
 
     public void updateScoreboard(final @NotNull Player player) {

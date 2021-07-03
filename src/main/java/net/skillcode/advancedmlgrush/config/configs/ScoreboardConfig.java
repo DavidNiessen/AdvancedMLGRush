@@ -65,7 +65,7 @@ public class ScoreboardConfig extends Configurable implements Replaceable {
                 "&8» &e%stats_loses%",
                 "&3",
                 "&7Ranking&8:",
-                "&8» &e%stats_ranking%",
+                "&8» &e#%stats_ranking%",
                 "&4"
         ))));
         list.add(new Pair<>(MAP_1X1_SCOREBOARD, new ArrayList<>(Arrays.asList(

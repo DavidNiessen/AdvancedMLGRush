@@ -31,6 +31,7 @@ public class MainConfig extends Configurable {
     public static final String PICKAXE_EFFICIENCY_LEVEL = "pickaxe_efficiency_level";
     public static final String PLACEHOLDER_NULL_VALUE = "placeholder_null_value";
     public static final String PLACEHOLDER_LOADING_VALUE = "placeholder_loading_value";
+    public static final String PLACEHOLDER_RANDOM_VALUE = "placeholder_random_value";
     public static final String ROUNDS = "rounds";
     public static final String DEFAULT_ROUNDS = "default_rounds";
     public static final String RANKING_UPDATE_PERIOD = "ranking_update_period";
@@ -58,6 +59,7 @@ public class MainConfig extends Configurable {
         list.add(new Pair<>(PICKAXE_EFFICIENCY_LEVEL, 1));
         list.add(new Pair<>(PLACEHOLDER_NULL_VALUE, "-"));
         list.add(new Pair<>(PLACEHOLDER_LOADING_VALUE, "Loading..."));
+        list.add(new Pair<>(PLACEHOLDER_RANDOM_VALUE, "random"));
         list.add(new Pair<>(ROUNDS, new ArrayList<>(Arrays.asList(3, 5, 10, 15))));
         list.add(new Pair<>(DEFAULT_ROUNDS, 5));
         list.add(new Pair<>(RANKING_UPDATE_PERIOD, 5.0));

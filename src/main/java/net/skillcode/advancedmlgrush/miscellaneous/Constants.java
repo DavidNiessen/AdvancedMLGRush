@@ -22,8 +22,8 @@ public class Constants {
     public static final Material DEFAULT_MAP_MATERIAL = XMaterial.MAP.parseMaterial();
     public static final float DEFAULT_SOUND_VOLUME = 1.F;
     public static final float DEFAULT_SOUND_PITCH = 1.F;
-    public static final String PLUGIN_PATH = "plugins/MLGRush/";
     /* Paths */
+    public static final String PLUGIN_PATH = "plugins/MLGRush/";
     public static final String DATA_PATH = PLUGIN_PATH + "data/";
     //Databases
     public static final String DATABASE_PATH = DATA_PATH + "data.db";
@@ -55,6 +55,7 @@ public class Constants {
     public static final int LEFT_ARROW_SLOT = 45;
     public static final int RIGHT_ARROW_SLOT = 53;
     /* Messages */
+    public static final String MLGRUSH_COMMAND_MESSAGE = "&eAdvancedMLGRush &7version &e%s &7by &eSkillCode&7.";
     public static final String STARTUP_MESSAGE = "\n" + Ansi.ansi().fg(Ansi.Color.YELLOW) +
             "=============================================================================================================\n" +
             "             _                               _ __  __ _      _____ _____           _     \n" +
@@ -76,6 +77,7 @@ public class Constants {
     /* Skulls */
     public static final String ARROW_LEFT_VALUE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzYyNTkwMmIzODllZDZjMTQ3NTc0ZTQyMmRhOGY4ZjM2MWM4ZWI1N2U3NjMxNjc2YTcyNzc3ZTdiMWQifX19";
     public static final String ARROW_RIGHT_VALUE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDRiZThhZWVjMTE4NDk2OTdhZGM2ZmQxZjE4OWIxNjY0MmRmZjE5ZjI5NTVjMDVkZWFiYTY4YzlkZmYxYmUifX19";
+    public static final String RANDOM_ITEM_VALUE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmFkYzA0OGE3Y2U3OGY3ZGFkNzJhMDdkYTI3ZDg1YzA5MTY4ODFlNTUyMmVlZWQxZTNkYWYyMTdhMzhjMWEifX19";
 
     private Constants() {
     }

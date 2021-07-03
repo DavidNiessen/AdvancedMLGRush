@@ -39,11 +39,11 @@ public abstract class MultiPageInventory extends AbstractInventory {
     private final Map<Player, MultiPageHelper> multiPageHelperMap = new ConcurrentHashMap<>();
 
     @Inject
+    protected SkullUtils skullUtils;
+    @Inject
+    protected ItemNameConfig itemNameConfig;
+    @Inject
     private MPHFactory mphFactory;
-    @Inject
-    private SkullUtils skullUtils;
-    @Inject
-    private ItemNameConfig itemNameConfig;
 
     @PostConstruct
     public void initInventory() {
@@ -55,6 +55,11 @@ public abstract class MultiPageInventory extends AbstractInventory {
     protected abstract LinkedHashMap<ItemStack, Object> onOpen(final @NotNull Player player);
 
     protected abstract void onElementClick(final Player player, final @NotNull Optional<Object> optional);
+
+    //override
+    protected Inventory modifyInventory(final @NotNull Inventory inventory) {
+        return inventory;
+    }
 
     @Override
     protected Pair<Inventory, String> onCreate() {
@@ -70,7 +75,7 @@ public abstract class MultiPageInventory extends AbstractInventory {
                 .getSkull(Constants.ARROW_RIGHT_VALUE, rightArrowName).build());
 
         elementSlots.addAll(inventoryUtils.getEmptySlots(inventory));
-        return new Pair<>(inventory, title());
+        return new Pair<>(modifyInventory(inventory), title());
     }
 
     @Override
@@ -117,7 +122,13 @@ public abstract class MultiPageInventory extends AbstractInventory {
                 }
             }
         });
+
+        eventListeners.addAll(registerCustomListeners(eventListeners));
         return eventListeners;
+    }
+
+    protected List<EventListener<?>> registerCustomListeners(final @NotNull List<EventListener<?>> listeners) {
+        return listeners;
     }
 
     @Override

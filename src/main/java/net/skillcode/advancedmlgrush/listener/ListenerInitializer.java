@@ -53,6 +53,7 @@ public class ListenerInitializer implements Initializer {
         pluginManager.registerEvents(injector.getInstance(WeatherChangeListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(EntitySpawnListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(BlockCanBuildListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(PlayerCommandPreprocessListener.class), plugin);
     }
 
 }

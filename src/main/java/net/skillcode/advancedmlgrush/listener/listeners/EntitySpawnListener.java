@@ -14,25 +14,33 @@ package net.skillcode.advancedmlgrush.listener.listeners;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import net.skillcode.advancedmlgrush.event.EventManager;
-import org.bukkit.entity.EntityType;
+import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
+import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Singleton
 public class EntitySpawnListener implements Listener {
 
-    private final EventManager eventManager;
+    private final MapInstanceManager mapInstanceManager;
 
     @Inject
-    public EntitySpawnListener(final EventManager eventManager) {
-        this.eventManager = eventManager;
+    public EntitySpawnListener(final @NotNull MapInstanceManager mapInstanceManager) {
+        this.mapInstanceManager = mapInstanceManager;
     }
 
     @EventHandler
     public void onSpawn(final @NotNull EntitySpawnEvent event) {
-        if (event.getEntity().getType().equals(EntityType.DROPPED_ITEM)) event.setCancelled(true);
+        final List<World> worlds = new ArrayList<>();
+        mapInstanceManager.getMapInstances().forEach(mapInstance -> worlds.add(mapInstance.getWorld()));
+
+        if (worlds.contains(event.getEntity().getWorld())) {
+            event.setCancelled(true);
+        }
     }
 }

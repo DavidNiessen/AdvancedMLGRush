@@ -17,6 +17,7 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.game.map.MapTemplate;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
+import net.skillcode.advancedmlgrush.sql.data.CachedSQLData;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -51,12 +52,15 @@ public class MapPlaceholder extends Placeholder {
         if (!sqlDataCache.isLoaded(player)) {
             return getLoadingValue();
         }
+
+        final CachedSQLData cachedSQLData = sqlDataCache.getSQLData(player);
         final Optional<MapTemplate> optionalMapTemplate = mapManager.getPlayerMap(player);
 
         if (!optionalMapTemplate.isPresent()) {
             return getNullValue();
         }
 
-        return optionalMapTemplate.get().getMapData().getName();
+        return cachedSQLData.getSettingsMap() <= -1 ? getRandomValue()
+                : optionalMapTemplate.get().getMapData().getName();
     }
 }

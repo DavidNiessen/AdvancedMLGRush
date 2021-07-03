@@ -18,7 +18,6 @@ import net.skillcode.advancedmlgrush.game.map.MapInstance;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.game.map.MapType;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -53,7 +52,7 @@ public class MapPlayer4Placeholder extends Placeholder {
 
         final MapInstance mapInstance = mapInstanceOptional.get();
         if (mapInstance.getMapData().getMapType() == MapType.M1x4) {
-            return Optional.ofNullable(mapInstance.getPlayers().get(3)).map(HumanEntity::getName).orElse(getNullValue());
+            return mapInstance.getPlayer(3).map(Player::getName).orElse(getNullValue());
         }
         return getNullValue();
     }

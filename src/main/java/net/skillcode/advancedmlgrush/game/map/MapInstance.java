@@ -76,7 +76,6 @@ public class MapInstance implements EventHandler {
     private final MapTemplate mapTemplate;
     @Getter
     private final MapData mapData;
-    @Getter
     private final List<Player> players;
     @Getter
     private final int rounds;
@@ -137,6 +136,13 @@ public class MapInstance implements EventHandler {
     public void init() {
         prepareMap();
         eventManager.registerEventListeners(this);
+    }
+
+    public Optional<Player> getPlayer(final int index) {
+        if (index < players.size()) {
+            return Optional.of(players.get(index));
+        }
+        return Optional.empty();
     }
 
     @Override

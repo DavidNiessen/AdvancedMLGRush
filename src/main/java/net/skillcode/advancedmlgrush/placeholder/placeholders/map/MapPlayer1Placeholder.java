@@ -17,7 +17,6 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.map.MapInstance;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,6 +50,6 @@ public class MapPlayer1Placeholder extends Placeholder {
         }
 
         final MapInstance mapInstance = mapInstanceOptional.get();
-        return Optional.ofNullable(mapInstance.getPlayers().get(0)).map(HumanEntity::getName).orElse(getNullValue());
+        return mapInstance.getPlayer(0).map(Player::getName).orElse(getNullValue());
     }
 }

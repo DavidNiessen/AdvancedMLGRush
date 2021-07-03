@@ -13,6 +13,7 @@
 package net.skillcode.advancedmlgrush.placeholder.placeholders.stats;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.stats.StatsUtils;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
@@ -21,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
+@Singleton
 public class WinRatePlaceholder extends Placeholder {
 
     private final SQLDataCache sqlDataCache;

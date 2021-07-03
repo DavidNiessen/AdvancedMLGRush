@@ -12,6 +12,7 @@
 
 package net.skillcode.advancedmlgrush.game.map.setup.step.steps;
 
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.game.map.setup.step.SetupStep;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
@@ -21,6 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+@Singleton
 public class IconStep implements SetupStep<Pair<String, Integer>> {
 
     @Override

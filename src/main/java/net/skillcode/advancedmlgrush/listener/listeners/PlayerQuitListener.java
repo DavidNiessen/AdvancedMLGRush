@@ -20,14 +20,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.jetbrains.annotations.NotNull;
 
 @Singleton
 public class PlayerQuitListener implements Listener {
 
+    private final RegistrableManager registrableManager;
+    private final EventManager eventManager;
+
     @Inject
-    private RegistrableManager registrableManager;
-    @Inject
-    private EventManager eventManager;
+    public PlayerQuitListener(final @NotNull RegistrableManager registrableManager,
+                              final @NotNull EventManager eventManager) {
+        this.registrableManager = registrableManager;
+        this.eventManager = eventManager;
+    }
 
     @EventHandler
     public void onQuit(final PlayerQuitEvent event) {

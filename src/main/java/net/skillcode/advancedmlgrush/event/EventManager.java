@@ -47,7 +47,9 @@ public class EventManager {
 
     public void callEvent(final @NotNull Event event) {
         if (listeners.containsKey(event.getClass())) {
-            listeners.get(event.getClass()).forEach(eventListener -> eventListener.callEvent(event));
+            final List<EventListener<?>> eventListeners = listeners.get(event.getClass());
+            eventListeners.sort((o1, o2) -> o2.getEventListenerPriority().getPriority() - o1.getEventListenerPriority().getPriority());
+            eventListeners.forEach(eventListener -> eventListener.callEvent(event));
         }
     }
 

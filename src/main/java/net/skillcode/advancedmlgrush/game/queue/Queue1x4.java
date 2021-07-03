@@ -19,12 +19,7 @@ import net.skillcode.advancedmlgrush.game.map.MapType;
 public class Queue1x4 extends Queue {
 
     @Override
-    protected int playerAmount() {
-        return 4;
-    }
-
-    @Override
     MapType mapType() {
-        return MapType.ONE_X_FOUR;
+        return MapType.M1x4;
     }
 }

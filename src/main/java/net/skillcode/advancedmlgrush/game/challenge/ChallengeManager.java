@@ -17,6 +17,7 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.game.map.MapTemplate;
+import net.skillcode.advancedmlgrush.item.items.LobbyItems;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.Registrable;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.entity.Player;
@@ -28,15 +29,16 @@ import java.util.concurrent.ConcurrentHashMap;
 @Singleton
 public class ChallengeManager implements Registrable {
 
+    //<challenger, challenged>
+    private final Map<Player, List<Player>> challengeMap = new ConcurrentHashMap<>();
     @Inject
     private MessageConfig messageConfig;
     @Inject
     private MapManager mapManager;
     @Inject
     private SQLDataCache sqlDataCache;
-
-    //<challenger, challenged>
-    private final Map<Player, List<Player>> challengeMap = new ConcurrentHashMap<>();
+    @Inject
+    private LobbyItems lobbyItems;
 
     public void challengePlayer(final @NotNull Player challenger, final @NotNull Player challenged) {
         final Set<Map.Entry<Player, List<Player>>> entries = challengeMap.entrySet();
@@ -55,6 +57,9 @@ public class ChallengeManager implements Registrable {
                 if (!optional.isPresent()) {
                     challenger.sendMessage(messageConfig.getWithPrefix(Optional.of(challenger), MessageConfig.ERROR));
                     challenged.sendMessage(messageConfig.getWithPrefix(Optional.of(challenged), MessageConfig.ERROR));
+
+                    lobbyItems.setLobbyItems(challenger);
+                    lobbyItems.setLobbyItems(challenged);
                 } else {
                     optional.get().createInstance(Arrays.asList(challenged, challenger), rounds);
                 }

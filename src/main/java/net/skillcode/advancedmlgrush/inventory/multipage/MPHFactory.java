@@ -22,7 +22,7 @@ import java.util.List;
 public interface MPHFactory {
 
     MultiPageHelper create(final @NotNull Inventory inventory,
-                              final @NotNull List<Integer> elementSlots,
-                              final @NotNull LinkedHashMap<ItemStack, Object> elements);
+                           final @NotNull List<Integer> elementSlots,
+                           final @NotNull LinkedHashMap<ItemStack, Object> elements);
 
 }

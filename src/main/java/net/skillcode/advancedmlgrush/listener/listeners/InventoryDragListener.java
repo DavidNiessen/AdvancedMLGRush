@@ -24,8 +24,12 @@ import org.jetbrains.annotations.NotNull;
 @Singleton
 public class InventoryDragListener implements Listener {
 
+    private final EventManager eventManager;
+
     @Inject
-    private EventManager eventManager;
+    public InventoryDragListener(final @NotNull EventManager eventManager) {
+        this.eventManager = eventManager;
+    }
 
     @EventHandler
     public void onClick(final @NotNull InventoryDragEvent event) {

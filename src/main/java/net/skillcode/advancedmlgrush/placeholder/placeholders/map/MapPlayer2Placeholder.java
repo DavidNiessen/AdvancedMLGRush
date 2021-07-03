@@ -13,6 +13,7 @@
 package net.skillcode.advancedmlgrush.placeholder.placeholders.map;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.map.MapInstance;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
@@ -22,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
+@Singleton
 public class MapPlayer2Placeholder extends Placeholder {
 
     private final MapInstanceManager mapInstanceManager;

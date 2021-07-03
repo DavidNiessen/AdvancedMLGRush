@@ -13,6 +13,7 @@
 package net.skillcode.advancedmlgrush.placeholder.placeholders.map;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.map.MapInstance;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
@@ -21,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
+@Singleton
 public class MapModePlaceholder extends Placeholder {
 
     private final MapInstanceManager mapInstanceManager;
@@ -49,9 +51,9 @@ public class MapModePlaceholder extends Placeholder {
 
         final MapInstance mapInstance = mapInstanceOptional.get();
         switch (mapInstance.getMapData().getMapType()) {
-            case ONE_X_ONE:
+            case M1x1:
                 return "1x1";
-            case ONE_X_FOUR:
+            case M1x4:
                 return "1x4";
             default:
                 return getNullValue();

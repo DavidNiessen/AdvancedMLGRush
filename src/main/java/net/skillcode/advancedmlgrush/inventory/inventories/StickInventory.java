@@ -33,10 +33,15 @@ import java.util.Optional;
 @Singleton
 public class StickInventory extends MultiPageInventory {
 
+    private final GadgetManager gadgetManager;
+    private final SQLDataCache sqlDataCache;
+
     @Inject
-    private GadgetManager gadgetManager;
-    @Inject
-    private SQLDataCache sqlDataCache;
+    public StickInventory(final @NotNull GadgetManager gadgetManager,
+                          final @NotNull SQLDataCache sqlDataCache) {
+        this.gadgetManager = gadgetManager;
+        this.sqlDataCache = sqlDataCache;
+    }
 
     @Override
     protected boolean playSound() {
@@ -72,7 +77,7 @@ public class StickInventory extends MultiPageInventory {
             final int index = gadgetManager.getSticks().indexOf(gadget);
 
             if (player.hasPermission(gadget.getPermission())
-            || index == 0) {
+                    || index == 0) {
                 final CachedSQLData cachedSQLData = sqlDataCache.getSQLData(player);
                 cachedSQLData.setGadgetsStick(index);
                 soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);

@@ -25,8 +25,12 @@ import java.util.Optional;
 @Singleton
 public class LobbyItems {
 
+    private final ItemManager itemManager;
+
     @Inject
-    private ItemManager itemManager;
+    public LobbyItems(final @NotNull ItemManager itemManager) {
+        this.itemManager = itemManager;
+    }
 
     public void setLobbyItems(final @NotNull Player player) {
         final Optional<Player> optionalPlayer = Optional.of(player);

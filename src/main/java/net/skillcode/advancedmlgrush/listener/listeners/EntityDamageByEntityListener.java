@@ -40,6 +40,8 @@ public class EntityDamageByEntityListener implements Listener {
         if (event.getDamager() instanceof Player) {
             final Player player = (Player) event.getDamager();
             event.setCancelled(!buildModeManager.isInBuildMode(player));
+        } else {
+            event.setCancelled(true);
         }
 
         eventManager.callEvent(event);

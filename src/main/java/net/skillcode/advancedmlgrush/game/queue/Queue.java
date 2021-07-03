@@ -19,6 +19,7 @@ import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.game.map.MapTemplate;
 import net.skillcode.advancedmlgrush.game.map.MapType;
+import net.skillcode.advancedmlgrush.game.scoreboard.ScoreboardManager;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.Registrable;
 import net.skillcode.advancedmlgrush.sound.SoundUtil;
@@ -34,6 +35,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class Queue implements Registrable {
 
+    private final List<Player> queue = new CopyOnWriteArrayList<>();
+
     @Inject
     private LobbyItems lobbyItems;
     @Inject
@@ -46,8 +49,8 @@ public abstract class Queue implements Registrable {
     private MapManager mapManager;
     @Inject
     private JavaPlugin javaPlugin;
-
-    private final List<Player> queue = new CopyOnWriteArrayList<>();
+    @Inject
+    private ScoreboardManager scoreboardManager;
 
     /**
      * @return the number of players that can play on this map
@@ -56,10 +59,12 @@ public abstract class Queue implements Registrable {
         return queue.size();
     }
 
+
     public void register(final @NotNull Player player) {
         final Optional<Player> optionalPlayer = Optional.of(player);
+        scoreboardManager.updateScoreboard();
         if (queue.contains(player)
-                || queue.size() >= playerAmount()) {
+                || queue.size() >= mapType().getPlayers()) {
             lobbyItems.setLobbyItems(player);
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.ERROR));
         } else {
@@ -68,7 +73,7 @@ public abstract class Queue implements Registrable {
             queue.add(player);
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.QUEUE_JOIN));
 
-            if (queue.size() == playerAmount()) {
+            if (queue.size() == mapType().getPlayers()) {
                 queue.forEach(player1 -> player1.getInventory().clear());
                 startGame();
                 queue.clear();
@@ -90,8 +95,6 @@ public abstract class Queue implements Registrable {
             Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> lobbyItems.setLobbyItems(player), 5);
         }
     }
-
-    protected abstract int playerAmount();
 
     abstract MapType mapType();
 

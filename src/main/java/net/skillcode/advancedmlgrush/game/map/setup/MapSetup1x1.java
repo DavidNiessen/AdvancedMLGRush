@@ -80,7 +80,7 @@ public class MapSetup1x1 extends MapSetup {
                 return Optional.empty();
             }
 
-            return Optional.of(new MapFile(MapType.ONE_X_ONE, mapName, icon, data, blocks.get(), maxBuildHeight, deathHeight,
+            return Optional.of(new MapFile(MapType.M1x1, mapName, icon, data, blocks.get(), maxBuildHeight, deathHeight,
                     jSpectatorSpawn, jPlayerSpawns, jPlayerBeds));
         }
         return Optional.empty();

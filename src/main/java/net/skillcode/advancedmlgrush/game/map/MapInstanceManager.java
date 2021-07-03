@@ -30,14 +30,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Singleton
 public class MapInstanceManager implements Registrable {
 
+    private final Map<Player, MapInstance> mapInstanceMap = new ConcurrentHashMap<>();
     @Inject
     private MapInstanceFactory mapInstanceFactory;
     @Inject
     private MapWorldGenerator mapWorldGenerator;
     @Inject
     private MessageConfig messageConfig;
-
-    private final Map<Player, MapInstance> mapInstanceMap = new ConcurrentHashMap<>();
 
     public Optional<MapInstance> createInstance(final List<Player> players, final @NotNull MapTemplate mapTemplate, final int rounds) {
         if (players.size() != mapTemplate.getMapData().getMapType().getPlayers()) {
@@ -61,9 +60,5 @@ public class MapInstanceManager implements Registrable {
     @Override
     public void unregister(final @NotNull Player player) {
         mapInstanceMap.remove(player);
-    }
-
-    public void onDisable() {
-        mapInstanceMap.values().forEach(mapInstance -> mapWorldGenerator.deleteWorld(mapInstance.getWorld()));
     }
 }

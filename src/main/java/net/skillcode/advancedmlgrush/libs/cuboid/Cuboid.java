@@ -60,8 +60,8 @@ public class Cuboid {
             for (int y = this.yMin; y <= this.yMax; ++y) {
                 for (int z = this.zMin; z <= this.zMax; ++z) {
                     final Block b = this.world.getBlockAt(x, y, z);
-                    if (ignoreAir && b.getType() == null
-                            || b.getType() == Material.AIR) continue;
+                    if (ignoreAir && (b.getType() == null
+                            || b.getType() == Material.AIR)) continue;
                     bL.add(b);
                 }
             }

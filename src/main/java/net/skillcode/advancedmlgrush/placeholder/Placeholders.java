@@ -14,7 +14,12 @@ package net.skillcode.advancedmlgrush.placeholder;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.annotations.PostConstruct;
+import net.skillcode.advancedmlgrush.placeholder.papi.PAPIExpansion;
+import net.skillcode.advancedmlgrush.placeholder.papi.PAPIPlaceholders;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -25,10 +30,23 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Placeholders {
 
     private final PlaceholderManager placeholderManager;
+    private final JavaPlugin javaPlugin;
+
+    private boolean isPAPI = false;
 
     @Inject
-    public Placeholders(final @NotNull PlaceholderManager placeholderManager) {
+    public Placeholders(final @NotNull PlaceholderManager placeholderManager,
+                        final @NotNull JavaPlugin javaPlugin) {
         this.placeholderManager = placeholderManager;
+        this.javaPlugin = javaPlugin;
+    }
+
+    @PostConstruct
+    public void init() {
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            isPAPI = true;
+            new PAPIExpansion(javaPlugin, this).register();
+        }
     }
 
     public void replace(final @NotNull Optional<Player> optionalPlayer, final @NotNull List<String> list) {
@@ -57,8 +75,7 @@ public class Placeholders {
     }
 
     private String replacePAPIPlaceholders(final @NotNull Player player, final @NotNull String input) {
-        // TODO: 21.04.2021
-        return input;
+        return isPAPI ? PAPIPlaceholders.replace(player, input) : input;
     }
 
 }

@@ -15,6 +15,7 @@ package net.skillcode.advancedmlgrush;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
 import lombok.Getter;
 import net.skillcode.advancedmlgrush.api.APIImplementation;
 import net.skillcode.advancedmlgrush.api.MLGRushAPI;
@@ -25,16 +26,19 @@ import net.skillcode.advancedmlgrush.event.EventHandlerInitializer;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOWInitializer;
 import net.skillcode.advancedmlgrush.listener.ListenerInitializer;
+import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.RegistrableInitializer;
 import net.skillcode.advancedmlgrush.placeholder.PlaceholderInitializer;
 import net.skillcode.advancedmlgrush.sql.ConnectionManager;
 import net.skillcode.advancedmlgrush.sql.DataInitializer;
 import net.skillcode.advancedmlgrush.util.PlayerUtils;
 import net.skillcode.advancedmlgrush.util.WorldUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.UUID;
 
+@Singleton
 public class MLGRush extends JavaPlugin {
 
     @Getter
@@ -68,6 +72,9 @@ public class MLGRush extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        getLogger().info(Constants.STARTUP_MESSAGE);
+        final long millis = System.currentTimeMillis();
+
         uuid = UUID.randomUUID();
         final Injector injector = Guice.createInjector(new MLGBinderModule(this));
         injector.injectMembers(this);
@@ -84,6 +91,11 @@ public class MLGRush extends JavaPlugin {
 
         WorldUtils.deleteWorlds();
         api = injector.getInstance(APIImplementation.class);
+
+        if (!Bukkit.getOnlineMode()) {
+            getLogger().warning(Constants.OFFLINE_MODE);
+        }
+        getLogger().info(String.format(Constants.AFTER_STARTUP_MESSAGE, System.currentTimeMillis() - millis));
     }
 
     @Override

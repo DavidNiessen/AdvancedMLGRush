@@ -22,6 +22,7 @@ import java.util.Optional;
 /**
  * Used to override items from configs
  * <p>
+ *
  * @see ItemOWManager
  */
 public interface ItemOW {

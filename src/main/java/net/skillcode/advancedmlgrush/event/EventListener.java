@@ -17,11 +17,12 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
-@RequiredArgsConstructor
 @Getter
+@RequiredArgsConstructor
 public abstract class EventListener<E extends Event> {
 
     private final Class<? extends Event> eventClass;
+    private final EventListenerPriority eventListenerPriority;
 
     protected abstract void onEvent(final @NotNull E event);
 

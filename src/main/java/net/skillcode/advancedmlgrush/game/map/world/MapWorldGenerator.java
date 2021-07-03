@@ -38,24 +38,10 @@ public class MapWorldGenerator extends ChunkGenerator {
     @Inject
     private JavaPlugin javaPlugin;
 
-    @Inject
-    public MapWorldGenerator(final @NotNull MessageConfig messageConfig,
-                             final @NotNull ThreadPoolManager threadPoolManager) {
-        this.messageConfig = messageConfig;
-        this.threadPoolManager = threadPoolManager;
-    }
-
 
     public World createWorld() {
         final UUID uuid = UUID.randomUUID();
-        final WorldCreator worldCreator = new WorldCreator(Constants.WORLD_PATH + uuid);
-
-        worldCreator.type(WorldType.FLAT);
-        worldCreator.generator(this);
-        worldCreator.generateStructures(false);
-        worldCreator.generatorSettings("2;0;1;");
-
-        return worldCreator.createWorld();
+        return new WorldCreator(Constants.WORLD_PATH + uuid).type(WorldType.FLAT).generator(this).createWorld();
     }
 
     public void deleteWorld(final @NotNull World world) {
@@ -64,7 +50,9 @@ public class MapWorldGenerator extends ChunkGenerator {
             Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> {
                 Bukkit.unloadWorld(world, false);
                 Bukkit.getWorlds().remove(world);
-                deleteWorldFilesAsync(world.getWorldFolder());
+                Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> {
+                    deleteWorldFilesAsync(world.getWorldFolder());
+                }, 20);
             }, 20);
         }
     }

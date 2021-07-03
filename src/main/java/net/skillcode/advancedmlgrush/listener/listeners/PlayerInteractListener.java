@@ -23,8 +23,13 @@ import org.jetbrains.annotations.NotNull;
 @Singleton
 public class PlayerInteractListener implements Listener {
 
+
+    private final EventManager eventManager;
+
     @Inject
-    private EventManager eventManager;
+    public PlayerInteractListener(final @NotNull EventManager eventManager) {
+        this.eventManager = eventManager;
+    }
 
     @EventHandler
     public void onInteract(final @NotNull PlayerInteractEvent event) {

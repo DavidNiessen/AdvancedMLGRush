@@ -23,12 +23,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Singleton
 public abstract class SetupSteps {
 
+    final List<SetupStep> setupSteps = new CopyOnWriteArrayList<>();
+
     @PostConstruct
     public void init() {
         registerSteps();
     }
-
-    final List<SetupStep> setupSteps = new CopyOnWriteArrayList<>();
 
     public <E> Optional<SetupStep<E>> getSetupStep(final int index) {
         if (index < setupSteps.size()) {

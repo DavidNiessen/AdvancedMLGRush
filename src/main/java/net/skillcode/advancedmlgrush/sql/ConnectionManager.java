@@ -28,8 +28,12 @@ public class ConnectionManager {
 
     private final List<Connection> connections = new ArrayList<>();
 
+    private final ExceptionHandler exceptionHandler;
+
     @Inject
-    private ExceptionHandler exceptionHandler;
+    public ConnectionManager(final @NotNull ExceptionHandler exceptionHandler) {
+        this.exceptionHandler = exceptionHandler;
+    }
 
     public void addConnection(final @Nullable Connection connection) {
         try {

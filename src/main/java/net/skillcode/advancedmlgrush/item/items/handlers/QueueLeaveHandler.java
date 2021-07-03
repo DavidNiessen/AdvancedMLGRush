@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.game.queue.Queue1x1;
 import net.skillcode.advancedmlgrush.game.queue.Queue1x4;
 import net.skillcode.advancedmlgrush.item.EnumItem;
@@ -48,7 +49,7 @@ public class QueueLeaveHandler implements EventHandler {
     }
 
     private EventListener<PlayerInteractEvent> onRightClick() {
-        return new EventListener<PlayerInteractEvent>(PlayerInteractEvent.class) {
+        return new EventListener<PlayerInteractEvent>(PlayerInteractEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull PlayerInteractEvent event) {
                 if (event.getAction() == Action.RIGHT_CLICK_AIR

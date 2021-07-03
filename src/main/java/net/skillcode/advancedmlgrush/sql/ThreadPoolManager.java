@@ -20,8 +20,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-@Singleton
 @Getter
+@Singleton
 public class ThreadPoolManager {
 
     private final ExecutorService threadPool = Executors.newCachedThreadPool();

@@ -12,12 +12,14 @@
 
 package net.skillcode.advancedmlgrush.placeholder.placeholders;
 
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
+@Singleton
 public class PlayerPlaceholder extends Placeholder {
 
     @Override

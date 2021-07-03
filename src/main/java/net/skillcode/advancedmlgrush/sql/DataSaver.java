@@ -103,10 +103,10 @@ public abstract class DataSaver {
                 public void run() {
                     if (future.isDone()) {
                         try {
-                            final Optional<ResultSet> optional= future.get();
+                            final Optional<ResultSet> optional = future.get();
                             if (optional.isPresent()) {
                                 callback.onSuccess(optional.get());
-                            }  else {
+                            } else {
                                 callback.onFailure(Optional.empty());
                             }
                         } catch (SQLException | ExecutionException | InterruptedException exception) {

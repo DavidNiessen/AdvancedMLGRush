@@ -29,7 +29,7 @@ public class ItemUtils {
     private final ItemNameConfig itemNameConfig;
 
     @Inject
-    public ItemUtils(final ItemNameConfig itemNameConfig) {
+    public ItemUtils(final @NotNull ItemNameConfig itemNameConfig) {
         this.itemNameConfig = itemNameConfig;
     }
 

@@ -50,7 +50,7 @@ public class MapSetup1x4 extends MapSetup {
 
     @Override
     Optional<MapFile> createMapFile(final @NotNull List<Object> objects, final @NotNull String mapName) {
-        if (objects.size() == 13) {
+        if (objects.size() == 14) {
             final Pair<String, Integer> pair = (Pair<String, Integer>) objects.get(0);
             final String icon = pair.getKey();
             final int data = pair.getValue();
@@ -85,7 +85,7 @@ public class MapSetup1x4 extends MapSetup {
                 return Optional.empty();
             }
 
-            return Optional.of(new MapFile(MapType.ONE_X_FOUR, mapName, icon, data, blocks.get(), maxBuildHeight, deathHeight,
+            return Optional.of(new MapFile(MapType.M1x4, mapName, icon, data, blocks.get(), maxBuildHeight, deathHeight,
                     jSpectatorSpawn, jPlayerSpawns, jPlayerBeds));
         }
         return Optional.empty();

@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.game.map.file.MapFile;
 import net.skillcode.advancedmlgrush.game.map.file.MapFileLoader;
 import net.skillcode.advancedmlgrush.game.map.setup.step.SetupStep;
@@ -31,13 +32,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class MapSetup implements Registrable, EventHandler {
 
+    private final Map<Player, Pair<Integer, List<Object>>> map = new ConcurrentHashMap<>();
+    private final Map<Player, String> nameMap = new ConcurrentHashMap<>();
+
     @Inject
     private MessageConfig messageConfig;
     @Inject
     private MapFileLoader mapFileLoader;
-
-    private final Map<Player, Pair<Integer, List<Object>>> map = new ConcurrentHashMap<>();
-    private final Map<Player, String> nameMap = new ConcurrentHashMap<>();
 
     public void startSetup(final @NotNull Player player, final @NotNull String mapName) {
         map.put(player, new Pair<>(0, new ArrayList<>()));
@@ -88,7 +89,7 @@ public abstract class MapSetup implements Registrable, EventHandler {
 
     @Override
     public void registerListeners(final @NotNull List<EventListener<?>> eventListeners) {
-        eventListeners.add(new EventListener<AsyncPlayerChatEvent>(AsyncPlayerChatEvent.class) {
+        eventListeners.add(new EventListener<AsyncPlayerChatEvent>(AsyncPlayerChatEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull AsyncPlayerChatEvent event) {
                 final Player player = event.getPlayer();

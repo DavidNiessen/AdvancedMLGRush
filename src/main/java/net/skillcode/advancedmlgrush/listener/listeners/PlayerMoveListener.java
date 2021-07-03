@@ -19,6 +19,7 @@ import net.skillcode.advancedmlgrush.game.spawn.SpawnFile;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
 import net.skillcode.advancedmlgrush.util.LocationWrapper;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -40,11 +41,14 @@ public class PlayerMoveListener implements Listener {
     public void onMove(final @NotNull PlayerMoveEvent event) {
         eventManager.callEvent(event);
         if (event.getTo().getY() <= 0) {
+            final Player player = event.getPlayer();
             final Optional<SpawnFile> spawnFileOptional = spawnFileLoader.getSpawnFileOptional();
             if (spawnFileOptional.isPresent()) {
                 final Location location = locationWrapper.toLocation(spawnFileOptional.get().getJsonLocation());
-                if (event.getPlayer().getWorld().equals(location.getWorld())) {
-                    event.getPlayer().teleport(location);
+                if (player.getWorld().equals(location.getWorld())) {
+                    location.setYaw(player.getLocation().getYaw());
+                    location.setPitch(player.getLocation().getPitch());
+                    player.teleport(location);
                 }
             }
 

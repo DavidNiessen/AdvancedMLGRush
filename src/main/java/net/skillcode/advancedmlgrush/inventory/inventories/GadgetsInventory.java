@@ -18,6 +18,7 @@ import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.InventoryNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.inventory.AbstractInventory;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.util.Pair;
@@ -34,10 +35,16 @@ import java.util.Optional;
 @Singleton
 public class GadgetsInventory extends AbstractInventory {
 
+
+    private final StickInventory stickInventory;
+    private final BlocksInventory blocksInventory;
+
     @Inject
-    private StickInventory stickInventory;
-    @Inject
-    private BlocksInventory blocksInventory;
+    public GadgetsInventory(final @NotNull StickInventory stickInventory,
+                            final @NotNull BlocksInventory blocksInventory) {
+        this.stickInventory = stickInventory;
+        this.blocksInventory = blocksInventory;
+    }
 
     @PostConstruct
     public void initInventory() {
@@ -74,7 +81,7 @@ public class GadgetsInventory extends AbstractInventory {
     @Override
     protected List<EventListener<?>> listeners(final @NotNull List<EventListener<?>> eventListeners) {
         final Class<? extends AbstractInventory> clazz = this.getClass();
-        eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class) {
+        eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull InventoryClickEvent event) {
                 final Player player = (Player) event.getWhoClicked();

@@ -18,8 +18,6 @@ import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOW;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOWManager;
-import net.skillcode.advancedmlgrush.placeholder.Placeholder;
-import net.skillcode.advancedmlgrush.placeholder.PlaceholderManager;
 import net.skillcode.advancedmlgrush.sql.data.CachedSQLData;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.entity.Player;
@@ -33,8 +31,6 @@ public class APIImplementation implements MLGRushAPI {
     @Inject
     private SQLDataCache sqlDataCache;
     @Inject
-    private PlaceholderManager placeholderManager;
-    @Inject
     private MapInstanceManager mapInstanceManager;
     @Inject
     private MapManager mapManager;
@@ -42,11 +38,6 @@ public class APIImplementation implements MLGRushAPI {
     @Override
     public void registerItemOW(final @NotNull ItemOW itemOW) {
         itemOWManager.registerItemOW(itemOW);
-    }
-
-    @Override
-    public void registerPlaceholder(final @NotNull Placeholder placeholder) {
-        placeholderManager.registerPlaceholder(placeholder);
     }
 
     @Override

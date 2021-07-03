@@ -64,7 +64,7 @@ public class MainConfig extends Configurable {
         list.add(new Pair<>(BLOCK_AMOUNT, 32));
         list.add(new Pair<>(INFINITE_BLOCKS, true));
         list.add(new Pair<>(MAP_ITEM_PREFIX, "&8» &e"));
-        list.add(new Pair<>(PASTE_BLOCKS_PER_TICK, 5));
+        list.add(new Pair<>(PASTE_BLOCKS_PER_TICK, 20));
         list.add(new Pair<>(STATS_ITEM_LORE, new ArrayList<>(Arrays.asList(
                 " ",
                 "&6&l#1 &8» &e%stats_ranking_1%",

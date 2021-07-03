@@ -17,6 +17,7 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.game.challenge.ChallengeManager;
 import net.skillcode.advancedmlgrush.inventory.inventories.QueueInventory;
 import net.skillcode.advancedmlgrush.item.EnumItem;
@@ -53,7 +54,7 @@ public class ChallengerHandler implements EventHandler {
     }
 
     private EventListener<EntityDamageByEntityEvent> onLeftClick() {
-        return new EventListener<EntityDamageByEntityEvent>(EntityDamageByEntityEvent.class) {
+        return new EventListener<EntityDamageByEntityEvent>(EntityDamageByEntityEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull EntityDamageByEntityEvent event) {
                 if (event.getDamager() instanceof Player
@@ -75,7 +76,7 @@ public class ChallengerHandler implements EventHandler {
     }
 
     private EventListener<PlayerInteractEvent> onRightClick() {
-        return new EventListener<PlayerInteractEvent>(PlayerInteractEvent.class) {
+        return new EventListener<PlayerInteractEvent>(PlayerInteractEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull PlayerInteractEvent event) {
                 if (event.getAction() == Action.RIGHT_CLICK_AIR

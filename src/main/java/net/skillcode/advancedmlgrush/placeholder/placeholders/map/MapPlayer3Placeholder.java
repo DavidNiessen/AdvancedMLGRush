@@ -13,6 +13,7 @@
 package net.skillcode.advancedmlgrush.placeholder.placeholders.map;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.map.MapInstance;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.game.map.MapType;
@@ -23,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
+@Singleton
 public class MapPlayer3Placeholder extends Placeholder {
 
     private final MapInstanceManager mapInstanceManager;
@@ -50,7 +52,7 @@ public class MapPlayer3Placeholder extends Placeholder {
         }
 
         final MapInstance mapInstance = mapInstanceOptional.get();
-        if (mapInstance.getMapData().getMapType() == MapType.ONE_X_FOUR) {
+        if (mapInstance.getMapData().getMapType() == MapType.M1x4) {
             return Optional.ofNullable(mapInstance.getPlayers().get(2)).map(HumanEntity::getName).orElse(getNullValue());
         }
         return getNullValue();

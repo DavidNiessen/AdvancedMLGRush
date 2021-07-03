@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.inventory.AbstractInventory;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
@@ -82,7 +83,7 @@ public abstract class MultiPageInventory extends AbstractInventory {
     @Override
     protected List<EventListener<?>> listeners(final @NotNull List<EventListener<?>> eventListeners) {
         final Class<? extends MultiPageInventory> clazz = this.getClass();
-        eventListeners.add(new EventListener<InventoryCloseEvent>(InventoryCloseEvent.class) {
+        eventListeners.add(new EventListener<InventoryCloseEvent>(InventoryCloseEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull InventoryCloseEvent event) {
                 final Player player = (Player) event.getPlayer();
@@ -92,7 +93,7 @@ public abstract class MultiPageInventory extends AbstractInventory {
             }
         });
 
-        eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class) {
+        eventListeners.add(new EventListener<InventoryClickEvent>(InventoryClickEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull InventoryClickEvent event) {
                 final Player player = (Player) event.getWhoClicked();

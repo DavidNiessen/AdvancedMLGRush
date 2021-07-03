@@ -20,7 +20,10 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.MLGRush;
 import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
+import net.skillcode.advancedmlgrush.event.events.RankingUpdateEvent;
+import net.skillcode.advancedmlgrush.game.scoreboard.ScoreboardManager;
 import net.skillcode.advancedmlgrush.sql.datasavers.MLGDataSaver;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -33,17 +36,19 @@ import java.util.concurrent.ConcurrentHashMap;
 @Singleton
 public class Ranking {
 
+    //<name, ranking>
+    private final BiMap<String, Integer> biMap = Maps.synchronizedBiMap(HashBiMap.create());
+    //<ranking, wins>
+    private final Map<Integer, Integer> wins = new ConcurrentHashMap<>();
+
     @Inject
     private MLGRush mlgRush;
     @Inject
     private MLGDataSaver mlgDataSaver;
     @Inject
     private MainConfig mainConfig;
-
-    //<name, ranking>
-    private final BiMap<String, Integer> biMap = Maps.synchronizedBiMap(HashBiMap.create());
-    //<ranking, wins>
-    private final Map<Integer, Integer> wins = new ConcurrentHashMap<>();
+    @Inject
+    private ScoreboardManager scoreboardManager;
 
     @PostConstruct
     public void init() {
@@ -60,6 +65,8 @@ public class Ranking {
                     cancel();
                 } else {
                     mlgDataSaver.updateRanking((map, wins) -> updateRanking(map, wins));
+                    scoreboardManager.updateScoreboard();
+                    Bukkit.getPluginManager().callEvent(new RankingUpdateEvent());
                 }
             }
         }.runTaskTimer(mlgRush, 0, mainConfig.getLong(MainConfig.RANKING_UPDATE_PERIOD) * 60 * 20);

@@ -159,7 +159,6 @@ public enum XEnchantment {
      * against this type of mob.
      *
      * @param type the type of the mob.
-     *
      * @return true if smite enchantment is effective against the mob, otherwise false.
      * @since 1.1.0
      */
@@ -172,7 +171,6 @@ public enum XEnchantment {
      * against this type of mob.
      *
      * @param type the type of the mob.
-     *
      * @return true if Bane of Arthropods enchantment is effective against the mob, otherwise false.
      * @since 1.1.0
      */
@@ -187,7 +185,6 @@ public enum XEnchantment {
      * the normal RegEx + String Methods approach for both formatted and unformatted material names.
      *
      * @param name the enchantment name to format.
-     *
      * @return an enum name.
      * @since 1.0.0
      */
@@ -201,7 +198,8 @@ public enum XEnchantment {
         for (int i = 0; i < len; i++) {
             char ch = name.charAt(i);
 
-            if (!appendUnderline && count != 0 && (ch == '-' || ch == ' ' || ch == '_') && chs[count] != '_') appendUnderline = true;
+            if (!appendUnderline && count != 0 && (ch == '-' || ch == ' ' || ch == '_') && chs[count] != '_')
+                appendUnderline = true;
             else {
                 if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) {
                     if (appendUnderline) {
@@ -221,7 +219,6 @@ public enum XEnchantment {
      * There are also some aliases available.
      *
      * @param enchantment the name of the enchantment.
-     *
      * @return an enchantment.
      * @since 1.0.0
      */
@@ -236,7 +233,6 @@ public enum XEnchantment {
      * There are also some aliases available.
      *
      * @param enchantment the enchantment.
-     *
      * @return an enchantment.
      * @throws IllegalArgumentException may be thrown as an unexpeceted exception.
      * @since 1.0.0
@@ -264,7 +260,6 @@ public enum XEnchantment {
      *
      * @param item        the item to add the enchantment to.
      * @param enchantment the enchantment string containing the enchantment name and level (optional)
-     *
      * @return an enchanted {@link ItemStack} or the item itself without enchantment added if enchantment type is null.
      * @see #matchXEnchantment(String)
      * @since 1.0.0
@@ -293,7 +288,6 @@ public enum XEnchantment {
      * Gets the enchanted book of this enchantment.
      *
      * @param level the level of this enchantment.
-     *
      * @return an enchanted book.
      * @since 1.0.0
      */

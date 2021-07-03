@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
+import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.event.events.PlayerDataLoadEvent;
 import net.skillcode.advancedmlgrush.exception.ExceptionHandler;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.Registrable;
@@ -45,6 +46,7 @@ public class SQLDataCache implements Registrable, EventHandler {
     @Inject
     private ExceptionHandler exceptionHandler;
 
+
     @Override
     public void unregister(final @NotNull Player player) {
         cache.remove(player);
@@ -63,7 +65,7 @@ public class SQLDataCache implements Registrable, EventHandler {
 
     @Override
     public void registerListeners(final @NotNull List<EventListener<?>> eventListeners) {
-        eventListeners.add(new EventListener<PlayerJoinEvent>(PlayerJoinEvent.class) {
+        eventListeners.add(new EventListener<PlayerJoinEvent>(PlayerJoinEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull PlayerJoinEvent event) {
                 final Player player = event.getPlayer();
@@ -78,9 +80,9 @@ public class SQLDataCache implements Registrable, EventHandler {
                         } else if (future.isDone()) {
                             try {
                                 final CachedSQLData cachedSQLData = future.get();
+                                cache.put(player, cachedSQLData);
                                 javaPlugin.getServer().getPluginManager().callEvent(
                                         new PlayerDataLoadEvent(player, cachedSQLData.isDefaultData(), cachedSQLData));
-                                cache.put(player, cachedSQLData);
                             } catch (ExecutionException | InterruptedException e) {
                                 exceptionHandler.handle(e);
                             } finally {
@@ -91,7 +93,7 @@ public class SQLDataCache implements Registrable, EventHandler {
                 }.runTaskTimer(javaPlugin, 5, 5);
             }
         });
-        eventListeners.add(new EventListener<PlayerQuitEvent>(PlayerQuitEvent.class) {
+        eventListeners.add(new EventListener<PlayerQuitEvent>(PlayerQuitEvent.class, EventListenerPriority.LOW) {
             @Override
             protected void onEvent(final @NotNull PlayerQuitEvent event) {
                 final Player player = event.getPlayer();

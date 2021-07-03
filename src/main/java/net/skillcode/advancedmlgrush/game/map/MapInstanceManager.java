@@ -14,6 +14,7 @@ package net.skillcode.advancedmlgrush.game.map;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
@@ -44,7 +45,7 @@ public class MapInstanceManager implements Registrable {
             players.forEach(player -> player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.ERROR)));
             return Optional.empty();
         } else {
-            final BiMap<Player, Integer> biMap = HashBiMap.create();
+            final BiMap<Player, Integer> biMap = Maps.synchronizedBiMap(HashBiMap.create());
             for (int i = 0; i < players.size(); i++) {
                 biMap.put(players.get(i), i);
             }

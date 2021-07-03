@@ -28,6 +28,7 @@ EnumItem {
     QUEUE_LEAVE("queue_leave"),
     ARROW_LEFT("arrow_left"),
     ARROW_RIGHT("arrow_right"),
+    RANDOM_ITEM("random_item"),
     SETTINGS_INVENTORY_SORTING("settings_inventory_sorting"),
     SETTINGS_MAP("settings_map"),
     SETTINGS_ROUNDS("settings_rounds"),

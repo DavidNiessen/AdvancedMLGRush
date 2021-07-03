@@ -36,4 +36,8 @@ public abstract class Placeholder {
         return mainConfig.getString(MainConfig.PLACEHOLDER_NULL_VALUE);
     }
 
+    public String getRandomValue() {
+        return mainConfig.getString(MainConfig.PLACEHOLDER_RANDOM_VALUE);
+    }
+
 }

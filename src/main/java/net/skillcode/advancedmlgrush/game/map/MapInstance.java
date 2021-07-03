@@ -12,6 +12,7 @@
 
 package net.skillcode.advancedmlgrush.game.map;
 
+import com.google.common.collect.BiMap;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import lombok.Getter;
@@ -76,7 +77,8 @@ public class MapInstance implements EventHandler {
     private final MapTemplate mapTemplate;
     @Getter
     private final MapData mapData;
-    private final List<Player> players;
+    //<player, index>
+    private final BiMap<Player, Integer> players;
     @Getter
     private final int rounds;
     @Getter
@@ -124,7 +126,7 @@ public class MapInstance implements EventHandler {
     @Inject
     public MapInstance(final @Assisted @NotNull MapTemplate mapTemplate,
                        final @Assisted @NotNull MapData mapData,
-                       final @Assisted @NotNull List<Player> players,
+                       final @Assisted @NotNull BiMap<Player, Integer> players,
                        final @Assisted int rounds) {
         this.mapTemplate = mapTemplate;
         this.mapData = mapData;
@@ -139,10 +141,7 @@ public class MapInstance implements EventHandler {
     }
 
     public Optional<Player> getPlayer(final int index) {
-        if (index < players.size()) {
-            return Optional.of(players.get(index));
-        }
-        return Optional.empty();
+        return Optional.ofNullable(players.inverse().getOrDefault(index, null));
     }
 
     @Override
@@ -151,7 +150,7 @@ public class MapInstance implements EventHandler {
             @Override
             protected void onEvent(final @NotNull PlayerQuitEvent event) {
                 final Player player = event.getPlayer();
-                if (players.contains(player)) {
+                if (players.containsKey(player)) {
                     quitMap(event.getPlayer());
                 }
             }
@@ -166,8 +165,8 @@ public class MapInstance implements EventHandler {
                     final Player damager = (Player) event.getDamager();
                     final Player entity = (Player) event.getEntity();
 
-                    if (players.contains(damager)
-                            && players.contains(entity)) {
+                    if (players.containsKey(damager)
+                            && players.containsKey(entity)) {
                         if (loaded) {
                             event.setCancelled(false);
                             event.setDamage(0);
@@ -180,7 +179,7 @@ public class MapInstance implements EventHandler {
             @Override
             protected void onEvent(final @NotNull BlockBreakEvent event) {
                 final Player player = event.getPlayer();
-                if (players.contains(player)) {
+                if (players.containsKey(player)) {
                     if (loaded) {
                         final Location blockLocation = event.getBlock().getLocation();
 
@@ -190,7 +189,7 @@ public class MapInstance implements EventHandler {
                                     || locationUtils.compare(pair.getValue(), blockLocation, world)) {
 
                                 final Optional<Player> optionalPlayer = Optional.of(player);
-                                final int index = players.indexOf(player);
+                                final int index = players.get(player);
 
                                 if (index == i) {
                                     player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.BREAK_OWN_BED));
@@ -202,9 +201,9 @@ public class MapInstance implements EventHandler {
                                         endGame(player);
                                     } else {
                                         clearBlocks();
-                                        teleportToPlayerSpawn(players);
-                                        scoreboardManager.updateScoreboard(players);
-                                        players.forEach(player1 -> {
+                                        teleportToPlayerSpawn(players.keySet());
+                                        scoreboardManager.updateScoreboard(players.keySet());
+                                        players.keySet().forEach(player1 -> {
                                             player1.getInventory().clear();
                                             ingameItems.setIngameItems(player1);
                                         });
@@ -227,7 +226,7 @@ public class MapInstance implements EventHandler {
             protected void onEvent(final @NotNull BlockPlaceEvent event) {
                 final Player player = event.getPlayer();
 
-                if (players.contains(player)) {
+                if (players.containsKey(player)) {
                     if (loaded) {
                         final Location location = event.getBlock().getLocation();
 
@@ -267,12 +266,12 @@ public class MapInstance implements EventHandler {
             protected void onEvent(final @NotNull PlayerMoveEvent event) {
                 final Player player = event.getPlayer();
 
-                if (players.contains(player)
+                if (players.containsKey(player)
                         || spectators.contains(player)) {
                     if (loaded) {
 
                         if (event.getTo().getY() <= mapData.getDeathHeight()) {
-                            if (players.contains(player)) {
+                            if (players.containsKey(player)) {
                                 teleportToPlayerSpawn(player);
                                 soundUtil.playSound(player, SoundConfig.DEATH);
                             } else if (spectators.contains(player)) {
@@ -280,7 +279,7 @@ public class MapInstance implements EventHandler {
                             }
                         }
 
-                        if (players.contains(player)) {
+                        if (players.containsKey(player)) {
                             final List<Entity> list = player.getNearbyEntities(1, 1, 1);
                             list.forEach(entity -> {
                                 if (entity instanceof Player) {
@@ -347,18 +346,18 @@ public class MapInstance implements EventHandler {
     }
 
     private void prepareMap() {
-        players.forEach(player -> player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.MAP_GENERATE)));
+        players.keySet().forEach(player -> player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.MAP_GENERATE)));
         world = mapWorldGenerator.createWorld();
 
-        schematicLoader.load(mapData.getBlocks(), players, world, this::startGame);
+        schematicLoader.load(mapData.getBlocks(), players.keySet(), world, this::startGame);
     }
 
     private void startGame() {
-        teleportToPlayerSpawn(players);
+        teleportToPlayerSpawn(players.keySet());
         loaded = true;
         tasks.forEach(Runnable::run);
-        scoreboardManager.updateScoreboard(players);
-        players.forEach(player -> {
+        scoreboardManager.updateScoreboard(players.keySet());
+        players.keySet().forEach(player -> {
             ingameItems.setIngameItems(player);
             player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.GAME_START));
         });
@@ -369,7 +368,7 @@ public class MapInstance implements EventHandler {
         Bukkit.getPluginManager().callEvent(new GameEndEvent(this, winner));
         sqlDataCache.getSQLData(winner).increaseWins();
         spectators.forEach(this::removeSpectator);
-        players.forEach(player -> {
+        players.keySet().forEach(player -> {
             final Optional<Player> optionalPlayer = Optional.of(player);
             if (!player.equals(winner)) {
                 sqlDataCache.getSQLData(player).increaseLoses();
@@ -399,7 +398,7 @@ public class MapInstance implements EventHandler {
         teleportToSpawn(player);
         scoreboardManager.updateScoreboard(player);
         if (players.size() == 1) {
-            endGame(players.get(0));
+            endGame(players.keySet().iterator().next());
         }
     }
 
@@ -430,13 +429,13 @@ public class MapInstance implements EventHandler {
         teleport(player, mapData.getSpectatorSpawn());
     }
 
-    private void teleportToPlayerSpawn(final @NotNull List<Player> list) {
-        list.forEach(this::teleportToPlayerSpawn);
+    private void teleportToPlayerSpawn(final @NotNull Iterable<Player> iterable) {
+        iterable.forEach(this::teleportToPlayerSpawn);
     }
 
     private void teleportToPlayerSpawn(final @NotNull Player player) {
-        if (players.contains(player)) {
-            teleport(player, mapData.getSpawns().get(players.indexOf(player)));
+        if (players.containsKey(player)) {
+            teleport(player, mapData.getSpawns().get(players.get(player)));
         }
     }
 }

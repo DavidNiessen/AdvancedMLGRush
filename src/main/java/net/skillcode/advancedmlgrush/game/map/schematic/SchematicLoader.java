@@ -47,7 +47,7 @@ public class SchematicLoader {
     @Inject
     private MessageConfig messageConfig;
 
-    public void load(final @NotNull List<StorableBlock> blockList, final @NotNull List<Player> players,
+    public void load(final @NotNull List<StorableBlock> blockList, final @NotNull Iterable<Player> players,
                      final @NotNull World world, final @NotNull Runnable onFinish) {
         final int blocksPerTick = mainConfig.getInt(MainConfig.PASTE_BLOCKS_PER_TICK);
         final Queue<StorableBlock> queue = new LinkedList<>(blockList);

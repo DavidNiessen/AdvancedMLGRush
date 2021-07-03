@@ -12,16 +12,15 @@
 
 package net.skillcode.advancedmlgrush.game.map;
 
+import com.google.common.collect.BiMap;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public interface MapInstanceFactory {
 
     MapInstance create(final @NotNull MapTemplate mapTemplate,
                        final @NotNull MapData mapData,
-                       final @NotNull List<Player> players,
+                       final @NotNull BiMap<Player, Integer> players,
                        final int rounds);
 
 }

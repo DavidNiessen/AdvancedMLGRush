@@ -60,6 +60,7 @@ public class PlayerJoinListener implements Listener {
         player.getInventory().clear();
         player.setHealth(20D);
         player.setFoodLevel(20);
+        player.setLevel(0);
         player.setGameMode(GameMode.SURVIVAL);
         player.getActivePotionEffects().clear();
         player.setFlying(false);

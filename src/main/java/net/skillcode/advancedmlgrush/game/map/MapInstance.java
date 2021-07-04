@@ -147,6 +147,11 @@ public class MapInstance implements EventHandler {
         return Optional.ofNullable(players.inverse().getOrDefault(index, null));
     }
 
+    public Optional<Player> getPlayerByListIndex(final int index) {
+        final List<Player> playerList = ListBuilder.create(Player.class).add(players.keySet()).build();
+        return Optional.ofNullable(index < playerList.size() ? playerList.get(index) : null);
+    }
+
     @Override
     public void registerListeners(final @NotNull List<EventListener<?>> eventListeners) {
         eventListeners.add(new EventListener<PlayerQuitEvent>(PlayerQuitEvent.class, EventListenerPriority.HIGH) {

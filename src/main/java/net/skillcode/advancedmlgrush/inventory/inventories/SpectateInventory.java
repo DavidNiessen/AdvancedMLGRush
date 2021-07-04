@@ -62,7 +62,7 @@ public class SpectateInventory extends MultiPageInventory {
 
         mapInstanceManager.getMapInstances().stream().filter(MapInstance::isLoaded).forEach(mapInstance -> {
             final List<String> lore = mainConfig.getArrayList(MainConfig.MAP_ITEM_LORE);
-            placeholders.replace(mapInstance.getPlayer(0), lore);
+            placeholders.replace(mapInstance.getPlayerByListIndex(0), lore);
 
             map.put(ibFactory.create(MetaType.ITEM_META, mapInstance.getMapData().getIconData())
                     .material(mapInstance.getMapData().getIcon()).name(itemManager

@@ -28,6 +28,6 @@ To import the source code without errors you have to do the following things fir
 
 ```
 
-Support: https://discord.skillplugins.com -> mlgrush-src-help
+Support: http://discord.skillplugins.com -> mlgrush-src-help
 <br>Wiki: https://github.com/SkillC0de/AdvancedMLGRush-Wiki/wiki
 

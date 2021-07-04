@@ -26,6 +26,7 @@ import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.event.EventManager;
 import net.skillcode.advancedmlgrush.event.events.GameEndEvent;
 import net.skillcode.advancedmlgrush.event.events.GameStartEvent;
+import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
 import net.skillcode.advancedmlgrush.game.map.schematic.SchematicLoader;
 import net.skillcode.advancedmlgrush.game.map.world.MapWorldGenerator;
 import net.skillcode.advancedmlgrush.game.scoreboard.ScoreboardManager;
@@ -122,6 +123,8 @@ public class MapInstance implements EventHandler {
     private JavaPlugin javaPlugin;
     @Inject
     private ScoreboardManager scoreboardManager;
+    @Inject
+    private BuildModeManager buildModeManager;
 
     @Inject
     public MapInstance(final @Assisted @NotNull MapTemplate mapTemplate,
@@ -268,27 +271,29 @@ public class MapInstance implements EventHandler {
 
                 if (players.containsKey(player)
                         || spectators.contains(player)) {
-                    if (loaded) {
+                    if (!buildModeManager.isInBuildMode(player)) {
+                        if (loaded) {
 
-                        if (event.getTo().getY() <= mapData.getDeathHeight()) {
-                            if (players.containsKey(player)) {
-                                teleportToPlayerSpawn(player);
-                                soundUtil.playSound(player, SoundConfig.DEATH);
-                            } else if (spectators.contains(player)) {
-                                teleportToSpectatorSpawn(player);
-                            }
-                        }
-
-                        if (players.containsKey(player)) {
-                            final List<Entity> list = player.getNearbyEntities(1, 1, 1);
-                            list.forEach(entity -> {
-                                if (entity instanceof Player) {
-                                    final Player player1 = (Player) entity;
-                                    if (spectators.contains(player1)) {
-                                        player1.setVelocity(player1.getLocation().getDirection().multiply(-0.5));
-                                    }
+                            if (event.getTo().getY() <= mapData.getDeathHeight()) {
+                                if (players.containsKey(player)) {
+                                    teleportToPlayerSpawn(player);
+                                    soundUtil.playSound(player, SoundConfig.DEATH);
+                                } else if (spectators.contains(player)) {
+                                    teleportToSpectatorSpawn(player);
                                 }
-                            });
+                            }
+
+                            if (players.containsKey(player)) {
+                                final List<Entity> list = player.getNearbyEntities(1, 1, 1);
+                                list.forEach(entity -> {
+                                    if (entity instanceof Player) {
+                                        final Player player1 = (Player) entity;
+                                        if (spectators.contains(player1)) {
+                                            player1.setVelocity(player1.getLocation().getDirection().multiply(-0.5));
+                                        }
+                                    }
+                                });
+                            }
                         }
                     }
                 }
@@ -411,7 +416,7 @@ public class MapInstance implements EventHandler {
 
     private void teleport(final @NotNull Player player, final @NotNull Location location) {
         player.teleport(new Location(world, location.getX(), location.getY(), location.getZ(),
-                location.getYaw(), location.getPitch()));
+                location.getPitch(), location.getYaw()));
     }
 
     private void teleportToSpawn(final @NotNull Player player) {

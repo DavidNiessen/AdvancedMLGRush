@@ -46,8 +46,6 @@ public class PlayerMoveListener implements Listener {
             if (spawnFileOptional.isPresent()) {
                 final Location location = locationWrapper.toLocation(spawnFileOptional.get().getJsonLocation());
                 if (player.getWorld().equals(location.getWorld())) {
-                    location.setYaw(player.getLocation().getYaw());
-                    location.setPitch(player.getLocation().getPitch());
                     player.teleport(location);
                 }
             }

@@ -17,29 +17,25 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFile;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
+import net.skillcode.advancedmlgrush.util.LocationWrapper;
 import net.skillcode.advancedmlgrush.util.json.JsonLocation;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
 @Singleton
 public class SetSpawnCommand implements CommandExecutor {
 
-    private final SpawnFileLoader spawnFileLoader;
-    private final MessageConfig messageConfig;
-
     @Inject
-    public SetSpawnCommand(final @NotNull SpawnFileLoader spawnFileLoader,
-                           final @NotNull MessageConfig messageConfig) {
-        this.spawnFileLoader = spawnFileLoader;
-        this.messageConfig = messageConfig;
-    }
-
+    private SpawnFileLoader spawnFileLoader;
+    @Inject
+    private MessageConfig messageConfig;
+    @Inject
+    private LocationWrapper locationWrapper;
 
     @Override
     public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] strings) {
@@ -50,7 +46,7 @@ public class SetSpawnCommand implements CommandExecutor {
 
         final Location location = player.getLocation();
         spawnFileLoader.createSpawnFile(new SpawnFile(new JsonLocation(player.getWorld().getName(), location.getX(),
-                location.getY(), location.getZ(), location.getYaw(), location.getPitch())));
+                location.getY(), location.getZ(), location.getPitch(), location.getYaw())));
 
         player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.SPAWN_SET));
         return false;

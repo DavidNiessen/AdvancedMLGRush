@@ -19,10 +19,8 @@ import net.skillcode.advancedmlgrush.game.scoreboard.ScoreboardManager;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFile;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
-import net.skillcode.advancedmlgrush.util.json.JsonLocation;
-import org.bukkit.Bukkit;
+import net.skillcode.advancedmlgrush.util.LocationWrapper;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -42,6 +40,8 @@ public class PlayerJoinListener implements Listener {
     private SpawnFileLoader spawnFileLoader;
     @Inject
     private ScoreboardManager scoreboardManager;
+    @Inject
+    private LocationWrapper locationWrapper;
 
     @EventHandler
     public void onJoin(final @NotNull PlayerJoinEvent event) {
@@ -51,11 +51,7 @@ public class PlayerJoinListener implements Listener {
         final Player player = event.getPlayer();
 
         final Optional<SpawnFile> spawnFileOptional = spawnFileLoader.getSpawnFileOptional();
-        if (spawnFileOptional.isPresent()) {
-            final JsonLocation jsonLocation = spawnFileOptional.get().getJsonLocation();
-            player.teleport(new Location(Bukkit.getWorld(jsonLocation.getWorldName()), jsonLocation.getX(),
-                    jsonLocation.getY(), jsonLocation.getZ(), jsonLocation.getPitch(), jsonLocation.getYaw()));
-        }
+        spawnFileOptional.ifPresent(spawnFile -> player.teleport(locationWrapper.toLocation(spawnFile.getJsonLocation())));
 
         player.getInventory().clear();
         player.setHealth(20D);

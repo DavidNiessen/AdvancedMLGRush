@@ -60,7 +60,7 @@ public class LocationWrapper {
 
     public Location toLocation(final @NotNull JsonLocation jsonLocation, final World world) {
         return new Location(world, jsonLocation.getX(), jsonLocation.getY(), jsonLocation.getZ(),
-                jsonLocation.getYaw(), jsonLocation.getPitch());
+                jsonLocation.getPitch(), jsonLocation.getYaw());
     }
 
 }

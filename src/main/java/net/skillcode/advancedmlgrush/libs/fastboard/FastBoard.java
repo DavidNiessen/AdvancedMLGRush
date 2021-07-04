@@ -297,7 +297,7 @@ public class FastBoard {
             int lineCount = 0;
             for (String s : lines) {
                 if (s != null && s.length() > 30) {
-                    throw new IllegalArgumentException("Line " + lineCount + " is longer than 30 chars");
+                    s = s.substring(0, 30);
                 }
                 lineCount++;
             }

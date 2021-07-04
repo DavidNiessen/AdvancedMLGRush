@@ -74,8 +74,8 @@ public class ScoreboardConfig extends Configurable implements Replaceable {
                 "&8» &e%map_name% &7(&e%map_mode%&7)",
                 "&3",
                 "&7Scores&8:",
-                "&8» &e%map_player_1% &8| &e&l%map_score_1%",
-                "&8» &e%map_player_2% &8| &e&l%map_score_2%",
+                "&8» &e%map_player_1%&8| &e&l%map_score_1%",
+                "&8» &e%map_player_2%&8| &e&l%map_score_2%",
                 "&2"
         ))));
         list.add(new Pair<>(MAP_1X4_SCOREBOARD, new ArrayList<>(Arrays.asList(
@@ -84,10 +84,10 @@ public class ScoreboardConfig extends Configurable implements Replaceable {
                 "&8» &e%map_name% &7(&e%map_mode%&7)",
                 "&3",
                 "&7Scores&8:",
-                "&8» &e%map_player_1% &8| &e&l%map_score_1%",
-                "&8» &e%map_player_2% &8| &e&l%map_score_2%",
-                "&8» &e%map_player_3% &8| &e&l%map_score_3%",
-                "&8» &e%map_player_4% &8| &e&l%map_score_4%",
+                "&8» &e%map_player_1%&8| &e&l%map_score_1%",
+                "&8» &e%map_player_2%&8| &e&l%map_score_2%",
+                "&8» &e%map_player_3%&8| &e&l%map_score_3%",
+                "&8» &e%map_player_4%&8| &e&l%map_score_4%",
                 "&4"
         ))));
     }

@@ -1,6 +1,6 @@
 name: AdvancedMLGRush
 main: net.skillcode.advancedmlgrush.MLGRush
-version: 3.0.1
+version: 3.0.1.1
 author: SkillCode
 website: https://skillplugins.com
 api-version: "1.13"

@@ -13,6 +13,7 @@
 package net.skillcode.advancedmlgrush.game.queue;
 
 import com.google.inject.Inject;
+import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
@@ -36,6 +37,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class Queue implements Registrable {
 
+    private static final List<Queue> instances = new CopyOnWriteArrayList<>();
+
     private final List<Player> queue = new CopyOnWriteArrayList<>();
 
     @Inject
@@ -55,6 +58,11 @@ public abstract class Queue implements Registrable {
     @Inject
     private MapInstanceManager mapInstanceManager;
 
+    @PostConstruct
+    public void init() {
+        instances.add(this);
+    }
+
     /**
      * @return the number of players that can play on this map
      */
@@ -65,20 +73,27 @@ public abstract class Queue implements Registrable {
 
     public void register(final @NotNull Player player) {
         final Optional<Player> optionalPlayer = Optional.of(player);
-        scoreboardManager.updateScoreboard();
+        for (final Queue queue : instances) {
+            if (queue.queue.contains(player)) {
+                queue.removeFromQueue(player);
+                return;
+            }
+        }
+
+        if (mapInstanceManager.isIngame(player)) {
+            player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.CANNOT_ENTER_QUEUE));
+            return;
+        }
+
         if (queue.contains(player)
                 || queue.size() >= mapType().getPlayers()) {
             lobbyItems.setLobbyItems(player);
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.ERROR));
         } else {
-            if (mapInstanceManager.isIngame(player)) {
-                player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.CANNOT_ENTER_QUEUE));
-                return;
-            }
-
             player.getInventory().clear();
             lobbyItems.setQueueItems(player);
             queue.add(player);
+            scoreboardManager.updateScoreboard();
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.QUEUE_JOIN));
 
             if (queue.size() == mapType().getPlayers()) {

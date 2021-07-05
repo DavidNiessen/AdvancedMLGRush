@@ -15,6 +15,8 @@ package net.skillcode.advancedmlgrush.command.commands;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
+import net.skillcode.advancedmlgrush.game.queue.Queue2x1;
+import net.skillcode.advancedmlgrush.game.queue.Queue4x1;
 import net.skillcode.advancedmlgrush.inventory.inventories.QueueInventory;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.command.Command;
@@ -33,15 +35,30 @@ public class QueueCommand implements CommandExecutor {
     private MessageConfig messageConfig;
     @Inject
     private QueueInventory queueInventory;
+    @Inject
+    private Queue2x1 queue2x1;
+    @Inject
+    private Queue4x1 queue4x1;
 
     @Override
-    public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] strings) {
+    public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] args) {
         if (!(commandSender instanceof Player)) return false;
         final Player player = (Player) commandSender;
 
         if (!sqlDataCache.isLoaded(player)) {
             player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.LOADING_DATA));
             return false;
+        }
+
+        if (args.length > 0) {
+            final String arg = args[0];
+            if (arg.equalsIgnoreCase("2x1")) {
+                queue2x1.register(player);
+                return false;
+            } else if (arg.equalsIgnoreCase("4x1")) {
+                queue4x1.register(player);
+                return false;
+            }
         }
 
         queueInventory.open(player);

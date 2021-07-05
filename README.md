@@ -1,5 +1,7 @@
 # AdvancedMLGRush
 
+![f5166ad8c6e98c7f8cdd8af9cf64d8ea1ec4cbb8](https://user-images.githubusercontent.com/68539499/124505506-f431c700-ddc9-11eb-94e1-cf07737d9f34.png)
+
 This is the source code of the AdvancedMLGRush Minecraft plugin by SkillCode. 
 Make sure to read LICENSE.txt
 

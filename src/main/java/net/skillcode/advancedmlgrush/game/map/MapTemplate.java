@@ -16,8 +16,8 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import lombok.Getter;
 import net.skillcode.advancedmlgrush.game.challenge.ChallengeManager;
-import net.skillcode.advancedmlgrush.game.queue.Queue1x1;
-import net.skillcode.advancedmlgrush.game.queue.Queue1x4;
+import net.skillcode.advancedmlgrush.game.queue.Queue2x1;
+import net.skillcode.advancedmlgrush.game.queue.Queue4x1;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,9 +33,9 @@ public class MapTemplate {
     @Inject
     private ChallengeManager challengeManager;
     @Inject
-    private Queue1x1 queue1x1;
+    private Queue2x1 queue2X1;
     @Inject
-    private Queue1x4 queue1x4;
+    private Queue4x1 queue4X1;
 
     @Inject
     public MapTemplate(final @Assisted @NotNull MapData mapData) {
@@ -45,8 +45,8 @@ public class MapTemplate {
     public void createInstance(final @NotNull List<Player> players, final int rounds) {
         players.forEach(player -> {
             challengeManager.unregister(player);
-            queue1x1.unregister(player);
-            queue1x4.unregister(player);
+            queue2X1.unregister(player);
+            queue4X1.unregister(player);
             player.getInventory().clear();
         });
         mapInstanceManager.createInstance(players, this, rounds);

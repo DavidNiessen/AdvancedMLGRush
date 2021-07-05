@@ -14,7 +14,7 @@ package net.skillcode.advancedmlgrush.placeholder.placeholders;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import net.skillcode.advancedmlgrush.game.queue.Queue1x1;
+import net.skillcode.advancedmlgrush.game.queue.Queue4x1;
 import net.skillcode.advancedmlgrush.placeholder.Placeholder;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -22,22 +22,22 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 @Singleton
-public class Queue1x1Placeholder extends Placeholder {
+public class Queue4x1Placeholder extends Placeholder {
 
-    private final Queue1x1 queue1x1;
+    private final Queue4x1 queue4X1;
 
     @Inject
-    public Queue1x1Placeholder(final @NotNull Queue1x1 queue1x1) {
-        this.queue1x1 = queue1x1;
+    public Queue4x1Placeholder(final @NotNull Queue4x1 queue4X1) {
+        this.queue4X1 = queue4X1;
     }
 
     @Override
     public String identifier() {
-        return "%queue_1x1%";
+        return "%queue_4x1%";
     }
 
     @Override
     public String onRequest(final @NotNull Optional<Player> optionalPlayer) {
-        return String.valueOf(queue1x1.getSize());
+        return String.valueOf(queue4X1.getSize());
     }
 }

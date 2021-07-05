@@ -18,8 +18,8 @@ import net.skillcode.advancedmlgrush.config.configs.InventoryNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.game.map.MapInstance;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
-import net.skillcode.advancedmlgrush.game.queue.Queue1x1;
-import net.skillcode.advancedmlgrush.game.queue.Queue1x4;
+import net.skillcode.advancedmlgrush.game.queue.Queue2x1;
+import net.skillcode.advancedmlgrush.game.queue.Queue4x1;
 import net.skillcode.advancedmlgrush.inventory.multipage.MultiPageInventory;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.builder.MetaType;
@@ -38,9 +38,9 @@ public class SpectateInventory extends MultiPageInventory {
     @Inject
     private MapInstanceManager mapInstanceManager;
     @Inject
-    private Queue1x1 queue1x1;
+    private Queue2x1 queue2X1;
     @Inject
-    private Queue1x4 queue1x4;
+    private Queue4x1 queue4X1;
     @Inject
     private MainConfig mainConfig;
     @Inject
@@ -78,8 +78,8 @@ public class SpectateInventory extends MultiPageInventory {
         if (optional.isPresent() && optional.get() instanceof MapInstance) {
             final MapInstance mapInstance = (MapInstance) optional.get();
 
-            queue1x1.unregister(player);
-            queue1x4.unregister(player);
+            queue2X1.unregister(player);
+            queue4X1.unregister(player);
 
             mapInstance.addSpectator(player);
         }

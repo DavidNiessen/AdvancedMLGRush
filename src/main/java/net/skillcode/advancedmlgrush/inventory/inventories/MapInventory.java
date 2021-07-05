@@ -73,7 +73,7 @@ public class MapInventory extends MultiPageInventory {
         final LinkedHashMap<ItemStack, Object> map = new LinkedHashMap<>();
         final String itemPrefix = placeholders.replace(Optional.of(player), mainConfig.getString(MainConfig.MAP_ITEM_PREFIX));
 
-        mapManager.getMapTemplates1x1().forEach(mapTemplate -> {
+        mapManager.getMapTemplates2x1().forEach(mapTemplate -> {
             final MapData mapData = mapTemplate.getMapData();
             map.put(ibFactory.create(MetaType.ITEM_META, mapData.getIconData()).name(itemPrefix + mapData.getName())
                     .material(mapData.getIcon()).build(), mapTemplate);
@@ -95,7 +95,7 @@ public class MapInventory extends MultiPageInventory {
             final MapTemplate mapTemplate = (MapTemplate) optional.get();
             final CachedSQLData cachedSQLData = sqlDataCache.getSQLData(player);
 
-            final List<MapTemplate> mapTemplates = mapManager.getMapTemplates1x1();
+            final List<MapTemplate> mapTemplates = mapManager.getMapTemplates2x1();
             if (mapTemplates.contains(mapTemplate)) {
                 cachedSQLData.setSettingsMap(mapTemplates.indexOf(mapTemplate));
             }

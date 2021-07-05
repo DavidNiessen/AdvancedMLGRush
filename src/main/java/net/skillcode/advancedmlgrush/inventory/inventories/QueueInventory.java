@@ -19,8 +19,8 @@ import net.skillcode.advancedmlgrush.config.configs.InventoryNameConfig;
 import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
 import net.skillcode.advancedmlgrush.event.EventListener;
 import net.skillcode.advancedmlgrush.event.EventListenerPriority;
-import net.skillcode.advancedmlgrush.game.queue.Queue1x1;
-import net.skillcode.advancedmlgrush.game.queue.Queue1x4;
+import net.skillcode.advancedmlgrush.game.queue.Queue2x1;
+import net.skillcode.advancedmlgrush.game.queue.Queue4x1;
 import net.skillcode.advancedmlgrush.inventory.AbstractInventory;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.util.Pair;
@@ -36,17 +36,17 @@ import java.util.Optional;
 @Singleton
 public class QueueInventory extends AbstractInventory {
 
-    private static final int QUEUE_1X1_SLOT = 11;
-    private static final int QUEUE_1X4_SLOT = 15;
+    private static final int QUEUE_2X1_SLOT = 11;
+    private static final int QUEUE_4X1_SLOT = 15;
 
-    private final Queue1x1 queue1x1;
-    private final Queue1x4 queue1x4;
+    private final Queue2x1 queue2X1;
+    private final Queue4x1 queue4X1;
 
     @Inject
-    public QueueInventory(final @NotNull Queue1x1 queue1x1,
-                          final @NotNull Queue1x4 queue1x4) {
-        this.queue1x1 = queue1x1;
-        this.queue1x4 = queue1x4;
+    public QueueInventory(final @NotNull Queue2x1 queue2X1,
+                          final @NotNull Queue4x1 queue4X1) {
+        this.queue2X1 = queue2X1;
+        this.queue4X1 = queue4X1;
     }
 
     @PostConstruct
@@ -76,10 +76,11 @@ public class QueueInventory extends AbstractInventory {
     @Override
     protected Inventory onOpen(@NotNull Inventory inventory, @NotNull Player player) {
         final Optional<Player> optionalPlayer = Optional.of(player);
-        queue1x1.unregister(player);
-        queue1x4.unregister(player);
-        inventory.setItem(QUEUE_1X1_SLOT, itemManager.getItem(optionalPlayer, EnumItem.QUEUE_1x1));
-        inventory.setItem(QUEUE_1X4_SLOT, itemManager.getItem(optionalPlayer, EnumItem.QUEUE_1x4));
+        queue2X1.unregister(player);
+        queue4X1.unregister(player);
+
+        inventory.setItem(QUEUE_2X1_SLOT, itemManager.getItem(optionalPlayer, EnumItem.QUEUE_2X1));
+        inventory.setItem(QUEUE_4X1_SLOT, itemManager.getItem(optionalPlayer, EnumItem.QUEUE_4x1));
         return inventory;
     }
 
@@ -93,14 +94,14 @@ public class QueueInventory extends AbstractInventory {
                 if (inventoryUtils.isOpenInventory(player, clazz)) {
 
                     final int slot = event.getSlot();
-                    if (slot == QUEUE_1X1_SLOT) {
+                    if (slot == QUEUE_2X1_SLOT) {
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
                         player.closeInventory();
-                        queue1x1.register(player);
-                    } else if (slot == QUEUE_1X4_SLOT) {
+                        queue2X1.register(player);
+                    } else if (slot == QUEUE_4X1_SLOT) {
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
                         player.closeInventory();
-                        queue1x4.register(player);
+                        queue4X1.register(player);
                     }
                 }
             }

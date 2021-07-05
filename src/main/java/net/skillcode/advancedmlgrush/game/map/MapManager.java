@@ -17,6 +17,7 @@ import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import lombok.Getter;
 import net.skillcode.advancedmlgrush.game.map.file.MapFileLoader;
+import net.skillcode.advancedmlgrush.miscellaneous.registrable.Registrable;
 import net.skillcode.advancedmlgrush.sql.data.CachedSQLData;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import net.skillcode.advancedmlgrush.util.Initializer;
@@ -29,12 +30,12 @@ import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Singleton
-public class MapManager implements Initializer {
+public class MapManager implements Initializer, Registrable {
 
     @Getter
-    private final List<MapTemplate> mapTemplates1x1 = new CopyOnWriteArrayList<>();
+    private final List<MapTemplate> mapTemplates2x1 = new CopyOnWriteArrayList<>();
     @Getter
-    private final List<MapTemplate> mapTemplates1x4 = new CopyOnWriteArrayList<>();
+    private final List<MapTemplate> mapTemplates4x1 = new CopyOnWriteArrayList<>();
     @Inject
     private MapFileLoader mapFileLoader;
     @Inject
@@ -50,11 +51,11 @@ public class MapManager implements Initializer {
         mapFileLoader.getMapFiles().forEach(mapFile -> {
             final MapTemplate mapTemplate = mapTemplateFactory.create(mapDataWrapper.getMapData(mapFile));
             switch (mapTemplate.getMapData().getMapType()) {
-                case M1x1:
-                    mapTemplates1x1.add(mapTemplate);
+                case M2x1:
+                    mapTemplates2x1.add(mapTemplate);
                     break;
-                case M1x4:
-                    mapTemplates1x4.add(mapTemplate);
+                case M4x1:
+                    mapTemplates4x1.add(mapTemplate);
                     break;
             }
         });
@@ -63,36 +64,41 @@ public class MapManager implements Initializer {
     public Optional<MapTemplate> getRandomMapTemplate(final @NotNull MapType mapType) {
         final Random random = new Random();
         switch (mapType) {
-            case M1x1:
-                return mapTemplates1x1.isEmpty()
+            case M2x1:
+                return mapTemplates2x1.isEmpty()
                         ? Optional.empty()
-                        : Optional.of(mapTemplates1x1.get(random.nextInt(mapTemplates1x1.size())));
-            case M1x4:
-                return mapTemplates1x4.isEmpty()
+                        : Optional.of(mapTemplates2x1.get(random.nextInt(mapTemplates2x1.size())));
+            case M4x1:
+                return mapTemplates4x1.isEmpty()
                         ? Optional.empty()
-                        : Optional.of(mapTemplates1x4.get(random.nextInt(mapTemplates1x4.size())));
+                        : Optional.of(mapTemplates4x1.get(random.nextInt(mapTemplates4x1.size())));
             default:
                 return Optional.empty();
         }
     }
 
     public Optional<MapTemplate> getPlayerMap(final @NotNull Player player) {
-        if (mapTemplates1x1.size() > 0) {
+        if (mapTemplates2x1.size() > 0) {
             final CachedSQLData cachedSQLData = sqlDataCache.getSQLData(player);
 
             int index = cachedSQLData.getSettingsMap();
             if (index < 0) {
-                index = new Random().nextInt(mapTemplates1x1.size());
+                index = new Random().nextInt(mapTemplates2x1.size());
 
             }
 
-            if (index < mapTemplates1x1.size()) {
-                return Optional.of(mapTemplates1x1.get(index));
+            if (index < mapTemplates2x1.size()) {
+                return Optional.of(mapTemplates2x1.get(index));
             } else {
                 cachedSQLData.setSettingsMap(-1);
                 return getPlayerMap(player);
             }
         }
         return Optional.empty();
+    }
+
+    @Override
+    public void unregister(final @NotNull Player player) {
+
     }
 }

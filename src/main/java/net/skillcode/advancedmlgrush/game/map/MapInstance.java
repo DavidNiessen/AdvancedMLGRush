@@ -191,15 +191,14 @@ public class MapInstance implements EventHandler {
                     if (loaded) {
                         final Location blockLocation = event.getBlock().getLocation();
 
-                        for (int i = 0; i < players.size(); i++) {
-                            final Pair<Location, Location> pair = mapData.getBeds().get(i);
+                        for (int index : players.values()) {
+                            final Pair<Location, Location> pair = mapData.getBeds().get(index);
                             if (locationUtils.compare(pair.getKey(), blockLocation, world)
                                     || locationUtils.compare(pair.getValue(), blockLocation, world)) {
 
                                 final Optional<Player> optionalPlayer = Optional.of(player);
-                                final int index = players.get(player);
 
-                                if (index == i) {
+                                if (index == players.get(player)) {
                                     player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.BREAK_OWN_BED));
                                 } else {
                                     mapStats.increaseScore(index);

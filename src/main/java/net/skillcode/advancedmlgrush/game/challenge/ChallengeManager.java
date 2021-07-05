@@ -15,6 +15,7 @@ package net.skillcode.advancedmlgrush.game.challenge;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
+import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.game.map.MapTemplate;
 import net.skillcode.advancedmlgrush.item.items.LobbyItems;
@@ -39,8 +40,15 @@ public class ChallengeManager implements Registrable {
     private SQLDataCache sqlDataCache;
     @Inject
     private LobbyItems lobbyItems;
+    @Inject
+    private MapInstanceManager mapInstanceManager;
 
     public void challengePlayer(final @NotNull Player challenger, final @NotNull Player challenged) {
+        if (mapInstanceManager.isIngame(challenger)) {
+            challenger.sendMessage(messageConfig.getWithPrefix(Optional.of(challenger), MessageConfig.CANNOT_CHALLENGE_PLAYERS));
+            return;
+        }
+
         final Set<Map.Entry<Player, List<Player>>> entries = challengeMap.entrySet();
         for (final Map.Entry<Player, List<Player>> entry : entries) {
             final List<Player> list = entry.getValue();

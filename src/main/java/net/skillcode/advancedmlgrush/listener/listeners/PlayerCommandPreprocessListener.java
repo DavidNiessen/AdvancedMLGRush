@@ -24,7 +24,6 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Locale;
 import java.util.Optional;
 
 @Singleton
@@ -44,9 +43,9 @@ public class PlayerCommandPreprocessListener implements Listener {
 
     @EventHandler
     public void onCommand(final @NotNull PlayerCommandPreprocessEvent event) {
-        final String message = event.getMessage().toLowerCase(Locale.ROOT);
-        if (message.startsWith("/mlgrush")
-                || message.startsWith("/advancedmlgrush")) {
+        final String message = event.getMessage().trim();
+        if (message.equalsIgnoreCase("/mlgrush")
+                || message.equalsIgnoreCase("/advancedmlgrush")) {
             final Player player = event.getPlayer();
             player.sendMessage(placeholders.replace(Optional.of(player),
                     String.format(messageConfig.getString(MessageConfig.PREFIX) + Constants.MLGRUSH_COMMAND_MESSAGE,

@@ -18,8 +18,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum MapType {
-    M1x1(2),
-    M1x4(4);
+    M2x1(2),
+    M4x1(4);
 
     private final int players;
 }

@@ -16,8 +16,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
-import net.skillcode.advancedmlgrush.game.map.setup.MapSetup1x1;
-import net.skillcode.advancedmlgrush.game.map.setup.MapSetup1x4;
+import net.skillcode.advancedmlgrush.game.map.setup.MapSetup2x1;
+import net.skillcode.advancedmlgrush.game.map.setup.MapSetup4x1;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,9 +29,9 @@ import java.util.Optional;
 public class SetupMapCommand implements CommandExecutor {
 
     @Inject
-    private MapSetup1x1 mapSetup1x1;
+    private MapSetup2x1 mapSetup2X1;
     @Inject
-    private MapSetup1x4 mapSetup1x4;
+    private MapSetup4x1 mapSetup4X1;
     @Inject
     private MessageConfig messageConfig;
     @Inject
@@ -49,8 +49,8 @@ public class SetupMapCommand implements CommandExecutor {
             return false;
         }
 
-        if (mapSetup1x1.isSettingUp(player)
-                || mapSetup1x4.isSettingUp(player)) {
+        if (mapSetup2X1.isSettingUp(player)
+                || mapSetup4X1.isSettingUp(player)) {
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.ALREADY_SETTING_UP_MAP));
             return false;
         }
@@ -69,10 +69,10 @@ public class SetupMapCommand implements CommandExecutor {
 
         final String name = stringBuilder.substring(0, stringBuilder.toString().length() - 1);
 
-        if (arg.equals("1x1")) {
-            mapSetup1x1.startSetup(player, name);
-        } else if (arg.equals("1x4")) {
-            mapSetup1x4.startSetup(player, name);
+        if (arg.equals("2x1")) {
+            mapSetup2X1.startSetup(player, name);
+        } else if (arg.equals("4x1")) {
+            mapSetup4X1.startSetup(player, name);
         } else {
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.SETUP_MAP_COMMAND_SYNTAX));
 

@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.config.configs.SoundConfig;
+import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.game.map.MapTemplate;
 import net.skillcode.advancedmlgrush.game.map.MapType;
@@ -51,6 +52,8 @@ public abstract class Queue implements Registrable {
     private JavaPlugin javaPlugin;
     @Inject
     private ScoreboardManager scoreboardManager;
+    @Inject
+    private MapInstanceManager mapInstanceManager;
 
     /**
      * @return the number of players that can play on this map
@@ -68,6 +71,11 @@ public abstract class Queue implements Registrable {
             lobbyItems.setLobbyItems(player);
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.ERROR));
         } else {
+            if (mapInstanceManager.isIngame(player)) {
+                player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.CANNOT_ENTER_QUEUE));
+                return;
+            }
+
             player.getInventory().clear();
             lobbyItems.setQueueItems(player);
             queue.add(player);

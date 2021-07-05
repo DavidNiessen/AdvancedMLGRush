@@ -44,6 +44,8 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String CHALLENGE_2 = "challenge_2";
     public static final String ALREADY_CHALLENGED = "already_challenged";
     public static final String ALREADY_SETTING_UP_MAP = "already_setting_up_map";
+    public static final String CANNOT_ENTER_QUEUE = "cannot_use_queue";
+    public static final String CANNOT_CHALLENGE_PLAYERS = "cannot_challenge_players";
     public static final String MAP_GENERATE = "map_generate";
     public static final String BREAK_OWN_BED = "break_own_bed";
     public static final String GAME_START = "game_start";
@@ -113,13 +115,15 @@ public class MessageConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(CHALLENGE_2, "&aYou challenged %player%."));
         list.add(new Pair<>(ALREADY_CHALLENGED, "&cYou already challenged &e%player%&a."));
         list.add(new Pair<>(ALREADY_SETTING_UP_MAP, "&cYou are already setting up a map."));
+        list.add(new Pair<>(CANNOT_ENTER_QUEUE, "&cYou cannot enter the queue now."));
+        list.add(new Pair<>(CANNOT_CHALLENGE_PLAYERS, "&cYou cannot challenge players now."));
         list.add(new Pair<>(MAP_GENERATE, "&aGenerating map..."));
         list.add(new Pair<>(BREAK_OWN_BED, "&cYou cannot break your own bed!"));
         list.add(new Pair<>(GAME_START, "&8&m------------------------------------&r\n \n   &7Map&8: &e%map_name%\n   &7Mode&8: &e%map_mode%\n   &7Rounds&8: &e%map_rounds%\n \n&8&m------------------------------------&r"));
         list.add(new Pair<>(GAME_END, "&e%winner% &awon the game."));
         list.add(new Pair<>(LOADING_PROGRESS_ACTION_BAR, "&8» &eLoading... &8> &e%progress%%"));
 
-        list.add(new Pair<>(SETUP_MAP_COMMAND_SYNTAX, "&cWrong syntax: /setupmap <1x1, 1x4> <name>"));
+        list.add(new Pair<>(SETUP_MAP_COMMAND_SYNTAX, "&cWrong syntax: /setupmap <2x1, 4x1> <name>"));
 
         list.add(new Pair<>(SETUP_ICON, "&7Hold an item in your hand that will serve as an icon for this map and type '&e&enext&7'."));
         list.add(new Pair<>(SETUP_FIRST_CORNER, "&7Go to the lower left corner of the map and type '&enext&7'."));

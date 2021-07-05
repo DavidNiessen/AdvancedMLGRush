@@ -58,6 +58,10 @@ public class MapInstanceManager implements Registrable {
         return mapInstanceMap.values();
     }
 
+    public boolean isIngame(final @NotNull Player player) {
+        return mapInstanceMap.containsKey(player);
+    }
+
     public Optional<MapInstance> getMapInstance(final @NotNull Player player) {
         return Optional.ofNullable(mapInstanceMap.getOrDefault(player, null));
     }

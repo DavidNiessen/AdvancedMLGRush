@@ -16,10 +16,10 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.map.MapType;
 
 @Singleton
-public class Queue1x1 extends Queue {
+public class Queue4x1 extends Queue {
 
     @Override
     MapType mapType() {
-        return MapType.M1x1;
+        return MapType.M4x1;
     }
 }

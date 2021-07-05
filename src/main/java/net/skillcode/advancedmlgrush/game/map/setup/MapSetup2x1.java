@@ -18,7 +18,7 @@ import net.skillcode.advancedmlgrush.game.map.MapType;
 import net.skillcode.advancedmlgrush.game.map.file.MapFile;
 import net.skillcode.advancedmlgrush.game.map.schematic.BlockStorage;
 import net.skillcode.advancedmlgrush.game.map.setup.step.SetupSteps;
-import net.skillcode.advancedmlgrush.game.map.setup.step.SetupSteps1x4;
+import net.skillcode.advancedmlgrush.game.map.setup.step.SetupSteps2x1;
 import net.skillcode.advancedmlgrush.util.BlockUtils;
 import net.skillcode.advancedmlgrush.util.LocationWrapper;
 import net.skillcode.advancedmlgrush.util.Pair;
@@ -32,10 +32,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public class MapSetup1x4 extends MapSetup {
+public class MapSetup2x1 extends MapSetup {
 
     @Inject
-    private SetupSteps1x4 setupSteps1x4;
+    private SetupSteps2x1 setupSteps2X1;
     @Inject
     private BlockUtils blockUtils;
     @Inject
@@ -45,12 +45,12 @@ public class MapSetup1x4 extends MapSetup {
 
     @Override
     SetupSteps setupSteps() {
-        return setupSteps1x4;
+        return setupSteps2X1;
     }
 
     @Override
     Optional<MapFile> createMapFile(final @NotNull List<Object> objects, final @NotNull String mapName) {
-        if (objects.size() == 14) {
+        if (objects.size() == 10) {
             final Pair<String, Integer> pair = (Pair<String, Integer>) objects.get(0);
             final String icon = pair.getKey();
             final int data = pair.getValue();
@@ -65,16 +65,11 @@ public class MapSetup1x4 extends MapSetup {
 
             final Location spawnPlayer1 = (Location) objects.get(6);
             final Location spawnPlayer2 = (Location) objects.get(7);
-            final Location spawnPlayer3 = (Location) objects.get(8);
-            final Location spawnPlayer4 = (Location) objects.get(9);
-            final List<Location> playerSpawns = new ArrayList<>(Arrays.asList(spawnPlayer1, spawnPlayer2, spawnPlayer3, spawnPlayer4));
+            final List<Location> playerSpawns = new ArrayList<>(Arrays.asList(spawnPlayer1, spawnPlayer2));
 
-            final Pair<Location, Location> bedPlayer1 = (Pair<Location, Location>) objects.get(10);
-            final Pair<Location, Location> bedPlayer2 = (Pair<Location, Location>) objects.get(11);
-            final Pair<Location, Location> bedPlayer3 = (Pair<Location, Location>) objects.get(12);
-            final Pair<Location, Location> bedPlayer4 = (Pair<Location, Location>) objects.get(13);
-            final List<Pair<Location, Location>> playerBeds = new ArrayList<>(Arrays.asList(bedPlayer1, bedPlayer2, bedPlayer3, bedPlayer4));
-
+            final Pair<Location, Location> bedPlayer1 = (Pair<Location, Location>) objects.get(8);
+            final Pair<Location, Location> bedPlayer2 = (Pair<Location, Location>) objects.get(9);
+            final List<Pair<Location, Location>> playerBeds = new ArrayList<>(Arrays.asList(bedPlayer1, bedPlayer2));
 
             final Optional<String> blocks = blockStorage.toString(blockUtils.getBlocksBetweenLocations(firstCorner, secondCorner));
             final JsonLocation jSpectatorSpawn = locationWrapper.toJsonLocation(spectatorSpawn);
@@ -85,10 +80,9 @@ public class MapSetup1x4 extends MapSetup {
                 return Optional.empty();
             }
 
-            return Optional.of(new MapFile(MapType.M1x4, mapName, icon, data, blocks.get(), maxBuildHeight, deathHeight,
+            return Optional.of(new MapFile(MapType.M2x1, mapName, icon, data, blocks.get(), maxBuildHeight, deathHeight,
                     jSpectatorSpawn, jPlayerSpawns, jPlayerBeds));
         }
         return Optional.empty();
     }
-
 }

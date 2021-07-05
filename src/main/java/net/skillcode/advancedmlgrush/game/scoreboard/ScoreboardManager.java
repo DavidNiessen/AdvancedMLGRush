@@ -69,11 +69,11 @@ public class ScoreboardManager implements Registrable {
         if (optionalMapInstance.isPresent()) {
             final MapInstance mapInstance = optionalMapInstance.get();
             switch (mapInstance.getMapData().getMapType()) {
-                case M1x1:
-                    content.addAll(scoreboardConfig.getArrayList(ScoreboardConfig.MAP_1X1_SCOREBOARD));
+                case M2x1:
+                    content.addAll(scoreboardConfig.getArrayList(ScoreboardConfig.MAP_2X1_SCOREBOARD));
                     break;
-                case M1x4:
-                    content.addAll(scoreboardConfig.getArrayList(ScoreboardConfig.MAP_1X4_SCOREBOARD));
+                case M4x1:
+                    content.addAll(scoreboardConfig.getArrayList(ScoreboardConfig.MAP_4X1_SCOREBOARD));
                     break;
             }
         } else {

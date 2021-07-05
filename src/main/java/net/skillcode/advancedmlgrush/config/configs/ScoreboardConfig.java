@@ -33,8 +33,8 @@ public class ScoreboardConfig extends Configurable implements Replaceable {
 
     public static final String SCOREBOARD_TITLE = "scoreboard_title";
     public static final String LOBBY_SCOREBOARD = "lobby_scoreboard";
-    public static final String MAP_1X1_SCOREBOARD = "map_1x1_scoreboard";
-    public static final String MAP_1X4_SCOREBOARD = "map_1x4_scoreboard";
+    public static final String MAP_2X1_SCOREBOARD = "map_2x1_scoreboard";
+    public static final String MAP_4X1_SCOREBOARD = "map_4x1_scoreboard";
 
     private final Placeholders placeholders;
 
@@ -68,7 +68,7 @@ public class ScoreboardConfig extends Configurable implements Replaceable {
                 "&8» &e#%stats_ranking%",
                 "&4"
         ))));
-        list.add(new Pair<>(MAP_1X1_SCOREBOARD, new ArrayList<>(Arrays.asList(
+        list.add(new Pair<>(MAP_2X1_SCOREBOARD, new ArrayList<>(Arrays.asList(
                 "&1",
                 "&7Map&8:",
                 "&8» &e%map_name% &7(&e%map_mode%&7)",
@@ -78,7 +78,7 @@ public class ScoreboardConfig extends Configurable implements Replaceable {
                 "&8» &e&l%map_score_2% &8| &e%map_player_2%",
                 "&2"
         ))));
-        list.add(new Pair<>(MAP_1X4_SCOREBOARD, new ArrayList<>(Arrays.asList(
+        list.add(new Pair<>(MAP_4X1_SCOREBOARD, new ArrayList<>(Arrays.asList(
                 "&1",
                 "&7Map&8:",
                 "&8» &e%map_name% &7(&e%map_mode%&7)",

@@ -51,10 +51,10 @@ public class MapModePlaceholder extends Placeholder {
 
         final MapInstance mapInstance = mapInstanceOptional.get();
         switch (mapInstance.getMapData().getMapType()) {
-            case M1x1:
-                return "1x1";
-            case M1x4:
-                return "1x4";
+            case M2x1:
+                return "2x1";
+            case M4x1:
+                return "4x1";
             default:
                 return getNullValue();
         }

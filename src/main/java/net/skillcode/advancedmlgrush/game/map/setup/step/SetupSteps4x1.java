@@ -16,7 +16,7 @@ import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.map.setup.step.steps.constants.Steps;
 
 @Singleton
-public class SetupSteps1x4 extends SetupSteps {
+public class SetupSteps4x1 extends SetupSteps {
 
     @Override
     void registerSteps() {

@@ -137,8 +137,8 @@ public class MLGDataSaver extends DataSaver {
                 "gadgets_blocks SMALLINT NOT NULL DEFAULT 0, " +
                 "stats_wins INT NOT NULL DEFAULT 0, " +
                 "stats_loses INT NOT NULL DEFAULT 0, " +
-                "stats_beds INT NOT NULL DEFAULT 0" +
-                ");";
+                "stats_beds INT NOT NULL DEFAULT 0, " +
+                "PRIMARY KEY (player_uuid, player_name));";
     }
 
     private CachedSQLData getPlayerDataSync(final @NotNull Player player) {

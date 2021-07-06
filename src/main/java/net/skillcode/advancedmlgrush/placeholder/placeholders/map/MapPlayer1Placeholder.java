@@ -50,7 +50,6 @@ public class MapPlayer1Placeholder extends Placeholder {
         }
 
         final MapInstance mapInstance = mapInstanceOptional.get();
-        System.out.println(mapInstance.getPlayerByListIndex(0));
         return mapInstance.getPlayerByListIndex(0).map(Player::getName).orElse(getNullValue());
     }
 }

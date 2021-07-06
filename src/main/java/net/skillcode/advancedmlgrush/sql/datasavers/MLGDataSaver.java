@@ -14,7 +14,9 @@ package net.skillcode.advancedmlgrush.sql.datasavers;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.DataConfig;
+import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import net.skillcode.advancedmlgrush.sql.DataSaver;
 import net.skillcode.advancedmlgrush.sql.DataSaverParams;
@@ -34,10 +36,20 @@ public class MLGDataSaver extends DataSaver {
 
 
     private final DataConfig dataConfig;
+    private final MainConfig mainConfig;
+
+    private boolean isOfflineMode = false;
 
     @Inject
-    public MLGDataSaver(final @NotNull DataConfig dataConfig) {
+    public MLGDataSaver(final @NotNull DataConfig dataConfig,
+                        final @NotNull MainConfig mainConfig) {
         this.dataConfig = dataConfig;
+        this.mainConfig = mainConfig;
+    }
+
+    @PostConstruct
+    public void initDataSaver() {
+        isOfflineMode = mainConfig.getBoolean(MainConfig.OFFLINE_MODE);
     }
 
 
@@ -61,13 +73,15 @@ public class MLGDataSaver extends DataSaver {
                             "stats_wins = '%8$s', " +
                             "stats_loses = '%9$s', " +
                             "stats_beds = '%10$s' " +
-                            "WHERE player_uuid = '%11$s';",
+                            (isOfflineMode
+                                    ? "WHERE player_name = '%11$s';"
+                                    : "WHERE player_uuid = '%11$s';"),
                     cachedSQLData.getSettingsStickSlot(), cachedSQLData.getSettingsBlockSlot(),
                     cachedSQLData.getSettingsPickaxeSlot(), cachedSQLData.getSettingsMap(),
                     cachedSQLData.getSettingsRounds(), cachedSQLData.getGadgetsStick(),
                     cachedSQLData.getGadgetsBlocks(), cachedSQLData.getStatsWins(),
                     cachedSQLData.getStatsLoses(), cachedSQLData.getStatsBeds(),
-                    player.getUniqueId().toString()));
+                    isOfflineMode ? player.getName() : player.getUniqueId().toString()));
         }
     }
 
@@ -123,8 +137,8 @@ public class MLGDataSaver extends DataSaver {
                 "gadgets_blocks SMALLINT NOT NULL DEFAULT 0, " +
                 "stats_wins INT NOT NULL DEFAULT 0, " +
                 "stats_loses INT NOT NULL DEFAULT 0, " +
-                "stats_beds INT NOT NULL DEFAULT 0, " +
-                "PRIMARY KEY (player_uuid, player_name));";
+                "stats_beds INT NOT NULL DEFAULT 0" +
+                ");";
     }
 
     private CachedSQLData getPlayerDataSync(final @NotNull Player player) {
@@ -145,7 +159,10 @@ public class MLGDataSaver extends DataSaver {
             final Optional<ResultSet> optional = executeQuerySync(String.format(
                     "SELECT player_name " +
                             "FROM {name} " +
-                            "WHERE player_uuid = '%s';", player.getUniqueId().toString()));
+                            (isOfflineMode ?
+                                    "WHERE player_name = '%s';"
+                                    : "WHERE player_uuid = '%s';"),
+                    isOfflineMode ? player.getName() : player.getUniqueId().toString()));
 
             if (optional.isPresent()) {
                 final ResultSet resultSet = optional.get();
@@ -160,7 +177,8 @@ public class MLGDataSaver extends DataSaver {
     }
 
     private void checkName(final @NotNull Player player) {
-        if (isConnected()) {
+        if (isConnected()
+                && !isOfflineMode) {
             final Optional<ResultSet> optional = executeQuerySync(String.format(
                     "SELECT player_name " +
                             "FROM {name} " +
@@ -188,7 +206,10 @@ public class MLGDataSaver extends DataSaver {
             final Optional<ResultSet> optional = executeQuerySync(String.format(
                     "SELECT * " +
                             "FROM {name} " +
-                            "WHERE player_uuid = '%s';", player.getUniqueId().toString()));
+                            (isOfflineMode ?
+                                    "WHERE player_name = '%s';"
+                                    : "WHERE player_uuid = '%s';"),
+                    isOfflineMode ? player.getName() : player.getUniqueId().toString()));
 
             if (optional.isPresent()) {
                 final ResultSet resultSet = optional.get();

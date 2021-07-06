@@ -26,6 +26,7 @@ import java.util.List;
 @Singleton
 public class MainConfig extends Configurable {
 
+    public static final String OFFLINE_MODE = "offline_mode";
     public static final String ADMIN_PERMISSION = "admin_permission";
     public static final String STICK_KNOCKBACK_LEVEL = "stick_knockback_level";
     public static final String PICKAXE_EFFICIENCY_LEVEL = "pickaxe_efficiency_level";
@@ -36,7 +37,7 @@ public class MainConfig extends Configurable {
     public static final String DEFAULT_ROUNDS = "default_rounds";
     public static final String RANKING_UPDATE_PERIOD = "ranking_update_period";
     public static final String BLOCK_AMOUNT = "block_amount";
-    public static final String INFINITE_BLOCKS = "infinity_blocks";
+    public static final String INFINITE_BLOCKS = "infinite_blocks";
     public static final String MAP_ITEM_PREFIX = "map_item_prefix";
     public static final String PASTE_BLOCKS_PER_TICK = "paste_blocks_per_second";
     public static final String STATS_ITEM_LORE = "stats_item_lore";
@@ -54,6 +55,7 @@ public class MainConfig extends Configurable {
 
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
+        list.add(new Pair<>(OFFLINE_MODE, false));
         list.add(new Pair<>(ADMIN_PERMISSION, "mlgrush.admin"));
         list.add(new Pair<>(STICK_KNOCKBACK_LEVEL, 1));
         list.add(new Pair<>(PICKAXE_EFFICIENCY_LEVEL, 1));

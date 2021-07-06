@@ -198,12 +198,14 @@ public class MapInstance implements EventHandler {
 
                                 final Optional<Player> optionalPlayer = Optional.of(player);
 
+
                                 if (index == players.get(player)) {
                                     player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.BREAK_OWN_BED));
                                 } else {
-                                    mapStats.increaseScore(index);
+                                    final int playerIndex = players.get(player);
+                                    mapStats.increaseScore(playerIndex);
                                     sqlDataCache.getSQLData(player).increaseBeds();
-                                    final int score = mapStats.getScore(index);
+                                    final int score = mapStats.getScore(playerIndex);
                                     if (score == rounds) {
                                         endGame(player);
                                     } else {

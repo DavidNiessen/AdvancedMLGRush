@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.placeholder.placeholders.PlayerPlaceholder;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.PlayersInGamePlaceholder;
 import net.skillcode.advancedmlgrush.placeholder.placeholders.Queue2x1Placeholder;
 import net.skillcode.advancedmlgrush.placeholder.placeholders.Queue4x1Placeholder;
 import net.skillcode.advancedmlgrush.placeholder.placeholders.map.*;
@@ -72,5 +73,6 @@ public class PlaceholderInitializer implements Initializer {
         placeholderManager.registerPlaceholder(injector.getInstance(MapScore3Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapScore4Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapRoundsPlaceholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(PlayersInGamePlaceholder.class));
     }
 }

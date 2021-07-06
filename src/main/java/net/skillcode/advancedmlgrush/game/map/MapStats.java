@@ -12,12 +12,15 @@
 
 package net.skillcode.advancedmlgrush.game.map;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MapStats {
 
+    @Getter
     private final List<Integer> scores = new CopyOnWriteArrayList<>(Arrays.asList(0, 0, 0, 0));
 
     public void increaseScore(final int index) {

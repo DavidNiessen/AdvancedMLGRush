@@ -52,7 +52,7 @@ public class MapPlayer4Placeholder extends Placeholder {
 
         final MapInstance mapInstance = mapInstanceOptional.get();
         if (mapInstance.getMapData().getMapType() == MapType.M4x1) {
-            return mapInstance.getPlayer(3).map(Player::getName).orElse(getNullValue());
+            return mapInstance.getPlayerByListIndex(3).map(Player::getName).orElse(getNullValue());
         }
         return getNullValue();
     }

@@ -16,6 +16,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
+import net.skillcode.advancedmlgrush.game.scoreboard.ScoreboardManager;
+import net.skillcode.advancedmlgrush.game.stats.Ranking;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOW;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOWManager;
 import net.skillcode.advancedmlgrush.sql.data.CachedSQLData;
@@ -34,6 +36,10 @@ public class APIImplementation implements MLGRushAPI {
     private MapInstanceManager mapInstanceManager;
     @Inject
     private MapManager mapManager;
+    @Inject
+    private ScoreboardManager scoreboardManager;
+    @Inject
+    private Ranking ranking;
 
     @Override
     public void registerItemOW(final @NotNull ItemOW itemOW) {
@@ -41,8 +47,28 @@ public class APIImplementation implements MLGRushAPI {
     }
 
     @Override
+    public void updateScoreboard() {
+        scoreboardManager.updateScoreboard();
+    }
+
+    @Override
+    public void updateScoreboard(final @NotNull Iterable<Player> iterable) {
+        scoreboardManager.updateScoreboard(iterable);
+    }
+
+    @Override
+    public void updateScoreboard(final @NotNull Player player) {
+        scoreboardManager.updateScoreboard(player);
+    }
+
+    @Override
     public CachedSQLData getSQLData(final @NotNull Player player) {
         return sqlDataCache.getSQLData(player);
+    }
+
+    @Override
+    public Ranking getRanking() {
+        return ranking;
     }
 
     @Override

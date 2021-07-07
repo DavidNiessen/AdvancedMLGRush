@@ -71,9 +71,9 @@ public class MainConfig extends Configurable {
         list.add(new Pair<>(PASTE_BLOCKS_PER_TICK, 20));
         list.add(new Pair<>(STATS_ITEM_LORE, new ArrayList<>(Arrays.asList(
                 " ",
-                "&6&l#1 &8» &e%stats_ranking_1%",
-                "&7&l#2 &8» &e%stats_ranking_2%",
-                "&c&l#3 &8» &e%stats_ranking_3%"
+                "&6&l#1 &8» &e%stats_ranking_1% &8| &e&l%stats_wins_1%",
+                "&7&l#2 &8» &e%stats_ranking_2% &8| &e&l%stats_wins_2%",
+                "&c&l#3 &8» &e%stats_ranking_3% &8| &e&l%stats_wins_3%"
         ))));
         list.add(new Pair<>(MAP_ITEM_LORE, new ArrayList<>(Arrays.asList(
                 " ",

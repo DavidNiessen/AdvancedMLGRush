@@ -15,6 +15,7 @@ package net.skillcode.advancedmlgrush.command.commands;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
+import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.game.queue.Queue2x1;
 import net.skillcode.advancedmlgrush.game.queue.Queue4x1;
 import net.skillcode.advancedmlgrush.inventory.inventories.QueueInventory;
@@ -39,14 +40,22 @@ public class QueueCommand implements CommandExecutor {
     private Queue2x1 queue2x1;
     @Inject
     private Queue4x1 queue4x1;
+    @Inject
+    private MapInstanceManager mapInstanceManager;
 
     @Override
     public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] args) {
         if (!(commandSender instanceof Player)) return false;
         final Player player = (Player) commandSender;
 
+
         if (!sqlDataCache.isLoaded(player)) {
             player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.LOADING_DATA));
+            return false;
+        }
+
+        if (mapInstanceManager.isIngame(player)) {
+            player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.CANNOT_USE_COMMAND));
             return false;
         }
 

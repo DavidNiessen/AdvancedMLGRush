@@ -25,8 +25,8 @@ import net.skillcode.advancedmlgrush.placeholder.placeholders.settings.RoundsPla
 import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.BedsPlaceholder;
 import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.LosesPlaceholder;
 import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.WinRatePlaceholder;
-import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.WinsPlaceholder;
 import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.ranking.*;
+import net.skillcode.advancedmlgrush.placeholder.placeholders.stats.wins.*;
 import net.skillcode.advancedmlgrush.util.Initializer;
 import org.jetbrains.annotations.NotNull;
 
@@ -74,5 +74,15 @@ public class PlaceholderInitializer implements Initializer {
         placeholderManager.registerPlaceholder(injector.getInstance(MapScore4Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapRoundsPlaceholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(PlayersInGamePlaceholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(Wins1Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(Wins2Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(Wins3Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(Wins4Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(Wins5Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(Wins6Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(Wins7Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(Wins8Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(Wins9Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(Wins10Placeholder.class));
     }
 }

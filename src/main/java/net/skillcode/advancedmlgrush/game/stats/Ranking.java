@@ -56,22 +56,6 @@ public class Ranking {
     }
 
 
-    public void startUpdateTimer() {
-        final UUID uuid = mlgRush.getUuid();
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (!mlgRush.getUuid().equals(uuid)) {
-                    cancel();
-                } else {
-                    mlgDataSaver.updateRanking((map, wins) -> updateRanking(map, wins));
-                    scoreboardManager.updateScoreboard();
-                    Bukkit.getPluginManager().callEvent(new RankingUpdateEvent());
-                }
-            }
-        }.runTaskTimer(mlgRush, 0, mainConfig.getLong(MainConfig.RANKING_UPDATE_PERIOD) * 60 * 20);
-    }
-
     public void updateRanking(final @NotNull Map<String, Integer> map, final @NotNull Map<Integer, Integer> map2) {
         biMap.clear();
         biMap.putAll(map);
@@ -88,8 +72,28 @@ public class Ranking {
         return getRankingByName(player.getName());
     }
 
+    public int getWinsByRanking(final int ranking) {
+        return wins.getOrDefault(ranking, -1);
+    }
+
     public Optional<String> getPlayerByRanking(final int ranking) {
         return Optional.ofNullable(biMap.inverse().getOrDefault(ranking, null));
+    }
+
+    private void startUpdateTimer() {
+        final UUID uuid = mlgRush.getUuid();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (!mlgRush.getUuid().equals(uuid)) {
+                    cancel();
+                } else {
+                    mlgDataSaver.updateRanking((map, wins) -> updateRanking(map, wins));
+                    scoreboardManager.updateScoreboard();
+                    Bukkit.getPluginManager().callEvent(new RankingUpdateEvent());
+                }
+            }
+        }.runTaskTimer(mlgRush, 0, mainConfig.getLong(MainConfig.RANKING_UPDATE_PERIOD) * 60 * 20);
     }
 
 

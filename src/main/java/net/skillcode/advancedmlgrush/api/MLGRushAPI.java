@@ -15,6 +15,7 @@ package net.skillcode.advancedmlgrush.api;
 import net.skillcode.advancedmlgrush.event.events.PlayerDataLoadEvent;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
+import net.skillcode.advancedmlgrush.game.stats.Ranking;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOW;
 import net.skillcode.advancedmlgrush.sql.data.CachedSQLData;
 import org.bukkit.entity.Player;
@@ -33,6 +34,25 @@ public interface MLGRushAPI {
     void registerItemOW(final @NotNull ItemOW itemOW);
 
     /**
+     * Updates the scoreboard for all players.
+     */
+    void updateScoreboard();
+
+    /**
+     * Updates the scoreboard for some players
+     *
+     * @param iterable the iterable
+     */
+    void updateScoreboard(final @NotNull Iterable<Player> iterable);
+
+    /**
+     * Updates the scoreboard for a specific player
+     *
+     * @param player the player
+     */
+    void updateScoreboard(final @NotNull Player player);
+
+    /**
      * Returns the SQL data of a player
      * <p>
      * Remember to check with {@link #isLoaded(Player)} if the player has been loaded.
@@ -44,6 +64,14 @@ public interface MLGRushAPI {
      * @return The SQL data of the player
      */
     CachedSQLData getSQLData(final @NotNull Player player);
+
+    /**
+     * The Ranking class allows you to get a player by a ranking,
+     * ranking by player or the wins by ranking.
+     *
+     * @return the instance of Ranking
+     */
+    Ranking getRanking();
 
     /**
      * @param player the player.

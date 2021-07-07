@@ -15,6 +15,7 @@ package net.skillcode.advancedmlgrush.command.commands;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
+import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.inventory.inventories.GadgetsInventory;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.command.Command;
@@ -33,6 +34,8 @@ public class GadgetsCommand implements CommandExecutor {
     private MessageConfig messageConfig;
     @Inject
     private GadgetsInventory gadgetsInventory;
+    @Inject
+    private MapInstanceManager mapInstanceManager;
 
     @Override
     public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] strings) {
@@ -41,6 +44,11 @@ public class GadgetsCommand implements CommandExecutor {
 
         if (!sqlDataCache.isLoaded(player)) {
             player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.LOADING_DATA));
+            return false;
+        }
+
+        if (mapInstanceManager.isIngame(player)) {
+            player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.CANNOT_USE_COMMAND));
             return false;
         }
 

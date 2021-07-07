@@ -89,8 +89,8 @@ public class SortingInventory extends AbstractInventory {
 
         final Optional<Player> optionalPlayer = Optional.of(player);
 
-        inventory.setItem(21, itemManager.getItem(optionalPlayer, EnumItem.SORTING_SAVE));
-        inventory.setItem(23, itemManager.getItem(optionalPlayer, EnumItem.SORTING_RESET));
+        itemManager.setItem(inventory, Optional.empty(), EnumItem.SORTING_SAVE);
+        itemManager.setItem(inventory, Optional.empty(), EnumItem.SORTING_RESET);
 
         inventory.setItem(stick.getValue() + 9, stick.getKey());
         inventory.setItem(block.getValue() + 9, block.getKey());
@@ -116,6 +116,7 @@ public class SortingInventory extends AbstractInventory {
                             && !event.getAction().equals(InventoryAction.DROP_ALL_CURSOR)
                             && !event.getAction().equals(InventoryAction.DROP_ONE_SLOT)
                             && !event.getAction().equals(InventoryAction.DROP_ONE_CURSOR)
+                            && !event.getClick().equals(ClickType.NUMBER_KEY)
                             && !event.getClickedInventory().equals(player.getInventory())
                             && !event.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
 

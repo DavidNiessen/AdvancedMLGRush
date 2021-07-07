@@ -68,6 +68,6 @@ public class IngameItems {
     }
 
     public void setSpectatorItems(final @NotNull Player player) {
-        player.getInventory().setItem(4, itemManager.getItem(Optional.of(player), EnumItem.SPECTATE_LEAVE));
+        itemManager.setItem(player.getInventory(), Optional.of(player), EnumItem.SPECTATE_LEAVE);
     }
 }

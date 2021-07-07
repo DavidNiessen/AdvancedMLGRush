@@ -16,8 +16,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.item.EnumItem;
 import net.skillcode.advancedmlgrush.item.ItemManager;
-import net.skillcode.advancedmlgrush.miscellaneous.Constants;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -34,15 +34,16 @@ public class LobbyItems {
 
     public void setLobbyItems(final @NotNull Player player) {
         final Optional<Player> optionalPlayer = Optional.of(player);
+        final Inventory inventory = player.getInventory();
 
-        player.getInventory().setItem(Constants.CHALLENGER_SLOT, itemManager.getItem(optionalPlayer, EnumItem.CHALLENGER));
-        player.getInventory().setItem(Constants.SETTINGS_SLOT, itemManager.getItem(optionalPlayer, EnumItem.SETTINGS));
-        player.getInventory().setItem(Constants.SPECTATE_SLOT, itemManager.getItem(optionalPlayer, EnumItem.SPECTATE));
-        player.getInventory().setItem(Constants.GADGETS_SLOT, itemManager.getItem(optionalPlayer, EnumItem.GADGETS));
-        player.getInventory().setItem(Constants.STATS_SLOT, itemManager.getItem(optionalPlayer, EnumItem.STATS));
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.CHALLENGER);
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.SETTINGS);
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.SPECTATE);
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.GADGETS);
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS);
     }
 
     public void setQueueItems(final @NotNull Player player) {
-        player.getInventory().setItem(Constants.QUEUE_LEAVE_SLOT, itemManager.getItem(Optional.of(player), EnumItem.QUEUE_LEAVE));
+        itemManager.setItem(player.getInventory(), Optional.of(player), EnumItem.QUEUE_LEAVE);
     }
 }

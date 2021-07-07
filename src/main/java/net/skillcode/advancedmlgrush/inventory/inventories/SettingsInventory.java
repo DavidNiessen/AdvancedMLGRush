@@ -63,9 +63,9 @@ public class SettingsInventory extends AbstractInventory {
         final Inventory inventory = Bukkit.createInventory(null, 3 * 9, title);
         inventoryUtils.fill(inventory);
 
-        inventory.setItem(11, itemManager.getItem(Optional.empty(), EnumItem.SETTINGS_INVENTORY_SORTING));
-        inventory.setItem(13, itemManager.getItem(Optional.empty(), EnumItem.SETTINGS_MAP));
-        inventory.setItem(15, itemManager.getItem(Optional.empty(), EnumItem.SETTINGS_ROUNDS));
+        itemManager.setItem(inventory, Optional.empty(), EnumItem.SETTINGS_INVENTORY_SORTING);
+        itemManager.setItem(inventory, Optional.empty(), EnumItem.SETTINGS_MAP);
+        itemManager.setItem(inventory, Optional.empty(), EnumItem.SETTINGS_ROUNDS);
 
         return new Pair<>(inventory, title);
     }

@@ -67,8 +67,8 @@ public class GadgetsInventory extends AbstractInventory {
         final Inventory inventory = Bukkit.createInventory(null, 3 * 9, title);
         inventoryUtils.fill(inventory);
 
-        inventory.setItem(11, itemManager.getItem(Optional.empty(), EnumItem.GADGETS_STICK));
-        inventory.setItem(15, itemManager.getItem(Optional.empty(), EnumItem.GADGETS_BLOCKS));
+        itemManager.setItem(inventory, Optional.empty(), EnumItem.GADGETS_STICK);
+        itemManager.setItem(inventory, Optional.empty(), EnumItem.GADGETS_BLOCKS);
 
         return new Pair<>(inventory, title);
     }

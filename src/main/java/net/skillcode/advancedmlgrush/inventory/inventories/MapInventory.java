@@ -84,7 +84,7 @@ public class MapInventory extends MultiPageInventory {
 
     @Override
     protected Inventory modifyInventory(final @NotNull Inventory inventory) {
-        inventory.setItem(49, skullUtils.getSkull(Constants.RANDOM_ITEM_VALUE,
+        inventory.setItem(itemManager.getItemSlot(EnumItem.RANDOM_ITEM), skullUtils.getSkull(Constants.RANDOM_ITEM_VALUE,
                 itemNameConfig.getString(Optional.empty(), EnumItem.RANDOM_ITEM)).build());
         return inventory;
     }

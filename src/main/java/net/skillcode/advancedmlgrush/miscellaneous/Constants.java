@@ -41,19 +41,12 @@ public class Constants {
     public static final String DEBUG_CONFIG_PATH = PLUGIN_PATH + "debug.yml";
     public static final String SPAWN_FILE_PATH = PLUGIN_PATH + "spawn.json";
     public static final String SCOREBOARD_CONFIG_PATH = PLUGIN_PATH + "scoreboards.yml";
+    public static final String SLOTS_CONFIG_PATH = ITEM_CONFIG_PATH + "slots.yml";
     //Maps
     public static final String MAP_PATH = PLUGIN_PATH + "maps/";
     //Worlds
     public static final String WORLD_PATH = PLUGIN_PATH + "worlds/";
-    /* Slots */
-    public static final int CHALLENGER_SLOT = 0;
-    public static final int SETTINGS_SLOT = 2;
-    public static final int SPECTATE_SLOT = 4;
-    public static final int GADGETS_SLOT = 6;
-    public static final int STATS_SLOT = 8;
-    public static final int QUEUE_LEAVE_SLOT = 4;
-    public static final int LEFT_ARROW_SLOT = 45;
-    public static final int RIGHT_ARROW_SLOT = 53;
+
     /* Messages */
     public static final String MLGRUSH_COMMAND_MESSAGE = "&eAdvancedMLGRush &7version &e%s &7by &eSkillCode&7.";
     public static final String STARTUP_MESSAGE = "\n" + Ansi.ansi().fg(Ansi.Color.YELLOW) +

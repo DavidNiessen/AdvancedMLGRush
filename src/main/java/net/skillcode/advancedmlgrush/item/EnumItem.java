@@ -45,7 +45,7 @@ EnumItem {
     STATS_BEDS("stats_beds"),
     STATS_RANKING("stats_ranking"),
     QUEUE_2X1("queue_2x1"),
-    QUEUE_4x1("queue_4x1"),
+    QUEUE_4X1("queue_4x1"),
     SPECTATE_LEAVE("spectate_leave"),
     MAP("map");
 

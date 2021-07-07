@@ -58,11 +58,11 @@ public class StatsInventory extends AbstractInventory {
     protected Inventory onOpen(final @NotNull Inventory inventory, final @NotNull Player player) {
         final Optional<Player> optionalPlayer = Optional.of(player);
 
-        inventory.setItem(10, itemManager.getItem(optionalPlayer, EnumItem.STATS_WINS));
-        inventory.setItem(12, itemManager.getItem(optionalPlayer, EnumItem.STATS_BEDS));
-        inventory.setItem(13, itemManager.getItem(optionalPlayer, EnumItem.STATS_RANKING));
-        inventory.setItem(14, itemManager.getItem(optionalPlayer, EnumItem.STATS_WIN_RATE));
-        inventory.setItem(16, itemManager.getItem(optionalPlayer, EnumItem.STATS_LOSES));
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_WINS);
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_BEDS);
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_RANKING);
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_WIN_RATE);
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_LOSES);
         return inventory;
     }
 

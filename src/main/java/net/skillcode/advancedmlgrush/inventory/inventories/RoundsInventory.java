@@ -71,8 +71,8 @@ public class RoundsInventory extends AbstractInventory {
         final Inventory inventory = Bukkit.createInventory(null, 3 * 9, title);
 
         inventoryUtils.fill(inventory);
-        inventory.setItem(12, skullUtils.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ4YTk5ZGIyYzM3ZWM3MWQ3MTk5Y2Q1MjYzOTk4MWE3NTEzY2U5Y2NhOTYyNmEzOTM2Zjk2NWIxMzExOTMifX19", itemNameConfig.getString(Optional.empty(), EnumItem.ROUNDS_DECREASE)).build());
-        inventory.setItem(14, skullUtils.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VkZDIwYmU5MzUyMDk0OWU2Y2U3ODlkYzRmNDNlZmFlYjI4YzcxN2VlNmJmY2JiZTAyNzgwMTQyZjcxNiJ9fX0=", itemNameConfig.getString(Optional.empty(), EnumItem.ROUNDS_INCREASE)).build());
+        inventory.setItem(itemManager.getItemSlot(EnumItem.ROUNDS_DECREASE), skullUtils.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ4YTk5ZGIyYzM3ZWM3MWQ3MTk5Y2Q1MjYzOTk4MWE3NTEzY2U5Y2NhOTYyNmEzOTM2Zjk2NWIxMzExOTMifX19", itemNameConfig.getString(Optional.empty(), EnumItem.ROUNDS_DECREASE)).build());
+        inventory.setItem(itemManager.getItemSlot(EnumItem.ROUNDS_INCREASE), skullUtils.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VkZDIwYmU5MzUyMDk0OWU2Y2U3ODlkYzRmNDNlZmFlYjI4YzcxN2VlNmJmY2JiZTAyNzgwMTQyZjcxNiJ9fX0=", itemNameConfig.getString(Optional.empty(), EnumItem.ROUNDS_INCREASE)).build());
 
         return new Pair<>(inventory, title);
     }
@@ -122,6 +122,6 @@ public class RoundsInventory extends AbstractInventory {
     private void setRoundsItem(final @NotNull Inventory inventory, final @NotNull Player player) {
         final ItemStack rounds = itemManager.getItem(Optional.of(player), EnumItem.ROUNDS);
         rounds.setAmount(sqlDataCache.getSQLData(player).getSettingsRounds());
-        inventory.setItem(13, rounds);
+        inventory.setItem(itemManager.getItemSlot(EnumItem.ROUNDS), rounds);
     }
 }

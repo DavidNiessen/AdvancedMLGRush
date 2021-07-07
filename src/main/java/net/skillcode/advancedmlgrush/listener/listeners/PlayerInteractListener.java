@@ -34,6 +34,7 @@ public class PlayerInteractListener implements Listener {
     @EventHandler
     public void onInteract(final @NotNull PlayerInteractEvent event) {
         eventManager.callEvent(event);
+        event.getPlayer().updateInventory();
     }
 
 }

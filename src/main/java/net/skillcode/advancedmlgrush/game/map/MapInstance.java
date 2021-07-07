@@ -58,6 +58,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -338,6 +340,7 @@ public class MapInstance implements EventHandler {
         player.spigot().setCollidesWithEntities(false);
 
         teleportToSpectatorSpawn(player);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, true, false));
         Bukkit.getOnlinePlayers().forEach(player1 -> player1.hidePlayer(player));
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> ingameItems.setSpectatorItems(player), 10);
@@ -349,6 +352,7 @@ public class MapInstance implements EventHandler {
         player.setAllowFlight(false);
         player.setFlying(false);
         player.spigot().setCollidesWithEntities(true);
+        player.getActivePotionEffects().clear();
 
         teleportToSpawn(player);
         Bukkit.getOnlinePlayers().forEach(player1 -> player1.showPlayer(player));

@@ -69,9 +69,9 @@ public abstract class MultiPageInventory extends AbstractInventory {
         final String rightArrowName = itemNameConfig.getString(Optional.empty(), EnumItem.ARROW_RIGHT);
 
         inventoryUtils.frame(inventory);
-        inventory.setItem(Constants.LEFT_ARROW_SLOT, skullUtils
+        inventory.setItem(itemManager.getItemSlot(EnumItem.ARROW_LEFT), skullUtils
                 .getSkull(Constants.ARROW_LEFT_VALUE, leftArrowName).build());
-        inventory.setItem(Constants.RIGHT_ARROW_SLOT, skullUtils
+        inventory.setItem(itemManager.getItemSlot(EnumItem.ARROW_RIGHT), skullUtils
                 .getSkull(Constants.ARROW_RIGHT_VALUE, rightArrowName).build());
 
         elementSlots.addAll(inventoryUtils.getEmptySlots(inventory));
@@ -107,11 +107,11 @@ public abstract class MultiPageInventory extends AbstractInventory {
                     final MultiPageHelper multiPageHelper = multiPageHelperMap.getOrDefault(player, null);
                     final int slot = event.getSlot();
 
-                    if (slot == Constants.LEFT_ARROW_SLOT) {
+                    if (slot == itemManager.getItemSlot(EnumItem.ARROW_LEFT)) {
                         if (multiPageHelper.loadPreviousPage()) {
                             inventoryUtils.playClickSound(player);
                         }
-                    } else if (slot == Constants.RIGHT_ARROW_SLOT) {
+                    } else if (slot == itemManager.getItemSlot(EnumItem.ARROW_RIGHT)) {
                         if (multiPageHelper.loadNextPage()) {
                             inventoryUtils.playClickSound(player);
                         }

@@ -16,12 +16,14 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.ItemMaterialConfig;
 import net.skillcode.advancedmlgrush.config.configs.ItemNameConfig;
+import net.skillcode.advancedmlgrush.config.configs.SlotsConfig;
 import net.skillcode.advancedmlgrush.item.builder.IBFactory;
 import net.skillcode.advancedmlgrush.item.builder.MetaType;
 import net.skillcode.advancedmlgrush.item.overwriter.ItemOWManager;
 import net.skillcode.advancedmlgrush.util.Pair;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,6 +38,8 @@ public class ItemManager {
     private ItemMaterialConfig itemMaterialConfig;
     @Inject
     private ItemOWManager itemOWManager;
+    @Inject
+    private SlotsConfig slotsConfig;
     @Inject
     private IBFactory ibFactory;
 
@@ -57,6 +61,19 @@ public class ItemManager {
 
     public String getItemName(final @NotNull Optional<Player> optionalPlayer, final @NotNull EnumItem enumItem) {
         return itemNameConfig.getString(optionalPlayer, enumItem);
+    }
+
+    public void setItem(final @NotNull Inventory inventory, final @NotNull Optional<Player> optionalPlayer,
+                        final @NotNull EnumItem enumItem) {
+        final int slot = getItemSlot(enumItem);
+        if (slot >= 0
+                && slot < inventory.getSize()) {
+            inventory.setItem(slot, getItem(optionalPlayer, enumItem));
+        }
+    }
+
+    public int getItemSlot(final @NotNull EnumItem enumItem) {
+        return slotsConfig.getInt(enumItem.getConfigPath());
     }
 
     private Pair<Material, Integer> getConfigMaterial(final @NotNull EnumItem enumItem) {

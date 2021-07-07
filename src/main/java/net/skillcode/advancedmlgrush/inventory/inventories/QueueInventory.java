@@ -28,6 +28,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -35,9 +36,6 @@ import java.util.Optional;
 
 @Singleton
 public class QueueInventory extends AbstractInventory {
-
-    private static final int QUEUE_2X1_SLOT = 11;
-    private static final int QUEUE_4X1_SLOT = 15;
 
     private final Queue2x1 queue2X1;
     private final Queue4x1 queue4X1;
@@ -77,8 +75,8 @@ public class QueueInventory extends AbstractInventory {
     protected Inventory onOpen(@NotNull Inventory inventory, @NotNull Player player) {
         final Optional<Player> optionalPlayer = Optional.of(player);
 
-        inventory.setItem(QUEUE_2X1_SLOT, itemManager.getItem(optionalPlayer, EnumItem.QUEUE_2X1));
-        inventory.setItem(QUEUE_4X1_SLOT, itemManager.getItem(optionalPlayer, EnumItem.QUEUE_4x1));
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.QUEUE_2X1);
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.QUEUE_4X1);
         return inventory;
     }
 
@@ -90,13 +88,14 @@ public class QueueInventory extends AbstractInventory {
             protected void onEvent(final @NotNull InventoryClickEvent event) {
                 final Player player = (Player) event.getWhoClicked();
                 if (inventoryUtils.isOpenInventory(player, clazz)) {
+                    final Optional<Player> optionalPlayer = Optional.of(player);
+                    final ItemStack currentItem = event.getCurrentItem();
 
-                    final int slot = event.getSlot();
-                    if (slot == QUEUE_2X1_SLOT) {
+                    if (itemUtils.compare(currentItem, EnumItem.QUEUE_2X1, optionalPlayer)) {
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
                         player.closeInventory();
                         queue2X1.register(player);
-                    } else if (slot == QUEUE_4X1_SLOT) {
+                    } else if (itemUtils.compare(currentItem, EnumItem.QUEUE_4X1, optionalPlayer)) {
                         soundUtil.playSound(player, SoundConfig.INVENTORY_CLICK);
                         player.closeInventory();
                         queue4X1.register(player);

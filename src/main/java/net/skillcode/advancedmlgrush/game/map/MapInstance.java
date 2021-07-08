@@ -352,12 +352,15 @@ public class MapInstance implements EventHandler {
         player.setAllowFlight(false);
         player.setFlying(false);
         player.spigot().setCollidesWithEntities(true);
-        player.getActivePotionEffects().clear();
 
-        teleportToSpawn(player);
-        Bukkit.getOnlinePlayers().forEach(player1 -> player1.showPlayer(player));
+        Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> {
 
-        lobbyItems.setLobbyItems(player);
+            teleportToSpawn(player);
+            player.getActivePotionEffects().forEach(potionEffect -> player.removePotionEffect(potionEffect.getType()));
+            Bukkit.getOnlinePlayers().forEach(player1 -> player1.showPlayer(player));
+
+            lobbyItems.setLobbyItems(player);
+        }, 5);
     }
 
     private void prepareMap() {
@@ -399,7 +402,7 @@ public class MapInstance implements EventHandler {
         eventManager.unregister(this);
         players.clear();
         if (isLoaded()) {
-            mapWorldGenerator.deleteWorld(world);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> mapWorldGenerator.deleteWorld(world), 20 * 10);
         } else {
             tasks.add(() -> mapWorldGenerator.deleteWorld(world));
         }

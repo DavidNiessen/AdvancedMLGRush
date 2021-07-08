@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 
 @Singleton
 public class MLGDataSaver extends DataSaver {
@@ -85,7 +86,7 @@ public class MLGDataSaver extends DataSaver {
         }
     }
 
-    public void updateRanking(final @NotNull RankingRunnable rankingRunnable) {
+    public void updateRanking(final @NotNull BiConsumer<Map<String, Integer>, Map<Integer, Integer>> biConsumer) {
         if (isConnected()) {
             final Callback callback = new Callback() {
                 @Override
@@ -98,7 +99,7 @@ public class MLGDataSaver extends DataSaver {
                         wins.put(count, resultSet.getInt("stats_wins"));
                     }
 
-                    rankingRunnable.run(map, wins);
+                    biConsumer.accept(map, wins);
                 }
 
                 @Override
@@ -239,11 +240,5 @@ public class MLGDataSaver extends DataSaver {
                     "INSERT INTO {name} (player_uuid, player_name) " +
                             "VALUES ('%1$s', '%2$s');", player.getUniqueId().toString(), player.getName()));
         }
-    }
-
-    public interface RankingRunnable {
-
-        void run(final @NotNull Map<String, Integer> map, final @NotNull Map<Integer, Integer> wins);
-
     }
 }

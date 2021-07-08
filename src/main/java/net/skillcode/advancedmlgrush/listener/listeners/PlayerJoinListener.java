@@ -58,7 +58,7 @@ public class PlayerJoinListener implements Listener {
         player.setFoodLevel(20);
         player.setLevel(0);
         player.setGameMode(GameMode.SURVIVAL);
-        player.getActivePotionEffects().clear();
+        player.getActivePotionEffects().forEach(potionEffect -> player.removePotionEffect(potionEffect.getType()));
         player.setFlying(false);
         player.setAllowFlight(false);
 

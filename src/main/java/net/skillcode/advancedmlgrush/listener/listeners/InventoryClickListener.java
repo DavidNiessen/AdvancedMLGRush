@@ -16,25 +16,30 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.event.EventManager;
 import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Singleton
 public class InventoryClickListener implements Listener {
 
 
-    private final EventManager eventManager;
-    private final BuildModeManager buildModeManager;
-
     @Inject
-    public InventoryClickListener(final @NotNull EventManager eventManager,
-                                  final @NotNull BuildModeManager buildModeManager) {
-        this.eventManager = eventManager;
-        this.buildModeManager = buildModeManager;
-    }
+    private EventManager eventManager;
+    @Inject
+    private BuildModeManager buildModeManager;
+    @Inject
+    private JavaPlugin javaPlugin;
+
+
+    private final List<String> cooldowns = new CopyOnWriteArrayList<>();
 
     @EventHandler
     public void onClick(final @NotNull InventoryClickEvent event) {
@@ -42,7 +47,11 @@ public class InventoryClickListener implements Listener {
             final Player player = (Player) event.getWhoClicked();
             event.setCancelled(!buildModeManager.isInBuildMode(player));
 
-            eventManager.callEvent(event);
+            if (!cooldowns.contains(player.getName())) {
+                eventManager.callEvent(event);
+                cooldowns.add(player.getName());
+                Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> cooldowns.remove(player.getName()), 1);
+            }
         }
 
     }

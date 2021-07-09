@@ -50,6 +50,7 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String BREAK_OWN_BED = "break_own_bed";
     public static final String GAME_START = "game_start";
     public static final String GAME_END = "game_end";
+    public static final String LOADING_PROGRESS_ACTION_BAR = "loading_progress_action_bar";
 
     //Command syntaxes
     public static final String SETUP_MAP_COMMAND_SYNTAX = "setup_max_command_syntax";
@@ -70,7 +71,6 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String SETUP_BED_PLAYER_3 = "setup_bed_player_3";
     public static final String SETUP_BED_PLAYER_4 = "setup_bed_player_4";
     public static final String SETUP_FINISH = "setup_finish";
-    public static final String LOADING_PROGRESS_ACTION_BAR = "loading_progress_action_bar";
 
     private final Placeholders placeholders;
 

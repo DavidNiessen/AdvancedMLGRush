@@ -15,7 +15,6 @@ package net.skillcode.advancedmlgrush.game.map.setup;
 import com.google.inject.Inject;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
-import net.skillcode.advancedmlgrush.event.EventListener;
 import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.game.map.file.MapFile;
 import net.skillcode.advancedmlgrush.game.map.file.MapFileLoader;

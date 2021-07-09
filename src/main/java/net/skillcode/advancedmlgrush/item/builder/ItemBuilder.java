@@ -38,7 +38,7 @@ public class ItemBuilder {
     private ItemMeta itemMeta;
 
     /**
-     * @see net.skillcode.advancedmlgrush.item.builder.IBFactory
+     * @see IBFactory
      */
     @Inject
     public ItemBuilder(final @NotNull NMSUtils nmsUtils,

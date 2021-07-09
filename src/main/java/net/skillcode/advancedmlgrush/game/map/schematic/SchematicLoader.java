@@ -32,6 +32,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Singleton
 public class SchematicLoader {
@@ -51,15 +52,19 @@ public class SchematicLoader {
                      final @NotNull World world, final @NotNull Runnable onFinish) {
         final int blocksPerTick = mainConfig.getInt(MainConfig.PASTE_BLOCKS_PER_TICK);
         final Queue<StorableBlock> queue = new LinkedList<>(blockList);
+        final AtomicReference<String> lastProgress = new AtomicReference<>("");
 
         new BukkitRunnable() {
             @Override
             public void run() {
-                for (int i = 0; i < Math.min(blocksPerTick, queue.size()); i++) {
+                for (int i = 0; i < Math.min(blocksPerTick * 10, queue.size()); i++) {
 
                     final String progress = String.valueOf(100 - (queue.size() * 100) / blockList.size());
-                    players.forEach(player -> ActionBar.sendActionBar(player,
-                            messageConfig.getString(Optional.of(player), MessageConfig.LOADING_PROGRESS_ACTION_BAR).replace("%progress%", progress)));
+                    if (!progress.equals(lastProgress.get())) {
+                        players.forEach(player -> ActionBar.sendActionBar(player,
+                                messageConfig.getString(Optional.of(player), MessageConfig.LOADING_PROGRESS_ACTION_BAR).replace("%progress%", progress)));
+                        lastProgress.set(progress);
+                    }
 
                     final StorableBlock storableBlock = queue.poll();
 
@@ -72,7 +77,6 @@ public class SchematicLoader {
                     final Material material = enumUtils.isInEnum(Material.class, materialName)
                             ? Material.valueOf(materialName) : XMaterial.STONE.parseMaterial();
 
-
                     block.setType(material);
                     nmsUtils.setBlockData(block, storableBlock.getData());
 
@@ -82,7 +86,7 @@ public class SchematicLoader {
                     cancel();
                 }
             }
-        }.runTaskTimer(javaPlugin, 1, 1);
+        }.runTaskTimer(javaPlugin, 1, 10);
     }
 
 }

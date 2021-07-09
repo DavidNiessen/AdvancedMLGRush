@@ -64,6 +64,7 @@ public class PlayerJoinListener implements Listener {
 
         lobbyItems.setLobbyItems(event.getPlayer());
         scoreboardManager.updateScoreboard(player);
+
     }
 
 }

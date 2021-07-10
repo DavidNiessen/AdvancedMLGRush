@@ -1,6 +1,6 @@
 name: AdvancedMLGRush
 main: net.skillcode.advancedmlgrush.MLGRush
-version: 3.0.1.7
+version: 3.0.1.8
 author: SkillCode
 website: https://skillplugins.com
 api-version: "1.13"
@@ -25,3 +25,8 @@ commands:
   spectate:
   gadgets:
   stats:
+  statsreset:
+    aliases:
+      - resetstats
+      - reset
+      - clearstats

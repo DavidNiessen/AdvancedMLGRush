@@ -109,15 +109,16 @@ public class SchematicLoader {
 
                         block.setType(material);
 
-                        if (!XMaterial.isNewVersion()
-                                || bedSet.contains(material)) {
+                        if (storableBlock.getData() != block.getData()
+                                && (!XMaterial.isNewVersion()
+                                || bedSet.contains(material))) {
                             nmsUtils.setBlockData(block, storableBlock.getData());
                         }
+                    }
 
-                        if (queue.isEmpty()) {
-                            onFinish.run();
-                            cancel();
-                        }
+                    if (queue.isEmpty()) {
+                        onFinish.run();
+                        cancel();
                     }
                 }
             }

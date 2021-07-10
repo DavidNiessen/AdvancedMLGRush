@@ -41,5 +41,6 @@ public class CommandInitializer implements Initializer {
         javaPlugin.getCommand("spectate").setExecutor(injector.getInstance(SpectateCommand.class));
         javaPlugin.getCommand("gadgets").setExecutor(injector.getInstance(GadgetsCommand.class));
         javaPlugin.getCommand("stats").setExecutor(injector.getInstance(StatsCommand.class));
+        javaPlugin.getCommand("statsreset").setExecutor(injector.getInstance(StatsResetCommand.class));
     }
 }

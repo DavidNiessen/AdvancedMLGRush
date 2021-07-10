@@ -14,6 +14,7 @@ package net.skillcode.advancedmlgrush.sql.data;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.event.EventHandler;
 import net.skillcode.advancedmlgrush.event.EventListener;
 import net.skillcode.advancedmlgrush.event.EventListenerPriority;
@@ -21,6 +22,7 @@ import net.skillcode.advancedmlgrush.event.events.PlayerDataLoadEvent;
 import net.skillcode.advancedmlgrush.exception.ExceptionHandler;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.Registrable;
 import net.skillcode.advancedmlgrush.sql.datasavers.MLGDataSaver;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -30,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -45,6 +48,8 @@ public class SQLDataCache implements Registrable, EventHandler {
     private MLGDataSaver mlgDataSaver;
     @Inject
     private ExceptionHandler exceptionHandler;
+    @Inject
+    private MessageConfig messageConfig;
 
 
     @Override
@@ -57,6 +62,35 @@ public class SQLDataCache implements Registrable, EventHandler {
             return cache.get(player);
         }
         return CachedSQLData.DEFAULT_SQL_DATA;
+    }
+
+    public void resetStats(final @NotNull Optional<Player> optionalExecutor, final @NotNull String playerName) {
+        optionalExecutor.ifPresent(executor -> executor.sendMessage(messageConfig.getWithPrefix(optionalExecutor, MessageConfig.STATS_RESET)));
+        mlgDataSaver.resetStats(playerName, state -> {
+            if (optionalExecutor.isPresent()) {
+                final Player executor = optionalExecutor.get();
+                switch (state) {
+                    case SUCCEED:
+                        executor.sendMessage(messageConfig.getWithPrefix(optionalExecutor, MessageConfig.STATS_RESET_SUCCESS));
+
+                        final Player player = Bukkit.getPlayerExact(playerName);
+                        if (player != null
+                                && player.isOnline()) {
+
+                            final CachedSQLData cachedSQLData = getSQLData(player);
+                            cachedSQLData.setStatsWins(0);
+                            cachedSQLData.setStatsLoses(0);
+                            cachedSQLData.setStatsBeds(0);
+                        }
+                        break;
+                    case UNKNOWN_PLAYER:
+                        executor.sendMessage(messageConfig.getWithPrefix(optionalExecutor, MessageConfig.UNKNOWN_PLAYER));
+                        break;
+                    default:
+                        executor.sendMessage(messageConfig.getWithPrefix(optionalExecutor, MessageConfig.ERROR));
+                }
+            }
+        });
     }
 
     public boolean isLoaded(final @NotNull Player player) {

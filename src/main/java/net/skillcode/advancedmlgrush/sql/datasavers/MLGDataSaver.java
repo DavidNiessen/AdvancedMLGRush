@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 @Singleton
 public class MLGDataSaver extends DataSaver {
@@ -83,6 +84,37 @@ public class MLGDataSaver extends DataSaver {
                     cachedSQLData.getGadgetsBlocks(), cachedSQLData.getStatsWins(),
                     cachedSQLData.getStatsLoses(), cachedSQLData.getStatsBeds(),
                     isOfflineMode ? player.getName() : player.getUniqueId().toString()));
+        }
+    }
+
+    public void resetStats(final @NotNull String playerName, final @NotNull Consumer<StatsResetState> consumer) {
+        if (isConnected()) {
+            super.executeQueryAsync(String.format(
+                    "SELECT player_name " +
+                            "FROM {name} " +
+                            "WHERE player_name = '%s';", playerName), new Callback() {
+                @Override
+                public void onSuccess(final @NotNull ResultSet resultSet) throws SQLException {
+                    if (!resultSet.next()) {
+                        consumer.accept(StatsResetState.UNKNOWN_PLAYER);
+                    } else {
+                        executeUpdateAsync(String.format(
+                                "UPDATE {name} " +
+                                        "SET " +
+                                        "stats_wins = 0, " +
+                                        "stats_loses = 0, " +
+                                        "stats_beds = 0 " +
+                                        "WHERE player_name = '%s';", playerName));
+
+                        consumer.accept(StatsResetState.SUCCEED);
+                    }
+                }
+
+                @Override
+                public void onFailure(final @NotNull Optional<Exception> optional) {
+                    consumer.accept(StatsResetState.ERROR);
+                }
+            });
         }
     }
 
@@ -240,5 +272,11 @@ public class MLGDataSaver extends DataSaver {
                     "INSERT INTO {name} (player_uuid, player_name) " +
                             "VALUES ('%1$s', '%2$s');", player.getUniqueId().toString(), player.getName()));
         }
+    }
+
+    public enum StatsResetState {
+        SUCCEED,
+        UNKNOWN_PLAYER,
+        ERROR;
     }
 }

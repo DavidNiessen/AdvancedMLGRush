@@ -16,11 +16,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
-import net.skillcode.advancedmlgrush.game.spawn.SpawnFile;
-import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
-import net.skillcode.advancedmlgrush.util.LocationWrapper;
-import net.skillcode.advancedmlgrush.util.json.JsonLocation;
-import org.bukkit.Location;
+import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
+import net.skillcode.advancedmlgrush.sql.datasavers.MLGDataSaver;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,19 +26,19 @@ import org.bukkit.entity.Player;
 import java.util.Optional;
 
 @Singleton
-public class SetSpawnCommand implements CommandExecutor {
+public class StatsResetCommand implements CommandExecutor {
 
-    @Inject
-    private SpawnFileLoader spawnFileLoader;
     @Inject
     private MessageConfig messageConfig;
     @Inject
-    private LocationWrapper locationWrapper;
-    @Inject
     private MainConfig mainConfig;
+    @Inject
+    private MLGDataSaver mlgDataSaver;
+    @Inject
+    private SQLDataCache sqlDataCache;
 
     @Override
-    public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] strings) {
+    public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] args) {
         if (!(commandSender instanceof Player)) return false;
 
         final Player player = (Player) commandSender;
@@ -52,11 +49,12 @@ public class SetSpawnCommand implements CommandExecutor {
             return false;
         }
 
-        final Location location = player.getLocation();
-        spawnFileLoader.createSpawnFile(new SpawnFile(new JsonLocation(player.getWorld().getName(), location.getX(),
-                location.getY(), location.getZ(), location.getPitch(), location.getYaw())));
+        if (args.length < 1) {
+            player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.STATS_RESET_COMMAND_SYNTAX));
+            return false;
+        }
 
-        player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.SPAWN_SET));
+        sqlDataCache.resetStats(optionalPlayer, args[0]);
         return false;
     }
 }

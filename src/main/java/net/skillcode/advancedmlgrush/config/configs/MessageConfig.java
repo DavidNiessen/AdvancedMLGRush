@@ -51,9 +51,13 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String GAME_START = "game_start";
     public static final String GAME_END = "game_end";
     public static final String LOADING_PROGRESS_ACTION_BAR = "loading_progress_action_bar";
+    public static final String STATS_RESET = "stats_reset";
+    public static final String STATS_RESET_SUCCESS = "stats_reset_success";
+    public static final String UNKNOWN_PLAYER = "unknown_player";
 
     //Command syntaxes
     public static final String SETUP_MAP_COMMAND_SYNTAX = "setup_max_command_syntax";
+    public static final String STATS_RESET_COMMAND_SYNTAX = "stats_reset_command_syntax";
     //setup
 
     public static final String SETUP_ICON = "setup_icon";
@@ -122,8 +126,12 @@ public class MessageConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(GAME_START, "&8&m------------------------------------&r\n \n   &7Map&8: &e%map_name%\n   &7Mode&8: &e%map_mode%\n   &7Rounds&8: &e%map_rounds%\n \n&8&m------------------------------------&r"));
         list.add(new Pair<>(GAME_END, "&e%winner% &awon the game."));
         list.add(new Pair<>(LOADING_PROGRESS_ACTION_BAR, "&8» &eLoading... &8> &e%progress%%"));
+        list.add(new Pair<>(STATS_RESET, "&7Trying to reset stats..."));
+        list.add(new Pair<>(STATS_RESET_SUCCESS, "&aThe stats have been successfully reset!"));
+        list.add(new Pair<>(UNKNOWN_PLAYER, "&cPlayer not found."));
 
         list.add(new Pair<>(SETUP_MAP_COMMAND_SYNTAX, "&cWrong syntax: /setupmap <2x1, 4x1> <name>"));
+        list.add(new Pair<>(STATS_RESET_COMMAND_SYNTAX, "&cWrong syntax: /statsreset <name>"));
 
         list.add(new Pair<>(SETUP_ICON, "&7Hold an item in your hand that will serve as an icon for this map and type '&e&enext&7'."));
         list.add(new Pair<>(SETUP_FIRST_CORNER, "&7Go to the lower left corner of the map and type '&enext&7'."));

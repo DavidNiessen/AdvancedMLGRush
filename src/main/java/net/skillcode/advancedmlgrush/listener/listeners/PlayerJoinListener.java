@@ -15,6 +15,8 @@ package net.skillcode.advancedmlgrush.listener.listeners;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.event.EventManager;
+import net.skillcode.advancedmlgrush.game.GameState;
+import net.skillcode.advancedmlgrush.game.GameStateManager;
 import net.skillcode.advancedmlgrush.game.scoreboard.ScoreboardManager;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFile;
 import net.skillcode.advancedmlgrush.game.spawn.SpawnFileLoader;
@@ -42,6 +44,8 @@ public class PlayerJoinListener implements Listener {
     private ScoreboardManager scoreboardManager;
     @Inject
     private LocationWrapper locationWrapper;
+    @Inject
+    private GameStateManager gameStateManager;
 
     @EventHandler
     public void onJoin(final @NotNull PlayerJoinEvent event) {
@@ -64,6 +68,7 @@ public class PlayerJoinListener implements Listener {
 
         lobbyItems.setLobbyItems(event.getPlayer());
         scoreboardManager.updateScoreboard(player);
+        gameStateManager.setGameState(player, GameState.LOBBY);
 
     }
 

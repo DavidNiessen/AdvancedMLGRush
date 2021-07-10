@@ -17,6 +17,8 @@ import com.google.common.collect.HashBiMap;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
+import net.skillcode.advancedmlgrush.game.GameState;
+import net.skillcode.advancedmlgrush.game.GameStateManager;
 import net.skillcode.advancedmlgrush.game.map.world.MapWorldGenerator;
 import net.skillcode.advancedmlgrush.game.scoreboard.ScoreboardManager;
 import net.skillcode.advancedmlgrush.miscellaneous.registrable.Registrable;
@@ -41,6 +43,8 @@ public class MapInstanceManager implements Registrable {
     private MessageConfig messageConfig;
     @Inject
     private ScoreboardManager scoreboardManager;
+    @Inject
+    private GameStateManager gameStateManager;
 
     public Optional<MapInstance> createInstance(final List<Player> players, final @NotNull MapTemplate mapTemplate, final int rounds) {
         if (players.size() != mapTemplate.getMapData().getMapType().getPlayers()) {
@@ -52,7 +56,10 @@ public class MapInstanceManager implements Registrable {
                 biMap.put(players.get(i), i);
             }
             final MapInstance mapInstance = mapInstanceFactory.create(mapTemplate, mapTemplate.getMapData(), biMap, rounds);
-            players.forEach(player -> mapInstanceMap.put(player, mapInstance));
+            players.forEach(player -> {
+                mapInstanceMap.put(player, mapInstance);
+                gameStateManager.setGameState(player, GameState.INGAME);
+            });
             scoreboardManager.updateScoreboard();
 
             return Optional.of(mapInstance);

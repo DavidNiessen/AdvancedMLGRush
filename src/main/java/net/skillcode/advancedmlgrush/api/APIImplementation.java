@@ -14,6 +14,8 @@ package net.skillcode.advancedmlgrush.api;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.game.GameState;
+import net.skillcode.advancedmlgrush.game.GameStateManager;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.game.scoreboard.ScoreboardManager;
@@ -40,6 +42,8 @@ public class APIImplementation implements MLGRushAPI {
     private ScoreboardManager scoreboardManager;
     @Inject
     private Ranking ranking;
+    @Inject
+    private GameStateManager gameStateManager;
 
     @Override
     public void registerItemOW(final @NotNull ItemOW itemOW) {
@@ -84,5 +88,10 @@ public class APIImplementation implements MLGRushAPI {
     @Override
     public MapInstanceManager getMapInstanceManager() {
         return mapInstanceManager;
+    }
+
+    @Override
+    public GameState getGameState(final @NotNull Player player) {
+        return gameStateManager.getGameState(player);
     }
 }

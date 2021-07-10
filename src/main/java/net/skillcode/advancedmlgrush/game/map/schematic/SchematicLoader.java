@@ -14,6 +14,7 @@ package net.skillcode.advancedmlgrush.game.map.schematic;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.annotations.PostConstruct;
 import net.skillcode.advancedmlgrush.config.configs.MainConfig;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
 import net.skillcode.advancedmlgrush.libs.xseries.ActionBar;
@@ -28,10 +29,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Singleton
@@ -48,6 +46,35 @@ public class SchematicLoader {
     @Inject
     private MessageConfig messageConfig;
 
+    private final Set<Material> bedSet = new HashSet<>();
+
+    @PostConstruct
+    public void init() {
+        bedSet.add(XMaterial.WHITE_BED.parseMaterial());
+
+        final Material orangeBed = XMaterial.ORANGE_BED.parseMaterial();
+
+        if (!bedSet.contains(orangeBed)) {
+            bedSet.addAll(Arrays.asList(
+                    orangeBed,
+                    XMaterial.MAGENTA_BED.parseMaterial(),
+                    XMaterial.LIGHT_BLUE_BED.parseMaterial(),
+                    XMaterial.YELLOW_BED.parseMaterial(),
+                    XMaterial.LIME_BED.parseMaterial(),
+                    XMaterial.PINK_BED.parseMaterial(),
+                    XMaterial.GRAY_BED.parseMaterial(),
+                    XMaterial.LIGHT_GRAY_BED.parseMaterial(),
+                    XMaterial.CYAN_BED.parseMaterial(),
+                    XMaterial.PURPLE_BED.parseMaterial(),
+                    XMaterial.BLUE_BED.parseMaterial(),
+                    XMaterial.BROWN_BED.parseMaterial(),
+                    XMaterial.GREEN_BED.parseMaterial(),
+                    XMaterial.RED_BED.parseMaterial(),
+                    XMaterial.BLACK_BED.parseMaterial()
+            ));
+        }
+    }
+
     public void load(final @NotNull List<StorableBlock> blockList, final @NotNull Iterable<Player> players,
                      final @NotNull World world, final @NotNull Runnable onFinish) {
         final int blocksPerTick = mainConfig.getInt(MainConfig.PASTE_BLOCKS_PER_TICK);
@@ -57,14 +84,15 @@ public class SchematicLoader {
         new BukkitRunnable() {
             @Override
             public void run() {
-                for (int i = 0; i < Math.min(blocksPerTick * 10, queue.size()); i++) {
 
-                    final String progress = String.valueOf(100 - (queue.size() * 100) / blockList.size());
-                    if (!progress.equals(lastProgress.get())) {
-                        players.forEach(player -> ActionBar.sendActionBar(player,
-                                messageConfig.getString(Optional.of(player), MessageConfig.LOADING_PROGRESS_ACTION_BAR).replace("%progress%", progress)));
-                        lastProgress.set(progress);
-                    }
+                final String progress = String.valueOf(100 - (queue.size() * 100) / blockList.size());
+                if (!progress.equals(lastProgress.get())) {
+                    players.forEach(player -> ActionBar.sendActionBar(player,
+                            messageConfig.getString(Optional.of(player), MessageConfig.LOADING_PROGRESS_ACTION_BAR).replace("%progress%", progress)));
+                    lastProgress.set(progress);
+                }
+
+                for (int i = 0; i < Math.min(blocksPerTick * 10, queue.size()); i++) {
 
                     final StorableBlock storableBlock = queue.poll();
 
@@ -77,13 +105,20 @@ public class SchematicLoader {
                     final Material material = enumUtils.isInEnum(Material.class, materialName)
                             ? Material.valueOf(materialName) : XMaterial.STONE.parseMaterial();
 
-                    block.setType(material);
-                    nmsUtils.setBlockData(block, storableBlock.getData());
+                    if (material != null) {
 
-                }
-                if (queue.isEmpty()) {
-                    onFinish.run();
-                    cancel();
+                        block.setType(material);
+
+                        if (!XMaterial.isNewVersion()
+                                || bedSet.contains(material)) {
+                            nmsUtils.setBlockData(block, storableBlock.getData());
+                        }
+
+                        if (queue.isEmpty()) {
+                            onFinish.run();
+                            cancel();
+                        }
+                    }
                 }
             }
         }.runTaskTimer(javaPlugin, 1, 10);

@@ -15,6 +15,7 @@ package net.skillcode.advancedmlgrush.miscellaneous.registrable;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
+import net.skillcode.advancedmlgrush.game.GameStateManager;
 import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.game.map.setup.MapSetup2x1;
@@ -48,5 +49,6 @@ public class RegistrableInitializer implements Initializer {
         manager.registerRegistrable(injector.getInstance(MapSetup4x1.class));
         manager.registerRegistrable(injector.getInstance(MapInstanceManager.class));
         manager.registerRegistrable(injector.getInstance(ScoreboardManager.class));
+        manager.registerRegistrable(injector.getInstance(GameStateManager.class));
     }
 }

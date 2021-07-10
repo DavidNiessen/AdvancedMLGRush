@@ -15,7 +15,8 @@ package net.skillcode.advancedmlgrush.command.commands;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
-import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
+import net.skillcode.advancedmlgrush.game.GameState;
+import net.skillcode.advancedmlgrush.game.GameStateManager;
 import net.skillcode.advancedmlgrush.game.queue.Queue2x1;
 import net.skillcode.advancedmlgrush.game.queue.Queue4x1;
 import net.skillcode.advancedmlgrush.inventory.inventories.QueueInventory;
@@ -41,7 +42,7 @@ public class QueueCommand implements CommandExecutor {
     @Inject
     private Queue4x1 queue4x1;
     @Inject
-    private MapInstanceManager mapInstanceManager;
+    private GameStateManager gameStateManager;
 
     @Override
     public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] args) {
@@ -54,7 +55,7 @@ public class QueueCommand implements CommandExecutor {
             return false;
         }
 
-        if (mapInstanceManager.isIngame(player)) {
+        if (gameStateManager.getGameState(player) != GameState.LOBBY) {
             player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.CANNOT_USE_COMMAND));
             return false;
         }

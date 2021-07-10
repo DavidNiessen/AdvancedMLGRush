@@ -13,6 +13,7 @@
 package net.skillcode.advancedmlgrush.api;
 
 import net.skillcode.advancedmlgrush.event.events.PlayerDataLoadEvent;
+import net.skillcode.advancedmlgrush.game.GameState;
 import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
 import net.skillcode.advancedmlgrush.game.map.MapManager;
 import net.skillcode.advancedmlgrush.game.stats.Ranking;
@@ -93,6 +94,14 @@ public interface MLGRushAPI {
      * @return the MapInstanceManager.
      */
     MapInstanceManager getMapInstanceManager();
+
+    /**
+     * Get the current GameState of a player
+     *
+     * @param player the player
+     * @return the GameState
+     */
+    GameState getGameState(final @NotNull Player player);
 
 
 }

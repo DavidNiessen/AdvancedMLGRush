@@ -15,7 +15,8 @@ package net.skillcode.advancedmlgrush.command.commands;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import net.skillcode.advancedmlgrush.config.configs.MessageConfig;
-import net.skillcode.advancedmlgrush.game.map.MapInstanceManager;
+import net.skillcode.advancedmlgrush.game.GameState;
+import net.skillcode.advancedmlgrush.game.GameStateManager;
 import net.skillcode.advancedmlgrush.inventory.inventories.GadgetsInventory;
 import net.skillcode.advancedmlgrush.sql.data.SQLDataCache;
 import org.bukkit.command.Command;
@@ -35,7 +36,8 @@ public class GadgetsCommand implements CommandExecutor {
     @Inject
     private GadgetsInventory gadgetsInventory;
     @Inject
-    private MapInstanceManager mapInstanceManager;
+    private GameStateManager gameStateManager;
+
 
     @Override
     public boolean onCommand(final CommandSender commandSender, final Command command, final String s, final String[] strings) {
@@ -47,7 +49,7 @@ public class GadgetsCommand implements CommandExecutor {
             return false;
         }
 
-        if (mapInstanceManager.isIngame(player)) {
+        if (gameStateManager.getGameState(player) != GameState.LOBBY) {
             player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.CANNOT_USE_COMMAND));
             return false;
         }

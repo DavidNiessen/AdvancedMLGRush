@@ -26,6 +26,8 @@ import net.skillcode.advancedmlgrush.event.EventListenerPriority;
 import net.skillcode.advancedmlgrush.event.EventManager;
 import net.skillcode.advancedmlgrush.event.events.GameEndEvent;
 import net.skillcode.advancedmlgrush.event.events.GameStartEvent;
+import net.skillcode.advancedmlgrush.game.GameState;
+import net.skillcode.advancedmlgrush.game.GameStateManager;
 import net.skillcode.advancedmlgrush.game.buildmode.BuildModeManager;
 import net.skillcode.advancedmlgrush.game.map.schematic.SchematicLoader;
 import net.skillcode.advancedmlgrush.game.map.world.MapWorldGenerator;
@@ -127,6 +129,8 @@ public class MapInstance implements EventHandler {
     private ScoreboardManager scoreboardManager;
     @Inject
     private BuildModeManager buildModeManager;
+    @Inject
+    private GameStateManager gameStateManager;
 
     @Inject
     public MapInstance(final @Assisted @NotNull MapTemplate mapTemplate,
@@ -286,7 +290,8 @@ public class MapInstance implements EventHandler {
                                 if (players.containsKey(player)) {
                                     teleportToPlayerSpawn(player);
                                     soundUtil.playSound(player, SoundConfig.DEATH);
-                                } else if (spectators.contains(player)) {
+                                } else if (spectators.contains(player)
+                                        && gameStateManager.getGameState(player) == GameState.SPECTATOR) {
                                     teleportToSpectatorSpawn(player);
                                 }
                             }
@@ -333,12 +338,18 @@ public class MapInstance implements EventHandler {
     }
 
     public void addSpectator(final @NotNull Player player) {
+        if (gameStateManager.getGameState(player) != GameState.LOBBY) {
+            player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.ERROR));
+            return;
+        }
+
         spectators.add(player);
         player.getInventory().clear();
         player.setAllowFlight(true);
         player.setFlying(true);
         player.spigot().setCollidesWithEntities(false);
 
+        gameStateManager.setGameState(player, GameState.SPECTATOR);
         teleportToSpectatorSpawn(player);
         player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, true, false));
         Bukkit.getOnlinePlayers().forEach(player1 -> player1.hidePlayer(player));
@@ -352,10 +363,12 @@ public class MapInstance implements EventHandler {
         player.setAllowFlight(false);
         player.setFlying(false);
         player.spigot().setCollidesWithEntities(true);
+        gameStateManager.setGameState(player, GameState.UNKNOWN);
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> {
 
             teleportToSpawn(player);
+            gameStateManager.setGameState(player, GameState.LOBBY);
             player.getActivePotionEffects().forEach(potionEffect -> player.removePotionEffect(potionEffect.getType()));
             Bukkit.getOnlinePlayers().forEach(player1 -> player1.showPlayer(player));
 
@@ -396,6 +409,7 @@ public class MapInstance implements EventHandler {
             mapInstanceManager.unregister(player);
 
             teleportToSpawn(player);
+            gameStateManager.setGameState(player, GameState.LOBBY);
             scoreboardManager.updateScoreboard(player);
 
         });
@@ -414,6 +428,7 @@ public class MapInstance implements EventHandler {
         sqlDataCache.getSQLData(player).increaseLoses();
 
         teleportToSpawn(player);
+        gameStateManager.setGameState(player, GameState.LOBBY);
         scoreboardManager.updateScoreboard(player);
         if (players.size() == 1) {
             endGame(players.keySet().iterator().next());

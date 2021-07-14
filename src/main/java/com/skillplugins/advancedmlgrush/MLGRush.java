@@ -93,6 +93,7 @@ public class MLGRush extends JavaPlugin {
         eventHandlerInitializer.init(injector);
         commandInitializer.init(injector);
         compressorManager.init(injector);
+
         serializerManager.init(injector);
         mapManager.init(injector);
 

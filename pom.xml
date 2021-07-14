@@ -8,7 +8,7 @@
   ~ This file may only be used in compliance with the
   ~ LICENSE.txt (https://github.com/SkillC0de/AdvancedMLGRush/blob/master/LICENSE.txt).
   ~
-  ~ Support: https://discord.skillplugins.com
+  ~ Support: http://discord.skillplugins.com
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -72,10 +72,17 @@
         </repository>
     </repositories>
     <dependencies>
-        <!-- spigot dependency -->
+        <!-- Spigot API -->
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.13-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- CraftBukkit API -->
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit</artifactId>
             <version>1.13-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>

@@ -14,6 +14,7 @@ package com.skillplugins.advancedmlgrush.game.map.schematic.compressor;
 
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
+import com.skillplugins.advancedmlgrush.game.map.schematic.compressor.compressors.Base64Compressor;
 import com.skillplugins.advancedmlgrush.game.map.schematic.compressor.compressors.GZIPCompressor;
 import com.skillplugins.advancedmlgrush.util.Initializer;
 import org.jetbrains.annotations.NotNull;
@@ -35,6 +36,7 @@ public class CompressorManager implements Initializer {
 
     @Override
     public void init(final @NotNull Injector injector) {
+        register(injector.getInstance(Base64Compressor.class));
         register(injector.getInstance(GZIPCompressor.class));
     }
 

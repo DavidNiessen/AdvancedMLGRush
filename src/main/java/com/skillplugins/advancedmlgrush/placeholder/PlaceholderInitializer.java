@@ -15,10 +15,7 @@ package com.skillplugins.advancedmlgrush.placeholder;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
-import com.skillplugins.advancedmlgrush.placeholder.placeholders.PlayerPlaceholder;
-import com.skillplugins.advancedmlgrush.placeholder.placeholders.PlayersInGamePlaceholder;
-import com.skillplugins.advancedmlgrush.placeholder.placeholders.Queue2x1Placeholder;
-import com.skillplugins.advancedmlgrush.placeholder.placeholders.Queue4x1Placeholder;
+import com.skillplugins.advancedmlgrush.placeholder.placeholders.*;
 import com.skillplugins.advancedmlgrush.placeholder.placeholders.map.*;
 import com.skillplugins.advancedmlgrush.placeholder.placeholders.settings.MapPlaceholder;
 import com.skillplugins.advancedmlgrush.placeholder.placeholders.settings.RoundsPlaceholder;
@@ -88,5 +85,7 @@ public class PlaceholderInitializer implements Initializer {
         placeholderManager.registerPlaceholder(injector.getInstance(MapTemplatesPlaceholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapTemplates2x1Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(MapTemplates4x1Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(OnlinePlayersPlaceholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(PlayerUUIDPlaceholder.class));
     }
 }

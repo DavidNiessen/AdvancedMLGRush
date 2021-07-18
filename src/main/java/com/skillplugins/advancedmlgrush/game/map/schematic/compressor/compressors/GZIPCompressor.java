@@ -17,6 +17,8 @@ import com.google.inject.Singleton;
 import com.skillplugins.advancedmlgrush.config.configs.MainConfig;
 import com.skillplugins.advancedmlgrush.exception.ExceptionHandler;
 import com.skillplugins.advancedmlgrush.game.map.schematic.compressor.BlockCompressor;
+import org.bukkit.Bukkit;
+import org.fusesource.jansi.Ansi;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedOutputStream;
@@ -29,6 +31,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 @Singleton
+@Deprecated
 public class GZIPCompressor implements BlockCompressor {
 
     private final ExceptionHandler exceptionHandler;
@@ -46,8 +49,9 @@ public class GZIPCompressor implements BlockCompressor {
         return "GZIP";
     }
 
-
+    @Deprecated
     public Optional<String> compress(final @NotNull String string) {
+        Bukkit.getLogger().warning(Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "WARNING: The GZIP compressor will be removed at some point in the future and should not be used if possible." + Ansi.ansi().reset());
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
             final GZIPOutputStream gzipOutputStream = new GZIPOutputStream(new BufferedOutputStream(byteArrayOutputStream));
@@ -60,7 +64,9 @@ public class GZIPCompressor implements BlockCompressor {
         return Optional.empty();
     }
 
+    @Deprecated
     public Optional<String> uncompress(final @NotNull String string) {
+        Bukkit.getLogger().warning(Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "WARNING: The GZIP compressor will be removed at some point in the future and should not be used if possible." + Ansi.ansi().reset());
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(string.getBytes(StandardCharsets.ISO_8859_1));
         try {

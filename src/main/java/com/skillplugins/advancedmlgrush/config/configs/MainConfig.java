@@ -72,7 +72,7 @@ public class MainConfig extends Configurable {
         list.add(new Pair<>(INFINITE_BLOCKS, true));
         list.add(new Pair<>(MAP_ITEM_PREFIX, "&8» &e"));
         list.add(new Pair<>(PASTE_BLOCKS_PER_TICK, 20));
-        list.add(new Pair<>(DEFAULT_COMPRESSOR, "GZIP"));
+        list.add(new Pair<>(DEFAULT_COMPRESSOR, "BASE64"));
         list.add(new Pair<>(DEFAULT_SERIALIZER, "JSON"));
         list.add(new Pair<>(GZIP_COMPRESSOR_BUFFER_SIZE, 1024));
         list.add(new Pair<>(STATS_ITEM_LORE, new ArrayList<>(Arrays.asList(

@@ -84,7 +84,6 @@ public class MapSetup2x1 extends MapSetup {
                 return Optional.empty();
             }
 
-
             return Optional.of(new MapFile(MapType.M2x1, mapName, Bukkit.getBukkitVersion(), icon, data,
                     Collections.singletonList(""), serializer, compressor, blocks.get(), maxBuildHeight, deathHeight,
                     jSpectatorSpawn, jPlayerSpawns, jPlayerBeds));

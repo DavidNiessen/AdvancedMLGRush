@@ -84,5 +84,9 @@ public class PlaceholderInitializer implements Initializer {
         placeholderManager.registerPlaceholder(injector.getInstance(Wins8Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(Wins9Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(Wins10Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapsPlaceholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapTemplatesPlaceholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapTemplates2x1Placeholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(MapTemplates4x1Placeholder.class));
     }
 }

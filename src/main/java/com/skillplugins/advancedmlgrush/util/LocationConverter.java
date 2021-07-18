@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Singleton
-public class LocationWrapper {
+public class LocationConverter {
 
     public JsonLocation toJsonLocation(final @NotNull Location location) {
         return new JsonLocation(location.getWorld().getName(), location.getX(), location.getY(),

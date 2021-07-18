@@ -43,7 +43,7 @@ public class MapManager implements Initializer, Registrable {
     @Inject
     private MapTemplateFactory mapTemplateFactory;
     @Inject
-    private MapDataWrapper mapDataWrapper;
+    private MapDataConverter mapDataConverter;
     @Inject
     private SQLDataCache sqlDataCache;
     @Inject
@@ -54,7 +54,7 @@ public class MapManager implements Initializer, Registrable {
         mapFileLoader.loadFilesIfExists();
         mapFileLoader.getMapFiles().forEach(mapFile -> {
             final long millis = System.currentTimeMillis();
-            final Optional<MapData> optionalMapData = mapDataWrapper.getMapData(mapFile);
+            final Optional<MapData> optionalMapData = mapDataConverter.getMapData(mapFile);
             if (optionalMapData.isPresent()) {
                 final MapTemplate mapTemplate = mapTemplateFactory.create(optionalMapData.get());
                 switch (mapTemplate.getMapData().getMapType()) {

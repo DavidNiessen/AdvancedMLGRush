@@ -41,8 +41,8 @@ import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
 import com.skillplugins.advancedmlgrush.sound.SoundUtil;
 import com.skillplugins.advancedmlgrush.sql.data.SQLDataCache;
 import com.skillplugins.advancedmlgrush.util.ListBuilder;
+import com.skillplugins.advancedmlgrush.util.LocationConverter;
 import com.skillplugins.advancedmlgrush.util.LocationUtils;
-import com.skillplugins.advancedmlgrush.util.LocationWrapper;
 import com.skillplugins.advancedmlgrush.util.Pair;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -106,7 +106,7 @@ public class MapInstance implements EventHandler {
     @Inject
     private SpawnFileLoader spawnFileLoader;
     @Inject
-    private LocationWrapper locationWrapper;
+    private LocationConverter locationConverter;
     @Inject
     private MapInstanceManager mapInstanceManager;
     @Inject
@@ -210,8 +210,12 @@ public class MapInstance implements EventHandler {
                                     player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.BREAK_OWN_BED));
                                 } else {
                                     final int playerIndex = players.get(player);
+                                    final Player bedOwner = players.inverse().get(index);
                                     mapStats.increaseScore(playerIndex);
                                     sqlDataCache.getSQLData(player).increaseBeds();
+                                    players.keySet().forEach(player1 -> player1.sendMessage(messageConfig.getWithPrefix(
+                                            Optional.of(player), MessageConfig.BED_BREAK).replace("%player_1%", player.getName())
+                                            .replace("%player_2%", bedOwner.getName())));
                                     final int score = mapStats.getScore(playerIndex);
                                     if (score == rounds) {
                                         endGame(player);
@@ -287,6 +291,8 @@ public class MapInstance implements EventHandler {
                             if (event.getTo().getY() <= mapData.getDeathHeight()) {
                                 if (players.containsKey(player)) {
                                     teleportToPlayerSpawn(player);
+                                    player.sendMessage(messageConfig.getWithPrefix(Optional.of(player),
+                                            MessageConfig.DEATH));
                                     soundUtil.playSound(player, SoundConfig.DEATH);
                                 } else if (spectators.contains(player)
                                         && gameStateManager.getGameState(player) == GameState.SPECTATOR) {
@@ -457,7 +463,7 @@ public class MapInstance implements EventHandler {
         final Optional<SpawnFile> optional = spawnFileLoader.getSpawnFileOptional();
         if (optional.isPresent()) {
             player.getInventory().clear();
-            player.teleport(locationWrapper.toLocation(optional.get().getJsonLocation()));
+            player.teleport(locationConverter.toLocation(optional.get().getJsonLocation()));
             lobbyItems.setLobbyItems(player);
         } else {
             player.kickPlayer(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.ERROR));

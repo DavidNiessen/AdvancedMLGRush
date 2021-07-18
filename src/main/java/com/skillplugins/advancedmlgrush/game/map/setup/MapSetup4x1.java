@@ -17,11 +17,11 @@ import com.google.inject.Singleton;
 import com.skillplugins.advancedmlgrush.config.configs.MainConfig;
 import com.skillplugins.advancedmlgrush.game.map.MapType;
 import com.skillplugins.advancedmlgrush.game.map.file.MapFile;
-import com.skillplugins.advancedmlgrush.game.map.schematic.BlockWrapper;
+import com.skillplugins.advancedmlgrush.game.map.schematic.BlockConverter;
 import com.skillplugins.advancedmlgrush.game.map.setup.step.SetupSteps;
 import com.skillplugins.advancedmlgrush.game.map.setup.step.SetupSteps4x1;
 import com.skillplugins.advancedmlgrush.util.BlockUtils;
-import com.skillplugins.advancedmlgrush.util.LocationWrapper;
+import com.skillplugins.advancedmlgrush.util.LocationConverter;
 import com.skillplugins.advancedmlgrush.util.Pair;
 import com.skillplugins.advancedmlgrush.util.json.JsonLocation;
 import org.bukkit.Bukkit;
@@ -38,9 +38,9 @@ public class MapSetup4x1 extends MapSetup {
     @Inject
     private BlockUtils blockUtils;
     @Inject
-    private BlockWrapper blockWrapper;
+    private BlockConverter blockConverter;
     @Inject
-    private LocationWrapper locationWrapper;
+    private LocationConverter locationConverter;
     @Inject
     private MainConfig mainConfig;
 
@@ -80,10 +80,10 @@ public class MapSetup4x1 extends MapSetup {
             final List<Pair<Location, Location>> playerBeds = new ArrayList<>(Arrays.asList(bedPlayer1, bedPlayer2, bedPlayer3, bedPlayer4));
 
 
-            final Optional<String> blocks = blockWrapper.toString(blockUtils.getBlocksBetweenLocations(firstCorner, secondCorner), serializer, compressor);
-            final JsonLocation jSpectatorSpawn = locationWrapper.toJsonLocation(spectatorSpawn);
-            final List<JsonLocation> jPlayerSpawns = new ArrayList<>(locationWrapper.toJsonList(playerSpawns));
-            final List<Pair<JsonLocation, JsonLocation>> jPlayerBeds = new ArrayList<>(locationWrapper.toJsonPairList(playerBeds));
+            final Optional<String> blocks = blockConverter.toString(blockUtils.getBlocksBetweenLocations(firstCorner, secondCorner), serializer, compressor);
+            final JsonLocation jSpectatorSpawn = locationConverter.toJsonLocation(spectatorSpawn);
+            final List<JsonLocation> jPlayerSpawns = new ArrayList<>(locationConverter.toJsonList(playerSpawns));
+            final List<Pair<JsonLocation, JsonLocation>> jPlayerBeds = new ArrayList<>(locationConverter.toJsonPairList(playerBeds));
 
             if (!blocks.isPresent()) {
                 return Optional.empty();

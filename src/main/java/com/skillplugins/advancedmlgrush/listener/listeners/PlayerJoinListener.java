@@ -21,7 +21,7 @@ import com.skillplugins.advancedmlgrush.game.scoreboard.ScoreboardManager;
 import com.skillplugins.advancedmlgrush.game.spawn.SpawnFile;
 import com.skillplugins.advancedmlgrush.game.spawn.SpawnFileLoader;
 import com.skillplugins.advancedmlgrush.item.items.LobbyItems;
-import com.skillplugins.advancedmlgrush.util.LocationWrapper;
+import com.skillplugins.advancedmlgrush.util.LocationConverter;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -45,7 +45,7 @@ public class PlayerJoinListener implements Listener {
     @Inject
     private ScoreboardManager scoreboardManager;
     @Inject
-    private LocationWrapper locationWrapper;
+    private LocationConverter locationConverter;
     @Inject
     private GameStateManager gameStateManager;
     @Inject
@@ -61,7 +61,7 @@ public class PlayerJoinListener implements Listener {
         Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> {
 
             final Optional<SpawnFile> spawnFileOptional = spawnFileLoader.getSpawnFileOptional();
-            spawnFileOptional.ifPresent(spawnFile -> player.teleport(locationWrapper.toLocation(spawnFile.getJsonLocation())));
+            spawnFileOptional.ifPresent(spawnFile -> player.teleport(locationConverter.toLocation(spawnFile.getJsonLocation())));
 
             player.getInventory().clear();
             player.setHealth(20D);

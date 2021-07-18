@@ -20,7 +20,7 @@ import com.skillplugins.advancedmlgrush.config.configs.MessageConfig;
 import com.skillplugins.advancedmlgrush.libs.xseries.ActionBar;
 import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
 import com.skillplugins.advancedmlgrush.util.EnumUtils;
-import com.skillplugins.advancedmlgrush.util.LocationWrapper;
+import com.skillplugins.advancedmlgrush.util.LocationConverter;
 import com.skillplugins.advancedmlgrush.util.NMSUtils;
 import com.skillplugins.advancedmlgrush.util.Pair;
 import org.bukkit.Location;
@@ -52,7 +52,7 @@ public class SchematicLoader {
     @Inject
     private MessageConfig messageConfig;
     @Inject
-    private LocationWrapper locationWrapper;
+    private LocationConverter locationConverter;
 
     private final Set<Material> bedSet = new HashSet<>();
 

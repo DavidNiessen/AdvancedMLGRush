@@ -18,7 +18,7 @@ import com.skillplugins.advancedmlgrush.config.configs.MainConfig;
 import com.skillplugins.advancedmlgrush.config.configs.MessageConfig;
 import com.skillplugins.advancedmlgrush.game.spawn.SpawnFile;
 import com.skillplugins.advancedmlgrush.game.spawn.SpawnFileLoader;
-import com.skillplugins.advancedmlgrush.util.LocationWrapper;
+import com.skillplugins.advancedmlgrush.util.LocationConverter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -34,7 +34,7 @@ public class SetSpawnCommand implements CommandExecutor {
     @Inject
     private MessageConfig messageConfig;
     @Inject
-    private LocationWrapper locationWrapper;
+    private LocationConverter locationConverter;
     @Inject
     private MainConfig mainConfig;
 
@@ -50,7 +50,7 @@ public class SetSpawnCommand implements CommandExecutor {
             return false;
         }
 
-        spawnFileLoader.createSpawnFile(new SpawnFile(locationWrapper.toJsonLocation(player.getLocation())));
+        spawnFileLoader.createSpawnFile(new SpawnFile(locationConverter.toJsonLocation(player.getLocation())));
 
         player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.SPAWN_SET));
         return false;

@@ -17,7 +17,7 @@ import com.google.inject.Singleton;
 import com.skillplugins.advancedmlgrush.event.EventManager;
 import com.skillplugins.advancedmlgrush.game.spawn.SpawnFile;
 import com.skillplugins.advancedmlgrush.game.spawn.SpawnFileLoader;
-import com.skillplugins.advancedmlgrush.util.LocationWrapper;
+import com.skillplugins.advancedmlgrush.util.LocationConverter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,7 +35,7 @@ public class PlayerMoveListener implements Listener {
     @Inject
     private SpawnFileLoader spawnFileLoader;
     @Inject
-    private LocationWrapper locationWrapper;
+    private LocationConverter locationConverter;
 
     @EventHandler
     public void onMove(final @NotNull PlayerMoveEvent event) {
@@ -44,7 +44,7 @@ public class PlayerMoveListener implements Listener {
             final Player player = event.getPlayer();
             final Optional<SpawnFile> spawnFileOptional = spawnFileLoader.getSpawnFileOptional();
             if (spawnFileOptional.isPresent()) {
-                final Location location = locationWrapper.toLocation(spawnFileOptional.get().getJsonLocation());
+                final Location location = locationConverter.toLocation(spawnFileOptional.get().getJsonLocation());
                 if (player.getWorld().equals(location.getWorld())) {
                     player.teleport(location);
                 }

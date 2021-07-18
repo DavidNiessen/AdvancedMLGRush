@@ -32,7 +32,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Singleton
-public class BlockWrapper {
+public class BlockConverter {
 
     @Inject
     private ExceptionHandler exceptionHandler;

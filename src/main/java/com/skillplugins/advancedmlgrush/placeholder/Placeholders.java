@@ -66,7 +66,7 @@ public class Placeholders {
         return result.get();
     }
 
-    private String replaceColors(final @NotNull String input) {
+    public String replaceColors(final @NotNull String input) {
         return input.replace("&", "§");
     }
 

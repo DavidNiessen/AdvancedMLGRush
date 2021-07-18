@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.skillplugins.advancedmlgrush.event.EventManager;
 import com.skillplugins.advancedmlgrush.item.ItemUtils;
+import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -59,6 +60,7 @@ public class PlayerInteractListener implements Listener {
         }
 
         if (itemUtils.isValidItem(itemInHand)
+                && itemInHand.getType() != XMaterial.PLAYER_HEAD.parseMaterial()
                 && itemInHand.getDurability() != 0) {
             itemInHand.setDurability((short) 0);
 

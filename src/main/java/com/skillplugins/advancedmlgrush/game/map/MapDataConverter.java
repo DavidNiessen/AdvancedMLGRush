@@ -15,11 +15,11 @@ package com.skillplugins.advancedmlgrush.game.map;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.skillplugins.advancedmlgrush.game.map.file.MapFile;
-import com.skillplugins.advancedmlgrush.game.map.schematic.BlockWrapper;
+import com.skillplugins.advancedmlgrush.game.map.schematic.BlockConverter;
 import com.skillplugins.advancedmlgrush.game.map.schematic.StorableBlock;
 import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
 import com.skillplugins.advancedmlgrush.util.EnumUtils;
-import com.skillplugins.advancedmlgrush.util.LocationWrapper;
+import com.skillplugins.advancedmlgrush.util.LocationConverter;
 import com.skillplugins.advancedmlgrush.util.Pair;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
@@ -28,14 +28,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Singleton
-public class MapDataWrapper {
+public class MapDataConverter {
 
     @Inject
     private EnumUtils enumUtils;
     @Inject
-    private BlockWrapper blockWrapper;
+    private BlockConverter blockConverter;
     @Inject
-    private LocationWrapper locationWrapper;
+    private LocationConverter locationConverter;
 
     public Optional<MapData> getMapData(final @NotNull MapFile mapFile) {
         final String iconMaterialName = mapFile.getIcon();
@@ -46,15 +46,15 @@ public class MapDataWrapper {
 
         final List<String> description = mapFile.getDescription();
 
-        final Optional<List<StorableBlock>> blocks = blockWrapper.toList(mapFile.getBlocks(), mapFile);
+        final Optional<List<StorableBlock>> blocks = blockConverter.toList(mapFile.getBlocks(), mapFile);
 
         if (!blocks.isPresent()) {
             return Optional.empty();
         }
 
-        final Location spectatorSpawn = locationWrapper.toLocation(mapFile.getSpectatorSpawn());
-        final List<Location> spawns = locationWrapper.toList(mapFile.getSpawns());
-        final List<Pair<Location, Location>> beds = locationWrapper.toPairList(mapFile.getBeds());
+        final Location spectatorSpawn = locationConverter.toLocation(mapFile.getSpectatorSpawn());
+        final List<Location> spawns = locationConverter.toList(mapFile.getSpawns());
+        final List<Pair<Location, Location>> beds = locationConverter.toPairList(mapFile.getBeds());
 
         return Optional.of(new MapData(mapFile.getMapType(), mapFile.getName(), iconMaterial, data,
                 description, blocks.get(), mapFile.getMaxBuildHeight(),

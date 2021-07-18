@@ -30,6 +30,7 @@ public class CompressorManager implements Initializer {
 
     public Optional<BlockCompressor> getCompressor(final @NotNull String compressor) {
         return Optional.ofNullable(compressorMap.getOrDefault(compressor.toUpperCase(Locale.ROOT), null));
+
     }
 
     @Override

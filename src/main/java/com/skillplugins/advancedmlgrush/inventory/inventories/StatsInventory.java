@@ -48,7 +48,7 @@ public class StatsInventory extends AbstractInventory {
     @Override
     protected Pair<Inventory, String> onCreate() {
         final String title = inventoryUtils.getInventoryName(InventoryNameConfig.STATS);
-        final Inventory inventory = Bukkit.createInventory(null, 3 * 9, title);
+        final Inventory inventory = Bukkit.createInventory(null, 4 * 9, title);
 
         inventoryUtils.fill(inventory);
         return new Pair<>(inventory, title);
@@ -63,6 +63,8 @@ public class StatsInventory extends AbstractInventory {
         itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_RANKING);
         itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_WIN_RATE);
         itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_LOSES);
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_KILLS);
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_DEATHS);
         return inventory;
     }
 

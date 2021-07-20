@@ -42,7 +42,7 @@ public class NMSUtils {
         try {
             return Class.forName("org.bukkit.craftbukkit." + getServerVersion() + '.' + name);
         } catch (ClassNotFoundException e) {
-            exceptionHandler.handle(e);
+            exceptionHandler.handleUnexpected(e);
         }
         return null;
     }
@@ -54,7 +54,7 @@ public class NMSUtils {
             try {
                 return Class.forName(newFullClassName);
             } catch (ClassNotFoundException classNotFoundException) {
-                exceptionHandler.handle(e);
+                exceptionHandler.handleUnexpected(e);
             }
         }
         return null;
@@ -64,7 +64,7 @@ public class NMSUtils {
         try {
             block.getClass().getMethod("setData", byte.class).invoke(block, blockData);
         } catch (Exception e) {
-            exceptionHandler.handle(e);
+            exceptionHandler.handleUnexpected(e);
         }
     }
 
@@ -78,7 +78,7 @@ public class NMSUtils {
             nms.getClass().getMethod("setTag", tag.getClass()).invoke(nms, tag);
             itemStack = (ItemStack) craftItemStack.getMethod("asCraftMirror", nms.getClass()).invoke(null, nms);
         } catch (Exception e) {
-            exceptionHandler.handle(e);
+            exceptionHandler.handleUnexpected(e);
         }
         return itemStack;
     }

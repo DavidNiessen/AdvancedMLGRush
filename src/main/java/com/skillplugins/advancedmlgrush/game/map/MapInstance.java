@@ -66,7 +66,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
@@ -78,6 +80,8 @@ public class MapInstance implements EventHandler {
     @Getter
     //Tasks which will be executed after the map is loaded
     private final List<Runnable> tasks = new CopyOnWriteArrayList<>();
+
+    private final Map<Player, Player> killMap = new ConcurrentHashMap<>();
 
     @Getter
     private final MapTemplate mapTemplate;
@@ -185,6 +189,7 @@ public class MapInstance implements EventHandler {
                         if (loaded) {
                             event.setCancelled(false);
                             event.setDamage(0);
+                            killMap.put(entity, damager);
                         }
                     }
                 }
@@ -294,6 +299,14 @@ public class MapInstance implements EventHandler {
                                     player.sendMessage(messageConfig.getWithPrefix(Optional.of(player),
                                             MessageConfig.DEATH));
                                     soundUtil.playSound(player, SoundConfig.DEATH);
+
+                                    sqlDataCache.getSQLData(player).increaseDeaths();
+                                    final Player lastDamager = killMap.getOrDefault(player, null);
+                                    if (lastDamager != null
+                                            && lastDamager.isOnline()) {
+                                        sqlDataCache.getSQLData(lastDamager).increaseKills();
+                                        killMap.remove(player);
+                                    }
                                 } else if (spectators.contains(player)
                                         && gameStateManager.getGameState(player) == GameState.SPECTATOR) {
                                     teleportToSpectatorSpawn(player);

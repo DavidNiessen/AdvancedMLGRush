@@ -118,7 +118,7 @@ public class SQLDataCache implements Registrable, EventHandler {
                                 javaPlugin.getServer().getPluginManager().callEvent(
                                         new PlayerDataLoadEvent(player, cachedSQLData.isDefaultData(), cachedSQLData));
                             } catch (ExecutionException | InterruptedException e) {
-                                exceptionHandler.handle(e);
+                                exceptionHandler.handleUnexpected(e);
                             } finally {
                                 cancel();
                             }

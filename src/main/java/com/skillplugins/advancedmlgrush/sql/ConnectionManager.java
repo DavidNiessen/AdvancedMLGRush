@@ -41,7 +41,7 @@ public class ConnectionManager {
                 connections.add(connection);
             }
         } catch (SQLException throwables) {
-            exceptionHandler.handle(throwables);
+            exceptionHandler.handleUnexpected(throwables);
         }
     }
 
@@ -50,7 +50,7 @@ public class ConnectionManager {
             try {
                 return connection != null && !connection.isClosed();
             } catch (SQLException throwables) {
-                exceptionHandler.handle(throwables);
+                exceptionHandler.handleUnexpected(throwables);
             }
             return false;
         }).forEach(this::closeConnection);
@@ -62,7 +62,7 @@ public class ConnectionManager {
         try {
             connection.close();
         } catch (SQLException throwables) {
-            exceptionHandler.handle(throwables);
+            exceptionHandler.handleUnexpected(throwables);
         }
     }
 

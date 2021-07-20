@@ -40,12 +40,17 @@ public class ExceptionHandler {
         debugConfig = debugConfigProvider.get();
     }
 
-    public void handle(final @NotNull Exception exception) {
-        if (debugConfig.getBoolean(DebugConfig.LOG_STACKTRACES)) {
+    public void handleUnexpected(final @NotNull Exception exception) {
+        if (debugConfig.getBoolean(DebugConfig.LOG_UNEXPECTED_STACKTRACES)) {
             exception.printStackTrace();
         } else {
             javaPlugin.getLogger().warning(String.format(Constants.ERROR_MESSAGE, exception.getClass().getSimpleName()));
         }
     }
 
+    public void handleExpected(final @NotNull Exception exception) {
+        if (debugConfig.getBoolean(DebugConfig.LOG_EXPECTED_STACKTRACES)) {
+            exception.printStackTrace();
+        }
+    }
 }

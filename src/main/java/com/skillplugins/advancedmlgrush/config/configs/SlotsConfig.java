@@ -51,11 +51,13 @@ public class SlotsConfig extends Configurable {
         list.add(new Pair<>(EnumItem.SORTING_SAVE.getConfigPath(), 21));
         list.add(new Pair<>(EnumItem.SORTING_RESET.getConfigPath(), 23));
         list.add(new Pair<>(EnumItem.ROUNDS.getConfigPath(), 13));
-        list.add(new Pair<>(EnumItem.STATS_WINS.getConfigPath(), 10));
-        list.add(new Pair<>(EnumItem.STATS_LOSES.getConfigPath(), 16));
+        list.add(new Pair<>(EnumItem.STATS_WINS.getConfigPath(), 19));
+        list.add(new Pair<>(EnumItem.STATS_LOSES.getConfigPath(), 24));
         list.add(new Pair<>(EnumItem.STATS_WIN_RATE.getConfigPath(), 14));
         list.add(new Pair<>(EnumItem.STATS_BEDS.getConfigPath(), 12));
         list.add(new Pair<>(EnumItem.STATS_RANKING.getConfigPath(), 13));
+        list.add(new Pair<>(EnumItem.STATS_KILLS.getConfigPath(), 20));
+        list.add(new Pair<>(EnumItem.STATS_DEATHS.getConfigPath(), 25));
         list.add(new Pair<>(EnumItem.QUEUE_2X1.getConfigPath(), 11));
         list.add(new Pair<>(EnumItem.QUEUE_4X1.getConfigPath(), 15));
         list.add(new Pair<>(EnumItem.SPECTATE_LEAVE.getConfigPath(), 4));

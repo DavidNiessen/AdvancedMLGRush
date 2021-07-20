@@ -21,12 +21,14 @@ import com.skillplugins.advancedmlgrush.miscellaneous.Constants;
 import com.skillplugins.advancedmlgrush.sql.DataSaver;
 import com.skillplugins.advancedmlgrush.sql.DataSaverParams;
 import com.skillplugins.advancedmlgrush.sql.data.CachedSQLData;
+import com.skillplugins.advancedmlgrush.util.Pair;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -62,8 +64,8 @@ public class MLGDataSaver extends DataSaver {
     public void updatePlayer(final @NotNull Player player, final @NotNull CachedSQLData cachedSQLData) {
         if (isConnected()
                 && !cachedSQLData.isDefaultData()) {
-            executeUpdateAsync(String.format("" +
-                            "UPDATE {name} " +
+            executeUpdateAsync(String.format(
+                    "UPDATE {name} " +
                             "SET " +
                             "settings_stick_slot = '%1$s', " +
                             "settings_block_slot = '%2$s', " +
@@ -74,15 +76,18 @@ public class MLGDataSaver extends DataSaver {
                             "gadgets_blocks = '%7$s', " +
                             "stats_wins = '%8$s', " +
                             "stats_loses = '%9$s', " +
-                            "stats_beds = '%10$s' " +
+                            "stats_beds = '%10$s', " +
+                            "stats_kills = '%11$s', " +
+                            "stats_deaths = '%12$s' " +
                             (isOfflineMode
-                                    ? "WHERE player_name = '%11$s';"
-                                    : "WHERE player_uuid = '%11$s';"),
+                                    ? "WHERE player_name = '%13$s';"
+                                    : "WHERE player_uuid = '%13$s';"),
                     cachedSQLData.getSettingsStickSlot(), cachedSQLData.getSettingsBlockSlot(),
                     cachedSQLData.getSettingsPickaxeSlot(), cachedSQLData.getSettingsMap(),
                     cachedSQLData.getSettingsRounds(), cachedSQLData.getGadgetsStick(),
                     cachedSQLData.getGadgetsBlocks(), cachedSQLData.getStatsWins(),
                     cachedSQLData.getStatsLoses(), cachedSQLData.getStatsBeds(),
+                    cachedSQLData.getStatsKills(), cachedSQLData.getStatsDeaths(),
                     isOfflineMode ? player.getName() : player.getUniqueId().toString()));
         }
     }
@@ -103,7 +108,9 @@ public class MLGDataSaver extends DataSaver {
                                         "SET " +
                                         "stats_wins = 0, " +
                                         "stats_loses = 0, " +
-                                        "stats_beds = 0 " +
+                                        "stats_beds = 0, " +
+                                        "stats_kills = 0, " +
+                                        "stats_deaths = 0 " +
                                         "WHERE player_name = '%s';", playerName));
 
                         consumer.accept(StatsResetState.SUCCEED);
@@ -171,7 +178,28 @@ public class MLGDataSaver extends DataSaver {
                 "stats_wins INT NOT NULL DEFAULT 0, " +
                 "stats_loses INT NOT NULL DEFAULT 0, " +
                 "stats_beds INT NOT NULL DEFAULT 0, " +
+                "stats_kills INT NOT NULL DEFAULT 0, " +
+                "stats_deaths INT NOT NULL DEFAULT 0, " +
                 "PRIMARY KEY (player_uuid, player_name));";
+    }
+
+    @Override
+    protected List<Pair<String, String>> columns(final @NotNull List<Pair<String, String>> columns) {
+        columns.add(new Pair<>("player_uuid", "VARCHAR(36) NOT NULL"));
+        columns.add(new Pair<>("player_name", "VARCHAR(100) NOT NULL"));
+        columns.add(new Pair<>("settings_stick_slot", "TINYINT NOT NULL DEFAULT 0"));
+        columns.add(new Pair<>("settings_block_slot", "TINYINT NOT NULL DEFAULT 1"));
+        columns.add(new Pair<>("settings_pickaxe_slot", "TINYINT NOT NULL DEFAULT 8"));
+        columns.add(new Pair<>("settings_map", "SMALLINT NOT NULL DEFAULT -1"));
+        columns.add(new Pair<>("settings_rounds", "TINYINT NOT NULL DEFAULT 5"));
+        columns.add(new Pair<>("gadgets_stick", "SMALLINT NOT NULL DEFAULT 0"));
+        columns.add(new Pair<>("gadgets_blocks", "SMALLINT NOT NULL DEFAULT 0"));
+        columns.add(new Pair<>("stats_wins", "INT NOT NULL DEFAULT 0"));
+        columns.add(new Pair<>("stats_loses", "INT NOT NULL DEFAULT 0"));
+        columns.add(new Pair<>("stats_beds", "INT NOT NULL DEFAULT 0"));
+        columns.add(new Pair<>("stats_kills", "INT NOT NULL DEFAULT 0"));
+        columns.add(new Pair<>("stats_deaths", "INT NOT NULL DEFAULT 0"));
+        return columns;
     }
 
     private CachedSQLData getPlayerDataSync(final @NotNull Player player) {
@@ -202,7 +230,7 @@ public class MLGDataSaver extends DataSaver {
                 try {
                     return resultSet.next();
                 } catch (SQLException throwables) {
-                    exceptionHandler.handle(throwables);
+                    exceptionHandler.handleUnexpected(throwables);
                 }
             }
         }
@@ -228,7 +256,7 @@ public class MLGDataSaver extends DataSaver {
                                         "WHERE player_uuid = '%2$s';", player.getName(), player.getUniqueId().toString()));
                     }
                 } catch (SQLException throwables) {
-                    exceptionHandler.handle(throwables);
+                    exceptionHandler.handleUnexpected(throwables);
                 }
             }
         }
@@ -258,9 +286,11 @@ public class MLGDataSaver extends DataSaver {
                         cachedSQLData.setStatsWins(resultSet.getInt("stats_wins"));
                         cachedSQLData.setStatsLoses(resultSet.getInt("stats_loses"));
                         cachedSQLData.setStatsBeds(resultSet.getInt("stats_beds"));
+                        cachedSQLData.setStatsKills(resultSet.getInt("stats_kills"));
+                        cachedSQLData.setStatsDeaths(resultSet.getInt("stats_deaths"));
                     }
                 } catch (SQLException throwables) {
-                    exceptionHandler.handle(throwables);
+                    exceptionHandler.handleUnexpected(throwables);
                 }
             }
         }

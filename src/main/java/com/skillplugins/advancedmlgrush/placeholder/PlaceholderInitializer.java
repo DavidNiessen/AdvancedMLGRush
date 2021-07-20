@@ -19,9 +19,7 @@ import com.skillplugins.advancedmlgrush.placeholder.placeholders.*;
 import com.skillplugins.advancedmlgrush.placeholder.placeholders.map.*;
 import com.skillplugins.advancedmlgrush.placeholder.placeholders.settings.MapPlaceholder;
 import com.skillplugins.advancedmlgrush.placeholder.placeholders.settings.RoundsPlaceholder;
-import com.skillplugins.advancedmlgrush.placeholder.placeholders.stats.BedsPlaceholder;
-import com.skillplugins.advancedmlgrush.placeholder.placeholders.stats.LosesPlaceholder;
-import com.skillplugins.advancedmlgrush.placeholder.placeholders.stats.WinRatePlaceholder;
+import com.skillplugins.advancedmlgrush.placeholder.placeholders.stats.*;
 import com.skillplugins.advancedmlgrush.placeholder.placeholders.stats.ranking.*;
 import com.skillplugins.advancedmlgrush.placeholder.placeholders.stats.wins.*;
 import com.skillplugins.advancedmlgrush.util.Initializer;
@@ -87,5 +85,7 @@ public class PlaceholderInitializer implements Initializer {
         placeholderManager.registerPlaceholder(injector.getInstance(MapTemplates4x1Placeholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(OnlinePlayersPlaceholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(PlayerUUIDPlaceholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(KillsPlaceholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(DeathsPlaceholder.class));
     }
 }

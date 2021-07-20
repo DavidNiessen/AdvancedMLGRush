@@ -50,7 +50,7 @@ public abstract class Configurable implements ConfigData {
         try {
             yamlConfiguration.save(file);
         } catch (IOException e) {
-            exceptionHandler.handle(e);
+            exceptionHandler.handleUnexpected(e);
         }
     }
 
@@ -100,7 +100,7 @@ public abstract class Configurable implements ConfigData {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                exceptionHandler.handle(e);
+                exceptionHandler.handleUnexpected(e);
             }
         }
     }

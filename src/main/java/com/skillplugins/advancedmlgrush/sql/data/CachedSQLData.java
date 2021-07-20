@@ -31,6 +31,8 @@ public class CachedSQLData {
     private int statsWins = 0;
     private int statsLoses = 0;
     private int statsBeds = 0;
+    private int statsKills = 0;
+    private int statsDeaths = 0;
 
     public void increaseWins() {
         statsWins++;
@@ -42,6 +44,14 @@ public class CachedSQLData {
 
     public void increaseBeds() {
         statsBeds++;
+    }
+
+    public void increaseKills() {
+        statsKills++;
+    }
+
+    public void increaseDeaths() {
+        statsDeaths++;
     }
 
 

@@ -59,7 +59,7 @@ public class GZIPCompressor implements BlockCompressor {
             gzipOutputStream.close();
             return Optional.of(byteArrayOutputStream.toString("ISO-8859-1"));
         } catch (IOException e) {
-            exceptionHandler.handle(e);
+            exceptionHandler.handleUnexpected(e);
         }
         return Optional.empty();
     }
@@ -80,7 +80,7 @@ public class GZIPCompressor implements BlockCompressor {
             }
             return Optional.of(byteArrayOutputStream.toString("UTF-8"));
         } catch (IOException e) {
-            exceptionHandler.handle(e);
+            exceptionHandler.handleUnexpected(e);
         }
         return Optional.empty();
     }

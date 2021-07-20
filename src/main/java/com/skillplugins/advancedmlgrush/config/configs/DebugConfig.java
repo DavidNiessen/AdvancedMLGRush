@@ -24,7 +24,8 @@ import java.util.List;
 @Singleton
 public class DebugConfig extends Configurable {
 
-    public static final String LOG_STACKTRACES = "log_stacktraces";
+    public static final String LOG_UNEXPECTED_STACKTRACES = "log_unexpected_stacktraces";
+    public static final String LOG_EXPECTED_STACKTRACES = "log_expected_stacktraces";
     public static final String LOG_QUERIES = "log_queries";
 
     @PostConstruct
@@ -39,7 +40,8 @@ public class DebugConfig extends Configurable {
 
     @Override
     protected void configure(final @NotNull List<Pair<String, Object>> list) {
-        list.add(new Pair<>(LOG_STACKTRACES, true));
+        list.add(new Pair<>(LOG_UNEXPECTED_STACKTRACES, true));
+        list.add(new Pair<>(LOG_EXPECTED_STACKTRACES, false));
         list.add(new Pair<>(LOG_QUERIES, false));
     }
 }

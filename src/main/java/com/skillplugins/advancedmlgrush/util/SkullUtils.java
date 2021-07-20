@@ -63,7 +63,7 @@ public class SkullUtils {
             cache.put(value, itemBuilder);
             return itemBuilder;
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            exceptionHandler.handle(e);
+            exceptionHandler.handleUnexpected(e);
         }
         return ibFactory.create(MetaType.ITEM_META, 0).material(XMaterial.ARROW.parseMaterial());
     }

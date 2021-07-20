@@ -17,6 +17,7 @@ import com.skillplugins.advancedmlgrush.annotations.PostConstruct;
 import com.skillplugins.advancedmlgrush.config.configs.DebugConfig;
 import com.skillplugins.advancedmlgrush.exception.ExceptionHandler;
 import com.skillplugins.advancedmlgrush.miscellaneous.Constants;
+import com.skillplugins.advancedmlgrush.util.Pair;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -24,6 +25,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -50,14 +53,14 @@ public abstract class DataSaver {
     public void init() {
         params = initParams();
         checkConnection();
-        executeCreationQuery();
+        initTable();
     }
 
     public boolean isConnected() {
         try {
             return connection != null && !connection.isClosed();
         } catch (SQLException throwables) {
-            exceptionHandler.handle(throwables);
+            exceptionHandler.handleUnexpected(throwables);
         }
         return false;
     }
@@ -70,7 +73,7 @@ public abstract class DataSaver {
             try (final PreparedStatement preparedStatement = connection.prepareStatement(replaceName(query))) {
                 preparedStatement.executeUpdate();
             } catch (SQLException exception) {
-                exceptionHandler.handle(exception);
+                exceptionHandler.handleUnexpected(exception);
             }
         }
     }
@@ -89,7 +92,7 @@ public abstract class DataSaver {
                 final ResultSet resultSet = preparedStatement.executeQuery();
                 return Optional.of(resultSet);
             } catch (SQLException exception) {
-                exceptionHandler.handle(exception);
+                exceptionHandler.handleUnexpected(exception);
             }
         }
         return Optional.empty();
@@ -110,7 +113,7 @@ public abstract class DataSaver {
                                 callback.onFailure(Optional.empty());
                             }
                         } catch (SQLException | ExecutionException | InterruptedException exception) {
-                            exceptionHandler.handle(exception);
+                            exceptionHandler.handleUnexpected(exception);
                             callback.onFailure(Optional.of(exception));
                         } finally {
                             cancel();
@@ -127,6 +130,9 @@ public abstract class DataSaver {
 
     protected abstract String creationQuery();
 
+    //column name, value
+    protected abstract List<Pair<String, String>> columns(final @NotNull List<Pair<String, String>> columns);
+
     private boolean checkConnection() {
         if (!isConnected()) {
             createConnection();
@@ -134,8 +140,30 @@ public abstract class DataSaver {
         return isConnected();
     }
 
-    private void executeCreationQuery() {
-        executeUpdateSync(creationQuery());
+    private void initTable() {
+        if (isConnected()) {
+            executeUpdateSync(creationQuery());
+            final List<Pair<String, String>> columns = columns(new ArrayList<>());
+            try {
+                final DatabaseMetaData databaseMetaData = connection.getMetaData();
+
+                for (final Pair<String, String> pair : columns) {
+                    final String columnName = pair.getKey();
+                    final String value = pair.getValue();
+
+                    final ResultSet resultSet = databaseMetaData.getColumns(null, null,
+                            replaceName("{name}"), columnName);
+
+                    if (resultSet != null) {
+                        if (!resultSet.next()) {
+                            executeUpdateSync(String.format("ALTER TABLE {name} ADD COLUMN %s;", columnName + " " + value));
+                        }
+                    }
+                }
+            } catch (SQLException sqlException) {
+                exceptionHandler.handleUnexpected(sqlException);
+            }
+        }
     }
 
     private void createConnection() {
@@ -150,7 +178,7 @@ public abstract class DataSaver {
 
             return DriverManager.getConnection(url, params.getUser(), params.getPassword());
         } catch (SQLException throwables) {
-            exceptionHandler.handle(throwables);
+            exceptionHandler.handleUnexpected(throwables);
         }
         return null;
     }
@@ -165,7 +193,7 @@ public abstract class DataSaver {
 
             return DriverManager.getConnection("jdbc:sqlite:" + file.getPath());
         } catch (SQLException | ClassNotFoundException throwables) {
-            exceptionHandler.handle(throwables);
+            exceptionHandler.handleUnexpected(throwables);
         }
         return null;
     }

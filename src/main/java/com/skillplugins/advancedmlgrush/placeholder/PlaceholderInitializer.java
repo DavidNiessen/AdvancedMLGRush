@@ -87,5 +87,6 @@ public class PlaceholderInitializer implements Initializer {
         placeholderManager.registerPlaceholder(injector.getInstance(PlayerUUIDPlaceholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(KillsPlaceholder.class));
         placeholderManager.registerPlaceholder(injector.getInstance(DeathsPlaceholder.class));
+        placeholderManager.registerPlaceholder(injector.getInstance(PlacedBlocksPlaceholder.class));
     }
 }

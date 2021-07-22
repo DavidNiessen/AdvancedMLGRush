@@ -78,16 +78,18 @@ public class MLGDataSaver extends DataSaver {
                             "stats_loses = '%9$s', " +
                             "stats_beds = '%10$s', " +
                             "stats_kills = '%11$s', " +
-                            "stats_deaths = '%12$s' " +
+                            "stats_deaths = '%12$s', " +
+                            "stats_placed_blocks = '%13$s' " +
                             (isOfflineMode
-                                    ? "WHERE player_name = '%13$s';"
-                                    : "WHERE player_uuid = '%13$s';"),
+                                    ? "WHERE player_name = '%14$s';"
+                                    : "WHERE player_uuid = '%14$s';"),
                     cachedSQLData.getSettingsStickSlot(), cachedSQLData.getSettingsBlockSlot(),
                     cachedSQLData.getSettingsPickaxeSlot(), cachedSQLData.getSettingsMap(),
                     cachedSQLData.getSettingsRounds(), cachedSQLData.getGadgetsStick(),
                     cachedSQLData.getGadgetsBlocks(), cachedSQLData.getStatsWins(),
                     cachedSQLData.getStatsLoses(), cachedSQLData.getStatsBeds(),
                     cachedSQLData.getStatsKills(), cachedSQLData.getStatsDeaths(),
+                    cachedSQLData.getStatsPlacedBlocks(),
                     isOfflineMode ? player.getName() : player.getUniqueId().toString()));
         }
     }
@@ -110,7 +112,8 @@ public class MLGDataSaver extends DataSaver {
                                         "stats_loses = 0, " +
                                         "stats_beds = 0, " +
                                         "stats_kills = 0, " +
-                                        "stats_deaths = 0 " +
+                                        "stats_deaths = 0, " +
+                                        "stats_placed_blocks = 0 " +
                                         "WHERE player_name = '%s';", playerName));
 
                         consumer.accept(StatsResetState.SUCCEED);
@@ -180,6 +183,7 @@ public class MLGDataSaver extends DataSaver {
                 "stats_beds INT NOT NULL DEFAULT 0, " +
                 "stats_kills INT NOT NULL DEFAULT 0, " +
                 "stats_deaths INT NOT NULL DEFAULT 0, " +
+                "stats_placed_blocks BIGINT NOT NULL DEFAULT 0, " +
                 "PRIMARY KEY (player_uuid, player_name));";
     }
 
@@ -199,6 +203,7 @@ public class MLGDataSaver extends DataSaver {
         columns.add(new Pair<>("stats_beds", "INT NOT NULL DEFAULT 0"));
         columns.add(new Pair<>("stats_kills", "INT NOT NULL DEFAULT 0"));
         columns.add(new Pair<>("stats_deaths", "INT NOT NULL DEFAULT 0"));
+        columns.add(new Pair<>("stats_placed_blocks", "BIGINT NOT NULL DEFAULT 0"));
         return columns;
     }
 
@@ -288,6 +293,7 @@ public class MLGDataSaver extends DataSaver {
                         cachedSQLData.setStatsBeds(resultSet.getInt("stats_beds"));
                         cachedSQLData.setStatsKills(resultSet.getInt("stats_kills"));
                         cachedSQLData.setStatsDeaths(resultSet.getInt("stats_deaths"));
+                        cachedSQLData.setStatsPlacedBlocks(resultSet.getInt("stats_placed_blocks"));
                     }
                 } catch (SQLException throwables) {
                     exceptionHandler.handleUnexpected(throwables);

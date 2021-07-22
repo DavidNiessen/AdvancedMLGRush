@@ -58,6 +58,7 @@ public class SlotsConfig extends Configurable {
         list.add(new Pair<>(EnumItem.STATS_RANKING.getConfigPath(), 13));
         list.add(new Pair<>(EnumItem.STATS_KILLS.getConfigPath(), 20));
         list.add(new Pair<>(EnumItem.STATS_DEATHS.getConfigPath(), 25));
+        list.add(new Pair<>(EnumItem.STATS_PLACED_BLOCKS.getConfigPath(), 22));
         list.add(new Pair<>(EnumItem.QUEUE_2X1.getConfigPath(), 11));
         list.add(new Pair<>(EnumItem.QUEUE_4X1.getConfigPath(), 15));
         list.add(new Pair<>(EnumItem.SPECTATE_LEAVE.getConfigPath(), 4));

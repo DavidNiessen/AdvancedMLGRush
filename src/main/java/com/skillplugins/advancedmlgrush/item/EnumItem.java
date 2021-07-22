@@ -46,6 +46,7 @@ EnumItem {
     STATS_RANKING("stats_ranking"),
     STATS_KILLS("stats_kills"),
     STATS_DEATHS("stats_deaths"),
+    STATS_PLACED_BLOCKS("stats_placed_blocks"),
     QUEUE_2X1("queue_2x1"),
     QUEUE_4X1("queue_4x1"),
     SPECTATE_LEAVE("spectate_leave"),

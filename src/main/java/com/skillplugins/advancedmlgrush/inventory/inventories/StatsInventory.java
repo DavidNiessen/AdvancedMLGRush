@@ -65,6 +65,7 @@ public class StatsInventory extends AbstractInventory {
         itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_LOSES);
         itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_KILLS);
         itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_DEATHS);
+        itemManager.setItem(inventory, optionalPlayer, EnumItem.STATS_PLACED_BLOCKS);
         return inventory;
     }
 

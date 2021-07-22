@@ -277,6 +277,7 @@ public class MapInstance implements EventHandler {
                                     player.getItemInHand().setAmount(mainConfig.getInt(MainConfig.BLOCK_AMOUNT));
                                 }
                                 placedBlocks.add(location);
+                                sqlDataCache.getSQLData(player).increasePlacedBlocks();
                             }
                         }
                     }

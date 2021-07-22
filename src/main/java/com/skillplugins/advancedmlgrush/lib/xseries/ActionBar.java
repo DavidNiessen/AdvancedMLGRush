@@ -10,7 +10,7 @@
  * Support: http://discord.skillplugins.com
  */
 
-package com.skillplugins.advancedmlgrush.libs.xseries;
+package com.skillplugins.advancedmlgrush.lib.xseries;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;

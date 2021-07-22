@@ -12,7 +12,7 @@
 
 package com.skillplugins.advancedmlgrush.game.gadgets;
 
-import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
+import com.skillplugins.advancedmlgrush.lib.xseries.XMaterial;
 
 import java.util.ArrayList;
 import java.util.Arrays;

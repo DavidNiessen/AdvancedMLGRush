@@ -17,7 +17,7 @@ import com.google.inject.Singleton;
 import com.skillplugins.advancedmlgrush.game.map.file.MapFile;
 import com.skillplugins.advancedmlgrush.game.map.schematic.BlockConverter;
 import com.skillplugins.advancedmlgrush.game.map.schematic.StorableBlock;
-import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
+import com.skillplugins.advancedmlgrush.lib.xseries.XMaterial;
 import com.skillplugins.advancedmlgrush.util.EnumUtils;
 import com.skillplugins.advancedmlgrush.util.LocationConverter;
 import com.skillplugins.advancedmlgrush.util.Pair;

@@ -37,7 +37,7 @@ import com.skillplugins.advancedmlgrush.item.EnumItem;
 import com.skillplugins.advancedmlgrush.item.ItemUtils;
 import com.skillplugins.advancedmlgrush.item.items.IngameItems;
 import com.skillplugins.advancedmlgrush.item.items.LobbyItems;
-import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
+import com.skillplugins.advancedmlgrush.lib.xseries.XMaterial;
 import com.skillplugins.advancedmlgrush.sound.SoundUtil;
 import com.skillplugins.advancedmlgrush.sql.data.SQLDataCache;
 import com.skillplugins.advancedmlgrush.util.ListBuilder;

@@ -10,7 +10,7 @@
  * Support: http://discord.skillplugins.com
  */
 
-package com.skillplugins.advancedmlgrush.libs.xseries;
+package com.skillplugins.advancedmlgrush.lib.xseries;
 
 import com.google.common.base.Enums;
 import com.google.common.base.Strings;

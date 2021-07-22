@@ -21,7 +21,7 @@ import com.skillplugins.advancedmlgrush.game.gadgets.Gadget;
 import com.skillplugins.advancedmlgrush.game.gadgets.GadgetManager;
 import com.skillplugins.advancedmlgrush.inventory.multipage.MultiPageInventory;
 import com.skillplugins.advancedmlgrush.item.builder.ItemBuilder;
-import com.skillplugins.advancedmlgrush.libs.xseries.XEnchantment;
+import com.skillplugins.advancedmlgrush.lib.xseries.XEnchantment;
 import com.skillplugins.advancedmlgrush.placeholder.Placeholders;
 import com.skillplugins.advancedmlgrush.sql.data.CachedSQLData;
 import com.skillplugins.advancedmlgrush.sql.data.SQLDataCache;

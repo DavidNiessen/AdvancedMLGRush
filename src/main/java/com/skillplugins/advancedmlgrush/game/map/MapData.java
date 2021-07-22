@@ -13,7 +13,7 @@
 package com.skillplugins.advancedmlgrush.game.map;
 
 import com.skillplugins.advancedmlgrush.game.map.schematic.StorableBlock;
-import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
+import com.skillplugins.advancedmlgrush.lib.xseries.XMaterial;
 import com.skillplugins.advancedmlgrush.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

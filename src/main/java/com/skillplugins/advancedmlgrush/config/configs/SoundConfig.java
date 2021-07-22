@@ -16,7 +16,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.skillplugins.advancedmlgrush.annotations.PostConstruct;
 import com.skillplugins.advancedmlgrush.config.Configurable;
-import com.skillplugins.advancedmlgrush.libs.xseries.XSound;
+import com.skillplugins.advancedmlgrush.lib.xseries.XSound;
 import com.skillplugins.advancedmlgrush.miscellaneous.Constants;
 import com.skillplugins.advancedmlgrush.sound.SoundParser;
 import com.skillplugins.advancedmlgrush.util.Pair;

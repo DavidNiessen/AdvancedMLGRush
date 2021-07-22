@@ -44,8 +44,23 @@
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <relocations>
                                 <relocation>
-                                    <pattern>com.google.common</pattern>
-                                    <shadedPattern>com.google.shaded.common</shadedPattern>
+                                    <pattern>com.google</pattern>
+                                    <shadedPattern>com.skillplugins.advancedmlgrush.lib.google</shadedPattern>
+                                    <excludes>
+                                        <exclude>com.google.gson.*/*</exclude>
+                                    </excludes>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax</pattern>
+                                    <shadedPattern>com.skillplugins.advancedmlgrush.lib.javax</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.aopalliance</pattern>
+                                    <shadedPattern>com.skillplugins.advancedmlgrush.lib.aopalliance</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.checkerframework</pattern>
+                                    <shadedPattern>com.skillplugins.advancedmlgrush.lib.checkerframework</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>

@@ -23,7 +23,7 @@ import com.skillplugins.advancedmlgrush.game.queue.Queue4x1;
 import com.skillplugins.advancedmlgrush.inventory.multipage.MultiPageInventory;
 import com.skillplugins.advancedmlgrush.item.EnumItem;
 import com.skillplugins.advancedmlgrush.item.builder.MetaType;
-import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
+import com.skillplugins.advancedmlgrush.lib.xseries.XMaterial;
 import com.skillplugins.advancedmlgrush.placeholder.Placeholders;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

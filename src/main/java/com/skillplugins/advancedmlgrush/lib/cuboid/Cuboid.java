@@ -10,7 +10,7 @@
  * Support: http://discord.skillplugins.com
  */
 
-package com.skillplugins.advancedmlgrush.libs.cuboid;
+package com.skillplugins.advancedmlgrush.lib.cuboid;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

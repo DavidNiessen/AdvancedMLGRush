@@ -13,7 +13,7 @@
 package com.skillplugins.advancedmlgrush.util;
 
 import com.google.inject.Singleton;
-import com.skillplugins.advancedmlgrush.libs.cuboid.Cuboid;
+import com.skillplugins.advancedmlgrush.lib.cuboid.Cuboid;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.jetbrains.annotations.NotNull;

@@ -28,7 +28,7 @@ import com.skillplugins.advancedmlgrush.inventory.multipage.MultiPageInventory;
 import com.skillplugins.advancedmlgrush.item.EnumItem;
 import com.skillplugins.advancedmlgrush.item.builder.ItemBuilder;
 import com.skillplugins.advancedmlgrush.item.builder.MetaType;
-import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
+import com.skillplugins.advancedmlgrush.lib.xseries.XMaterial;
 import com.skillplugins.advancedmlgrush.miscellaneous.Constants;
 import com.skillplugins.advancedmlgrush.placeholder.Placeholders;
 import com.skillplugins.advancedmlgrush.sql.data.CachedSQLData;

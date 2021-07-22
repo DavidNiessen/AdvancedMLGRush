@@ -18,7 +18,7 @@ import com.skillplugins.advancedmlgrush.config.configs.MainConfig;
 import com.skillplugins.advancedmlgrush.game.gadgets.GadgetManager;
 import com.skillplugins.advancedmlgrush.item.EnumItem;
 import com.skillplugins.advancedmlgrush.item.ItemManager;
-import com.skillplugins.advancedmlgrush.libs.xseries.XEnchantment;
+import com.skillplugins.advancedmlgrush.lib.xseries.XEnchantment;
 import com.skillplugins.advancedmlgrush.sql.data.SQLDataCache;
 import com.skillplugins.advancedmlgrush.util.Pair;
 import org.bukkit.entity.Player;

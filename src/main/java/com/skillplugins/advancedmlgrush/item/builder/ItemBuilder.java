@@ -14,7 +14,7 @@ package com.skillplugins.advancedmlgrush.item.builder;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
+import com.skillplugins.advancedmlgrush.lib.xseries.XMaterial;
 import com.skillplugins.advancedmlgrush.util.NMSUtils;
 import lombok.Getter;
 import org.bukkit.Material;

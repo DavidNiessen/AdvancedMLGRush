@@ -15,7 +15,7 @@ package com.skillplugins.advancedmlgrush.game.map.setup.step.steps;
 import com.google.inject.Singleton;
 import com.skillplugins.advancedmlgrush.config.configs.MessageConfig;
 import com.skillplugins.advancedmlgrush.game.map.setup.step.SetupStep;
-import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
+import com.skillplugins.advancedmlgrush.lib.xseries.XMaterial;
 import com.skillplugins.advancedmlgrush.util.Pair;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

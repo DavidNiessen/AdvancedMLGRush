@@ -20,7 +20,7 @@ import com.skillplugins.advancedmlgrush.item.builder.IBFactory;
 import com.skillplugins.advancedmlgrush.item.builder.ItemBuilder;
 import com.skillplugins.advancedmlgrush.item.builder.MetaType;
 import com.skillplugins.advancedmlgrush.item.parser.MaterialParser;
-import com.skillplugins.advancedmlgrush.libs.xseries.XEnchantment;
+import com.skillplugins.advancedmlgrush.lib.xseries.XEnchantment;
 import com.skillplugins.advancedmlgrush.placeholder.Placeholders;
 import com.skillplugins.advancedmlgrush.sql.data.CachedSQLData;
 import com.skillplugins.advancedmlgrush.sql.data.SQLDataCache;

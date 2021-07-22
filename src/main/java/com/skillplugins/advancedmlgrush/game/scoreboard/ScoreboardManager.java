@@ -18,7 +18,7 @@ import com.skillplugins.advancedmlgrush.config.configs.ScoreboardConfig;
 import com.skillplugins.advancedmlgrush.event.events.ScoreboardUpdateEvent;
 import com.skillplugins.advancedmlgrush.game.map.MapInstance;
 import com.skillplugins.advancedmlgrush.game.map.MapInstanceManager;
-import com.skillplugins.advancedmlgrush.libs.fastboard.FastBoard;
+import com.skillplugins.advancedmlgrush.lib.fastboard.FastBoard;
 import com.skillplugins.advancedmlgrush.miscellaneous.registrable.Registrable;
 import com.skillplugins.advancedmlgrush.placeholder.Placeholders;
 import org.bukkit.Bukkit;

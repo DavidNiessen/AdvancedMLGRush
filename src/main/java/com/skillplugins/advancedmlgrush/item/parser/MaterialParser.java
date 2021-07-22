@@ -14,7 +14,7 @@ package com.skillplugins.advancedmlgrush.item.parser;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
+import com.skillplugins.advancedmlgrush.lib.xseries.XMaterial;
 import com.skillplugins.advancedmlgrush.miscellaneous.Constants;
 import com.skillplugins.advancedmlgrush.util.EnumUtils;
 import com.skillplugins.advancedmlgrush.util.Pair;

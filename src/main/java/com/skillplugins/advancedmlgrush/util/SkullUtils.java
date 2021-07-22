@@ -20,7 +20,7 @@ import com.skillplugins.advancedmlgrush.exception.ExceptionHandler;
 import com.skillplugins.advancedmlgrush.item.builder.IBFactory;
 import com.skillplugins.advancedmlgrush.item.builder.ItemBuilder;
 import com.skillplugins.advancedmlgrush.item.builder.MetaType;
-import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
+import com.skillplugins.advancedmlgrush.lib.xseries.XMaterial;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
 

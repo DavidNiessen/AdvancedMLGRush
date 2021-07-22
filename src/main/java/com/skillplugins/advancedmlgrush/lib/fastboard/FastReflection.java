@@ -9,7 +9,7 @@
  *
  * Support: http://discord.skillplugins.com
  */
-package com.skillplugins.advancedmlgrush.libs.fastboard;
+package com.skillplugins.advancedmlgrush.lib.fastboard;
 
 import org.bukkit.Bukkit;
 

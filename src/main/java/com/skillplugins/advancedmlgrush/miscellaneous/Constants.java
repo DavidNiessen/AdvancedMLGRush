@@ -12,7 +12,7 @@
 
 package com.skillplugins.advancedmlgrush.miscellaneous;
 
-import com.skillplugins.advancedmlgrush.libs.xseries.XMaterial;
+import com.skillplugins.advancedmlgrush.lib.xseries.XMaterial;
 import org.bukkit.Material;
 import org.fusesource.jansi.Ansi;
 

@@ -297,11 +297,15 @@ public class MapInstance implements EventHandler {
                             if (event.getTo().getY() <= mapData.getDeathHeight()) {
                                 if (players.containsKey(player)) {
                                     teleportToPlayerSpawn(player);
-                                    player.sendMessage(messageConfig.getWithPrefix(Optional.of(player),
-                                            MessageConfig.DEATH));
                                     soundUtil.playSound(player, SoundConfig.DEATH);
-
                                     sqlDataCache.getSQLData(player).increaseDeaths();
+
+                                    players.keySet().forEach(player1 -> player1.sendMessage(killMap.containsKey(player)
+                                            ? messageConfig.getWithPrefix(Optional.of(player1), MessageConfig.KILL)
+                                            .replace("%player_1%", killMap.get(player).getName())
+                                            .replace("%player_2%", player.getName())
+                                            : messageConfig.getWithPrefix(Optional.of(player1), MessageConfig.DEATH)
+                                            .replace("%player_1%", player.getName())));
                                     final Player lastDamager = killMap.getOrDefault(player, null);
                                     if (lastDamager != null
                                             && lastDamager.isOnline()) {

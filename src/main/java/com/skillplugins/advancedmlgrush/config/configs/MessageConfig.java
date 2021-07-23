@@ -50,6 +50,7 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String BREAK_OWN_BED = "break_own_bed";
     public static final String GADGET_SELECT = "gadget_select";
     public static final String DEATH = "death";
+    public static final String KILL = "kill";
     public static final String BED_BREAK = "bed_break";
     public static final String GAME_START = "game_start";
     public static final String GAME_END = "game_end";
@@ -127,7 +128,8 @@ public class MessageConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(MAP_GENERATE, "&aGenerating map..."));
         list.add(new Pair<>(BREAK_OWN_BED, "&cYou cannot break your own bed!"));
         list.add(new Pair<>(GADGET_SELECT, "&aYou selected %gadget_name%&a."));
-        list.add(new Pair<>(DEATH, "&7You died."));
+        list.add(new Pair<>(DEATH, "&c%player_1% &7died."));
+        list.add(new Pair<>(KILL, "&c%player_1% &7killed &e%player_2%&7."));
         list.add(new Pair<>(BED_BREAK, "&c%player_1% &7broke &e%player_2%'s &7bed."));
         list.add(new Pair<>(GAME_START, "&8&m------------------------------------&r\n \n   &7Map&8: &e%map_name%\n   &7Mode&8: &e%map_mode%\n   &7Rounds&8: &e%map_rounds%\n \n&8&m------------------------------------&r"));
         list.add(new Pair<>(GAME_END, "&e%winner% &awon the game."));

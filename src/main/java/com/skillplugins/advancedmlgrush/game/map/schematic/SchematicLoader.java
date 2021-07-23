@@ -123,7 +123,7 @@ public class SchematicLoader {
                     }
                 }
 
-                final String progress = String.valueOf(100 - (queue.size() * 100) / blockList.size());
+                final String progress = String.valueOf(100 - (queue.size() * 100) / Math.max(blockList.size(), 1));
                 if (!progress.equals(lastProgress.get())) {
                     players.forEach(player -> ActionBar.sendActionBar(player,
                             messageConfig.getString(Optional.of(player), MessageConfig.LOADING_PROGRESS_ACTION_BAR).replace("%progress%", progress)));

@@ -29,6 +29,7 @@ import com.skillplugins.advancedmlgrush.item.overwriter.ItemOWInitializer;
 import com.skillplugins.advancedmlgrush.listener.ListenerInitializer;
 import com.skillplugins.advancedmlgrush.miscellaneous.Constants;
 import com.skillplugins.advancedmlgrush.miscellaneous.registrable.RegistrableInitializer;
+import com.skillplugins.advancedmlgrush.miscellaneous.update.UpdateChecker;
 import com.skillplugins.advancedmlgrush.placeholder.PlaceholderInitializer;
 import com.skillplugins.advancedmlgrush.sql.ConnectionManager;
 import com.skillplugins.advancedmlgrush.sql.DataInitializer;
@@ -71,6 +72,8 @@ public class MLGRush extends JavaPlugin {
     private MapManager mapManager;
     @Inject
     private PlayerUtils playerUtils;
+    @Inject
+    private UpdateChecker updateChecker;
 
     @Getter
     private UUID uuid;
@@ -100,6 +103,7 @@ public class MLGRush extends JavaPlugin {
         api = injector.getInstance(APIImplementation.class);
 
         getLogger().info(String.format(Constants.AFTER_STARTUP_MESSAGE, System.currentTimeMillis() - millis));
+        updateChecker.checkForUpdates();
     }
 
     @Override

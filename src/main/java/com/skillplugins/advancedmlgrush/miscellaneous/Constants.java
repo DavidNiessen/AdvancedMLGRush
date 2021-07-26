@@ -18,6 +18,8 @@ import org.fusesource.jansi.Ansi;
 
 public class Constants {
 
+    public static final int RESOURCE_ID = 93927;
+
     public static final Material DEFAULT_MATERIAL = XMaterial.STONE.parseMaterial();
     public static final Material DEFAULT_MAP_MATERIAL = XMaterial.MAP.parseMaterial();
     public static final float DEFAULT_SOUND_VOLUME = 1.F;
@@ -70,6 +72,9 @@ public class Constants {
     public static final String MAP_LOADED = "Map loaded: %1$s, took %2$sms.";
     public static final String INVALID_SERIALIZER = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "Invalid serializer: %s" + Ansi.ansi().reset();
     public static final String INVALID_COMPRESSOR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "Invalid compressor: %s" + Ansi.ansi().reset();
+    public static final String UPDATE_CHECKER = "Checking for updates...";
+    public static final String UPDATE_CHECKER_AVAILABLE = Ansi.ansi().fg(Ansi.Color.YELLOW).boldOff().toString() + "A new update is available: %s" + Ansi.ansi().reset();
+    public static final String UPDATE_CHECKER_ERROR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "An error occurred while checking for updates: %s" + Ansi.ansi().reset();
     /* Skulls */
     public static final String ARROW_LEFT_VALUE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzYyNTkwMmIzODllZDZjMTQ3NTc0ZTQyMmRhOGY4ZjM2MWM4ZWI1N2U3NjMxNjc2YTcyNzc3ZTdiMWQifX19";
     public static final String ARROW_RIGHT_VALUE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDRiZThhZWVjMTE4NDk2OTdhZGM2ZmQxZjE4OWIxNjY0MmRmZjE5ZjI5NTVjMDVkZWFiYTY4YzlkZmYxYmUifX19";

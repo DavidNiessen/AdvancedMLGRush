@@ -43,6 +43,7 @@ public class MainConfig extends Configurable {
     public static final String DEFAULT_SERIALIZER = "default_serializer";
     public static final String DEFAULT_COMPRESSOR = "default_compressor";
     public static final String GZIP_COMPRESSOR_BUFFER_SIZE = "gzip_compressor_buffer_size";
+    public static final String SEND_UPDATE_MESSAGE = "send_update_message";
     public static final String STATS_ITEM_LORE = "stats_item_lore";
     public static final String MAP_ITEM_LORE = "map_item_lore";
 
@@ -75,6 +76,7 @@ public class MainConfig extends Configurable {
         list.add(new Pair<>(DEFAULT_COMPRESSOR, "BASE64"));
         list.add(new Pair<>(DEFAULT_SERIALIZER, "JSON"));
         list.add(new Pair<>(GZIP_COMPRESSOR_BUFFER_SIZE, 1024));
+        list.add(new Pair<>(SEND_UPDATE_MESSAGE, true));
         list.add(new Pair<>(STATS_ITEM_LORE, new ArrayList<>(Arrays.asList(
                 " ",
                 "&6&l#1 &8» &e%stats_ranking_1% &8| &e&l%stats_wins_1%",

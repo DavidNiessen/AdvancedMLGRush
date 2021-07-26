@@ -39,17 +39,18 @@ public class PlayerMoveListener implements Listener {
 
     @EventHandler
     public void onMove(final @NotNull PlayerMoveEvent event) {
-        eventManager.callEvent(event);
-        if (event.getTo().getY() <= 0) {
-            final Player player = event.getPlayer();
-            final Optional<SpawnFile> spawnFileOptional = spawnFileLoader.getSpawnFileOptional();
-            if (spawnFileOptional.isPresent()) {
-                final Location location = locationConverter.toLocation(spawnFileOptional.get().getJsonLocation());
-                if (player.getWorld().equals(location.getWorld())) {
-                    player.teleport(location);
+        if (!event.getFrom().equals(event.getTo())) {
+            eventManager.callEvent(event);
+            if (event.getTo().getY() <= 0) {
+                final Player player = event.getPlayer();
+                final Optional<SpawnFile> spawnFileOptional = spawnFileLoader.getSpawnFileOptional();
+                if (spawnFileOptional.isPresent()) {
+                    final Location location = locationConverter.toLocation(spawnFileOptional.get().getJsonLocation());
+                    if (player.getWorld().equals(location.getWorld())) {
+                        player.teleport(location);
+                    }
                 }
             }
-
         }
     }
 }

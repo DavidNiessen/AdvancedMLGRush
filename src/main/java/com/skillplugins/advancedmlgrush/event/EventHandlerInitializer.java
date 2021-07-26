@@ -18,6 +18,7 @@ import com.google.inject.Singleton;
 import com.skillplugins.advancedmlgrush.game.map.setup.MapSetup2x1;
 import com.skillplugins.advancedmlgrush.game.map.setup.MapSetup4x1;
 import com.skillplugins.advancedmlgrush.item.items.handlers.*;
+import com.skillplugins.advancedmlgrush.miscellaneous.update.UpdateChecker;
 import com.skillplugins.advancedmlgrush.sql.data.SQLDataCache;
 import com.skillplugins.advancedmlgrush.util.Initializer;
 import org.jetbrains.annotations.NotNull;
@@ -44,5 +45,6 @@ public class EventHandlerInitializer implements Initializer {
         eventManager.registerEventListeners(injector.getInstance(SpectateHandler.class));
         eventManager.registerEventListeners(injector.getInstance(MapSetup2x1.class));
         eventManager.registerEventListeners(injector.getInstance(MapSetup4x1.class));
+        eventManager.registerEventListeners(injector.getInstance(UpdateChecker.class));
     }
 }

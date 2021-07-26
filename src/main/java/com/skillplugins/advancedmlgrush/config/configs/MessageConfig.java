@@ -58,6 +58,7 @@ public class MessageConfig extends Configurable implements Replaceable {
     public static final String STATS_RESET = "stats_reset";
     public static final String STATS_RESET_SUCCESS = "stats_reset_success";
     public static final String UNKNOWN_PLAYER = "unknown_player";
+    public static final String UPDATE_AVAILABLE = "update_available";
 
     //Command syntaxes
     public static final String SETUP_MAP_COMMAND_SYNTAX = "setup_max_command_syntax";
@@ -137,6 +138,7 @@ public class MessageConfig extends Configurable implements Replaceable {
         list.add(new Pair<>(STATS_RESET, "&7Trying to reset stats..."));
         list.add(new Pair<>(STATS_RESET_SUCCESS, "&aThe stats have been successfully reset!"));
         list.add(new Pair<>(UNKNOWN_PLAYER, "&cPlayer not found."));
+        list.add(new Pair<>(UPDATE_AVAILABLE, "&7A new update is available&8: &e%version%"));
 
         list.add(new Pair<>(SETUP_MAP_COMMAND_SYNTAX, "&cWrong syntax: /setupmap <2x1, 4x1> <name>"));
         list.add(new Pair<>(STATS_RESET_COMMAND_SYNTAX, "&cWrong syntax: /statsreset <name>"));

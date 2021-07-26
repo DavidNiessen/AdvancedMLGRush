@@ -67,7 +67,6 @@ public class UpdateChecker implements EventHandler {
                 }
             } catch (IOException exception) {
                 plugin.getLogger().warning(String.format(Constants.UPDATE_CHECKER_ERROR, exception.getClass().getSimpleName()));
-                exception.printStackTrace();
             }
         });
     }

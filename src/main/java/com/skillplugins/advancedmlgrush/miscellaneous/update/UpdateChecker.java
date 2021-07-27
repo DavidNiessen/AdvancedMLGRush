@@ -12,6 +12,7 @@
 
 package com.skillplugins.advancedmlgrush.miscellaneous.update;
 
+import com.google.gson.JsonParser;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.skillplugins.advancedmlgrush.config.configs.MainConfig;
@@ -49,27 +50,17 @@ public class UpdateChecker implements EventHandler {
 
     public void checkForUpdates() {
         plugin.getLogger().info(Constants.UPDATE_CHECKER);
-        getVersion(spigotVersion -> {
+        getPluginJson(json -> {
+            final String spigotVersion = new JsonParser().parse(json).getAsJsonObject().get("current_version").getAsString();
             final String pluginVersion = plugin.getDescription().getVersion();
-            if (!pluginVersion.equals(spigotVersion)) {
+            if (getStringAsLong(spigotVersion) > getStringAsLong(pluginVersion)) {
                 updateAvailable = true;
                 latestVersion = spigotVersion;
-                plugin.getLogger().info(String.format(Constants.UPDATE_CHECKER_AVAILABLE, spigotVersion));
+                plugin.getLogger().info(String.format(Constants.UPDATE_CHECKER_AVAILABLE, latestVersion));
             }
         });
     }
 
-    private void getVersion(final @NotNull Consumer<String> consumer) {
-        Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
-            try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + Constants.RESOURCE_ID).openStream(); Scanner scanner = new Scanner(inputStream)) {
-                if (scanner.hasNext()) {
-                    consumer.accept(scanner.next());
-                }
-            } catch (IOException exception) {
-                plugin.getLogger().warning(String.format(Constants.UPDATE_CHECKER_ERROR, exception.getClass().getSimpleName()));
-            }
-        });
-    }
 
     @Override
     public void registerListeners(final @NotNull List<EventListener<?>> eventListeners) {
@@ -83,6 +74,35 @@ public class UpdateChecker implements EventHandler {
                     player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.UPDATE_AVAILABLE)
                             .replace("%version%", latestVersion));
                 }
+            }
+        });
+    }
+
+    private long getStringAsLong(final @NotNull String string) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (final char character : string.toCharArray()) {
+            if (Character.isDigit(character)) {
+                stringBuilder.append(character);
+            }
+        }
+
+        final String result = stringBuilder.toString();
+        if (!result.isEmpty()) {
+            return Long.parseLong(result);
+        }
+        return -1;
+    }
+
+    private void getPluginJson(final @NotNull Consumer<String> consumer) {
+        Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+            try (final InputStream inputStream = new URL("https://api.spigotmc.org/simple/0.2/index.php?action=getResource&id=" + Constants.RESOURCE_ID).openStream(); final Scanner scanner = new Scanner(inputStream)) {
+                final StringBuilder stringBuilder = new StringBuilder();
+                while (scanner.hasNext()) {
+                    stringBuilder.append(scanner.next());
+                }
+                consumer.accept(stringBuilder.toString());
+            } catch (IOException exception) {
+                plugin.getLogger().warning(String.format(Constants.UPDATE_CHECKER_ERROR, exception.getClass().getSimpleName()));
             }
         });
     }

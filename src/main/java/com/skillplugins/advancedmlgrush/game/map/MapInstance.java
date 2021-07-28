@@ -16,6 +16,7 @@ import com.google.common.collect.BiMap;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.skillplugins.advancedmlgrush.annotations.PostConstruct;
+import com.skillplugins.advancedmlgrush.config.configs.CommandConfig;
 import com.skillplugins.advancedmlgrush.config.configs.MainConfig;
 import com.skillplugins.advancedmlgrush.config.configs.MessageConfig;
 import com.skillplugins.advancedmlgrush.config.configs.SoundConfig;
@@ -136,6 +137,8 @@ public class MapInstance implements EventHandler {
     private BuildModeManager buildModeManager;
     @Inject
     private GameStateManager gameStateManager;
+    @Inject
+    private CommandConfig commandConfig;
 
     @Inject
     public MapInstance(final @Assisted @NotNull MapTemplate mapTemplate,
@@ -218,8 +221,10 @@ public class MapInstance implements EventHandler {
                                     final Player bedOwner = players.inverse().get(index);
                                     mapStats.increaseScore(playerIndex);
                                     sqlDataCache.getSQLData(player).increaseBeds();
+                                    commandConfig.runCommand(CommandConfig.BED_BREAK, optionalPlayer);
+                                    commandConfig.runCommand(CommandConfig.BED_BREAK, Optional.of(bedOwner));
                                     players.keySet().forEach(player1 -> player1.sendMessage(messageConfig.getWithPrefix(
-                                            Optional.of(player), MessageConfig.BED_BREAK).replace("%player_1%", player.getName())
+                                                    Optional.of(player), MessageConfig.BED_BREAK).replace("%player_1%", player.getName())
                                             .replace("%player_2%", bedOwner.getName())));
                                     final int score = mapStats.getScore(playerIndex);
                                     if (score == rounds) {
@@ -299,6 +304,7 @@ public class MapInstance implements EventHandler {
                                     teleportToPlayerSpawn(player);
                                     soundUtil.playSound(player, SoundConfig.DEATH);
                                     sqlDataCache.getSQLData(player).increaseDeaths();
+                                    commandConfig.runCommand(CommandConfig.DEATH, Optional.of(player));
 
                                     players.keySet().forEach(player1 -> player1.sendMessage(killMap.containsKey(player)
                                             ? messageConfig.getWithPrefix(Optional.of(player1), MessageConfig.KILL)
@@ -310,6 +316,8 @@ public class MapInstance implements EventHandler {
                                     if (lastDamager != null
                                             && lastDamager.isOnline()) {
                                         sqlDataCache.getSQLData(lastDamager).increaseKills();
+                                        commandConfig.runCommand(CommandConfig.DEATH, Optional.of(lastDamager));
+
                                         killMap.remove(player);
                                     }
                                 } else if (spectators.contains(player)
@@ -433,6 +441,9 @@ public class MapInstance implements EventHandler {
             final Optional<Player> optionalPlayer = Optional.of(player);
             if (!player.equals(winner)) {
                 sqlDataCache.getSQLData(player).increaseLoses();
+                commandConfig.runCommand(CommandConfig.LOSE, Optional.of(player));
+            } else {
+                commandConfig.runCommand(CommandConfig.WIN, Optional.of(player));
             }
             player.sendMessage(messageConfig.getWithPrefix(optionalPlayer, MessageConfig.GAME_END).replace("%winner%", winner.getName()));
 
@@ -456,7 +467,7 @@ public class MapInstance implements EventHandler {
         players.remove(player);
         mapInstanceManager.unregister(player);
         sqlDataCache.getSQLData(player).increaseLoses();
-
+        commandConfig.runCommand(CommandConfig.LOSE, Optional.of(player));
         teleportToSpawn(player);
         gameStateManager.setGameState(player, GameState.LOBBY);
         scoreboardManager.updateScoreboard(player);

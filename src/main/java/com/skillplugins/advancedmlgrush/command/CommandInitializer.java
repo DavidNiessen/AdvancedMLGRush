@@ -42,5 +42,6 @@ public class CommandInitializer implements Initializer {
         javaPlugin.getCommand("gadgets").setExecutor(injector.getInstance(GadgetsCommand.class));
         javaPlugin.getCommand("stats").setExecutor(injector.getInstance(StatsCommand.class));
         javaPlugin.getCommand("statsreset").setExecutor(injector.getInstance(StatsResetCommand.class));
+        javaPlugin.getCommand("sudo").setExecutor(injector.getInstance(SudoCommand.class));
     }
 }

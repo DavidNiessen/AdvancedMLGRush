@@ -44,6 +44,7 @@ public class Constants {
     public static final String SPAWN_FILE_PATH = PLUGIN_PATH + "spawn.json";
     public static final String SCOREBOARD_CONFIG_PATH = PLUGIN_PATH + "scoreboards.yml";
     public static final String SLOTS_CONFIG_PATH = ITEM_CONFIG_PATH + "slots.yml";
+    public static final String COMMAND_CONFIG_PATH = PLUGIN_PATH + "commands.yml";
     //Maps
     public static final String MAP_PATH = PLUGIN_PATH + "maps/";
     //Worlds

@@ -19,7 +19,6 @@ import com.skillplugins.advancedmlgrush.exception.ExceptionHandler;
 import com.skillplugins.advancedmlgrush.miscellaneous.Constants;
 import com.skillplugins.advancedmlgrush.util.Pair;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public abstract class DataSaver {
 
@@ -101,26 +99,18 @@ public abstract class DataSaver {
     protected void executeQueryAsync(final @NotNull String query, final @NotNull Callback callback) {
         if (checkConnection()) {
             final CompletableFuture<Optional<ResultSet>> future = CompletableFuture.supplyAsync(() -> executeQuerySync(query), threadPoolManager.getThreadPool());
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    if (future.isDone()) {
-                        try {
-                            final Optional<ResultSet> optional = future.get();
-                            if (optional.isPresent()) {
-                                callback.onSuccess(optional.get());
-                            } else {
-                                callback.onFailure(Optional.empty());
-                            }
-                        } catch (SQLException | ExecutionException | InterruptedException exception) {
-                            exceptionHandler.handleUnexpected(exception);
-                            callback.onFailure(Optional.of(exception));
-                        } finally {
-                            cancel();
-                        }
+            future.whenComplete((optional, throwable) -> {
+                try {
+                    if (optional.isPresent()) {
+                        callback.onSuccess(optional.get());
+                    } else {
+                        callback.onFailure(Optional.empty());
                     }
+                } catch (SQLException exception) {
+                    exceptionHandler.handleUnexpected(exception);
+                    callback.onFailure(Optional.of(exception));
                 }
-            }.runTaskTimer(javaPlugin, 5, 5);
+            });
         } else {
             callback.onFailure(Optional.empty());
         }

@@ -17,12 +17,14 @@ import com.google.inject.Singleton;
 import com.skillplugins.advancedmlgrush.annotations.PostConstruct;
 import com.skillplugins.advancedmlgrush.config.configs.MainConfig;
 import com.skillplugins.advancedmlgrush.config.configs.MessageConfig;
+import com.skillplugins.advancedmlgrush.event.events.SchematicLoadEvent;
 import com.skillplugins.advancedmlgrush.lib.xseries.ActionBar;
 import com.skillplugins.advancedmlgrush.lib.xseries.XMaterial;
 import com.skillplugins.advancedmlgrush.util.EnumUtils;
 import com.skillplugins.advancedmlgrush.util.LocationConverter;
 import com.skillplugins.advancedmlgrush.util.NMSUtils;
 import com.skillplugins.advancedmlgrush.util.Pair;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -87,7 +89,6 @@ public class SchematicLoader {
                      final @NotNull World world,
                      final @NotNull List<Pair<Location, Location>> bedLocationList,
                      final @NotNull Runnable onFinish) {
-
         final int blocksPerTick = mainConfig.getInt(MainConfig.PASTE_BLOCKS_PER_TICK);
         final Queue<StorableBlock> queue = new LinkedList<>(blockList);
         final AtomicReference<String> lastProgress = new AtomicReference<>("");
@@ -133,7 +134,7 @@ public class SchematicLoader {
                 if (queue.isEmpty()) {
                     loadBeds(bedLocationList);
                     onFinish.run();
-
+                    Bukkit.getPluginManager().callEvent(new SchematicLoadEvent(players, world, bedLocationList));
                     cancel();
                 }
             }

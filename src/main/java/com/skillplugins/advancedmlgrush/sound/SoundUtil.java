@@ -15,6 +15,7 @@ package com.skillplugins.advancedmlgrush.sound;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.skillplugins.advancedmlgrush.config.configs.SoundConfig;
+import com.skillplugins.advancedmlgrush.event.events.SoundPlayEvent;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +33,10 @@ public class SoundUtil {
         final Optional<MLGSound> optional = soundParser.parse(soundConfig.getString(soundPath));
         if (optional.isPresent()) {
             final MLGSound mlgSound = optional.get();
-            mlgSound.playSound(player);
+            final SoundPlayEvent soundPlayEvent = new SoundPlayEvent(player, mlgSound);
+            if (!soundPlayEvent.isCancelled()) {
+                mlgSound.playSound(player);
+            }
         }
     }
 }

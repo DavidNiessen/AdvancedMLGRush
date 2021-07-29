@@ -39,7 +39,7 @@ public class MainConfig extends Configurable {
     public static final String BLOCK_AMOUNT = "block_amount";
     public static final String INFINITE_BLOCKS = "infinite_blocks";
     public static final String MAP_ITEM_PREFIX = "map_item_prefix";
-    public static final String PASTE_BLOCKS_PER_TICK = "paste_blocks_per_second";
+    public static final String PASTE_BLOCKS_PER_TICK = "paste_blocks_per_tick";
     public static final String DEFAULT_SERIALIZER = "default_serializer";
     public static final String DEFAULT_COMPRESSOR = "default_compressor";
     public static final String GZIP_COMPRESSOR_BUFFER_SIZE = "gzip_compressor_buffer_size";

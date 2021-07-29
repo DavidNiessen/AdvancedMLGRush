@@ -16,7 +16,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.skillplugins.advancedmlgrush.event.EventManager;
 import com.skillplugins.advancedmlgrush.item.ItemUtils;
-import com.skillplugins.advancedmlgrush.lib.xseries.XMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -53,18 +52,13 @@ public class PlayerInteractListener implements Listener {
     public void onInteract(final @NotNull PlayerInteractEvent event) {
         final Player player = event.getPlayer();
         final ItemStack itemInHand = player.getItemInHand();
+        if (itemUtils.isValidItem(itemInHand)) {
+            player.getInventory().setItem(player.getInventory().getHeldItemSlot(), itemInHand.clone());
+        }
         if (!cooldowns.contains(player.getName())) {
             eventManager.callEvent(event);
             cooldowns.add(player.getName());
             Bukkit.getScheduler().scheduleSyncDelayedTask(javaPlugin, () -> cooldowns.remove(player.getName()), 1);
-        }
-
-        if (itemUtils.isValidItem(itemInHand)
-                && itemInHand.getType() != XMaterial.PLAYER_HEAD.parseMaterial()
-                && itemInHand.getDurability() != 0) {
-            itemInHand.setDurability((short) 0);
-
-            player.updateInventory();
         }
     }
 

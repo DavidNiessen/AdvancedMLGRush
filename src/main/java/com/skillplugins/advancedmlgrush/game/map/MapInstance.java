@@ -60,6 +60,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -345,9 +346,14 @@ public class MapInstance implements EventHandler {
         eventListeners.add(new EventListener<PlayerInteractEvent>(PlayerInteractEvent.class, EventListenerPriority.MEDIUM) {
             @Override
             protected void onEvent(final @NotNull PlayerInteractEvent event) {
+                final Player player = event.getPlayer();
+                final ItemStack itemInHand = player.getItemInHand();
+                if (itemUtils.isValidItem(itemInHand)
+                        && player.getInventory().getHeldItemSlot() == sqlDataCache.getSQLData(player).getSettingsPickaxeSlot()) {
+                    itemInHand.setDurability((short) -1);
+                }
                 if (event.getAction() == Action.RIGHT_CLICK_AIR
                         || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    final Player player = event.getPlayer();
                     if (itemUtils.compare(player.getItemInHand(), EnumItem.SPECTATE_LEAVE, Optional.of(player))) {
                         removeSpectator(player);
                     }

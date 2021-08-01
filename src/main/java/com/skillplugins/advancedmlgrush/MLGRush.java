@@ -31,6 +31,7 @@ import com.skillplugins.advancedmlgrush.miscellaneous.Constants;
 import com.skillplugins.advancedmlgrush.miscellaneous.registrable.RegistrableInitializer;
 import com.skillplugins.advancedmlgrush.miscellaneous.update.UpdateChecker;
 import com.skillplugins.advancedmlgrush.placeholder.PlaceholderInitializer;
+import com.skillplugins.advancedmlgrush.protocol.ProtocolInitializer;
 import com.skillplugins.advancedmlgrush.sql.ConnectionManager;
 import com.skillplugins.advancedmlgrush.sql.DataInitializer;
 import com.skillplugins.advancedmlgrush.util.PlayerUtils;
@@ -74,6 +75,8 @@ public class MLGRush extends JavaPlugin {
     private PlayerUtils playerUtils;
     @Inject
     private UpdateChecker updateChecker;
+    @Inject
+    private ProtocolInitializer protocolInitializer;
 
     @Getter
     private UUID uuid;
@@ -98,6 +101,7 @@ public class MLGRush extends JavaPlugin {
         compressorManager.init(injector);
         serializerManager.init(injector);
         mapManager.init(injector);
+        protocolInitializer.init(injector);
 
         WorldUtils.deleteWorlds();
         api = injector.getInstance(APIImplementation.class);

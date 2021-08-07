@@ -46,9 +46,11 @@ public class MapInstanceManager implements Registrable {
     @Inject
     private GameStateManager gameStateManager;
 
-    public Optional<MapInstance> createInstance(final List<Player> players, final @NotNull MapTemplate mapTemplate, final int rounds) {
+    public Optional<MapInstance> createInstance(final List<Player> players, final @NotNull MapTemplate mapTemplate,
+                                                final int rounds, final @NotNull Runnable onFinish) {
         if (players.size() != mapTemplate.getMapData().getMapType().getPlayers()) {
             players.forEach(player -> player.sendMessage(messageConfig.getWithPrefix(Optional.of(player), MessageConfig.ERROR)));
+            onFinish.run();
             return Optional.empty();
         } else {
             final BiMap<Player, Integer> biMap = HashBiMap.create();
@@ -61,6 +63,7 @@ public class MapInstanceManager implements Registrable {
                 gameStateManager.setGameState(player, GameState.INGAME);
             });
             scoreboardManager.updateScoreboard();
+            onFinish.run();
 
             return Optional.of(mapInstance);
         }

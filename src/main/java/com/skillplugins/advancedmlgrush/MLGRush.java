@@ -108,6 +108,7 @@ public class MLGRush extends JavaPlugin {
 
         getLogger().info(String.format(Constants.AFTER_STARTUP_MESSAGE, System.currentTimeMillis() - millis));
         updateChecker.checkForUpdates();
+
     }
 
     @Override

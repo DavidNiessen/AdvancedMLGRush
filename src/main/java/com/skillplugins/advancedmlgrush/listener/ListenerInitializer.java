@@ -55,6 +55,7 @@ public class ListenerInitializer implements Initializer {
         pluginManager.registerEvents(injector.getInstance(BlockCanBuildListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(PlayerCommandPreprocessListener.class), plugin);
         pluginManager.registerEvents(injector.getInstance(PlayerBedEnterListener.class), plugin);
+        pluginManager.registerEvents(injector.getInstance(PlayerArmorStandManipulateListener.class), plugin);
     }
 
 }

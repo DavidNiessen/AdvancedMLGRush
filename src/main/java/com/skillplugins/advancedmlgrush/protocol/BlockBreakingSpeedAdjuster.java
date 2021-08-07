@@ -40,7 +40,7 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Singleton
-public class BlockBreakSpeedAdjuster extends PacketAdapter {
+public class BlockBreakingSpeedAdjuster extends PacketAdapter {
 
     private final Map<Player, Integer> players = new ConcurrentHashMap<>();
     private final Random random = new Random();
@@ -51,7 +51,7 @@ public class BlockBreakSpeedAdjuster extends PacketAdapter {
     private MainConfig mainConfig;
 
     @Inject
-    public BlockBreakSpeedAdjuster(final @NotNull JavaPlugin plugin) {
+    public BlockBreakingSpeedAdjuster(final @NotNull JavaPlugin plugin) {
         super(plugin, PacketType.Play.Client.BLOCK_DIG);
     }
 
@@ -60,13 +60,13 @@ public class BlockBreakSpeedAdjuster extends PacketAdapter {
         ProtocolLibrary.getProtocolManager().addPacketListener(this);
     }
 
-    private void stopDigging(final @NotNull BlockPosition position, final @NotNull Player player) {
+    private void stopDigging(final @NotNull BlockPosition blockPosition, final @NotNull Player player) {
         if (!players.containsKey(player)) {
             return;
         }
 
         Bukkit.getScheduler().cancelTask(players.remove(player));
-        Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> packetUtils.broadcastBlockBreakAnimationPacket(position, -1), 1L);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> packetUtils.broadcastBlockBreakAnimationPacket(blockPosition, -1), 1L);
     }
 
     private void breakBlock(final @NotNull Block block,
@@ -105,10 +105,11 @@ public class BlockBreakSpeedAdjuster extends PacketAdapter {
         block.setType(Material.AIR);
     }
 
-    public boolean isTool(final @Nullable ItemStack item) {
-        return item != null && item.getType().name().endsWith("PICKAXE");
+    public boolean isTool(final @Nullable ItemStack itemStack) {
+        return itemStack != null && itemStack.getType().name().endsWith("PICKAXE");
     }
 
+    @Override
     public void onPacketReceiving(final @NotNull PacketEvent packetEvent) {
         final Player player = packetEvent.getPlayer();
         if (player == null || !player.isOnline()) {

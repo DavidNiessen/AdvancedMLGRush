@@ -25,15 +25,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Singleton
 public class EventManager {
 
-    private final Map<Class<? extends Event>, List<EventListener<?>>> listeners = new ConcurrentHashMap<>();
+    private final Map<String, List<EventListener<?>>> listeners = new ConcurrentHashMap<>();
     private final Map<EventHandler, List<EventListener<?>>> handlers = new ConcurrentHashMap<>();
 
     public void registerEventListeners(final @NotNull Iterable<EventListener<?>> eventListeners) {
         eventListeners.forEach(eventListener -> {
-            if (listeners.containsKey(eventListener.getEventClass())) {
-                listeners.get(eventListener.getEventClass()).add(eventListener);
+            final String className = eventListener.getEventClass().getName();
+            if (listeners.containsKey(className)) {
+                listeners.get(className).add(eventListener);
             } else {
-                listeners.put(eventListener.getEventClass(), new CopyOnWriteArrayList<>(Arrays.asList(eventListener)));
+                listeners.put(className, new CopyOnWriteArrayList<>(Arrays.asList(eventListener)));
             }
         });
     }
@@ -46,8 +47,9 @@ public class EventManager {
     }
 
     public void callEvent(final @NotNull Event event) {
-        if (listeners.containsKey(event.getClass())) {
-            final List<EventListener<?>> eventListeners = listeners.get(event.getClass());
+        final String className = event.getClass().getName();
+        if (listeners.containsKey(className)) {
+            final List<EventListener<?>> eventListeners = listeners.get(className);
             eventListeners.sort((o1, o2) -> o2.getEventListenerPriority().getPriority() - o1.getEventListenerPriority().getPriority());
             eventListeners.forEach(eventListener -> eventListener.callEvent(event));
         }

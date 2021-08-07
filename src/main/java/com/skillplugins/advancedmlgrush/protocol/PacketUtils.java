@@ -17,14 +17,17 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.BlockPosition;
 import com.google.inject.Singleton;
+import org.jetbrains.annotations.NotNull;
 
 @Singleton
 public class PacketUtils {
 
-    public void broadcastBlockBreakAnimationPacket(final BlockPosition position, final int stage) {
+    public void broadcastBlockBreakAnimationPacket(final @NotNull BlockPosition blockPosition, final int stage) {
         final PacketContainer packet = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.BLOCK_BREAK_ANIMATION);
+
         packet.getIntegers().write(0, 0).write(1, stage);
-        packet.getBlockPositionModifier().write(0, position);
+        packet.getBlockPositionModifier().write(0, blockPosition);
+
         ProtocolLibrary.getProtocolManager().broadcastServerPacket(packet);
     }
 

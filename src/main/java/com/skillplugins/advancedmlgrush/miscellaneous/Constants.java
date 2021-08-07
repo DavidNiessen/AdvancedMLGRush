@@ -76,7 +76,7 @@ public class Constants {
     public static final String UPDATE_CHECKER = "Checking for updates...";
     public static final String UPDATE_CHECKER_AVAILABLE = Ansi.ansi().fg(Ansi.Color.YELLOW).boldOff().toString() + "A new update is available: %s" + Ansi.ansi().reset();
     public static final String UPDATE_CHECKER_ERROR = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "An error occurred while checking for updates: %s" + Ansi.ansi().reset();
-    public static final String PROTOCOLLIB_NOT_FOUND_MESSAGE = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "WARNING: ProtocolLib not found" + Ansi.ansi().reset();
+    public static final String PROTOCOLLIB_NOT_FOUND_MESSAGE = Ansi.ansi().fg(Ansi.Color.RED).boldOff().toString() + "WARNING: ProtocolLib not found." + Ansi.ansi().reset();
     /* Skulls */
     public static final String ARROW_LEFT_VALUE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzYyNTkwMmIzODllZDZjMTQ3NTc0ZTQyMmRhOGY4ZjM2MWM4ZWI1N2U3NjMxNjc2YTcyNzc3ZTdiMWQifX19";
     public static final String ARROW_RIGHT_VALUE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDRiZThhZWVjMTE4NDk2OTdhZGM2ZmQxZjE4OWIxNjY0MmRmZjE5ZjI5NTVjMDVkZWFiYTY4YzlkZmYxYmUifX19";

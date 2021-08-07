@@ -43,6 +43,7 @@ public class MapWorldGenerator extends ChunkGenerator {
         final UUID uuid = UUID.randomUUID();
         final World world = new WorldCreator(Constants.WORLD_PATH + uuid).type(WorldType.FLAT).generator(this).createWorld();
         world.setGameRuleValue("doDaylightCycle", "false");
+        world.setGameRuleValue("randomTickSpeed", "0");
         world.setTime(10000);
         return world;
     }

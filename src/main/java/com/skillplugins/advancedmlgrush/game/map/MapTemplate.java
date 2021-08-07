@@ -12,6 +12,7 @@
 
 package com.skillplugins.advancedmlgrush.game.map;
 
+import com.google.common.util.concurrent.Runnables;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.skillplugins.advancedmlgrush.game.challenge.ChallengeManager;
@@ -43,12 +44,17 @@ public class MapTemplate {
     }
 
     public void createInstance(final @NotNull List<Player> players, final int rounds) {
+        createInstance(players, rounds, Runnables.doNothing());
+    }
+
+    public void createInstance(final @NotNull List<Player> players, final int rounds,
+                               final @NotNull Runnable onFinish) {
         players.forEach(player -> {
             challengeManager.unregister(player);
             queue2X1.unregister(player);
             queue4X1.unregister(player);
             player.getInventory().clear();
         });
-        mapInstanceManager.createInstance(players, this, rounds);
+        mapInstanceManager.createInstance(players, this, rounds, onFinish);
     }
 }

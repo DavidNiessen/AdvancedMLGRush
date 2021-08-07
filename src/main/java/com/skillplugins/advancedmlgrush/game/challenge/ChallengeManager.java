@@ -26,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Singleton
 public class ChallengeManager implements Registrable {
@@ -43,9 +44,15 @@ public class ChallengeManager implements Registrable {
     @Inject
     private MapInstanceManager mapInstanceManager;
 
+    private final List<Player> loadingPlayers = new CopyOnWriteArrayList<>();
+
     public void challengePlayer(final @NotNull Player challenger, final @NotNull Player challenged) {
         if (mapInstanceManager.isIngame(challenger)) {
             challenger.sendMessage(messageConfig.getWithPrefix(Optional.of(challenger), MessageConfig.CANNOT_CHALLENGE_PLAYERS));
+            return;
+        }
+
+        if (loadingPlayers.contains(challenger) || loadingPlayers.contains(challenged)) {
             return;
         }
 
@@ -69,11 +76,17 @@ public class ChallengeManager implements Registrable {
                     lobbyItems.setLobbyItems(challenger);
                     lobbyItems.setLobbyItems(challenged);
                 } else {
-                    optional.get().createInstance(Arrays.asList(challenged, challenger), rounds);
+                    loadingPlayers.add(challenger);
+                    loadingPlayers.add(challenged);
+                    optional.get().createInstance(Arrays.asList(challenged, challenger), rounds, () -> {
+                        loadingPlayers.remove(challenged);
+                        loadingPlayers.remove(challenger);
+                    });
                 }
                 return;
             }
         }
+
 
         if (!challengeMap.containsKey(challenger)) {
             challengeMap.put(challenger, new ArrayList<>());

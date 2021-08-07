@@ -153,6 +153,9 @@ public class SchematicLoader {
                 final Block bottomBlock = bottomLocation.getBlock();
                 final Block upperBlock = upperLocation.getBlock();
 
+                bottomBlock.setType(material);
+                upperBlock.setType(material);
+
                 final BlockFace blockFace = bottomBlock.getFace(upperBlock);
 
                 Arrays.asList(bottomBlock, upperBlock).forEach(block -> {

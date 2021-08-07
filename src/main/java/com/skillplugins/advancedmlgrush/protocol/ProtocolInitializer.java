@@ -35,7 +35,7 @@ public class ProtocolInitializer implements Initializer {
     @Override
     public void init(final @NotNull Injector injector) {
         if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
-            injector.getInstance(BlockBreakSpeedAdjuster.class);
+            injector.getInstance(BlockBreakingSpeedAdjuster.class);
         } else {
             javaPlugin.getLogger().warning(Constants.PROTOCOLLIB_NOT_FOUND_MESSAGE);
         }
